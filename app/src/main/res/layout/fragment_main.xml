@@ -19,7 +19,7 @@
         android:id="@+id/name_edit_text"
         android:drawableLeft="@drawable/ic_directions_car"
         android:layout_margin="10dp"
-        android:background="@drawable/fha_control_edit_text"
+        android:background="@drawable/fah_control_edit_text"
         android:hint="123456"
         android:inputType="text"
         android:layout_width="match_parent"
@@ -29,12 +29,12 @@
         android:drawableLeft="@mipmap/ic_launcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/fha_control_edit_text"
+        android:background="@drawable/fah_control_edit_text"
         android:hint="123456"
         android:inputType="text" />
     <Button
         android:id="@+id/button"
-        android:background="@drawable/fha_control_button"
+        android:background="@drawable/fah_control_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Test"/>
