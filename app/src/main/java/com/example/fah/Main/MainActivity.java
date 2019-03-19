@@ -1,4 +1,4 @@
-package com.example.fah;
+package com.example.fah.Main;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.fah.FHADefine.FAHMessage;
+import com.example.fah.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
