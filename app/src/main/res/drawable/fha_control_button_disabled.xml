@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    android:padding="10dp"
+    >
+    <solid android:color="@color/colorButtonSolidDisabled"/>
+    <stroke android:width="1dip" android:color="@color/colorButtonStrokeDisabled"/>
+    <corners
+        android:bottomRightRadius="@dimen/radius_control"
+        android:bottomLeftRadius="@dimen/radius_control"
+        android:topLeftRadius="@dimen/radius_control"
+        android:topRightRadius="@dimen/radius_control"/>
+</shape>

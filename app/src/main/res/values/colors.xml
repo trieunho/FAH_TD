@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    /*
+    * Color rule
+    */
+    // Background
+    <color name="colorSolidDefault">#FFFFFF</color>
+    <color name="colorSolidFocus">#FFFFFF</color>
+    <color name="colorSolidDisabled">#575252</color>
+    // Container
+    <color name="colorStrokeDefault">#E9DFDF</color>
+    <color name="colorStrokeFocus">#C04BBF</color>
+    <color name="colorStrokeDisabled">#110F0E</color>
+    // Gradient
+    <color name="startColor">#D3D3D3</color>
+    <color name="centerColor">#65FFFFFF</color>
+    <color name="endColor">#00FFFFFF</color>
+
+    /*
+    * Edit Text
+    */
+    <color name="colorEditTextSolidDefault">@color/colorSolidDefault</color>
+    <color name="colorEditTextSolidFocus">@color/colorSolidFocus</color>
+    <color name="colorEditTextSolidDisabled">@color/colorSolidDisabled</color>
+
+    <color name="colorEditTextStrokeDefault">@color/colorStrokeDefault</color>
+    <color name="colorEditTextStrokeFocus">@color/colorStrokeFocus</color>
+    <color name="colorEditTextStrokeDisabled">@color/colorStrokeDisabled</color>
+
+    /*
+    * Button
+    */
+    <color name="colorButtonSolidDefault">@color/colorSolidDefault</color>
+    <color name="colorButtonSolidFocus">@color/colorSolidFocus</color>
+    <color name="colorButtonSolidDisabled">@color/colorSolidDisabled</color>
+
+    <color name="colorButtonStrokeDefault">@color/colorStrokeDefault</color>
+    <color name="colorButtonStrokeFocus">@color/colorStrokeDefault</color>
+    <color name="colorButtonStrokeDisabled">@color/colorStrokeDisabled</color>
+
+    // Gradient
+    <color name="startColorButtonDefault">#CC98D5</color>
+    <color name="centerColorButtonDefault">#A45AB1</color>
+    <color name="endColorButtonDefault">#CC98D5</color>
+
+    <color name="startColorButtonPress">#89D0F0</color>
+    <color name="centerColorButtonPress">#0AA8F1</color>
+    <color name="endColorButtonPress">#89D0F0</color>
+
+</resources>
