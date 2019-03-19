@@ -1,4 +1,4 @@
-package com.example.fah;
+package com.example.fah.Main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +11,7 @@ import android.widget.Spinner;
 
 import com.example.fah.Control.FAHSpinner;
 import com.example.fah.FHADefine.FAHMessage;
+import com.example.fah.R;
 
 import java.util.ArrayList;
 import java.util.List;
