@@ -67,7 +67,6 @@
         android:text="Test"/>
     <TextView
         android:text="Hồ Thanh Triều"
-        android:fontFamily="serif"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
