@@ -1,5 +1,6 @@
 package com.example.fah.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 
 import com.example.fah.FHADefine.FAHScreenTransaction;
 import com.example.fah.R;
+import com.example.fah.TestControl.TestActivity;
 import com.example.fah.TestControl.TestFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -95,6 +97,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            Intent intent = new Intent(MainActivity.this, TestActivity.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

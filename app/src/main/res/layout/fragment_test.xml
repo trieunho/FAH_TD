@@ -5,70 +5,98 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".TestControl.TestFragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:text="Combobox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/margin_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/wrap_content_control" />
+            </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spJob"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control" />
-    <Spinner
-        android:id="@+id/spTime"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control" />
-    <EditText
-        android:id="@+id/name_edit_text"
-        android:drawableLeft="@drawable/ic_directions_car"
-        android:layout_margin="10dp"
-        android:background="@drawable/fah_control_edit_text"
-        android:hint="123456"
-        android:inputType="text"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control" />
-    <EditText
-        android:id="@+id/name_edit_text1"
-        android:drawableLeft="@mipmap/ic_launcher"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control"
-        android:background="@drawable/fah_control_edit_text"
-        android:hint="123456"
-        android:inputType="text" />
-    <Button
-        android:id="@+id/button"
-        android:background="@drawable/fah_control_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control"
-        android:text="Test"/>
 
-    <CheckBox
-        android:text="CheckBox"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control" />
+            <TextView
+                android:text="Edit test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/editText"
+                    android:drawableLeft="@drawable/ic_directions_car"
+                    android:background="@drawable/fah_control_edit_text"
+                    android:hint="123456"
+                    android:layout_margin="@dimen/margin_control"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/wrap_content_control"
+                    android:layout_weight="5"/>
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control"
-        android:orientation="horizontal">
-        <RadioButton
-            android:text="Item1"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/wrap_content_control"
-            android:layout_weight="1"/>
-        <RadioButton
-            android:text="Item2"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/wrap_content_control"
-            android:layout_weight="1"/>
-    </RadioGroup>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control"
-        android:text="Test"/>
-    <TextView
-        android:text="Hồ Thanh Triều"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
+            <TextView
+                android:text="Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/button"
+                    android:background="@drawable/fah_control_button"
+                    android:text="Test"
+                    android:layout_margin="@dimen/margin_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/wrap_content_control"/>
+            </LinearLayout>
+
+
+            <CheckBox
+                android:text="CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/wrap_content_control" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/wrap_content_control"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:text="Item1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/wrap_content_control"
+                    android:layout_weight="1"/>
+                <RadioButton
+                    android:text="Item2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/wrap_content_control"
+                    android:layout_weight="1"/>
+            </RadioGroup>
+
+
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/gridView"
+                android:gravity="center"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
