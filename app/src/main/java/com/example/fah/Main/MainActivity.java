@@ -14,13 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.fah.FHADefine.FAHMessage;
+import com.example.fah.FHADefine.FAHScreenTransaction;
 import com.example.fah.R;
+import com.example.fah.TestControl.TestFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FragmentManager manager = getSupportFragmentManager();
-    MainFragment mainFragment = new MainFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // show main
-        manager.beginTransaction().replace(R.id.main_layout,mainFragment,mainFragment.getTag()).commit();
-
+        FAHScreenTransaction.GetScreenMain(manager, new MainFragment());
     }
 
     @Override
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity
         // noinspection SimplifiableIfStatement
         switch (item.getItemId()){
             case R.id.action_settings: {
-                FAHMessage.ToastMessage(this, "Clicked : Search");
+                FAHScreenTransaction.GetScreenMain(manager, new TestFragment());
                 return true;
             }
             default:{
