@@ -5,9 +5,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".Main.MainFragment">
-    <TextView
+    <EditText
+        android:id="@+id/editText"
+        android:text="ABC"
+        android:focusable="false"
+        android:gravity="center"
+        android:drawableLeft="@drawable/ic_menu_send"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Đây là trang chủ" />
+        android:layout_height="@dimen/wrap_content_control" />
 
 </LinearLayout>

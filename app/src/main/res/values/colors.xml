@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#98D543</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="signUpColor">#000000</color>
@@ -53,5 +53,14 @@
     <color name="startColorButtonPress">#89D0F0</color>
     <color name="centerColorButtonPress">#0AA8F1</color>
     <color name="endColorButtonPress">#89D0F0</color>
+
+    /*
+    * Combobox
+    */
+    <color name="colorComboboxSolidDefault">@color/colorSolidDefault</color>
+    <color name="colorComboboxSolidDisabled">@color/colorSolidDisabled</color>
+
+    <color name="colorComboboxStrokeDefault">@color/colorStrokeDefault</color>
+    <color name="colorComboboxStrokeDisabled">@color/colorStrokeDisabled</color>
 
 </resources>
