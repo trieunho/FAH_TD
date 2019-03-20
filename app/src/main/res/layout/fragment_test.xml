@@ -5,98 +5,93 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".TestControl.TestFragment">
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="match_parent">
+        <TextView
+            android:text="Combobox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:text="Combobox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="@dimen/margin_control"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/wrap_content_control" />
-            </LinearLayout>
-
-
-            <TextView
-                android:text="Edit test"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/editText"
-                    android:drawableLeft="@drawable/ic_directions_car"
-                    android:background="@drawable/fah_control_edit_text"
-                    android:hint="123456"
-                    android:layout_margin="@dimen/margin_control"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/wrap_content_control"
-                    android:layout_weight="5"/>
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-
-            <TextView
-                android:text="Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/button"
-                    android:background="@drawable/fah_control_button"
-                    android:text="Test"
-                    android:layout_margin="@dimen/margin_control"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/wrap_content_control"/>
-            </LinearLayout>
-
-
-            <CheckBox
-                android:text="CheckBox"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/margin_control"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/wrap_content_control" />
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/wrap_content_control"
-                android:orientation="horizontal">
-                <RadioButton
-                    android:text="Item1"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/wrap_content_control"
-                    android:layout_weight="1"/>
-                <RadioButton
-                    android:text="Item2"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/wrap_content_control"
-                    android:layout_weight="1"/>
-            </RadioGroup>
-
-
-            <GridView
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/gridView"
-                android:gravity="center"/>
         </LinearLayout>
-    </ScrollView>
+
+
+        <TextView
+            android:text="Edit test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/editText"
+                android:drawableLeft="@drawable/ic_directions_car"
+                android:background="@drawable/fah_control_edit_text"
+                android:hint="123456"
+                android:layout_margin="@dimen/margin_control"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/wrap_content_control"
+                android:layout_weight="5"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:text="Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button"
+                android:background="@drawable/fah_control_button"
+                android:text="Test"
+                android:layout_margin="@dimen/margin_control"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/wrap_content_control"/>
+        </LinearLayout>
+
+
+        <CheckBox
+            android:text="CheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/wrap_content_control" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/wrap_content_control"
+            android:orientation="horizontal">
+            <RadioButton
+                android:text="Item1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/wrap_content_control"
+                android:layout_weight="1"/>
+            <RadioButton
+                android:text="Item2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/wrap_content_control"
+                android:layout_weight="1"/>
+        </RadioGroup>
+
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center" />
+    </LinearLayout>
 </LinearLayout>
