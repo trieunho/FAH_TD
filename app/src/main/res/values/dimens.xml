@@ -7,6 +7,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     // Control
+    <dimen name="wrap_content_control">50dp</dimen>
     <dimen name="radius_control">5dp</dimen>
     <dimen name="centerY_control">0.2</dimen>
     <dimen name="angle_control">270</dimen>
