@@ -32,16 +32,16 @@ public class ManageAccountActivity extends AppCompatActivity {
     private void addControl() {
         lvAccount = findViewById(R.id.lvAccount);
         ArrayList<Account> accountList = new ArrayList<Account>();
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, R.drawable.hongct));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, R.drawable.hongct));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, R.drawable.hongct));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, R.drawable.hongct));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, R.drawable.hongct));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, R.drawable.hongct));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, R.drawable.hongct));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, R.drawable.hongct));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, R.drawable.hongct));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, R.drawable.hongct));
+        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, R.drawable.men));
+        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, R.drawable.men));
+        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, R.drawable.men));
+        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, R.drawable.men));
+        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, R.drawable.men));
+        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, R.drawable.men));
+        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, R.drawable.men));
+        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, R.drawable.men));
+        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, R.drawable.men));
+        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, R.drawable.men));
 
         AccountAdapter accountAdapter = new AccountAdapter(
                 ManageAccountActivity.this,
