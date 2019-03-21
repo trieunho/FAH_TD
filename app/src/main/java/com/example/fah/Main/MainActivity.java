@@ -82,6 +82,11 @@ public class MainActivity extends AppCompatActivity
                 FAHScreenTransaction.GetScreenMain(manager, new TestFragment());
                 return true;
             }
+            case R.id.action_notification: {
+                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+                startActivity(intent);
+                finish();
+            }
             default:{
                 return super.onOptionsItemSelected(item);
             }

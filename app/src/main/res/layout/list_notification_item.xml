@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:id="@+id/imageNotification"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FPFPT cập nhật bài đăng của mìnật bài đăng của mìnhFPT cậật bài đăng của mìnhFPT cậhFPT cập nhật bài đăng của mìnhFPT cập nhật bài đăng của mìnhFPT cập nhật bài đăng của mìnhFPT cập nhật bài đăng của mìnhFPT cập nhật bài đăng của mìnhFPT cập nhật bài đăng của mìnhFPT cập nhật bài đăng của mìnhFPT cập nhật bài đăng của mìnhFPT cập nhật bài đăng của mìnT cập nhật bài đăng của mình"
+        android:textStyle="normal"
+        android:id="@+id/txtNotification"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageNotification"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/txtTime"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:singleLine="false"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:text="5 phút trước"
+        android:id="@+id/txtTime"
+        android:layout_alignBottom="@+id/imageNotification"
+        android:layout_alignLeft="@+id/txtNotification"
+        android:layout_alignStart="@+id/txtNotification"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+         />
+
+
+</RelativeLayout>
