@@ -6,15 +6,42 @@
     android:orientation="vertical"
     tools:context=".Main.MainFragment">
     <EditText
-        android:id="@+id/editText"
-        android:text="ABC"
+        android:id="@+id/cbbJob"
         android:focusable="false"
         android:gravity="center"
-        android:drawableLeft="@drawable/ic_menu_send"
+        android:hint="Chọn việc làm"
+        android:drawableLeft="@drawable/ic_work_black"
         android:drawableRight="@drawable/ic_arrow_down"
         android:background="@drawable/fah_control_combobox"
         android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
+
+    <EditText
+        android:id="@+id/cbbTime"
+        android:focusable="false"
+        android:gravity="center"
+        android:hint="Chọn thời gian"
+        android:drawableLeft="@drawable/ic_timer_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:text="Tìm kiếm"
+        android:background="@drawable/fah_control_button"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+
+    <GridView
+        android:id="@+id/gvPost"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center" />
 
 </LinearLayout>

@@ -44,12 +44,12 @@ public class TestFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_test, container, false);
 
-        getControl();
+        GetControl();
 
         return view;
     }
 
-    private void getControl(){
+    private void GetControl(){
         SpinnerControl();
         EditTextControl();
         ButtonControl();
@@ -104,7 +104,7 @@ public class TestFragment extends Fragment {
 
     private  List<ObjectGrid> getListData() {
         List<ObjectGrid> list = new ArrayList<ObjectGrid>();
-        ObjectGrid vietnam = new ObjectGrid("Vietnam", "ic_arrow_down", 98000000);
+        ObjectGrid vietnam = new ObjectGrid("Vietnam 111111111111111111111111111111111111111111111111111111111111111111111111111111 1111111111111111111111111111111111", "ic_arrow_down", 98000000);
         ObjectGrid usa = new ObjectGrid("United States", "ic_arrow_down", 320000000);
         ObjectGrid russia = new ObjectGrid("Russia", "ic_arrow_down", 142000000);
         ObjectGrid australia = new ObjectGrid("Australia", "ic_arrow_down", 23766305);
