@@ -1,12 +1,12 @@
-package com.example.fah.Main;
+package com.example.fah.FAHScreen.Notification;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
-import com.example.fah.Main.adapter.AccountAdapter;
-import com.example.fah.Main.model.Account;
+import com.example.fah.FAHScreen.Notification.adapter.AccountAdapter;
+import com.example.fah.FAHScreen.Notification.model.Account;
 import com.example.fah.R;
 
 import java.util.ArrayList;

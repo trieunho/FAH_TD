@@ -8,6 +8,6 @@ import com.example.fah.R;
 public class FAHScreenTransaction {
     // Call Flagment from MainActivity
     public static void GetScreenMain(FragmentManager manager, Fragment targetFragment){
-        manager.beginTransaction().replace(R.id.main_layout,targetFragment,targetFragment.getTag()).commit();
+//        manager.beginTransaction().replace(R.id.main_layout,targetFragment,targetFragment.getTag()).commit();
     }
 }

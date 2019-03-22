@@ -1,8 +1,5 @@
-package com.example.fah.Main;
+package com.example.fah.FAHScreen.Main;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,14 +9,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.fah.Control.FAHCombobox;
-import com.example.fah.Control.FAHSpinner;
+import com.example.fah.FAHControl.FAHCombobox;
 import com.example.fah.FHADefine.FAHMessage;
-import com.example.fah.Main.GridView.GridListPostMainAdapter;
-import com.example.fah.Main.GridView.Post;
+import com.example.fah.FAHScreen.Notification.GridView.GridListPostMainAdapter;
+import com.example.fah.FAHScreen.Notification.GridView.Post;
 import com.example.fah.R;
 
 import java.util.ArrayList;

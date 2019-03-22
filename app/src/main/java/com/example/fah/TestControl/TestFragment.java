@@ -12,7 +12,7 @@ import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.fah.Control.FAHSpinner;
+import com.example.fah.FAHControl.FAHSpinner;
 import com.example.fah.TestControl.GridView.ObjectGrid;
 import com.example.fah.TestControl.GridView.CustomGridAdapter;
 import com.example.fah.FHADefine.FAHMessage;
@@ -103,7 +103,7 @@ public class TestFragment extends Fragment {
     }
 
     private  List<ObjectGrid> getListData() {
-        List<ObjectGrid> list = new ArrayList<ObjectGrid>();
+        List<ObjectGrid> list = new ArrayList<>();
         ObjectGrid vietnam = new ObjectGrid("Vietnam 111111111111111111111111111111111111111111111111111111111111111111111111111111 1111111111111111111111111111111111", "ic_arrow_down", 98000000);
         ObjectGrid usa = new ObjectGrid("United States", "ic_arrow_down", 320000000);
         ObjectGrid russia = new ObjectGrid("Russia", "ic_arrow_down", 142000000);

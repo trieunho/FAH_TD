@@ -1,4 +1,4 @@
-package com.example.fah.Control;
+package com.example.fah.FAHControl;
 
 
 import android.app.Activity;

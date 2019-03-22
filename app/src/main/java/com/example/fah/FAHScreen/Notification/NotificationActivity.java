@@ -1,4 +1,4 @@
-package com.example.fah.Main;
+package com.example.fah.FAHScreen.Notification;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,8 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.example.fah.Main.adapter.NotificationAdapter;
-import com.example.fah.Main.model.Notification;
+import com.example.fah.FAHScreen.Main.MainActivity;
+import com.example.fah.FAHScreen.Notification.adapter.NotificationAdapter;
+import com.example.fah.FAHScreen.Notification.model.Notification;
 import com.example.fah.R;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class NotificationActivity extends AppCompatActivity {
         // noinspection SimplifiableIfStatement
         switch (item.getItemId()){
             case android.R.id.home: {
-                startActivity(new Intent(NotificationActivity.this,MainActivity.class));
+                startActivity(new Intent(NotificationActivity.this, MainActivity.class));
                 return true;
             }
             default:{

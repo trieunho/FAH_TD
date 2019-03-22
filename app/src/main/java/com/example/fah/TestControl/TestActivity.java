@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.fah.FHADefine.FAHMessage;
-import com.example.fah.Main.MainActivity;
+import com.example.fah.FAHScreen.Main.MainActivity;
 import com.example.fah.R;
 
 public class TestActivity extends AppCompatActivity {
