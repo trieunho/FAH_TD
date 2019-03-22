@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Main.NotificationActivity">
+    tools:context=".FAHScreen.Notification.NotificationActivity">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarNotification"
         android:layout_margin="-10dp"

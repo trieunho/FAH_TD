@@ -1,4 +1,4 @@
-package com.example.fah.Main.model;
+package com.example.fah.FAHScreen.Notification.model;
 
 public class Account {
     private String accountName;
