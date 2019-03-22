@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.fah.FHADefine.FAHMessage;
 import com.example.fah.Main.MainActivity;
 import com.example.fah.R;
 
@@ -18,19 +20,33 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.fah_icon_search);
+        toolbar.setNavigationIcon(R.drawable.ic_backspace_black);
         toolbar.setTitle("Kết quả tìm kiếm");
         setSupportActionBar(toolbar);
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_test, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
+            case android.R.id.home: {
                 startActivity(new Intent(TestActivity.this, MainActivity.class));
                 return true;
-            default:
+            }
+            case R.id.action_1: {
+                FAHMessage.ToastMessage(this, "Click button 1");
+            }
+            case R.id.action_2: {
+                FAHMessage.ToastMessage(this, "Click button 2");
+            }
+            default: {
                 return super.onOptionsItemSelected(item);
+            }
         }
     }
 }

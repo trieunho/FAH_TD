@@ -24,7 +24,6 @@ public class FAHCombobox {
             }
         });
 
-
         builder.show();
     }
 
