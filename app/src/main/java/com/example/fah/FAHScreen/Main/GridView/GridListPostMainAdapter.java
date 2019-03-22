@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Notification.GridView;
+package com.example.fah.FAHScreen.Main.GridView;
 
 import android.content.Context;
 import android.util.Log;
