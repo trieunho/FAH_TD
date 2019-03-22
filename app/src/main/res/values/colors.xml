@@ -66,4 +66,9 @@
     <color name="colorComboboxStrokeDefault">@color/colorStrokeDefault</color>
     <color name="colorComboboxStrokeDisabled">@color/colorStrokeDisabled</color>
 
+    /*
+    * Icon
+    */
+    <color name="colorIcon">#EC5050</color>
+
 </resources>

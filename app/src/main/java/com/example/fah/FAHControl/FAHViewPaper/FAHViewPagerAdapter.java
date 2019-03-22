@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.fah.FAHScreen.Main.ViewPaper.TabFlagment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +27,9 @@ public class FAHViewPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList.size();
     }
 
-    public void addFrag(Fragment fragment, String title) {
-        mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
+    public void addFrag(TabFlagment tabFlagment) {
+        mFragmentList.add(tabFlagment.getTabFlagment());
+        mFragmentTitleList.add(tabFlagment.getTitle());
     }
 
     @Override
