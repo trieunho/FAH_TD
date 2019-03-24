@@ -1,4 +1,4 @@
-package com.example.fah.Model;
+package com.example.fah.FAHScreen.Models;
 
 public class Post {
     private String titlePost;
