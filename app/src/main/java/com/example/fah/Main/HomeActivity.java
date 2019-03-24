@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
-
 import com.example.fah.FAHScreen.Adapters.TestLayoutAdapter;
 import com.example.fah.FAHScreen.Main.Account.ManageAccountActivity;
 import com.example.fah.FAHScreen.Models.TestLayout;
