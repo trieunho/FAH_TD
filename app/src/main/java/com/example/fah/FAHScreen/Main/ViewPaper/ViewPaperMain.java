@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 
 import com.example.fah.FAHControl.FAHViewPaper.FAHViewPagerAdapter;
-import com.example.fah.FAHScreen.Main.MainFragment;
+import com.example.fah.FAHScreen.Main.Tab.SearchFragment;
 import com.example.fah.FAHScreen.Main.Tab.HotPostFragment;
 import com.example.fah.FAHScreen.Main.Tab.MenuFragment;
 import com.example.fah.R;
@@ -19,7 +19,7 @@ public class ViewPaperMain {
 
     public ViewPaperMain(){
         listTabFlagmemt = new ArrayList<>();
-        listTabFlagmemt.add(new TabFlagment(new MainFragment(), "Search Data", R.drawable.fah_icon_search));
+        listTabFlagmemt.add(new TabFlagment(new SearchFragment(), "Search Data", R.drawable.fah_icon_search));
         listTabFlagmemt.add(new TabFlagment(new HotPostFragment(), "Search Data", R.drawable.fah_icon_work));
         listTabFlagmemt.add(new TabFlagment(new TestFragment(), "Search Data", R.drawable.fah_icon_notifications));
         listTabFlagmemt.add(new TabFlagment(new MenuFragment(), "Search Data", R.drawable.fah_icon_menu));
