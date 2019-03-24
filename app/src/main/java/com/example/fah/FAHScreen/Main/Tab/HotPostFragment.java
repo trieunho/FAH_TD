@@ -9,8 +9,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.example.fah.FAHScreen.Main.GridView.GridListPostMainAdapter;
-import com.example.fah.FAHScreen.Main.GridView.Post;
+import com.example.fah.FAHScreen.Main.GridView.Post.GridListPostMainAdapter;
+import com.example.fah.FAHScreen.Main.GridView.Post.Post;
 import com.example.fah.R;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class HotPostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_hot_post, container, false);
+        view = inflater.inflate(R.layout.fragment_main_hot_post, container, false);
 
         GetControl();
 

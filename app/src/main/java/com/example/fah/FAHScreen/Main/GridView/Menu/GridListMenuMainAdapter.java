@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Main.GridView;
+package com.example.fah.FAHScreen.Main.GridView.Menu;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,13 +13,13 @@ import com.example.fah.R;
 
 import java.util.List;
 
-public class GridListPostMainAdapter  extends BaseAdapter {
+public class GridListMenuMainAdapter extends BaseAdapter {
 
-    private List<Post> listData;
+    private List<Menu> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public GridListPostMainAdapter(Context context,  List<Post> listData) {
+    public GridListMenuMainAdapter(Context context, List<Menu> listData) {
         this.context = context;
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
@@ -43,23 +43,21 @@ public class GridListPostMainAdapter  extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.grid_item_main_list_post, null);
+            convertView = layoutInflater.inflate(R.layout.grid_item_main_menu, null);
             holder = new ViewHolder();
-            holder.tvTitle = convertView.findViewById(R.id.tvTitle);
-            holder.ivPost = convertView.findViewById(R.id.ivPost);
-            holder.tvContent = convertView.findViewById(R.id.tvContent);
+            holder.tvNameFunc = convertView.findViewById(R.id.tvNameFunc);
+            holder.ivFunction = convertView.findViewById(R.id.ivFunction);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Post objPost = this.listData.get(position);
-        holder.tvTitle.setText(objPost.getTitle());
-        holder.tvContent.setText(objPost.getContent());
+        Menu objMenu = this.listData.get(position);
+        holder.tvNameFunc.setText(objMenu.getName());
 
-        int imageId = this.getMipmapResIdByName(objPost.getImage());
+        int imageId = this.getMipmapResIdByName(objMenu.getImage());
 
-        holder.ivPost.setImageResource(imageId);
+        holder.ivFunction.setImageResource(imageId);
 
         return convertView;
     }
@@ -69,15 +67,14 @@ public class GridListPostMainAdapter  extends BaseAdapter {
         String pkgName = context.getPackageName();
 
         // Trả về 0 nếu không tìm thấy.
-        int resID = context.getResources().getIdentifier(resName , "drawable", pkgName);
+        int resID = context.getResources().getIdentifier(resName , "mipmap", pkgName);
         Log.i("CustomGridView", "Res Name: "+ resName+"==> Res ID = "+ resID);
         return resID;
     }
 
     static class ViewHolder {
-        TextView tvTitle;
-        ImageView ivPost;
-        TextView tvContent;
+        TextView tvNameFunc;
+        ImageView ivFunction;
     }
 
 }

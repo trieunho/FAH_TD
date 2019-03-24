@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Main.GridView;
+package com.example.fah.FAHScreen.Main.GridView.Post;
 
 public class Post {
     private String title;
