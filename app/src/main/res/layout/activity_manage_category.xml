@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FAHScreen.Manage.ManageCategoryActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarCategory"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_margin="-10dp"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"></android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btnAdd"
+            android:hint="Thêm danh mục" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Thêm" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/categoryList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+
+
+</LinearLayout>

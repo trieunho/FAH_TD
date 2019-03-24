@@ -9,8 +9,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.example.fah.FAHScreen.Main.MainActivity;
-import com.example.fah.FAHScreen.Notification.adapter.NotificationAdapter;
-import com.example.fah.FAHScreen.Notification.model.Notification;
+import com.example.fah.FAHScreen.Adapters.NotificationAdapter;
+import com.example.fah.FAHScreen.Models.Notification;
 import com.example.fah.R;
 
 import java.util.ArrayList;

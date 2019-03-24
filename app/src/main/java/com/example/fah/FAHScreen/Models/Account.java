@@ -1,15 +1,15 @@
-package com.example.fah.FAHScreen.Notification.model;
+package com.example.fah.FAHScreen.Models;
 
 public class Account {
     private String accountName;
     private String email;
     private int sex;
-    private int imgResource;
+    private int statusBlock;
 
-    public Account(String accountName, String email,int sex, int imgResource) {
+    public Account(String accountName, String email, int sex, int statusBlock) {
         this.accountName = accountName;
         this.email = email;
-        this.imgResource = imgResource;
+        this.statusBlock = statusBlock;
         this.sex = sex;
     }
 
@@ -29,12 +29,12 @@ public class Account {
         this.email = email;
     }
 
-    public int getImgResource() {
-        return imgResource;
+    public int getStatusBlock() {
+        return statusBlock;
     }
 
-    public void setImgResource(int imgResource) {
-        this.imgResource = imgResource;
+    public void setstatusBlock(int statusBlock) {
+        this.statusBlock = statusBlock;
     }
 
     public int getSex() {

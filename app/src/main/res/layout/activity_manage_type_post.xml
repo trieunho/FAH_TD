@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*"
+    tools:context=".FAHScreen.Manage.ManageTypePost">
+    <TextView
+        android:id="@+id/txtManageTypePost"
+        android:text="Quản lý loại bài viết"
+        android:padding="10dp"
+        style="@style/Widget.AppCompat.EditText"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorPrimary"
+        android:gravity="center"/>
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:id="@+id/TextView02"
+            android:text="Tên loại"
+            android:padding="10dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/TextView03"
+            android:text="Số tiền cần đóng"
+            android:padding="10dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/TextView04"
+            android:text="Thời gian tồn tại"
+            android:padding="10dp"
+            android:gravity="center"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:id="@+id/txtLoai1"
+            android:text="Loại 1"
+            android:padding="10dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/txtMoneyL1"
+            android:text="200000"
+            android:padding="10dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/txtTimeL1"
+            android:text="5 ngày"
+            android:padding="10dp"
+            android:gravity="center"/>
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:id="@+id/txtLoai2"
+            android:text="Loại 2"
+            android:padding="10dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/txtMoneyL2"
+            android:text="100000"
+            android:padding="10dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/txtTimeL2"
+            android:text="3 ngày"
+            android:padding="10dp"
+            android:gravity="center"/>
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:id="@+id/txtLoai3"
+            android:text="Loại 3"
+            android:padding="10dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/txtMoneyL3"
+            android:text="50000"
+            android:padding="10dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/txtTimeL3"
+            android:text="1 ngày"
+            android:padding="10dp"
+            android:gravity="center"/>
+    </TableRow>
+</TableLayout>
