@@ -161,53 +161,78 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/txtDescription1"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mô tả công việc: "
-                    android:textSize="20dp"
-                    android:onClick="onToggleJob"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txtDescription2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Đi theo giám đốc đến mọi nơi" />
+                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:id="@+id/txtDescription1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/fah_control_text_view"
+                        android:paddingLeft="20dp"
+                        android:text="Mô tả công việc: "
+                        android:textSize="20dp"
+                        android:onClick="onToggleJob"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/txtDescription2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="25dp"
+                        android:background="@drawable/fah_control_text_view_2"
+                        android:text="Đi theo giám đốc đến mọi nơi" />
+                </LinearLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txtRequired1"
-                    android:textSize="20dp"
-                    android:onClick="onToggleRequired"
-                    android:text="Yêu cầu cơ bản: "
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txtRequired2"
-                    android:layout_marginLeft="10dp"
-                    android:text="Chân dài tới nách" />
+                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtRequired1"
+                        android:background="@drawable/fah_control_text_view"
+                        android:textSize="20dp"
+                        android:paddingLeft="20dp"
+                        android:onClick="onToggleRequired"
+                        android:text="Yêu cầu cơ bản: "
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="25dp"
+                        android:background="@drawable/fah_control_text_view_2"
+                        android:id="@+id/txtRequired2"
+                        android:text="Chân dài tới nách" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txtQuyenLoi1"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="onToggleQuyenLoi"
-                    android:textSize="20dp"
-                    android:text="Quyền lợi: "
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txtQuyenLoi2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Được trải nghiệm nhiều" />
+                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:id="@+id/txtQuyenLoi1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onToggleQuyenLoi"
+                        android:paddingLeft="20dp"
+                        android:background="@drawable/fah_control_text_view"
+                        android:textSize="20dp"
+                        android:text="Quyền lợi: "
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/txtQuyenLoi2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="25dp"
+                        android:background="@drawable/fah_control_text_view_2"
+                        android:text="Được trải nghiệm nhiều" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

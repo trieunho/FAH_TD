@@ -18,7 +18,7 @@ public class PostManagementActivity extends AppCompatActivity {
 
         List<Post> image_details = getListData();
         final ListView listView = findViewById(R.id.lstPost);
-        listView.setAdapter(new com.example.fah.Main.ListPostAdapter(this, image_details));
+        listView.setAdapter(new com.example.fah.FAHScreen.Adapters.ListPostAdapter(this, image_details));
     }
 
     private List<Post> getListData() {
