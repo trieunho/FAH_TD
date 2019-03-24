@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.BaseAdapter;
-import com.example.fah.Model.Post;
+import com.example.fah.FAHScreen.Models.Post;
 import com.example.fah.R;
 import java.util.List;
 

@@ -5,8 +5,7 @@ import android.os.Bundle;
 import android.widget.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.fah.Model.Post;
+import com.example.fah.FAHScreen.Models.Post;
 import com.example.fah.R;
 
 public class PostManagementActivity extends AppCompatActivity {
