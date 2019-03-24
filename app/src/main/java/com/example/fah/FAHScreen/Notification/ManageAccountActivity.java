@@ -5,8 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
-import com.example.fah.FAHScreen.Notification.adapter.AccountAdapter;
-import com.example.fah.FAHScreen.Notification.model.Account;
+import com.example.fah.FAHScreen.Adapters.AccountAdapter;
+import com.example.fah.FAHScreen.Models.Account;
 import com.example.fah.R;
 
 import java.util.ArrayList;
