@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Notification.adapter;
+package com.example.fah.FAHScreen.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.fah.FAHScreen.Notification.model.Notification;
+import com.example.fah.FAHScreen.Models.Notification;
 import com.example.fah.R;
 
 import java.util.List;
