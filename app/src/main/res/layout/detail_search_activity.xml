@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".FAHScreen.Main.MainFragment">
+    <EditText
+        android:id="@+id/cbxJob"
+        android:editable="false"
+        android:gravity="center"
+        android:hint="Chọn ngành nghề"
+        android:drawableLeft="@drawable/ic_work_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+
+    <EditText
+        android:id="@+id/cbxCity"
+        android:editable="false"
+        android:gravity="center"
+        android:hint="Chọn tỉnh thành"
+        android:drawableLeft="@drawable/ic_work_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+
+    <EditText
+        android:id="@+id/cbxLuong"
+        android:editable="false"
+        android:gravity="center"
+        android:hint="Chọn mức lương"
+        android:drawableLeft="@drawable/ic_timer_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+
+    <EditText
+        android:id="@+id/cbxExp"
+        android:editable="false"
+        android:gravity="center"
+        android:hint="Chọn kinh nghiệm"
+        android:drawableLeft="@drawable/ic_work_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+
+    <EditText
+        android:id="@+id/cbxTrinhDo"
+        android:editable="false"
+        android:gravity="center"
+        android:hint="Chọn trình độ"
+        android:drawableLeft="@drawable/ic_timer_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:text="Tìm kiếm"
+        android:background="@drawable/fah_control_button"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+
+    <ListView
+        android:id="@+id/lstSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginLeft="20dp"/>
+</LinearLayout>

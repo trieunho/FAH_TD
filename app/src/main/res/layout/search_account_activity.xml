@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_search_account"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="Công việc: "/>
+            <Spinner
+                android:id="@+id/spnListOfJob"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="Thời gian làm việc: "/>
+            <Spinner
+                android:id="@+id/spnListOfTime"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="Tìm kiếm"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorPrimaryDark"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvResultOfSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tìm thấy 10 kết quả"/>
+
+    <ListView
+        android:id="@+id/lvAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+
+</LinearLayout>

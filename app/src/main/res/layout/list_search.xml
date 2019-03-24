@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/txtTitlePost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Tuyển nhân viên bán hàng siêu thị"/>
+    <TextView
+        android:id="@+id/txtCompanyName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CÔNG TY CỔ PHẦN DẦU THỰC VẬT"/>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:orientation="vertical">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtAddress"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:textSize="10dp"
+                android:text="Hồ Chí Minh"/>
+            <TextView
+                android:id="@+id/txtThoiGian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:textSize="10dp"
+                android:text="Buổi sáng, buổi chiều"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtLuong"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:textSize="10dp"
+                android:text="5-7 triệu"/>
+            <TextView
+                android:id="@+id/txtDeadline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:textSize="10dp"
+                android:text="01/04/2019"/>
+        </TableRow>
+    </GridLayout>
+</LinearLayout>

@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/infoNomal"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/backgrd"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="25dp"
+            android:contentDescription="TODO" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+                    >
+                    <ImageView
+                        android:layout_weight="1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/fb"
+                        android:layout_gravity="center"
+                        android:gravity="bottom"
+                        />
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/sin"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="456 Friends"
+                        android:gravity="center"
+                        android:textSize="12dp"
+                        android:textColor="#85ffffff"
+                        />
+                </LinearLayout>
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:gravity="bottom"
+                    android:src="@drawable/meninblack"
+                    />
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+                    >
+                    <ImageView
+                        android:layout_weight="1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/twitter"
+                        android:layout_gravity="center"
+                        android:gravity="bottom"
+
+                        />
+                    <TextView
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:id="@+id/sinn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="562 Followings"
+                        android:layout_gravity="center"
+                        android:textSize="12dp"
+                        android:textColor="#85ffffff"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:id="@+id/infoNomal"
+        android:scrollbars="vertical"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+      >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/usrusr"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#0000"
+                android:gravity="left"
+                android:maxLength="12"
+                android:padding="16dp"
+                android:text="Tên hiển thị"
+                android:textColor="#a2a1b8"
+                android:textSize="16dp" />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/userName"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#1b193b"
+                android:inputType="textPassword"
+                android:hint="Duong Cong Thanh"
+                android:textColor="#181737"
+                android:maxLength="12"
+                android:background="#0000"
+                android:padding="16dp"
+                android:gravity="right"
+                />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:src="@drawable/edit"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dad8d8"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#0000"
+                android:gravity="left"
+                android:maxLength="12"
+                android:padding="16dp"
+                android:text="Giới tính"
+                android:textColor="#a2a1b8"
+                android:textSize="16dp" />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/userSex"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#1b193b"
+                android:hint="Nam"
+                android:textColor="#181737"
+                android:maxLength="12"
+                android:background="#0000"
+                android:padding="16dp"
+                android:gravity="right"
+                />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:src="@drawable/edit"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dad8d8"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#0000"
+                android:gravity="left"
+                android:maxLength="12"
+                android:padding="16dp"
+                android:text="Ngày sinh"
+                android:textColor="#a2a1b8"
+                android:textSize="16dp" />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/userBirthDay"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#1b193b"
+                android:inputType="textPassword"
+                android:hint="07/07/1997"
+                android:textColor="#181737"
+                android:maxLength="12"
+                android:background="#0000"
+                android:padding="16dp"
+                android:gravity="right"
+                />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:src="@drawable/edit"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dad8d8"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#0000"
+                android:gravity="left"
+                android:maxLength="12"
+                android:padding="16dp"
+                android:text="Di động"
+                android:textColor="#a2a1b8"
+                android:textSize="16dp" />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/userPhone"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#1b193b"
+                android:inputType="textPassword"
+                android:hint="09987654321"
+                android:textColor="#181737"
+                android:maxLength="12"
+                android:background="#0000"
+                android:padding="16dp"
+                android:gravity="right"
+                />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:src="@drawable/edit"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dad8d8"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/mail"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#0000"
+                android:gravity="left"
+                android:maxLength="12"
+                android:padding="16dp"
+                android:text="Email"
+                android:textColor="#a2a1b8"
+                android:textSize="16dp" />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/userEmail"
+                android:textSize="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#1b193b"
+                android:hint="utduong77@mail.com"
+                android:textColor="#181737"
+                android:background="#0000"
+                android:padding="16dp"
+                android:gravity="right"
+                />
+        </LinearLayout>
+        />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dad8d8"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_weight="1"
+                android:textSize="16dp"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:text="Thờ gian"
+                android:textColor="#a2a1b8"
+                android:maxLength="12"
+                android:background="#0000"
+                android:padding="16dp"
+                android:gravity="left"
+                />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/userTimeWork"
+                android:textSize="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#1b193b"
+                android:hint="7h  đến 17h "
+                android:textColor="#181737"
+                android:maxLength="12"
+                android:background="#0000"
+                android:padding="16dp"
+                android:gravity="right"
+                />
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:src="@drawable/edit"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dad8d8"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_weight="1"
+                android:textSize="16dp"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:text="Việc mong muốn"
+                android:textColor="#a2a1b8"
+                android:background="#0000"
+                android:padding="16dp"
+                android:gravity="left"
+                />
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:src="@drawable/edit"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dad8d8" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/editText2"
+                android:layout_width="wrap_content"
+                android:textColor="#181737"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:text="5:36 PM	IDE and Plugin Updates: The following components are ready to update: NDK, Android SDK Platform-Tools, Google APIs ARM EABI v7a System Image, Google APIs Intel x86 Atom_64 System Image"
+                android:ems="10"
+                android:inputType="textMultiLine" />
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
