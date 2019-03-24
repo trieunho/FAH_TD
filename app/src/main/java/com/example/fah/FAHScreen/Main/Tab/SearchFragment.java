@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Main;
+package com.example.fah.FAHScreen.Main.Tab;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +19,7 @@ import com.example.fah.R;
  * to handle interaction events.
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment {
+public class SearchFragment extends Fragment {
     public View view;
 
     protected EditText cbbJob;
@@ -32,14 +32,14 @@ public class MainFragment extends Fragment {
     private FAHCombobox fahComboboxTime = new FAHCombobox();
     private String[] listTime = {"Buổi sáng", "Buổi chiều", "Buổi tối", "Cả ngày", "Cả đêm", "Xuyên màn đêm"};
 
-    public MainFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_main_search, container, false);
 
         GetControl();
 
