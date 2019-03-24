@@ -1,14 +1,14 @@
-package com.example.fah.FAHScreen.Notification;
+package com.example.fah.FAHScreen.Main.Tab;
 
-import android.content.Intent;
-import android.graphics.Color;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.FAHScreen.Adapters.NotificationAdapter;
 import com.example.fah.FAHScreen.Models.Notification;
 import com.example.fah.R;
@@ -16,42 +16,31 @@ import com.example.fah.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationActivity extends AppCompatActivity {
-    Toolbar toolbar;
+/**
+ * create an instance of this fragment.
+ */
+public class NotificationFragment extends Fragment {
+    protected View view;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_main_notification, container, false);
 
-        toolbar = findViewById(R.id.toolbarNotification);
-        toolbar.setNavigationIcon(R.drawable.ic_chevron_left_black_24dp);
+        GetControl();
 
-        toolbar.setTitle("Thông báo");
-        toolbar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(toolbar);
-
-        List<Notification> notificationList = getListData();
-        final ListView listView = (ListView) findViewById(R.id.notificationList);
-        listView.setAdapter(new NotificationAdapter(this,R.layout.list_notification_item, notificationList));
+        return view;
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
 
-        // noinspection SimplifiableIfStatement
-        switch (item.getItemId()){
-            case android.R.id.home: {
-                startActivity(new Intent(NotificationActivity.this, MainActivity.class));
-                return true;
-            }
-            default:{
-                return super.onOptionsItemSelected(item);
+    private void GetControl(){
+        GridControl();
+    }
 
-            }
-        }
-
+    private void GridControl(){
+        List<Notification> notificationList = getListData();
+        ListView listView = view.findViewById(R.id.notificationList);
+        listView.setAdapter(new NotificationAdapter(getContext(),R.layout.list_notification_item, notificationList));
     }
 
     private List<Notification> getListData() {
@@ -70,6 +59,6 @@ public class NotificationActivity extends AppCompatActivity {
         list.add(notification5);
         list.add(notification6);
 
-       return list;
+        return list;
     }
 }

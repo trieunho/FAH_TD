@@ -7,7 +7,7 @@
     tools:context=".FAHScreen.Main.Tab.MenuFragment">
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
+        android:id="@+id/ivAvatar"
         android:layout_margin="@dimen/margin_control"
         android:layout_width="96dp"
         android:layout_height="96dp"
