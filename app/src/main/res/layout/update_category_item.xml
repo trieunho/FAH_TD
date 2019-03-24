@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtmessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/txtinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtmessage" />
+
+    <Button
+        android:id="@+id/btnDongY"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/txtinput"
+        android:layout_toLeftOf="@+id/btnHuy"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="Done" />
+    <Button
+        android:id="@+id/btnHuy"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/txtinput"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_alignParentRight="true"
+        android:text="Hủy" />
+</RelativeLayout>
