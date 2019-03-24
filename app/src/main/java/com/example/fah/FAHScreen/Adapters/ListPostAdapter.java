@@ -1,4 +1,4 @@
-package com.example.fah.Main;
+package com.example.fah.FAHScreen.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
