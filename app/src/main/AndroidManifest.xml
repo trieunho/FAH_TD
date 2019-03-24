@@ -25,6 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FAHScreen.Main.Account.ManageAccountByPostActivity"/>
+        <activity android:name=".FAHScreen.Main.Account.ManageAccountActivity"/>
+        <activity android:name=".FAHScreen.Main.Account.SearchAccountActivity"/>
     </application>
 
 </manifest>

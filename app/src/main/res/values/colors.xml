@@ -5,6 +5,8 @@
     <color name="colorAccent">#98D543</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorRoyalBlue">#3577e5</color>
+    <color name="colorCrimson">#dc3545</color>
     <color name="signUpColor">#000000</color>
 
     /*
@@ -16,6 +18,7 @@
     <color name="colorSolidDisabled">#575252</color>
     <color name="colorSolidGray">#e9ebee</color>
     <color name="colorSolidLightBlue">#bce4ef</color>
+    <color name="colorSolidLavender">#d7eaf9</color>
     <color name="colorSolidWhiteSmoke">#f2f5f7</color>
     // Container
     <color name="colorStrokeDefault">#E9DFDF</color>
