@@ -16,7 +16,7 @@
             android:name=".TestControl.TestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FAHScreen.Main.Tab.MainActivity"
+            android:name=".Main.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -41,6 +41,14 @@
 
         <activity android:name=".FAHScreen.Account.ManageAccountByPostActivity"/>
         <activity android:name=".FAHScreen.Account.ManageAccountActivity"/>
+
+        <activity android:name=".FAHScreen.User.ProfileActivity"/>
+        <activity android:name=".FAHScreen.User.PersionalImformationActivity"/>
+
+        <activity android:name=".FAHScreen.Post.CreatePostActivity"/>
+        <activity android:name=".FAHScreen.Post.DetailPostActivity"/>
+        <activity android:name=".FAHScreen.Post.PostManagementActivity"/>
+
         <activity android:name=".FAHScreen.Account.SearchAccountActivity"/>
 
     </application>

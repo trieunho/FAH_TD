@@ -3,20 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <Button
-        android:id="@+id/btnAdmin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Admin"/>
-    <Button
-        android:id="@+id/btnCompany"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Company"/>
-    <Button
-        android:id="@+id/btnSearchAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SearchAccount"/>
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:text="DANH SÁCH MÀ HÌNH"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:textSize="20dp"
+    android:background="@color/colorCrimson"
+    />
+    <ListView
+        android:id="@+id/lvActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
