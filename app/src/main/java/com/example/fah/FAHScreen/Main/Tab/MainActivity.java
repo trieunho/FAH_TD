@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.fah.FAHScreen.Main.DetailSearchActivity;
 import com.example.fah.FAHScreen.Main.ViewPaper.ViewPaperMain;
 import com.example.fah.FAHScreen.Notification.NotificationActivity;
 import com.example.fah.R;
@@ -23,17 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.mipmap.ic_launcher_job);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         viewPager = findViewById(R.id.viewpager);
         initTab();
@@ -82,15 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
         // noinspection SimplifiableIfStatement
         switch (item.getItemId()){
-            case R.id.action_settings: {
-//                FAHScreenTransaction.GetScreenMain(manager, new TestFragment());
+            case R.id.action_search: {
+                startActivity(new Intent(this, DetailSearchActivity.class));
                 return true;
-            }
-            case R.id.action_notification: {
-//                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
-                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
-                startActivity(intent);
-                finish();
             }
             default:{
                 return super.onOptionsItemSelected(item);
