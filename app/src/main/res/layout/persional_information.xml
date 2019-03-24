@@ -8,21 +8,27 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:editable="false"
-                android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:text="THÔNG TIN CÁ NHÂN"
-                android:textSize="24sp" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher"/>
+                android:layout_height="200dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@color/colorButtonStrokeFocus"/>
+                <ImageButton
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="-150dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:cropToPadding="true"
+                    android:onClick="onClickImage"
+                    android:padding="7dp"/>
+            </LinearLayout>
 
             <GridLayout
                 android:layout_width="match_parent"
