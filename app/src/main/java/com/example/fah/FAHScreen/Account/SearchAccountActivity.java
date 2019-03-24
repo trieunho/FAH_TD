@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Main.Account;
+package com.example.fah.FAHScreen.Account;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

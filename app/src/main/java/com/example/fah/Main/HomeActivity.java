@@ -7,9 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.fah.FAHScreen.Main.Account.ManageAccountActivity;
-import com.example.fah.FAHScreen.Main.Account.ManageAccountByPostActivity;
-import com.example.fah.FAHScreen.Main.Account.SearchAccountActivity;
+import com.example.fah.FAHScreen.Account.ManageAccountActivity;
+import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
+import com.example.fah.FAHScreen.Account.SearchAccountActivity;
 import com.example.fah.R;
 
 public class HomeActivity extends AppCompatActivity {

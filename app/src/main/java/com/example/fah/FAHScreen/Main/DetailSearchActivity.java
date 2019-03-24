@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DetailSearch extends AppCompatActivity {
+public class DetailSearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class DetailSearch extends AppCompatActivity {
 
         List<Post> data = getListData();
         final ListView listView = findViewById(R.id.lstSearch);
-        listView.setAdapter(new com.example.fah.FAHScreen.Adapters.SearchAdapter(DetailSearch.this, data));
+        listView.setAdapter(new com.example.fah.FAHScreen.Adapters.SearchAdapter(DetailSearchActivity.this, data));
     }
 
     private List<Post> getListData() {

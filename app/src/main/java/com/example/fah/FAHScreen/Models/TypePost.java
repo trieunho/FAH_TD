@@ -1,11 +1,9 @@
 package com.example.fah.FAHScreen.Models;
 
 public class TypePost {
-
-
-    private  String nameTypePost;
+    private String nameTypePost;
     private Double moneyPost;
-    private     int timeShowPost;
+    private int timeShowPost;
 
     public TypePost(String nameTypePost, Double moneyPost, int timeShowPost) {
         this.nameTypePost = nameTypePost;

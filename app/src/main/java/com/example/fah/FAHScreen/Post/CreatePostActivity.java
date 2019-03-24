@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Main;
+package com.example.fah.FAHScreen.Post;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import com.example.fah.R;
 import java.util.Calendar;
 
-public class CreatePost_Activity extends AppCompatActivity {
+public class CreatePostActivity extends AppCompatActivity {
 
     EditText txtDate;
     DatePickerDialog datePickerDialog;
@@ -55,7 +55,7 @@ public class CreatePost_Activity extends AppCompatActivity {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        datePickerDialog = new DatePickerDialog(CreatePost_Activity.this,
+        datePickerDialog = new DatePickerDialog(CreatePostActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -73,7 +73,7 @@ public class CreatePost_Activity extends AppCompatActivity {
         };
 
         spinner = findViewById(R.id.cbxLoai);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(CreatePost_Activity.this, android.R.layout.simple_spinner_item, arr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(CreatePostActivity.this, android.R.layout.simple_spinner_item, arr);
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinner.setAdapter(adapter);
 
@@ -84,7 +84,7 @@ public class CreatePost_Activity extends AppCompatActivity {
         };
 
         cbxLuong = findViewById(R.id.cbxLuong);
-        ArrayAdapter<String> adapterLuong = new ArrayAdapter<>(CreatePost_Activity.this, android.R.layout.simple_spinner_item, arrLuong);
+        ArrayAdapter<String> adapterLuong = new ArrayAdapter<>(CreatePostActivity.this, android.R.layout.simple_spinner_item, arrLuong);
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         cbxLuong.setAdapter(adapterLuong);
     }

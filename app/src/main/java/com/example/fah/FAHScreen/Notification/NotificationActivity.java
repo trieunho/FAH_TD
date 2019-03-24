@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.example.fah.FAHScreen.Main.MainActivity;
+import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.FAHScreen.Adapters.NotificationAdapter;
 import com.example.fah.FAHScreen.Models.Notification;
 import com.example.fah.R;

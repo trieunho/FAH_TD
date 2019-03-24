@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.fah.FHADefine.FAHMessage;
-import com.example.fah.FAHScreen.Main.MainActivity;
+import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 
 public class TestActivity extends AppCompatActivity {
@@ -35,7 +35,8 @@ public class TestActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                startActivity(new Intent(TestActivity.this, MainActivity.class));
+                finish();
+//                startActivity(new Intent(TestActivity.this, MainActivity.class));
                 return true;
             }
             case R.id.action_1: {
