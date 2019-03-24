@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.fah.FAHScreen.Main.ViewPaper.ViewPaperMain;
-import com.example.fah.FAHScreen.Manage.ManageCategoryActivity;
+import com.example.fah.FAHScreen.Notification.NotificationActivity;
 import com.example.fah.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.action_notification: {
 //                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
-                Intent intent = new Intent(MainActivity.this, ManageCategoryActivity.class);
+                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
                 startActivity(intent);
                 finish();
             }
