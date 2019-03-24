@@ -6,7 +6,7 @@
     <LinearLayout
         android:id="@+id/llAccount"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:padding="2dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
@@ -15,11 +15,10 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:gravity="center"
-            android:textSize="10dp"
             android:textColor="@color/colorPrimaryDark"
             android:text="999"/>
         <ImageView
-            android:id="@+id/ivTest"
+            android:id="@+id/ivAvatar"
             android:src="@drawable/men"
             android:layout_width="26dp"
             android:layout_height="26dp" />
@@ -29,29 +28,29 @@
             android:orientation="vertical"
             android:paddingLeft="10dp">
             <TextView
-                android:id="@+id/tvTest"
+                android:id="@+id/tvAccountName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:text="@string/accountName"/>
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/email"
-                android:textSize="5dp"/>
+                android:text="@string/email"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingRight="10dp"
             android:gravity="right">
             <Button
-                android:layout_width="50dp"
-                android:layout_height="20dp"
-                android:text="Block"
-                android:textSize="10dp"
-                android:background="@color/colorAccent"/>
+                android:id="@+id/btnSendInvitation"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Gửi Lời Mời"
+                android:textColor="@color/colorWhite"
+                android:background="@color/centerColorButtonPress"/>
         </LinearLayout>
 
     </LinearLayout>
