@@ -13,32 +13,34 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_margin="-10dp"
         android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"></android.support.v7.widget.Toolbar>
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/wrap_content_control">
 
         <EditText
             android:id="@+id/txtInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/wrap_content_control"
             android:layout_toLeftOf="@+id/btnAdd"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:hint="Thêm danh mục" />
 
         <Button
             android:id="@+id/btnAdd"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/wrap_content_control"
             android:layout_alignParentRight="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:text="Thêm" />
     </RelativeLayout>
 
     <ListView
         android:id="@+id/categoryList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>

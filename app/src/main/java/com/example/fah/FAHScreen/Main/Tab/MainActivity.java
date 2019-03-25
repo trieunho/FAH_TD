@@ -11,7 +11,6 @@ import android.view.MenuItem;
 
 import com.example.fah.FAHScreen.Main.DetailSearchActivity;
 import com.example.fah.FAHScreen.Main.ViewPaper.ViewPaperMain;
-import com.example.fah.FAHScreen.Notification.NotificationActivity;
 import com.example.fah.R;
 
 public class MainActivity extends AppCompatActivity {

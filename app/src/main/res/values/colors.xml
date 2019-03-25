@@ -52,13 +52,13 @@
     <color name="colorButtonStrokeDisabled">@color/colorStrokeDisabled</color>
 
     // Gradient
-    <color name="startColorButtonDefault">#CC98D5</color>
-    <color name="centerColorButtonDefault">#A45AB1</color>
-    <color name="endColorButtonDefault">#CC98D5</color>
+    <color name="startColorButtonDefault">#5681F0</color>
+    <color name="centerColorButtonDefault">#0943EC</color>
+    <color name="endColorButtonDefault">#5681F0</color>
 
-    <color name="startColorButtonPress">#89D0F0</color>
-    <color name="centerColorButtonPress">#0AA8F1</color>
-    <color name="endColorButtonPress">#89D0F0</color>
+    <color name="startColorButtonPress">#F5D851</color>
+    <color name="centerColorButtonPress">#DAF10A</color>
+    <color name="endColorButtonPress">#F5D851</color>
 
     /*
     * Combobox

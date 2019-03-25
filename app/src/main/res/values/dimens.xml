@@ -9,8 +9,11 @@
     // Control
     <dimen name="wrap_content_control">50dp</dimen>
     <dimen name="margin_control">10dp</dimen>
+    <dimen name="padding_control">5dp</dimen>
     <dimen name="radius_control">5dp</dimen>
     <dimen name="centerY_control">0.2</dimen>
     <dimen name="angle_control">270</dimen>
+
+    <dimen name="small_button_control">25</dimen>
 
 </resources>
