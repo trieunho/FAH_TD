@@ -16,7 +16,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
     EditText txtDate;
     DatePickerDialog datePickerDialog;
-    Spinner spinner;
+    Spinner cbxLoai;
     Spinner cbxLuong;
 
     @Override
@@ -72,10 +72,10 @@ public class CreatePostActivity extends AppCompatActivity {
                 "Loại 3"
         };
 
-        spinner = findViewById(R.id.cbxLoai);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(CreatePostActivity.this, android.R.layout.simple_spinner_item, arr);
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        spinner.setAdapter(adapter);
+        cbxLoai = findViewById(R.id.cbxLoai);
+        ArrayAdapter<String> adapterLoai = new ArrayAdapter<>(CreatePostActivity.this, android.R.layout.simple_spinner_item, arr);
+        adapterLoai.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        cbxLoai.setAdapter(adapterLoai);
 
         String[] arrLuong = {
                 "Cố định",
@@ -85,7 +85,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
         cbxLuong = findViewById(R.id.cbxLuong);
         ArrayAdapter<String> adapterLuong = new ArrayAdapter<>(CreatePostActivity.this, android.R.layout.simple_spinner_item, arrLuong);
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        adapterLuong.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         cbxLuong.setAdapter(adapterLuong);
     }
 }

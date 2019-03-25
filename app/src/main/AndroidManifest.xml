@@ -23,6 +23,7 @@
 
         <activity android:name=".FAHScreen.Main.DetailSearchActivity"/>
 
+
         <activity android:name=".FAHScreen.Account.ManageAccountActivity"/>
         <activity android:name=".FAHScreen.Account.ManageAccountByPostActivity"/>
         <activity android:name=".FAHScreen.Account.SearchAccountActivity"/>

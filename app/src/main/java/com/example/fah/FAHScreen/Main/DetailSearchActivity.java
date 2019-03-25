@@ -2,7 +2,8 @@ package com.example.fah.FAHScreen.Main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ListView;
+import android.view.View;
+import android.widget.*;
 
 import com.example.fah.FAHScreen.Models.Post;
 import com.example.fah.R;
@@ -12,14 +13,38 @@ import java.util.List;
 
 public class DetailSearchActivity extends AppCompatActivity {
 
+    LinearLayout divSearch;
+    ListView lstSearch;
+    Button btnSearch;
+    boolean isFirst = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_search_activity);
 
+        addControls();
+
         List<Post> data = getListData();
         final ListView listView = findViewById(R.id.lstSearch);
         listView.setAdapter(new com.example.fah.FAHScreen.Adapters.SearchAdapter(DetailSearchActivity.this, data));
+    }
+
+    private void addControls() {
+        divSearch = findViewById(R.id.divSearch);
+        lstSearch = findViewById(R.id.lstSearch);
+        btnSearch = findViewById(R.id.btnSearch);
+
+        lstSearch.setVisibility(View.GONE);
+    }
+
+    public void onClickSearch(View v) {
+        lstSearch.setVisibility(View.VISIBLE);
+        if (divSearch.isShown()) {
+            divSearch.setVisibility(View.GONE);
+        } else {
+            divSearch.setVisibility(View.VISIBLE);
+        }
     }
 
     private List<Post> getListData() {

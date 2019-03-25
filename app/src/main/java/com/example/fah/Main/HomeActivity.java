@@ -7,6 +7,7 @@ import android.widget.ListView;
 
 import com.example.fah.FAHScreen.Account.ManageAccountActivity;
 import com.example.fah.FAHScreen.Adapters.TestLayoutAdapter;
+import com.example.fah.FAHScreen.Main.DetailSearchActivity;
 import com.example.fah.FAHScreen.Models.TestLayout;
 import com.example.fah.FAHScreen.Post.CreatePostActivity;
 import com.example.fah.FAHScreen.Post.DetailPostActivity;
@@ -32,12 +33,12 @@ ListView lvLayout;
             lvLayout=findViewById(R.id.lvActivity);
         ArrayList<TestLayout> layoutList = new ArrayList<TestLayout>();
         // add màn hình của mình ở đây để test
-        layoutList.add(new TestLayout(HomeActivity.this, ManageAccountActivity.class,"Thông tin người dùng"));
+        layoutList.add(new TestLayout(HomeActivity.this, ManageAccountActivity.class,"Quản lý account"));
         layoutList.add(new TestLayout(HomeActivity.this, ProfileActivity.class,"Thông tin người dùng ThanhDC"));
-        layoutList.add(new TestLayout(HomeActivity.this, PersionalImformationActivity.class,"PersionalImformationActivity"));
-        layoutList.add(new TestLayout(HomeActivity.this, CreatePostActivity.class,"CreatePostActivity"));
-        layoutList.add(new TestLayout(HomeActivity.this, PostManagementActivity.class,"PostManagementActivity"));
-        layoutList.add(new TestLayout(HomeActivity.this, DetailPostActivity.class,"DetailPostActivity"));
+        layoutList.add(new TestLayout(HomeActivity.this, CreatePostActivity.class,"Tạo bài viết"));
+        layoutList.add(new TestLayout(HomeActivity.this, PostManagementActivity.class,"Quản lý bài viết"));
+        layoutList.add(new TestLayout(HomeActivity.this, DetailPostActivity.class,"Thông tin bài viết"));
+        layoutList.add(new TestLayout(HomeActivity.this, DetailSearchActivity.class,"Tìm kiếm bài viết"));
 
 
 
