@@ -6,6 +6,7 @@
     tools:context=".FAHScreen.Main.Tab.NotificationFragment">
     <ListView
         android:id="@+id/notificationList"
+        android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

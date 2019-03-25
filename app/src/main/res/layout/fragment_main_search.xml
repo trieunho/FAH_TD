@@ -13,6 +13,7 @@
         android:drawableLeft="@drawable/ic_work_black"
         android:drawableRight="@drawable/ic_arrow_down"
         android:background="@drawable/fah_control_combobox"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
@@ -25,6 +26,7 @@
         android:drawableLeft="@drawable/ic_timer_black"
         android:drawableRight="@drawable/ic_arrow_down"
         android:background="@drawable/fah_control_combobox"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
@@ -33,6 +35,7 @@
         android:id="@+id/btnSearch"
         android:text="Tìm kiếm"
         android:background="@drawable/fah_control_button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
         android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />

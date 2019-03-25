@@ -17,6 +17,7 @@
 
     <GridView
         android:id="@+id/gvMenu"
+        android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

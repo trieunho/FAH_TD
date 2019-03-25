@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -16,23 +14,28 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:text="Tên Account: "/>
         <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
         <Button
+            android:layout_margin="@dimen/margin_control"
             android:layout_width="wrap_content"
-            android:layout_height="25dp"
+            android:layout_height="@dimen/small_button_control"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
             android:text="Tìm kiếm"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/fah_control_button"
             />
     </LinearLayout>
 
@@ -40,6 +43,7 @@
         android:id="@+id/tvResultOfSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:text="Tìm thấy 10 kết quả"/>
 
     <ListView
