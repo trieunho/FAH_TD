@@ -42,13 +42,13 @@ public class MenuFragment extends Fragment {
     }
 
     private void ImageControl(){
-        ImageView ivAvatar = view.findViewById(R.id.ivAvatar);
-        ivAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), ProfileActivity.class));
-            }
-        });
+//        ImageView ivAvatar = view.findViewById(R.id.ivAvatar);
+//        ivAvatar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), ProfileActivity.class));
+//            }
+//        });
 
     }
 
@@ -70,6 +70,7 @@ public class MenuFragment extends Fragment {
 
     private  List<Menu> getListData() {
         List<Menu> list = new ArrayList<>();
+        list.add(new Menu("Lê Anh Tuấn", "ic_launcher_avatar"));
         list.add(new Menu("Tìm kiếm công việc", "ic_launcher_search_job"));
         list.add(new Menu("Công việc của tôi", "ic_launcher_job"));
 

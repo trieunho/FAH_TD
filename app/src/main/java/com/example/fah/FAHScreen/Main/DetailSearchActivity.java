@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
+import com.example.fah.FAHScreen.Adapters.SearchAdapter;
 import com.example.fah.FAHScreen.Models.Post;
 import com.example.fah.R;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class DetailSearchActivity extends AppCompatActivity {
 
         List<Post> data = getListData();
         final ListView listView = findViewById(R.id.lstSearch);
-        listView.setAdapter(new com.example.fah.FAHScreen.Adapters.SearchAdapter(DetailSearchActivity.this, data));
+        listView.setAdapter(new SearchAdapter(DetailSearchActivity.this, data));
     }
 
     private void addControls() {

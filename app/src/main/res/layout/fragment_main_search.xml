@@ -33,7 +33,7 @@
 
     <Button
         android:id="@+id/btnSearch"
-        android:text="Tìm kiếm"
+        android:text="Tìm kiếm nhanh"
         android:background="@drawable/fah_control_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
         android:layout_margin="@dimen/margin_control"
