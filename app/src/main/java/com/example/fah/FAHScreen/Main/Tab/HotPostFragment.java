@@ -5,15 +5,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
-
-import com.example.fah.FAHScreen.Main.GridView.Post.GridListPostMainAdapter;
-import com.example.fah.FAHScreen.Main.GridView.Post.Post;
+import android.widget.ListView;
+import com.example.fah.FAHScreen.Adapters.SearchAdapter;
+import com.example.fah.FAHScreen.Models.Post;
 import com.example.fah.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +19,7 @@ import java.util.List;
  */
 public class HotPostFragment extends Fragment {
     protected View view;
-    protected GridView gvPost;
+    protected ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,30 +38,19 @@ public class HotPostFragment extends Fragment {
 
     private void GridViewControl(){
         List<Post> listPost = getListData();
-        gvPost = view.findViewById(R.id.gvPost);
-        gvPost.setAdapter(new GridListPostMainAdapter(getActivity(), listPost));
-
-        // Khi người dùng click vào các GridItem
-        gvPost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Object o = gvPost.getItemAtPosition(position);
-                Post objectGrid = (Post) o;
-                Toast.makeText(getActivity(), "Selected :"
-                        + " " + objectGrid, Toast.LENGTH_LONG).show();
-            }
-        });
+        listView = view.findViewById(R.id.listView);
+        listView.setAdapter(new SearchAdapter(getContext(), listPost));
     }
 
     private  List<Post> getListData() {
-        List<Post> list = new ArrayList<Post>();
-        list.add(new Post("Vietnam1", "ic_arrow_down", "111111"));
-        list.add(new Post("Vietnam2", "ic_arrow_down", "111111"));
-        list.add(new Post("Vietnam3", "ic_arrow_down", "111111"));
-        list.add(new Post("Vietnam4", "ic_arrow_down", "111111"));
-        list.add(new Post("Vietnam5", "ic_arrow_down", "111111"));
-        list.add(new Post("Vietnam6", "ic_arrow_down", "111111"));
+        List<com.example.fah.FAHScreen.Models.Post> list = new ArrayList<>();
+        Post vietnam = new Post("Tuyển nhân viên phục vụ cà phê", "QUÁN CÀ PHÊ VEN ĐƯỜNG", "Địa điểm", "Thời gian làm việc", "Mức lương", new Date("01/04/2019"));
+        Post usa = new Post("Tuyển nhân viên phục vụ cà phê", "QUÁN CÀ PHÊ VEN ĐƯỜNG", "Địa điểm", "Thời gian làm việc", "Mức lương", new Date("01/04/2019"));
+        Post russia = new Post("Tuyển nhân viên phục vụ cà phê", "QUÁN CÀ PHÊ VEN ĐƯỜNG", "Địa điểm", "Thời gian làm việc", "Mức lương", new Date("01/04/2019"));
+
+        list.add(vietnam);
+        list.add(usa);
+        list.add(russia);
 
         return list;
     }

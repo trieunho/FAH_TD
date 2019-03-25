@@ -33,10 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/small_button_control"
             android:layout_gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
             android:text="Tìm kiếm"
-            android:background="@drawable/fah_control_button"
-            />
+            android:background="@drawable/fah_control_button" />
     </LinearLayout>
 
     <TextView
@@ -49,6 +48,6 @@
     <ListView
         android:id="@+id/lvAccount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

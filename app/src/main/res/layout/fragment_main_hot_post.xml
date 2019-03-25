@@ -6,12 +6,12 @@
     android:orientation="vertical"
     tools:context=".FAHScreen.Main.Tab.HotPostFragment">
     <TextView
-        android:text="Việc đang hot"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="Việc làm của tôi"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <GridView
-        android:id="@+id/gvPost"
+    <ListView
+        android:id="@+id/listView"
         android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"

@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author: NganTD1
  * @createDate: 19/03/2019
  */
-public class ManageAccountActivity extends AppCompatActivity {
+public class ManageAccountByAdminActivity extends AppCompatActivity {
 
     ListView lvAccount;
     TextView tvResultOfSearch;
@@ -26,7 +26,7 @@ public class ManageAccountActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manage_account_activity);
+        setContentView(R.layout.activity_manage_account_by_admin);
         addControl();
 //        addEvent();
     }
@@ -56,7 +56,7 @@ public class ManageAccountActivity extends AppCompatActivity {
             tvResultOfSearch.setText("Tìm thấy " + accountList.size() + " kết quả");
 
             AccountByAdminAdapter accountByAdminAdapter = new AccountByAdminAdapter(
-                    ManageAccountActivity.this,
+                    ManageAccountByAdminActivity.this,
                     R.layout.account_by_admin_activity,
                     accountList);
             lvAccount.setAdapter(accountByAdminAdapter);

@@ -10,21 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".TestControl.TestActivity"/>
-        <activity
-            android:name=".FAHScreen.Main.Tab.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".Main.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FAHScreen.Main.Tab.MainActivity">
+        </activity>
 
         <activity android:name=".FAHScreen.Main.DetailSearchActivity"/>
 
-
-        <activity android:name=".FAHScreen.Account.ManageAccountActivity"/>
+        <activity android:name=".FAHScreen.Account.ManageAccountByAdminActivity"/>
         <activity android:name=".FAHScreen.Account.ManageAccountByPostActivity"/>
         <activity android:name=".FAHScreen.Account.SearchAccountActivity"/>
 

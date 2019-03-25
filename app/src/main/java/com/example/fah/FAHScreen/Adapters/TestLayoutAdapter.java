@@ -52,7 +52,7 @@ public class TestLayoutAdapter  extends ArrayAdapter<TestLayout> {
             @Override
             public void onClick(View v) {
                 context_final.startActivity(new Intent(testLayout.getPackageContext(),testLayout.getCls()));
-                ((Activity) context_final).overridePendingTransition(R.anim.translate_right_side,R.anim.translate_left_side);
+//                ((Activity) context_final).overridePendingTransition(R.anim.translate_right_side,R.anim.translate_left_side);
             }
         });
 
@@ -60,7 +60,7 @@ public class TestLayoutAdapter  extends ArrayAdapter<TestLayout> {
             @Override
             public void onClick(View v) {
                 context_final.startActivity(new Intent(testLayout.getPackageContext(),testLayout.getCls()));
-                ((Activity) context_final).overridePendingTransition(R.anim.translate_right_side,R.anim.translate_left_side);
+//                ((Activity) context_final).overridePendingTransition(R.anim.translate_right_side,R.anim.translate_left_side);
             }
         });
         return convertView;

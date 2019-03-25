@@ -14,6 +14,6 @@
     <dimen name="centerY_control">0.2</dimen>
     <dimen name="angle_control">270</dimen>
 
-    <dimen name="small_button_control">25</dimen>
+    <dimen name="small_button_control">25dp</dimen>
 
 </resources>

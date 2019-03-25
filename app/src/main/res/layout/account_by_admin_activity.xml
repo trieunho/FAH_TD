@@ -13,9 +13,9 @@
         android:gravity="center_vertical">
         <TextView
             android:id="@+id/tvStt"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLength="3"
+            android:layout_weight="1"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:text="999"/>
@@ -27,7 +27,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="6"
+            android:padding="@dimen/padding_control"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tvAccountName"
@@ -44,12 +45,13 @@
                 android:text="@string/email"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
             <Button
                 android:id="@+id/btnBlock"
                 android:layout_margin="@dimen/margin_control"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/small_button_control"
                 android:text="Unlock"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
