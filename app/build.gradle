@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.fah"
+        applicationId "com.example.fah123"
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
@@ -29,4 +29,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.google.firebase:firebase-auth:16.0.3'
+    implementation 'com.google.android.gms:play-services-analytics:16.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
 }
+apply plugin: 'com.google.gms.google-services'

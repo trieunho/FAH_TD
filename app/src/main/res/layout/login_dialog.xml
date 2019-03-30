@@ -18,6 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:padding="15dp"
+        android:textSize="12dp"
+
         android:background="@drawable/shapeemail"
         android:drawableLeft="@drawable/ic_person_black_24dp"
         android:drawablePadding="10dp"
@@ -31,6 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:padding="15dp"
+        android:id="@+id/txtpass"
+        android:textSize="12dp"
+        android:inputType="textPassword"
         android:background="@drawable/shapeemail"
         android:drawableLeft="@drawable/ic_lock_black_24dp"
         android:drawablePadding="10dp"
