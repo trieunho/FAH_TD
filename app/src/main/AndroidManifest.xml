@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fah">
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERAA" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".TestControl.TestActivity"/>
+        <activity android:name=".FAHScreen.Account.Sample_Add_Edit_Delete_Account"></activity>
+        <activity android:name=".TestControl.TestActivity" />
         <activity android:name=".Main.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,26 +23,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FAHScreen.Main.Tab.MainActivity">
-        </activity>
-
-        <activity android:name=".FAHScreen.Main.DetailSearchActivity"/>
-
-        <activity android:name=".FAHScreen.Account.ManageAccountByAdminActivity"/>
-        <activity android:name=".FAHScreen.Account.ManageAccountByPostActivity"/>
-        <activity android:name=".FAHScreen.Account.SearchAccountActivity"/>
-
-
-        <activity android:name=".FAHScreen.Manage.ManageCategoryActivity"/>
-        <activity android:name=".FAHScreen.Manage.ManageTypePost"/>
-
-        <activity android:name=".FAHScreen.Post.CreatePostActivity"/>
-        <activity android:name=".FAHScreen.Post.DetailPostActivity"/>
-        <activity android:name=".FAHScreen.Post.PostManagementActivity"/>
-
-        <activity android:name=".FAHScreen.User.ProfileActivity"/>
-        <activity android:name=".FAHScreen.User.PersionalImformationActivity"/>
-
+        <activity android:name=".FAHScreen.Main.Tab.MainActivity"></activity>
+        <activity android:name=".FAHScreen.Main.DetailSearchActivity" />
+        <activity android:name=".FAHScreen.Account.ManageAccountByAdminActivity" />
+        <activity android:name=".FAHScreen.Account.ManageAccountByPostActivity" />
+        <activity android:name=".FAHScreen.Account.SearchAccountActivity" />
+        <activity android:name=".FAHScreen.Manage.ManageCategoryActivity" />
+        <activity android:name=".FAHScreen.Manage.ManageTypePost" />
+        <activity android:name=".FAHScreen.Post.CreatePostActivity" />
+        <activity android:name=".FAHScreen.Post.DetailPostActivity" />
+        <activity android:name=".FAHScreen.Post.PostManagementActivity" />
+        <activity android:name=".FAHScreen.User.ProfileActivity" />
+        <activity android:name=".FAHScreen.User.PersionalImformationActivity" />
     </application>
 
 </manifest>

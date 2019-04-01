@@ -1,17 +1,21 @@
 package com.example.fah.Main;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
 import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
+import com.example.fah.FAHScreen.Account.Sample_Add_Edit_Delete_Account;
 import com.example.fah.FAHScreen.Account.SearchAccountActivity;
 import com.example.fah.FAHScreen.Adapters.TestLayoutAdapter;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
@@ -24,18 +28,32 @@ import com.example.fah.FAHScreen.Post.DetailPostActivity;
 import com.example.fah.FAHScreen.Post.PostManagementActivity;
 import com.example.fah.FAHScreen.User.PersionalImformationActivity;
 import com.example.fah.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
     ListView lvLayout;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
+        mAuth = FirebaseAuth.getInstance();
         addControl();
 //          addEvent();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     private void addControl() {
@@ -60,29 +78,11 @@ public class HomeActivity extends AppCompatActivity {
         layoutList.add(new TestLayout(HomeActivity.this, DetailPostActivity.class,"Chi tiết bài đăng"));
         layoutList.add(new TestLayout(HomeActivity.this, PostManagementActivity.class,"Quản lý bài đăng"));
         layoutList.add(new TestLayout(HomeActivity.this, PersionalImformationActivity.class,"Profile user"));
+        layoutList.add(new TestLayout(HomeActivity.this, Sample_Add_Edit_Delete_Account.class,"Sample Account"));
         layoutList.add(new TestLayout(HomeActivity.this, "Dialog Login", TestLayout.TYPE_DIALOG, new IEvenDialog() {
             @Override
             public void setEvent() {
-                final Dialog dialog=new Dialog(HomeActivity.this);
-                dialog.setContentView( R.layout.login_dialog);
-                Button btn=dialog.findViewById(R.id.btnLogin);
-                ImageView imageView=dialog.findViewById(R.id.btnBackLogin);
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(HomeActivity.this, "Login", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.setTitle("LOGIN ACTIVITY");
-                dialog.setCancelable(true);
-                dialog.show();
-
+                ShowDialogLogin();
             }
         }));
 //        layoutList.add(new TestLayout(HomeActivity.this, ProfileActivity.class,"Main"));
@@ -94,6 +94,65 @@ public class HomeActivity extends AppCompatActivity {
                     R.layout.layout_test_item,
                 layoutList);
         lvLayout.setAdapter(layoutByAdminAdapter);
+    }
+
+    private void ShowDialogLogin(){
+        final Dialog dialog=new Dialog(HomeActivity.this);
+        dialog.setContentView( R.layout.login_dialog);
+        dialog.setTitle("Đăng Nhập");
+        dialog.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.95),(int)(getResources().getDisplayMetrics().heightPixels*0.95));
+        Button btn=dialog.findViewById(R.id.btnLogin);
+        ImageView imageView=dialog.findViewById(R.id.btnBackLogin);
+        final EditText txtEmail=dialog.findViewById(R.id.txtemail);
+        final EditText txtpass=dialog.findViewById(R.id.txtpass);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Login(txtEmail.getText().toString(),txtpass.getText().toString());
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setTitle("LOGIN ACTIVITY");
+        dialog.setCancelable(true);
+        dialog.show();
+    }
+
+    // dang nhap
+    private void Login(String email, String password){
+        final ProgressDialog pd = new ProgressDialog(HomeActivity.this);
+        pd.setMessage("Đăng nhập");
+        pd.show();
+        // hàm đăng nhập overrie của firebase
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    boolean flag=false;
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            //nếu đăng nhập thành công
+                            Toast.makeText(HomeActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+
+                            flag=true;
+                        } else {
+                            // nếu đăng nhập thất bại
+                            Toast.makeText(HomeActivity.this, "Đăng Nhập thất bại", Toast.LENGTH_SHORT).show();
+                        }
+
+                        // bắt đầu thực thi thất bại
+                        if (!task.isSuccessful()) {
+                            //  pd.dismiss();
+                        }
+
+                        // [END_EXCLUDE]
+                        pd.dismiss();
+
+                    }
+                });
     }
 
 }

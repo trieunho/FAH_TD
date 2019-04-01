@@ -8,7 +8,7 @@
     <color name="colorRoyalBlue">#3577e5</color>
     <color name="colorCrimson">#dc3545</color>
     <color name="signUpColor">#000000</color>
-
+    <color name="grey_200">#EEEEEE</color>
     /*
     * Color rule
     */

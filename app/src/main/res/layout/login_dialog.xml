@@ -19,7 +19,7 @@
         android:layout_margin="10dp"
         android:padding="15dp"
         android:textSize="12dp"
-
+        android:id="@+id/txtemail"
         android:background="@drawable/shapeemail"
         android:drawableLeft="@drawable/ic_person_black_24dp"
         android:drawablePadding="10dp"
@@ -52,7 +52,7 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remember Me"
+            android:text="Lưu lại"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
@@ -63,7 +63,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Forget Password"
+            android:text="Quên mật khẩu"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
