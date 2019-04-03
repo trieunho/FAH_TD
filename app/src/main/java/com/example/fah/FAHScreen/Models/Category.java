@@ -2,17 +2,30 @@ package com.example.fah.FAHScreen.Models;
 
 public class Category {
 
-    private String nameCategory;
+    private String categoryID;
+    private String categoryName;
 
-    public String getNameCategory() {
-        return nameCategory;
+    public Category() {}
+
+    public Category(String categoryID, String categoryName) {
+        this.categoryID = categoryID;
+        this.categoryName = categoryName;
     }
 
-    public void setNameCategory(String nameCategory) {
-        this.nameCategory = nameCategory;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public Category(String nameCategory) {
-        this.nameCategory = nameCategory;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+
+    public String getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
     }
 }
