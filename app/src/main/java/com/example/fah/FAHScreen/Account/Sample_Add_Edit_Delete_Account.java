@@ -14,10 +14,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
@@ -28,6 +30,7 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
     private int idrandom;
     Sample_Firebase_Add_Edit_Delete_Account_Adapter adapter;
     DatabaseReference myRef;
+    Query abc;
     FirebaseDatabase database;
     private static HashMap<String, SampleAccount> bullets = new HashMap<>();
 
@@ -35,13 +38,16 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample__add__edit__delete__account);
-       addControl();
+        addControl();
         addEvent();
     }
 
     private void addControl() {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Accounts");
+
+        abc = myRef.orderByChild("resourceImg").endAt(2).getRef().orderByChild("email").equalTo("fah032019@gmail.com");
+
         btnThem=findViewById(R.id.btnaddSample);
         lvAccount=findViewById(R.id.lvAccountSample);
 
@@ -61,13 +67,13 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
                 Toast.makeText(Sample_Add_Edit_Delete_Account.this, "Thêm", Toast.LENGTH_SHORT).show();
                 idrandom = rd.nextInt();  // trả về 1 số nguyên bất kỳ
                  //để không trùng id con của root Account thì random số để không trùng.
-                myRef.child("Account" + idrandom).setValue(new SampleAccount("ThanhDC11", "fah032019@gmail.com", R.drawable.avt));
+                myRef.child("Account" + idrandom).setValue(new SampleAccount("ThanhDC11", "fah032019@gmail.com11", 1));
                 // Read from the database
 
             }
         });
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        abc.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -76,12 +82,14 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
                   //  GenericTypeIndicator<List<SampleAccount>> t = new GenericTypeIndicator<List<SampleAccount>>() {};
                   //  List<SampleAccount> messages = dataSnapshot.getValue(t);
                     //Toast.makeText(Sample_Add_Edit_Delete_Account.this, "Mọt line mới"+dataSnapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
-                   for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                     SampleAccount sampleAccount=snapshot.getValue(SampleAccount.class);
+                    List<SampleAccount> listAccount = new ArrayList<>();
+                   for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                     listAccount.add(snapshot.getValue(SampleAccount.class));
 //                        bullets.put(snapshot.getKey(), sampleAccount);
                      //accountList2.add(new SampleAccount("sd","123",123));
-                      Toast.makeText(Sample_Add_Edit_Delete_Account.this,sampleAccount.getName(), Toast.LENGTH_SHORT).show();
+//                      Toast.makeText(Sample_Add_Edit_Delete_Account.this,sampleAccount.getName(), Toast.LENGTH_SHORT).show();
                   }
+                  Toast.makeText(Sample_Add_Edit_Delete_Account.this,"123", Toast.LENGTH_SHORT).show();
                   //  Toast.makeText(Sample_Add_Edit_Delete_Account.this, bullets.size(), Toast.LENGTH_SHORT).show();
                    // adapter.notifyDataSetChanged();
                     //lvAccount.setAdapter(adapter);
