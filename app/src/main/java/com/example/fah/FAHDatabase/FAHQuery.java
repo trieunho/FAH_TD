@@ -13,12 +13,12 @@ public class FAHQuery {
         return FirebaseDatabase.getInstance().getReference(nameDB);
     }
 
-    public static List<?> GetDataObject(DataSnapshot dataSnapshot){
+    public static Object GetDataObject(DataSnapshot dataSnapshot, Object typeObject){
         List<Object> listData = new ArrayList<>();
         if (dataSnapshot.getValue() != null) {
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                Object item = snapshot.getValue(Object.class);
-                // CallMethod(item);
+                Object item = snapshot.getValue(typeObject.getClass());
+                CallMethod(item, snapshot.getKey());
                 listData.add(item);
             }
         }
@@ -72,9 +72,9 @@ public class FAHQuery {
         return null;
     }
 
-    private static void CallMethod(Object data){
+    private static void CallMethod(Object data, String key){
         try {
-            data.getClass().getMethod("setKey").invoke(data);
+            data.getClass().getMethod("setKey", String.class).invoke(data, new Object[]{key});
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

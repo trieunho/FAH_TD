@@ -1,9 +1,7 @@
-package com.example.fah.FHADefine;
+package com.example.fah.FAHDefine;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-
-import com.example.fah.R;
 
 public class FAHScreenTransaction {
     // Call Flagment from MainActivity

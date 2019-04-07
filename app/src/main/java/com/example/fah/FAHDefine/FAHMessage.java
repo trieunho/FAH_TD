@@ -1,4 +1,4 @@
-package com.example.fah.FHADefine;
+package com.example.fah.FAHDefine;
 
 import android.app.Activity;
 import android.app.AlertDialog;

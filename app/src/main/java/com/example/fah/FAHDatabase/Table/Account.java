@@ -1,7 +1,7 @@
 package com.example.fah.FAHDatabase.Table;
 
-public class Account {
-    private String name,email,key;
+public class Account extends FAHFieldCommon{
+    private String name,email;
     private int resourceImg;
 
     public Account() {
@@ -35,13 +35,5 @@ public class Account {
 
     public void setResourceImg(int resourceImg) {
         this.resourceImg = resourceImg;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 }

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.example.fah.FHADefine.FAHMessage;
+import com.example.fah.FAHDefine.FAHMessage;
 import com.example.fah.Main.HomeActivity;
 
 import com.example.fah.R;
