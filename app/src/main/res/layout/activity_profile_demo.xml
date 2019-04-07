@@ -33,10 +33,17 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="164dp"
                 android:textSize="18sp"
+
                 android:textStyle="italic"
-                android:typeface="monospace" />
+                android:typeface="monospace"
+                app:textAllCaps="true" />
 
-
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/avata"
+                    android:src="@drawable/meninblack"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    />
             <Button
                 android:id="@+id/signOutButton"
                 android:layout_width="292dp"
@@ -47,7 +54,7 @@
                 android:background="?attr/colorPrimaryDark"
                 android:elevation="5dp"
                 android:text="Đăng xuất"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white" tools:targetApi="lollipop"/>
 
 
         </RelativeLayout>
