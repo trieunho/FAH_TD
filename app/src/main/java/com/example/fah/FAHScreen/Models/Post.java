@@ -8,8 +8,15 @@ public class Post {
     private String companyName;
     private String address;
     private String luong;
-    private String thoiGian;
     private Date deadLine;
+    private String jobDescription;
+    private String required;
+    private String aboutCompany;
+    private String benifit;
+    private String soLuong;
+    private String email;
+    private int phone;
+    private String workingTime;
 
     public Post(String titlePost, String account, String companyName) {
         this.titlePost = titlePost;
@@ -17,13 +24,43 @@ public class Post {
         this.companyName = companyName;
     }
 
-    public Post(String titlePost, String companyName, String address, String thoiGian, String luong, Date deadLine) {
+    public Post(String titlePost, String companyName, String address, String workingTime, String luong, Date deadLine) {
         this.titlePost = titlePost;
         this.companyName = companyName;
         this.address = address;
-        this.thoiGian = thoiGian;
+        this.workingTime = workingTime;
         this.luong = luong;
         this.deadLine = deadLine;
+    }
+
+    public Post(String titlePost,
+                String companyName,
+                String aboutCompany,
+                String jobDescription,
+                String required,
+                String benifit,
+                String soLuong,
+                String address,
+                Date deadLine,
+                String workingTime) {
+        this.titlePost = titlePost;
+        this.companyName = companyName;
+        this.aboutCompany = aboutCompany;
+        this.jobDescription = jobDescription;
+        this.address = address;
+        this.required = required;
+        this.benifit = benifit;
+        this.soLuong = soLuong;
+        this.deadLine = deadLine;
+        this.workingTime = workingTime;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAccount() {
@@ -66,19 +103,67 @@ public class Post {
         this.luong = luong;
     }
 
-    public String getThoiGian() {
-        return thoiGian;
-    }
-
-    public void setThoiGian(String thoiGian) {
-        this.thoiGian = thoiGian;
-    }
-
     public Date getDeadLine() {
         return deadLine;
     }
 
     public void setDeadLine(Date deadLine) {
         this.deadLine = deadLine;
+    }
+
+    public String getWorkingTime() {
+        return workingTime;
+    }
+
+    public void setWorkingTime(String workingTime) {
+        this.workingTime = workingTime;
+    }
+
+    public String getJobDescription() {
+        return jobDescription;
+    }
+
+    public void setJobDescription(String jobDescription) {
+        this.jobDescription = jobDescription;
+    }
+
+    public String getRequired() {
+        return required;
+    }
+
+    public void setRequired(String required) {
+        this.required = required;
+    }
+
+    public String getAboutCompany() {
+        return aboutCompany;
+    }
+
+    public void setAboutCompany(String aboutCompany) {
+        this.aboutCompany = aboutCompany;
+    }
+
+    public String getBenifit() {
+        return benifit;
+    }
+
+    public void setBenifit(String benifit) {
+        this.benifit = benifit;
+    }
+
+    public String getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(String soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 }
