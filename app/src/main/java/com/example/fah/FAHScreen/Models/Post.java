@@ -15,8 +15,12 @@ public class Post {
     private String benifit;
     private String soLuong;
     private String email;
-    private int phone;
+    private String phone;
     private String workingTime;
+    private String typeOfSalary;
+    private String salary_from;
+    private String salary_to;
+    private int typeOfArticle;
 
     public Post(String titlePost, String account, String companyName) {
         this.titlePost = titlePost;
@@ -42,7 +46,13 @@ public class Post {
                 String soLuong,
                 String address,
                 Date deadLine,
-                String workingTime) {
+                String workingTime,
+                String typeOfSalary,
+                String salary_from,
+                String salary_to,
+                String email,
+                String phone,
+                int typeOfArticle) {
         this.titlePost = titlePost;
         this.companyName = companyName;
         this.aboutCompany = aboutCompany;
@@ -53,6 +63,12 @@ public class Post {
         this.soLuong = soLuong;
         this.deadLine = deadLine;
         this.workingTime = workingTime;
+        this.typeOfSalary = typeOfSalary;
+        this.salary_from = salary_from;
+        this.salary_to = salary_to;
+        this.email = email;
+        this.phone = phone;
+        this.typeOfArticle = typeOfArticle;
     }
 
     public String getEmail() {
@@ -159,11 +175,43 @@ public class Post {
         this.soLuong = soLuong;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getTypeOfSalary() {
+        return typeOfSalary;
+    }
+
+    public void setTypeOfSalary(String typeOfSalary) {
+        this.typeOfSalary = typeOfSalary;
+    }
+
+    public String getSalary_from() {
+        return salary_from;
+    }
+
+    public void setSalary_from(String salary_from) {
+        this.salary_from = salary_from;
+    }
+
+    public String getSalary_to() {
+        return salary_to;
+    }
+
+    public void setSalary_to(String salary_to) {
+        this.salary_to = salary_to;
+    }
+
+    public int getTypeOfArticle() {
+        return typeOfArticle;
+    }
+
+    public void setTypeOfArticle(int getTypeOfArticle) {
+        this.typeOfArticle = getTypeOfArticle;
     }
 }

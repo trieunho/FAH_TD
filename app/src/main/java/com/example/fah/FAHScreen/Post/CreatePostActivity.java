@@ -16,8 +16,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fah.FAHCommon.CheckWifi;
+import com.example.fah.FAHCommon.EmailValidator;
 import com.example.fah.FAHControl.FAHCombobox;
-import com.example.fah.FAHControl.FAHConnection.ConnectionReceiver;
 import com.example.fah.FAHScreen.Models.Post;
 import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
@@ -41,13 +42,14 @@ public class CreatePostActivity extends AppCompatActivity {
     EditText txtSoLuong;
     EditText txtEmail;
     EditText txtPhone;
+    EditText cbxLuong;
     EditText txtLuong1;
     TextView lbl;
     EditText txtLuong2;
     EditText txvLoai;
-    TextView isConnect;
-
     String workingTime = "";
+    EditText cbxTypeOfArticle;
+
     CheckBox ckb1;
     CheckBox ckb2;
     CheckBox ckb3;
@@ -56,8 +58,6 @@ public class CreatePostActivity extends AppCompatActivity {
     FAHCombobox cbx2 = new FAHCombobox();;
 
     DatePickerDialog datePickerDialog;
-    EditText cbxLoai;
-    EditText cbxLuong;
     DatabaseReference myRef;
     FirebaseDatabase database;
 
@@ -85,7 +85,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.btnPost: {
-                if (canPost() && checkConnection()) {
+                if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                     myRef.push().setValue(new Post(
                             txtTitle.getText().toString(),
                             txtCompanyName.getText().toString(),
@@ -95,8 +95,14 @@ public class CreatePostActivity extends AppCompatActivity {
                             txtBenifit.getText().toString(),
                             txtSoLuong.getText().toString(),
                             txtAddress.getText().toString(),
-                            txtDate.getText().equals("") ? null : new Date(txtDate.getText().toString()),
-                            workingTime));
+                            txtDate.getText().toString().equals("") ? null : new Date(txtDate.getText().toString()),
+                            workingTime,
+                            cbxLuong.getText().toString(),
+                            txtLuong1.getText().toString(),
+                            txtLuong2.getText().toString(),
+                            txtEmail.getText().toString(),
+                            txtPhone.getText().toString(),
+                            Integer.parseInt(cbxTypeOfArticle.getText().toString().substring(4, 5))));
                 }
             }
             default: {
@@ -115,15 +121,13 @@ public class CreatePostActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         txtDate.setText(dayOfMonth + "/" + month + "/" + year);
+                        txtDate.requestFocus();
                     }
                 }, year, month, day);
         datePickerDialog.show();
     }
 
     private void addControls() {
-        // div check connetion
-        isConnect = findViewById(R.id.isConnect);
-
         // toolbar
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_backspace_black);
@@ -147,22 +151,16 @@ public class CreatePostActivity extends AppCompatActivity {
         txtLuong2 = findViewById(R.id.txtLuong2);
         lbl = findViewById(R.id.lbl);
         txvLoai = findViewById(R.id.txvLoai);
+        cbxTypeOfArticle = findViewById(R.id.cbxTypeOfArticle);
 
         // workingTime
         ckb1 = findViewById(R.id.ckbTime1);
         ckb2 = findViewById(R.id.ckbTime2);
         ckb3 = findViewById(R.id.ckbTime3);
 
+        // Firebase
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Post");
-
-        String[] arr = {
-                "Loại 1",
-                "Loại 2",
-                "Loại 3"
-        };
-
-        cbxLoai = findViewById(R.id.cbxLoai);
     }
 
     private void addEvents() {
@@ -191,13 +189,15 @@ public class CreatePostActivity extends AppCompatActivity {
         cbxLuong.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                cbx1 = new FAHCombobox();
-                String[] arrLuong = {
-                        "Fixed",
-                        "From-To",
-                        "Deal"
-                };
-                cbx1.ShowItemChoose(CreatePostActivity.this, cbxLuong, arrLuong);
+                if (hasFocus) {
+                    cbx1 = new FAHCombobox();
+                    String[] arrLuong = {
+                            "Fixed",
+                            "From-To",
+                            "Deal"
+                    };
+                    cbx1.ShowItemChoose(CreatePostActivity.this, cbxLuong, arrLuong);
+                }
             }
         });
         cbxLuong.addTextChangedListener(new TextWatcher() {
@@ -217,6 +217,7 @@ public class CreatePostActivity extends AppCompatActivity {
                     case "Fixed":
                         txtLuong1.setVisibility(View.VISIBLE);
                         txtLuong2.setVisibility(View.GONE);
+                        txtLuong2.setText("");
                         lbl.setVisibility(View.GONE);
                         break;
                     case "From-To":
@@ -227,6 +228,8 @@ public class CreatePostActivity extends AppCompatActivity {
                     case "Deal":
                         txtLuong1.setVisibility(View.GONE);
                         txtLuong2.setVisibility(View.GONE);
+                        txtLuong1.setText("");
+                        txtLuong2.setText("");
                         lbl.setVisibility(View.GONE);
                         break;
                 }
@@ -234,7 +237,7 @@ public class CreatePostActivity extends AppCompatActivity {
         });
 
         // Type of post
-        cbxLoai.setOnClickListener(new View.OnClickListener() {
+        cbxTypeOfArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String[] arrLuong = {
@@ -242,23 +245,25 @@ public class CreatePostActivity extends AppCompatActivity {
                         "Type2",
                         "Type3"
                 };
-                cbx2.ShowItemChoose(CreatePostActivity.this, cbxLoai, arrLuong);
+                cbx2.ShowItemChoose(CreatePostActivity.this, cbxTypeOfArticle, arrLuong);
             }
         });
 
-        cbxLoai.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        cbxTypeOfArticle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                cbx2 = new FAHCombobox();
-                String[] arrLuong = {
-                        "Type1",
-                        "Type2",
-                        "Type3"
-                };
-                cbx2.ShowItemChoose(CreatePostActivity.this, cbxLoai, arrLuong);
+                if (hasFocus) {
+                    cbx2 = new FAHCombobox();
+                    String[] arrLuong = {
+                            "Type1",
+                            "Type2",
+                            "Type3"
+                    };
+                    cbx2.ShowItemChoose(CreatePostActivity.this, cbxTypeOfArticle, arrLuong);
+                }
             }
         });
-        cbxLoai.addTextChangedListener(new TextWatcher() {
+        cbxTypeOfArticle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -303,6 +308,14 @@ public class CreatePostActivity extends AppCompatActivity {
             txtAddress.requestFocus();
             Toast.makeText(this, "Chưa điền địa chỉ", Toast.LENGTH_SHORT).show();
             return false;
+        } else if (txtEmail.getText().toString().equals("") || EmailValidator.isValid(txtEmail.getText().toString())) {
+            txtEmail.requestFocus();
+            Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (cbxTypeOfArticle.getText().toString().equals("")) {
+            cbxTypeOfArticle.requestFocus();
+            Toast.makeText(this, "Chưa chọn mức phí cho bài viết", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
         workingTime = ckb1.isChecked() ? "Morning" + (ckb2.isChecked() ? ", Afternoon" + (ckb3.isChecked() ? ", Evening" : "") : "" + (ckb3.isChecked() ? ", Evening" : "")) : "" + (ckb2.isChecked() ? "Afternoon" + (ckb3.isChecked() ? ", Evening" : "") : "" + (ckb3.isChecked() ? ", Evening" : ""));
@@ -310,13 +323,5 @@ public class CreatePostActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean checkConnection() {
-        if (ConnectionReceiver.isConnected()) {
-            isConnect.setVisibility(View.GONE);
-            return true;
-        } else {
-            isConnect.setVisibility(View.VISIBLE);
-            return false;
-        }
-    }
+
 }
