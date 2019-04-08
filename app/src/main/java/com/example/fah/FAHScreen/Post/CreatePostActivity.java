@@ -85,7 +85,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.btnPost: {
-                if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
+                if (canPost() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                     myRef.push().setValue(new Post(
                             txtTitle.getText().toString(),
                             txtCompanyName.getText().toString(),
@@ -308,9 +308,13 @@ public class CreatePostActivity extends AppCompatActivity {
             txtAddress.requestFocus();
             Toast.makeText(this, "Chưa điền địa chỉ", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (txtEmail.getText().toString().equals("") || EmailValidator.isValid(txtEmail.getText().toString())) {
+        } else if (txtEmail.getText().toString().equals("") || !EmailValidator.isValid(txtEmail.getText().toString())) {
             txtEmail.requestFocus();
             Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (txtPhone.getText().toString().equals("")) {
+            txtPhone.requestFocus();
+            Toast.makeText(this, "Chưa nhập số điện thoại", Toast.LENGTH_SHORT).show();
             return false;
         } else if (cbxTypeOfArticle.getText().toString().equals("")) {
             cbxTypeOfArticle.requestFocus();
