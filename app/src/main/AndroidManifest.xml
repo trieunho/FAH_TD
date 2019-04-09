@@ -3,11 +3,13 @@
     package="com.example.fah">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERAA" />
     <application
+        android:name=".FAHControl.FAHConnection.Wifi"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,6 +37,18 @@
         <activity android:name=".FAHScreen.Post.PostManagementActivity" />
         <activity android:name=".FAHScreen.User.ProfileActivity" />
         <activity android:name=".FAHScreen.User.PersionalImformationActivity" />
+        <activity android:name=".FAHScreen.User.Login.SignupActivity" />
+        <activity android:name=".FAHScreen.User.Login.HomeProfileActivity" />
+        <activity android:name=".FAHScreen.User.Login.LoginActivity" />
+        <activity android:name=".FAHScreen.User.Login.ResetPasswordActivity" />
+
+        <receiver
+            android:name=".FAHControl.FAHConnection.ConnectionReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

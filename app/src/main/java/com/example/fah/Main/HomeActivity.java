@@ -26,6 +26,7 @@ import com.example.fah.FAHScreen.Models.TestLayout;
 import com.example.fah.FAHScreen.Post.CreatePostActivity;
 import com.example.fah.FAHScreen.Post.DetailPostActivity;
 import com.example.fah.FAHScreen.Post.PostManagementActivity;
+import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.FAHScreen.User.PersionalImformationActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -79,6 +80,7 @@ public class HomeActivity extends AppCompatActivity {
         layoutList.add(new TestLayout(HomeActivity.this, PostManagementActivity.class,"Quản lý bài đăng"));
         layoutList.add(new TestLayout(HomeActivity.this, PersionalImformationActivity.class,"Profile user"));
         layoutList.add(new TestLayout(HomeActivity.this, Sample_Add_Edit_Delete_Account.class,"Sample Account"));
+        layoutList.add(new TestLayout(HomeActivity.this, LoginActivity.class,"Login Activity"));
         layoutList.add(new TestLayout(HomeActivity.this, "Dialog Login", TestLayout.TYPE_DIALOG, new IEvenDialog() {
             @Override
             public void setEvent() {

@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical">
+    <include layout="@layout/check_connection_header"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,8 +21,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tiêu đề: "
-                    android:textStyle="bold" />
+                    android:text="Title: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/txtTitle"
                     android:layout_width="match_parent"
@@ -34,8 +36,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tên công ty: "
-                    android:textStyle="bold" />
+                    android:text="Company Name: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/txtCompanyName"
                     android:layout_width="match_parent"
@@ -48,10 +51,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mô tả về công ty: "
-                    android:textStyle="bold" />
+                    android:text="About Company: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
-                    android:id="@+id/txtCompanyDescription"
+                    android:id="@+id/txtAboutCompany"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginBottom="10dp"
@@ -61,8 +65,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mô tả công việc: "
-                    android:textStyle="bold" />
+                    android:text="Job's Description: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/txtDescription"
                     android:layout_width="match_parent"
@@ -76,8 +81,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Yêu cầu cơ bản: "
-                    android:textStyle="bold" />
+                    android:text="Basic Required: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/txtRequired"
                     android:layout_width="match_parent"
@@ -91,10 +97,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Quyền lợi: "
-                    android:textStyle="bold" />
+                    android:text="Benifit: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
-                    android:id="@+id/txtQuyenLoi"
+                    android:id="@+id/txtBenifit"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginBottom="10dp"
@@ -106,8 +113,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Số lượng ứng tuyển: "
-                    android:textStyle="bold" />
+                    android:text="Number of applicants: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/txtSoLuong"
                     android:layout_width="match_parent"
@@ -121,8 +129,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hạn ứng tuyển: "
-                    android:textStyle="bold" />
+                    android:text="Deadline: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/txtDate"
                     android:onClick="onClickDate"
@@ -138,10 +147,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nơi làm việc: "
-                    android:textStyle="bold" />
+                    android:text="Address: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
-                    android:id="@+id/txtCompanyAddress"
+                    android:id="@+id/txtAddress"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wrap_content_control"
                     android:layout_marginBottom="10dp"
@@ -152,8 +162,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Thời gian làm việc: "
-                    android:textStyle="bold" />
+                    android:text="Working time: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wrap_content_control"
@@ -161,22 +172,26 @@
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Buổi sáng"/>
+                        android:id="@+id/ckbTime1"
+                        android:text="Morning"/>
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Buổi chiều"/>
+                        android:id="@+id/ckbTime2"
+                        android:text="Afternoon"/>
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Buổi tối"/>
+                        android:id="@+id/ckbTime3"
+                        android:text="Evening"/>
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mức lương: "
-                    android:textStyle="bold" />
+                    android:text="Salary: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wrap_content_control"
@@ -186,13 +201,16 @@
                     <TableRow
                         android:layout_width="fill_parent"
                         android:layout_height="@dimen/wrap_content_control">
-                        <Spinner
+                        <EditText
                             android:id="@+id/cbxLuong"
+                            android:editable="false"
+                            android:gravity="center"
+                            android:background="@drawable/fah_control_combobox"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:drawableRight="@drawable/ic_arrow_down"
+                            android:layout_marginRight="@dimen/margin_control"
                             android:layout_width="120dp"
-                            android:layout_height="@dimen/wrap_content_control"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginRight="10dp"
-                            android:background="@drawable/fah_control_combobox"/>
+                            android:layout_height="@dimen/wrap_content_control" />
                         <EditText
                             android:id="@+id/txtLuong1"
                             android:layout_width="90dp"
@@ -201,6 +219,7 @@
                             android:inputType="numberDecimal"
                             android:singleLine="true" />
                         <TextView
+                            android:id="@+id/lbl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="~"
@@ -220,7 +239,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Email: "
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/txtEmail"
                     android:layout_width="match_parent"
@@ -233,8 +253,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Điện thoại: "
-                    android:textStyle="bold" />
+                    android:text="Phone: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/txtPhone"
                     android:layout_width="match_parent"
@@ -247,8 +268,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Loại bài đăng: "
-                    android:textStyle="bold" />
+                    android:text="Type of article: "
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wrap_content_control"
@@ -257,18 +279,24 @@
                     <TableRow
                         android:layout_height="@dimen/wrap_content_control"
                         android:layout_width="fill_parent">
-                        <Spinner
-                            android:id="@+id/cbxLoai"
+                        <EditText
+                            android:id="@+id/cbxTypeOfArticle"
                             android:layout_width="120dp"
+                            android:editable="false"
                             android:layout_height="@dimen/wrap_content_control"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/fah_control_combobox"/>
-                        <TextView
+                            android:gravity="center"
+                            android:background="@drawable/fah_control_combobox"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:drawableRight="@drawable/ic_arrow_down"/>
+                        <EditText
                             android:id="@+id/txvLoai"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="không thiếu tiền"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_height="@dimen/wrap_content_control"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/margin_control"
+                            android:background="@drawable/fah_control_edit_test_default"/>
                     </TableRow>
                 </GridLayout>
             </LinearLayout>

@@ -59,7 +59,7 @@ public class SearchAdapter extends BaseAdapter {
         holder.titlePost.setText(post.getTitlePost());
         holder.companyName.setText(post.getCompanyName());
         holder.address.setText(post.getAddress());
-        holder.thoiGian.setText(post.getThoiGian());
+//        holder.thoiGian.setText(post.getThoiGian());
         holder.luong.setText(post.getLuong());
         holder.deadLine.setText(post.getDeadLine().getDay() + "/" + post.getDeadLine().getMonth() + "/" + post.getDeadLine().getYear());
 
