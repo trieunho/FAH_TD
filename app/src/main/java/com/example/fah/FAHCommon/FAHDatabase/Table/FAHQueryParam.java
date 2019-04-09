@@ -1,4 +1,4 @@
-package com.example.fah.FAHDatabase.Table;
+package com.example.fah.FAHCommon.FAHDatabase.Table;
 
 public class FAHQueryParam {
     public static final String EQUAL = "=";

@@ -1,4 +1,4 @@
-package com.example.fah.FAHDatabase.Table;
+package com.example.fah.FAHCommon.FAHDatabase.Table;
 
 import com.example.fah.FAHScreen.Models.Post;
 

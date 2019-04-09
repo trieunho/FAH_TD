@@ -7,10 +7,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.fah.FAHDatabase.FAHQuery;
-import com.example.fah.FAHDatabase.Table.Account;
-import com.example.fah.FAHDatabase.Table.FAHQueryParam;
-import com.example.fah.FAHDefine.FAHMessage;
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
+import com.example.fah.FAHCommon.FAHDatabase.Table.Account;
 import com.example.fah.FAHScreen.Models.Post;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +18,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {

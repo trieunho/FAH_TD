@@ -1,4 +1,4 @@
-package com.example.fah.FAHDefine;
+package com.example.fah.FAHCommon;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -1,4 +1,4 @@
-package com.example.fah.FAHDatabase.Table;
+package com.example.fah.FAHCommon.FAHDatabase.Table;
 
 public class FAHFieldCommon {
     private String key;

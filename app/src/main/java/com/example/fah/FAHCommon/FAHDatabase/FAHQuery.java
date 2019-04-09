@@ -1,6 +1,6 @@
-package com.example.fah.FAHDatabase;
+package com.example.fah.FAHCommon.FAHDatabase;
 
-import com.example.fah.FAHDatabase.Table.FAHQueryParam;
+import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
