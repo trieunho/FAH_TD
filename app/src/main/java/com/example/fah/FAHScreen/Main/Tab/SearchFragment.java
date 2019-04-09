@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.fah.FAHControl.FAHCombobox;
-import com.example.fah.FAHDefine.FAHMessage;
+import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
+import com.example.fah.FAHCommon.FAHMessage;
 import com.example.fah.R;
 
 

@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
-import com.example.fah.FAHScreen.Adapters.SearchAdapter;
-import com.example.fah.FAHScreen.Models.Post;
+import com.example.fah.FAHExcuteData.Adapters.SearchAdapter;
+import com.example.fah.FAHExcuteData.Models.Post;
 import com.example.fah.R;
 import java.util.ArrayList;
 import java.util.Date;

@@ -7,32 +7,25 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.fah.FAHScreen.Adapters.Sample_Firebase_Add_Edit_Delete_Account_Adapter;
-import com.example.fah.FAHScreen.Models.SampleAccount;
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
+import com.example.fah.FAHCommon.FAHDatabase.Table.Account;
+import com.example.fah.FAHExcuteData.Models.Post;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
-    ListView lvAccount;
-    ArrayList<SampleAccount> accountList = new ArrayList<SampleAccount>();
     Button btnThem;
-    Random rd = new Random();   // khai báo 1 đối tượng Random
-    private int idrandom;
-    Sample_Firebase_Add_Edit_Delete_Account_Adapter adapter;
+    ListView lvAccount;
+    ArrayList<Account> accountList = new ArrayList<>();
     DatabaseReference myRef;
-    Query abc;
-    FirebaseDatabase database;
-    private static HashMap<String, SampleAccount> bullets = new HashMap<>();
+    Query query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,58 +36,34 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
     }
 
     private void addControl() {
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Accounts");
-
-        abc = myRef.orderByChild("resourceImg").endAt(2).getRef().orderByChild("email").equalTo("fah032019@gmail.com");
-
         btnThem=findViewById(R.id.btnaddSample);
         lvAccount=findViewById(R.id.lvAccountSample);
 
-        accountList.add(new SampleAccount("ThanhDC11", "fah032019@gmail.com", R.drawable.edit));
-        adapter = new Sample_Firebase_Add_Edit_Delete_Account_Adapter(
-                Sample_Add_Edit_Delete_Account.this,
-                R.layout.rc_item_account,
-                accountList
-        );
-        lvAccount.setAdapter(adapter);
+        query = FAHQuery.GetData("Account").orderByChild("email").equalTo("123456789");
+//        query = myRef.orderByChild("name").startAt("\uf8ff3\uf8ff");
+////        FAHQueryParam queryParam = new FAHQueryParam("Account", "email", FAHQueryParam.EQUAL, "123456789", FAHQueryParam.TypeString);
+////        query = FAHQuery.GetDataQuery(queryParam);
     }
 
     private void addEvent() {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Sample_Add_Edit_Delete_Account.this, "Thêm", Toast.LENGTH_SHORT).show();
-                idrandom = rd.nextInt();  // trả về 1 số nguyên bất kỳ
-                 //để không trùng id con của root Account thì random số để không trùng.
-                myRef.child("Account" + idrandom).setValue(new SampleAccount("ThanhDC11", "fah032019@gmail.com11", 1));
-                // Read from the database
-
+                Account data = accountList.get(0);
+                List<Post> item = new ArrayList<>();
+                item.add(new Post("123","124","456"));
+                item.add(new Post("1233","1243","4563"));
+                data.setList(item);
+                FAHQuery.UpdateData(data);
+//                boolean test = "123456".toLowerCase().contains("34".toLowerCase());
+//                FAHMessage.ToastMessage(Sample_Add_Edit_Delete_Account.this, "123");
             }
         });
 
-        abc.addValueEventListener(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                if (dataSnapshot.getValue() != null) {
-                  //  GenericTypeIndicator<List<SampleAccount>> t = new GenericTypeIndicator<List<SampleAccount>>() {};
-                  //  List<SampleAccount> messages = dataSnapshot.getValue(t);
-                    //Toast.makeText(Sample_Add_Edit_Delete_Account.this, "Mọt line mới"+dataSnapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
-                    List<SampleAccount> listAccount = new ArrayList<>();
-                   for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                     listAccount.add(snapshot.getValue(SampleAccount.class));
-//                        bullets.put(snapshot.getKey(), sampleAccount);
-                     //accountList2.add(new SampleAccount("sd","123",123));
-//                      Toast.makeText(Sample_Add_Edit_Delete_Account.this,sampleAccount.getName(), Toast.LENGTH_SHORT).show();
-                  }
-                  Toast.makeText(Sample_Add_Edit_Delete_Account.this,"123", Toast.LENGTH_SHORT).show();
-                  //  Toast.makeText(Sample_Add_Edit_Delete_Account.this, bullets.size(), Toast.LENGTH_SHORT).show();
-                   // adapter.notifyDataSetChanged();
-                    //lvAccount.setAdapter(adapter);
-                }
-
+                accountList = (ArrayList<Account>) FAHQuery.GetDataObject(dataSnapshot, new Account());
             }
 
             @Override
@@ -103,8 +72,6 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
                 Toast.makeText(Sample_Add_Edit_Delete_Account.this, "Lỗi", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
 }

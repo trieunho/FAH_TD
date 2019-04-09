@@ -1,7 +1,5 @@
 package com.example.fah.FAHScreen.Main.Tab;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.fah.FAHScreen.Adapters.NotificationAdapter;
-import com.example.fah.FAHScreen.Models.Notification;
+import com.example.fah.FAHExcuteData.Adapters.NotificationAdapter;
+import com.example.fah.FAHExcuteData.Models.Notification;
 import com.example.fah.R;
 
 import java.util.ArrayList;
