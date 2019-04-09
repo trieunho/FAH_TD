@@ -11,6 +11,7 @@ import com.example.fah.FAHDatabase.FAHQuery;
 import com.example.fah.FAHDatabase.Table.Account;
 import com.example.fah.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHDefine.FAHMessage;
+import com.example.fah.FAHScreen.Models.Post;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +20,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
     Button btnThem;
@@ -49,11 +52,14 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Account data = accountList.get(0);
-//                data.setName("trieuht111");
-//                FAHQuery.UpdateData(data);
-                boolean test = "123456".toLowerCase().contains("34".toLowerCase());
-                FAHMessage.ToastMessage(Sample_Add_Edit_Delete_Account.this, "123");
+                Account data = accountList.get(0);
+                List<Post> item = new ArrayList<>();
+                item.add(new Post("123","124","456"));
+                item.add(new Post("1233","1243","4563"));
+                data.setList(item);
+                FAHQuery.UpdateData(data);
+//                boolean test = "123456".toLowerCase().contains("34".toLowerCase());
+//                FAHMessage.ToastMessage(Sample_Add_Edit_Delete_Account.this, "123");
             }
         });
 
@@ -69,8 +75,6 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
                 Toast.makeText(Sample_Add_Edit_Delete_Account.this, "Lỗi", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
 }

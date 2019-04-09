@@ -11,6 +11,8 @@ public class Post {
     private String thoiGian;
     private Date deadLine;
 
+    public Post(){}
+
     public Post(String titlePost, String account, String companyName) {
         this.titlePost = titlePost;
         this.account = account;

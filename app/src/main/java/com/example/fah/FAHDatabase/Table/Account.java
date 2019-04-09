@@ -1,10 +1,23 @@
 package com.example.fah.FAHDatabase.Table;
 
+import com.example.fah.FAHScreen.Models.Post;
+
+import java.util.List;
+
 public class Account extends FAHFieldCommon{
     private String name,email;
     private int resourceImg;
+    private List<Post> list;
 
     public Account() {
+    }
+
+    public List<Post> getList() {
+        return list;
+    }
+
+    public void setList(List<Post> list) {
+        this.list = list;
     }
 
     public Account(String name, String email, int resourceImg) {
