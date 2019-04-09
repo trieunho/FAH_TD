@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Adapters;
+package com.example.fah.FAHExcuteData.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.fah.FAHScreen.Models.Account;
+import com.example.fah.FAHExcuteData.Models.Account;
 import com.example.fah.R;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Models;
+package com.example.fah.FAHExcuteData.Models;
 
 public class Notification {
     private String Notification;

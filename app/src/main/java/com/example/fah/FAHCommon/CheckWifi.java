@@ -2,7 +2,7 @@ package com.example.fah.FAHCommon;
 
 import android.view.View;
 import android.widget.TextView;
-import com.example.fah.FAHControl.FAHConnection.ConnectionReceiver;
+import com.example.fah.FAHCommon.FAHConnection.ConnectionReceiver;
 
 public class CheckWifi {
 

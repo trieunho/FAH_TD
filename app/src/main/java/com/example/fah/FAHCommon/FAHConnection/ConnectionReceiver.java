@@ -1,4 +1,4 @@
-package com.example.fah.FAHControl.FAHConnection;
+package com.example.fah.FAHCommon.FAHConnection;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

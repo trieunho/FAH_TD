@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Adapters;
+package com.example.fah.FAHExcuteData.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.fah.FAHScreen.Models.Category;
+import com.example.fah.FAHExcuteData.Models.Category;
 import com.example.fah.R;
 
 import java.util.ArrayList;

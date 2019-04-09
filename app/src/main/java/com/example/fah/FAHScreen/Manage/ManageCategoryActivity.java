@@ -18,9 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fah.FAHScreen.Adapters.CategoryAdapter;
+import com.example.fah.FAHExcuteData.Adapters.CategoryAdapter;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
-import com.example.fah.FAHScreen.Models.Category;
+import com.example.fah.FAHExcuteData.Models.Category;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

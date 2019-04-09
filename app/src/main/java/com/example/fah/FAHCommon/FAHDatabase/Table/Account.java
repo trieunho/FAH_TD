@@ -1,6 +1,6 @@
 package com.example.fah.FAHCommon.FAHDatabase.Table;
 
-import com.example.fah.FAHScreen.Models.Post;
+import com.example.fah.FAHExcuteData.Models.Post;
 
 import java.util.List;
 

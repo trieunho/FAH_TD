@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.Account;
-import com.example.fah.FAHScreen.Models.Post;
+import com.example.fah.FAHExcuteData.Models.Post;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
