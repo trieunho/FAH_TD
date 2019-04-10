@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.CheckWifi;
 import com.example.fah.FAHCommon.EmailValidator;
-import com.example.fah.FAHControl.FAHCombobox;
+import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHExcuteData.Models.Post;
 import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
@@ -86,23 +86,28 @@ public class CreatePostActivity extends AppCompatActivity {
             }
             case R.id.btnPost: {
                 if (canPost() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
-                    myRef.push().setValue(new Post(
-                            txtTitle.getText().toString(),
-                            txtCompanyName.getText().toString(),
-                            txtAboutCompany.getText().toString(),
-                            txtDescription.getText().toString(),
-                            txtRequired.getText().toString(),
-                            txtBenifit.getText().toString(),
-                            txtSoLuong.getText().toString(),
-                            txtAddress.getText().toString(),
-                            txtDate.getText().toString().equals("") ? null : new Date(txtDate.getText().toString()),
-                            workingTime,
-                            cbxLuong.getText().toString(),
-                            txtLuong1.getText().toString(),
-                            txtLuong2.getText().toString(),
-                            txtEmail.getText().toString(),
-                            txtPhone.getText().toString(),
-                            Integer.parseInt(cbxTypeOfArticle.getText().toString().substring(4, 5))));
+                    try {
+                        myRef.push().setValue(new Post(
+                                txtTitle.getText().toString(),
+                                txtCompanyName.getText().toString(),
+                                txtAboutCompany.getText().toString(),
+                                txtDescription.getText().toString(),
+                                txtRequired.getText().toString(),
+                                txtBenifit.getText().toString(),
+                                txtSoLuong.getText().toString(),
+                                txtAddress.getText().toString(),
+                                txtDate.getText().toString().equals("") ? null : new Date(txtDate.getText().toString()),
+                                workingTime,
+                                cbxLuong.getText().toString(),
+                                txtLuong1.getText().toString(),
+                                txtLuong2.getText().toString(),
+                                txtEmail.getText().toString(),
+                                txtPhone.getText().toString(),
+                                Integer.parseInt(cbxTypeOfArticle.getText().toString().substring(4, 5))));
+                    } catch (Exception e) {
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
             default: {

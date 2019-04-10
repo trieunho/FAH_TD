@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".FAHScreen.Main.DetailSearchActivity">
+    <include layout="@layout/check_connection_header"/>
     <LinearLayout
         android:id="@+id/divSearch"
         android:layout_width="match_parent"

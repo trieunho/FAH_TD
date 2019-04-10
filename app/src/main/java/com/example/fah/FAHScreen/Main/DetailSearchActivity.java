@@ -17,7 +17,6 @@ public class DetailSearchActivity extends AppCompatActivity {
     LinearLayout divSearch;
     ListView lstSearch;
     Button btnSearch;
-    boolean isFirst = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
