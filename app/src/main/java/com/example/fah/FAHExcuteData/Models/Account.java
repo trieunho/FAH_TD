@@ -6,6 +6,9 @@ public class Account {
     private int sex;
     private int statusBlock;
 
+    public Account() {
+    }
+
     public Account(String accountName, String email, int sex, int statusBlock) {
         this.accountName = accountName;
         this.email = email;
