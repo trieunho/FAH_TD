@@ -51,9 +51,9 @@ public class AccountByAdminAdapter extends ArrayAdapter<Account> {
         ImageView ivAvatar = convertView.findViewById(R.id.ivAvatar);
         TextView tvAccountName = convertView.findViewById(R.id.tvAccountName);
         TextView tvEmail = convertView.findViewById(R.id.tvEmail);
-        Button btnBlock = convertView.findViewById(R.id.btnBlock);
+        final Button btnBlock = convertView.findViewById(R.id.btnBlock);
 
-        Account account = this.accountList.get(position);
+        final Account account = this.accountList.get(position);
         String stt = String.valueOf(position + 1);
 
         tvStt.setText(stt);
@@ -78,6 +78,25 @@ public class AccountByAdminAdapter extends ArrayAdapter<Account> {
             btnBlock.setBackgroundColor(context.getResources().getColor(R.color.colorCrimson));
             btnBlock.setText("Unlock");
         }
+
+//        btnBlock.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//
+//                if (account.getStatusBlock() != 0) {
+//                    btnBlock.setBackgroundColor(context.getResources().getColor(R.color.colorRoyalBlue));
+//                    btnBlock.setText("Block");
+//                    account.setstatusBlock(1);
+//                } else {
+//                    btnBlock.setBackgroundColor(context.getResources().getColor(R.color.colorCrimson));
+//                    btnBlock.setText("Unlock");
+//                    account.setstatusBlock(0);
+//                }
+//            }
+//
+//        });
 
         return convertView;
     }
