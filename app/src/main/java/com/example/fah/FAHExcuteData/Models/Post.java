@@ -1,10 +1,13 @@
 package com.example.fah.FAHExcuteData.Models;
 
+import com.example.fah.FAHCommon.FAHDatabase.Table.FAHFieldCommon;
+
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Post {
+public class Post extends FAHFieldCommon {
     private String titlePost;
-    private String account;
+    private String accountStr;
     private String companyName;
     private String address;
     private String luong;
@@ -20,13 +23,21 @@ public class Post {
     private String typeOfSalary;
     private String salary_from;
     private String salary_to;
+    private Date approveDate;
+    private Date dueDate;
     private int typeOfArticle;
+
+    private ArrayList<Account> listOfAccApply;
+    private Account account;
+    private TypeOfPost typeOfPost;
+    private TimeOfWork timeOfWork;
+    private Category category;
 
     public Post(){}
 
-    public Post(String titlePost, String account, String companyName) {
+    public Post(String titlePost, String accountStr, String companyName) {
         this.titlePost = titlePost;
-        this.account = account;
+        this.accountStr = accountStr;
         this.companyName = companyName;
     }
 
@@ -81,12 +92,12 @@ public class Post {
         this.email = email;
     }
 
-    public String getAccount() {
-        return account;
+    public String getAccountStr() {
+        return accountStr;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setAccountStr(String accountStr) {
+        this.accountStr = accountStr;
     }
 
     public String getCompanyName() {

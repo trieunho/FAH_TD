@@ -57,7 +57,6 @@ public class AccountByAdminAdapter extends ArrayAdapter<Account> {
         String stt = String.valueOf(position + 1);
 
         tvStt.setText(stt);
-        ivAvatar.setImageResource(account.getSex() == 1 ? R.drawable.men : R.drawable.women );
         tvAccountName.setText(account.getAccountName());
         tvEmail.setText(account.getEmail());
 

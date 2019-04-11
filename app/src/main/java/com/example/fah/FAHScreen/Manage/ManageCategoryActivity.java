@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHExcuteData.Adapters.CategoryAdapter;
-import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.FAHExcuteData.Models.Category;
+import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +36,6 @@ public class ManageCategoryActivity extends AppCompatActivity {
 
     DatabaseReference myRef;
     FirebaseDatabase database;
-    ArrayAdapter<String> adapter;
     ArrayList<Category> categoryList;
     CategoryAdapter categoryAdapter;
     ListView listV;
@@ -58,14 +56,11 @@ public class ManageCategoryActivity extends AppCompatActivity {
 
     private void addControl() {
         database = FirebaseDatabase.getInstance();
+
         myRef = database.getReference("CATEGORY_OF_POST");
-        toolbar = findViewById(R.id.toolbarCategory);
+        toolbar = findViewById(R.id.toolbar);
         listV = findViewById(R.id.categoryList);
         btnAdd = findViewById(R.id.btnAdd);
-
-//        toolbar.setNavigationIcon(R.drawable.ic_chevron_left_black_24dp);
-
-//        myRef.chi
 
         toolbar.setNavigationIcon(ic_chevron_left_black_24dp);
         toolbar.setTitle("JOB MANAGEMENT");
@@ -77,7 +72,6 @@ public class ManageCategoryActivity extends AppCompatActivity {
 
         // Call private method to set data for List View Category
         getListCategory();
-//        setCategoryAdapter(categoryList);
 
         editText = (EditText) findViewById(R.id.txtInput);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +126,6 @@ public class ManageCategoryActivity extends AppCompatActivity {
 
             }
         }
-
     }
 
     public void showInputBox(final Category category, final int index) {
