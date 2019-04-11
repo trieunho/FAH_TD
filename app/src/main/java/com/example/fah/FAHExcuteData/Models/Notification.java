@@ -1,37 +1,40 @@
 package com.example.fah.FAHExcuteData.Models;
 
 public class Notification {
-    private String Notification;
-    private String Time;
-    private int Image;
+    private String notificationID;
+    private String notification;
+    private String time;
+    private int image;
+
+    private Account account;
 
     public Notification(String notification, String time, int image) {
-        Notification = notification;
-        Time = time;
-        Image = image;
+        this.notification = notification;
+        this.time = time;
+        this.image = image;
     }
 
     public String getNotification() {
-        return Notification;
+        return notification;
     }
 
     public void setNotification(String notification) {
-        Notification = notification;
+        this.notification = notification;
     }
 
     public String getTime() {
-        return Time;
+        return time;
     }
 
     public void setTime(String time) {
-        Time = time;
+        this.time = time;
     }
 
     public int getImage() {
-        return Image;
+        return image;
     }
 
     public void setImage(int image) {
-        Image = image;
+        this.image = image;
     }
 }

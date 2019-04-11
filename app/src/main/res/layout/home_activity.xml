@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="DANH SÁCH MÀ HÌNH"
+        android:text="DANH SÁCH MÀN HÌNH"
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="20dp"

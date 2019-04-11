@@ -53,7 +53,7 @@ public class ListPostAdapter extends BaseAdapter {
 
         Post post = this.listData.get(position);
         holder.titlePost.setText(post.getTitlePost());
-        holder.account.setText("Người đăng: " + post.getAccount());
+        holder.account.setText("Người đăng: " + post.getAccountStr());
         holder.companyName.setText("Công ty: " + post.getCompanyName());
 
         return convertView;

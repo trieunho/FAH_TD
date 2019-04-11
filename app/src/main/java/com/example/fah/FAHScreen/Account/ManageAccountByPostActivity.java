@@ -53,22 +53,6 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
         spnListOfPost.setAdapter(listOfPostAdapter);
 
         ArrayList<Account> accountList = new ArrayList<Account>();
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, 1));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, 1));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, 1));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, 1));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, 1));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, 1));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, 1));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, 1));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, 0));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, 0));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, 0));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, 0));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, 0));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, 0));
-        accountList.add(new Account("Cao Thị Hồng","caohong96@gmail.com",0, 0));
-        accountList.add(new Account("Trần Duy Ngân","tranduyngan0000@gmail.com", 1, 0));
 
         if( accountList != null && accountList.size() > 0) {
             tvResultOfSearch.setText("Tìm thấy " + accountList.size() + " kết quả");
