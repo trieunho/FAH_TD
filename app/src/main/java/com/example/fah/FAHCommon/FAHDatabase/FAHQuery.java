@@ -13,8 +13,8 @@ import java.util.List;
 public class FAHQuery {
     private static FirebaseDatabase reference = FirebaseDatabase.getInstance();
 
-    public static DatabaseReference GetData(String nameDB){
-        return reference.getReference(nameDB);
+    public static DatabaseReference GetData(String url){
+        return reference.getReference(url);
     }
 
     public static Query GetDataQuery(FAHQueryParam query){
@@ -41,8 +41,12 @@ public class FAHQuery {
         return listData;
     }
 
+    public static void InsertData(Object data, String url){
+        reference.getReference(url).push().setValue(data);
+    }
+
     public static void InsertData(Object data){
-        reference.getReference(GetNameDB(data)).push().setValue(data);
+        InsertData(data, GetNameDB(data));
     }
 
     public static void InsertData(List<?> data){
@@ -51,10 +55,12 @@ public class FAHQuery {
         }
     }
 
-    public static void UpdateData(Object data){
-        String url = GetReferenceDB(data);
-        // CallMethodVoid(data, "setKey", new Class[]{String.class}, new Object[]{null});
+    public static void UpdateData(Object data, String url){
         reference.getReference(url).setValue(data);
+    }
+
+    public static void UpdateData(Object data){
+        UpdateData(data, GetReferenceDB(data));
     }
 
     public static void UpdateData(List<?> data){
@@ -63,8 +69,12 @@ public class FAHQuery {
         }
     }
 
+    public static void DeleteData(String url){
+        reference.getReference(url).removeValue();
+    }
+
     public static void DeleteData(Object data){
-        reference.getReference(GetReferenceDB(data)).removeValue();
+        DeleteData(GetReferenceDB(data));
     }
 
     public static void DeleteData(List<?> data){

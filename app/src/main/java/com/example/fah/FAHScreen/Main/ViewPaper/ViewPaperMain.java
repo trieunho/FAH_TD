@@ -4,7 +4,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 
-import com.example.fah.FAHCommon.FAHControl.FAHViewPaper.FAHViewPagerAdapter;
+import com.example.fah.FAHCommon.FAHControl.FAHViewPagerAdapter;
 import com.example.fah.FAHScreen.Main.Tab.NotificationFragment;
 import com.example.fah.FAHScreen.Main.Tab.SearchFragment;
 import com.example.fah.FAHScreen.Main.Tab.HotPostFragment;

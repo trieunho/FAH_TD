@@ -1,4 +1,4 @@
-package com.example.fah.FAHScreen.Account;
+package com.example.fah.TestControl;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -52,16 +52,13 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
             public void onClick(View v) {
                 TestDB data = new TestDB("123","123","123","123","123",new Date());
                 FAHQuery.InsertData(data);
-//                boolean test = "123456".toLowerCase().contains("34".toLowerCase());
-//                FAHMessage.ToastMessage(Sample_Add_Edit_Delete_Account.this, "123");
             }
         });
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-//                accountList = (ArrayList<TestDB>) FAHQuery.GetDataObject(dataSnapshot, new TestDB());
-                List<Post> postList = (ArrayList<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
+                accountList = (ArrayList<TestDB>) FAHQuery.GetDataObject(dataSnapshot, new TestDB());
             }
 
             @Override

@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
 import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
-import com.example.fah.FAHScreen.Account.Sample_Add_Edit_Delete_Account;
+import com.example.fah.TestControl.Sample_Add_Edit_Delete_Account;
 import com.example.fah.FAHScreen.Account.SearchAccountActivity;
 import com.example.fah.FAHExcuteData.Adapters.TestLayoutAdapter;
 import com.example.fah.FAHScreen.Main.DetailSearchActivity;
