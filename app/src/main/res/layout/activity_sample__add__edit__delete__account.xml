@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.example.fah.FAHScreen.Account.Sample_Add_Edit_Delete_Account">
+    tools:context="com.example.fah.TestControl.Sample_Add_Edit_Delete_Account">
 
     <ListView
         android:id="@+id/lvAccountSample"

@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".FAHScreen.Account.Sample_Add_Edit_Delete_Account"></activity>
+        <activity android:name=".TestControl.Sample_Add_Edit_Delete_Account"></activity>
         <activity android:name=".TestControl.TestActivity" />
         <activity android:name=".Main.HomeActivity">
             <intent-filter>
