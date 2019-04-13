@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
-import com.example.fah.FAHCommon.FAHDatabase.Table.Account;
+import com.example.fah.FAHCommon.FAHDatabase.Table.TestDB;
 import com.example.fah.FAHExcuteData.Models.Post;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -18,12 +18,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
     Button btnThem;
     ListView lvAccount;
-    ArrayList<Account> accountList = new ArrayList<>();
+    ArrayList<TestDB> accountList = new ArrayList<>();
     DatabaseReference myRef;
     Query query;
 
@@ -39,7 +40,7 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
         btnThem=findViewById(R.id.btnaddSample);
         lvAccount=findViewById(R.id.lvAccountSample);
 
-        query = FAHQuery.GetData("Account").orderByChild("email").equalTo("123456789");
+        myRef = FAHQuery.GetData("Post");
 //        query = myRef.orderByChild("name").startAt("\uf8ff3\uf8ff");
 ////        FAHQueryParam queryParam = new FAHQueryParam("Account", "email", FAHQueryParam.EQUAL, "123456789", FAHQueryParam.TypeString);
 ////        query = FAHQuery.GetDataQuery(queryParam);
@@ -49,21 +50,18 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Account data = accountList.get(0);
-                List<Post> item = new ArrayList<>();
-                item.add(new Post("123","124","456"));
-                item.add(new Post("1233","1243","4563"));
-                data.setList(item);
-                FAHQuery.UpdateData(data);
+                TestDB data = new TestDB("123","123","123","123","123",new Date());
+                FAHQuery.InsertData(data);
 //                boolean test = "123456".toLowerCase().contains("34".toLowerCase());
 //                FAHMessage.ToastMessage(Sample_Add_Edit_Delete_Account.this, "123");
             }
         });
 
-        query.addValueEventListener(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                accountList = (ArrayList<Account>) FAHQuery.GetDataObject(dataSnapshot, new Account());
+//                accountList = (ArrayList<TestDB>) FAHQuery.GetDataObject(dataSnapshot, new TestDB());
+                List<Post> postList = (ArrayList<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
             }
 
             @Override
