@@ -37,7 +37,6 @@ public class CreatePostActivity extends AppCompatActivity {
     EditText txtRequired;
     EditText txtAddress;
     EditText txtCompanyName;
-    EditText txtAboutCompany;
     EditText txtBenifit;
     EditText txtSoLuong;
     EditText txtEmail;
@@ -49,13 +48,15 @@ public class CreatePostActivity extends AppCompatActivity {
     EditText txvLoai;
     String workingTime = "";
     EditText cbxTypeOfArticle;
+    EditText cbxField;
 
     CheckBox ckb1;
     CheckBox ckb2;
     CheckBox ckb3;
 
-    FAHCombobox cbx1 = new FAHCombobox();;
-    FAHCombobox cbx2 = new FAHCombobox();;
+    FAHCombobox cbx1 = new FAHCombobox();
+    FAHCombobox cbx2 = new FAHCombobox();
+    FAHCombobox cbx3 = new FAHCombobox();
 
     DatePickerDialog datePickerDialog;
     DatabaseReference myRef;
@@ -90,7 +91,7 @@ public class CreatePostActivity extends AppCompatActivity {
                         myRef.push().setValue(new Post(
                                 txtTitle.getText().toString(),
                                 txtCompanyName.getText().toString(),
-                                txtAboutCompany.getText().toString(),
+                                cbxField.getText().toString(),
                                 txtDescription.getText().toString(),
                                 txtRequired.getText().toString(),
                                 txtBenifit.getText().toString(),
@@ -136,7 +137,7 @@ public class CreatePostActivity extends AppCompatActivity {
         // toolbar
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_backspace_black);
-        toolbar.setTitle("Create Post");
+        toolbar.setTitle("Tạo bài viết");
         setSupportActionBar(toolbar);
 
         // add controls
@@ -146,7 +147,6 @@ public class CreatePostActivity extends AppCompatActivity {
         txtRequired = findViewById(R.id.txtRequired);
         txtAddress = findViewById(R.id.txtAddress);
         txtCompanyName = findViewById(R.id.txtCompanyName);
-        txtAboutCompany = findViewById(R.id.txtAboutCompany);
         txtBenifit = findViewById(R.id.txtBenifit);
         txtSoLuong = findViewById(R.id.txtSoLuong);
         txtEmail = findViewById(R.id.txtEmail);
@@ -157,6 +157,7 @@ public class CreatePostActivity extends AppCompatActivity {
         lbl = findViewById(R.id.lbl);
         txvLoai = findViewById(R.id.txvLoai);
         cbxTypeOfArticle = findViewById(R.id.cbxTypeOfArticle);
+        cbxField = findViewById(R.id.cbxField);
 
         // workingTime
         ckb1 = findViewById(R.id.ckbTime1);
@@ -183,9 +184,9 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String[] arrLuong = {
-                        "Fixed",
-                        "From-To",
-                        "Deal"
+                        "Cố định",
+                        "Trong khoảng",
+                        "Thỏa thuận"
                 };
                 cbx1.ShowItemChoose(CreatePostActivity.this, cbxLuong, arrLuong);
             }
@@ -195,11 +196,10 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    cbx1 = new FAHCombobox();
                     String[] arrLuong = {
-                            "Fixed",
-                            "From-To",
-                            "Deal"
+                            "Cố định",
+                            "Trong khoảng",
+                            "Thỏa thuận"
                     };
                     cbx1.ShowItemChoose(CreatePostActivity.this, cbxLuong, arrLuong);
                 }
@@ -218,19 +218,19 @@ public class CreatePostActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                switch (s.toString()) {
-                    case "Fixed":
+                switch (cbx1.GetItemChoose()) {
+                    case 0:
                         txtLuong1.setVisibility(View.VISIBLE);
                         txtLuong2.setVisibility(View.GONE);
                         txtLuong2.setText("");
                         lbl.setVisibility(View.GONE);
                         break;
-                    case "From-To":
+                    case 1:
                         txtLuong1.setVisibility(View.VISIBLE);
                         txtLuong2.setVisibility(View.VISIBLE);
                         lbl.setVisibility(View.VISIBLE);
                         break;
-                    case "Deal":
+                    case 2:
                         txtLuong1.setVisibility(View.GONE);
                         txtLuong2.setVisibility(View.GONE);
                         txtLuong1.setText("");
@@ -246,9 +246,9 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String[] arrLuong = {
-                        "Type1",
-                        "Type2",
-                        "Type3"
+                        "Loại 1",
+                        "Loại 2",
+                        "Loại 3"
                 };
                 cbx2.ShowItemChoose(CreatePostActivity.this, cbxTypeOfArticle, arrLuong);
             }
@@ -258,11 +258,10 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    cbx2 = new FAHCombobox();
                     String[] arrLuong = {
-                            "Type1",
-                            "Type2",
-                            "Type3"
+                            "Loại 1",
+                            "Loại 2",
+                            "Loại 3"
                     };
                     cbx2.ShowItemChoose(CreatePostActivity.this, cbxTypeOfArticle, arrLuong);
                 }
@@ -281,16 +280,43 @@ public class CreatePostActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                switch (s.toString()) {
-                    case "Type1":
+                switch (cbx2.GetItemChoose()) {
+                    case 0:
                         txvLoai.setText("Tiền không là tiền");
                         break;
-                    case "Type2":
+                    case 1:
                         txvLoai.setText("Tiền vừa đẹp");
                         break;
-                    case "Type3":
+                    case 2:
                         txvLoai.setText("Tiền bố thí");
                         break;
+                }
+            }
+        });
+
+        // Field
+        cbxField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] arrLuong = {
+                        "Công nghệ thông tin",
+                        "Bất động sản",
+                        "Lĩnh vực giải trí"
+                };
+                cbx3.ShowItemChoose(CreatePostActivity.this, cbxField, arrLuong);
+            }
+        });
+
+        cbxField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    String[] arrLuong = {
+                            "Công nghệ thông tin",
+                            "Bất động sản",
+                            "Lĩnh vực giải trí"
+                    };
+                    cbx3.ShowItemChoose(CreatePostActivity.this, cbxField, arrLuong);
                 }
             }
         });
