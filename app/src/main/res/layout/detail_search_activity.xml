@@ -6,60 +6,6 @@
     android:orientation="vertical"
     tools:context=".FAHScreen.Main.DetailSearchActivity">
     <include layout="@layout/check_connection_header"/>
-    <LinearLayout
-        android:id="@+id/divSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <EditText
-            android:id="@+id/cbxJob"
-            android:editable="false"
-            android:gravity="center"
-            android:hint="Chọn ngành nghề"
-            android:drawableLeft="@drawable/ic_work_black"
-            android:drawableRight="@drawable/ic_arrow_down"
-            android:background="@drawable/fah_control_combobox"
-            android:layout_margin="@dimen/margin_control"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/wrap_content_control" />
-
-        <EditText
-            android:id="@+id/cbxCity"
-            android:editable="false"
-            android:gravity="center"
-            android:hint="Chọn tỉnh thành"
-            android:drawableLeft="@drawable/ic_work_black"
-            android:drawableRight="@drawable/ic_arrow_down"
-            android:background="@drawable/fah_control_combobox"
-            android:layout_margin="@dimen/margin_control"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/wrap_content_control" />
-
-        <EditText
-            android:id="@+id/cbxLuong"
-            android:editable="false"
-            android:gravity="center"
-            android:hint="Chọn mức lương"
-            android:drawableLeft="@drawable/ic_timer_black"
-            android:drawableRight="@drawable/ic_arrow_down"
-            android:background="@drawable/fah_control_combobox"
-            android:layout_margin="@dimen/margin_control"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/wrap_content_control" />
-
-        <EditText
-            android:id="@+id/cbxTrinhDo"
-            android:editable="false"
-            android:gravity="center"
-            android:hint="Chọn khung giờ làm việc"
-            android:drawableLeft="@drawable/ic_timer_black"
-            android:drawableRight="@drawable/ic_arrow_down"
-            android:background="@drawable/fah_control_combobox"
-            android:layout_margin="@dimen/margin_control"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/wrap_content_control" />
-    </LinearLayout>
-
     <Button
         android:id="@+id/btnSearch"
         android:text="Tìm kiếm"

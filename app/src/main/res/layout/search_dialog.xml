@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/divSearch"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/cbxJob"
+        android:editable="false"
+        android:gravity="center"
+        android:hint="Chọn lĩnh vực hoạt động"
+        android:drawableLeft="@drawable/ic_work_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+    <EditText
+        android:id="@+id/cbxCity"
+        android:editable="false"
+        android:gravity="center"
+        android:hint="Chọn khu vực"
+        android:drawableLeft="@drawable/ic_work_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+
+    <EditText
+        android:id="@+id/cbxLuong"
+        android:editable="false"
+        android:gravity="center"
+        android:hint="Chọn mức lương"
+        android:drawableLeft="@drawable/ic_timer_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+
+    <EditText
+        android:id="@+id/cbxTrinhDo"
+        android:editable="false"
+        android:gravity="center"
+        android:hint="Chọn khung giờ làm việc"
+        android:drawableLeft="@drawable/ic_timer_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_margin="@dimen/margin_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wrap_content_control" />
+</LinearLayout>
