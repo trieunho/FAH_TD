@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.fah.FAHExcuteData.Adapters.NotificationAdapter;
-import com.example.fah.FAHExcuteData.Models.Notification;
+import com.example.fah.FAHModel.Adapters.NotificationAdapter;
+import com.example.fah.FAHModel.Models.Notification;
 import com.example.fah.R;
 
 import java.util.ArrayList;

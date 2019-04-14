@@ -1,4 +1,4 @@
-package com.example.fah.FAHExcuteData.Adapters;
+package com.example.fah.FAHModel.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,18 +10,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.fah.FAHExcuteData.Models.Account;
+import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
 
 import java.util.ArrayList;
 
-public class AccountBySearchAdapter extends ArrayAdapter<Account> {
+public class AccountByPostAdapter extends ArrayAdapter<Account> {
 
     Context context;
     int layout;
     ArrayList<Account> accountList;
 
-    public AccountBySearchAdapter(Context context, int layout, ArrayList<Account> accountList) {
+    public AccountByPostAdapter(Context context, int layout, ArrayList<Account> accountList) {
         super(context, layout, accountList);
         this.context = context;
         this.layout = layout;

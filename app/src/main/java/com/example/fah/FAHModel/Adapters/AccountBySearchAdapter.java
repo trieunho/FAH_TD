@@ -1,4 +1,4 @@
-package com.example.fah.FAHExcuteData.Adapters;
+package com.example.fah.FAHModel.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,23 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.fah.FAHExcuteData.Models.Account;
+import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
 
 import java.util.ArrayList;
 
-public class AccountByAdminAdapter extends ArrayAdapter<Account> {
+public class AccountBySearchAdapter extends ArrayAdapter<Account> {
 
     Context context;
     int layout;
     ArrayList<Account> accountList;
 
-    public AccountByAdminAdapter(Context context, int layout, ArrayList<Account> accountList) {
+    public AccountBySearchAdapter(Context context, int layout, ArrayList<Account> accountList) {
         super(context, layout, accountList);
         this.context = context;
         this.layout = layout;
@@ -51,9 +50,8 @@ public class AccountByAdminAdapter extends ArrayAdapter<Account> {
         ImageView ivAvatar = convertView.findViewById(R.id.ivAvatar);
         TextView tvAccountName = convertView.findViewById(R.id.tvAccountName);
         TextView tvEmail = convertView.findViewById(R.id.tvEmail);
-        final Button btnBlock = convertView.findViewById(R.id.btnBlock);
 
-        final Account account = this.accountList.get(position);
+        Account account = this.accountList.get(position);
         String stt = String.valueOf(position + 1);
 
         tvStt.setText(stt);
@@ -65,17 +63,6 @@ public class AccountByAdminAdapter extends ArrayAdapter<Account> {
             linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorSolidWhiteSmoke));
         } else {
             linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorSolidLavender));
-        }
-
-        // Set background and text for button Block or Unlock follow Status Block
-        // 0 : being unlock ==> set text is Block
-        // != 0: being block ==> set text is Unlock
-        if (account.getStatusBlock() == 0) {
-            btnBlock.setBackgroundColor(context.getResources().getColor(R.color.colorRoyalBlue));
-            btnBlock.setText("Block");
-        } else {
-            btnBlock.setBackgroundColor(context.getResources().getColor(R.color.colorCrimson));
-            btnBlock.setText("Unlock");
         }
 
         return convertView;

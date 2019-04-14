@@ -1,14 +1,12 @@
 package com.example.fah.FAHCommon.FAHDatabase.Table;
 
-import com.example.fah.FAHExcuteData.Models.Account;
-import com.example.fah.FAHExcuteData.Models.Category;
-import com.example.fah.FAHExcuteData.Models.Post;
-import com.example.fah.FAHExcuteData.Models.TimeOfWork;
-import com.example.fah.FAHExcuteData.Models.TypeOfPost;
+import com.example.fah.FAHModel.Models.Account;
+import com.example.fah.FAHModel.Models.Category;
+import com.example.fah.FAHModel.Models.TimeOfWork;
+import com.example.fah.FAHModel.Models.TypeOfPost;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class TestDB extends FAHFieldCommon{
     private String titlePost;

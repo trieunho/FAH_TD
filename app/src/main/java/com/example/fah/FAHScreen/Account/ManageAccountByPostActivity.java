@@ -8,8 +8,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.fah.FAHExcuteData.Adapters.AccountByPostAdapter;
-import com.example.fah.FAHExcuteData.Models.Account;
+import com.example.fah.FAHModel.Adapters.AccountByPostAdapter;
+import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
 
 import java.util.ArrayList;

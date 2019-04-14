@@ -16,8 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
-import com.example.fah.FAHExcuteData.Adapters.TypeOfPostAdapter;
-import com.example.fah.FAHExcuteData.Models.TypeOfPost;
+import com.example.fah.FAHModel.Adapters.TypeOfPostAdapter;
+import com.example.fah.FAHModel.Models.TypeOfPost;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

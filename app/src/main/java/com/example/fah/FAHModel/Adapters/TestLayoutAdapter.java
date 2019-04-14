@@ -1,4 +1,4 @@
-package com.example.fah.FAHExcuteData.Adapters;
+package com.example.fah.FAHModel.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.fah.FAHExcuteData.Models.TestLayout;
+import com.example.fah.FAHModel.Models.TestLayout;
 import com.example.fah.R;
 
 import java.util.ArrayList;

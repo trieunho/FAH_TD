@@ -1,4 +1,4 @@
-package com.example.fah.FAHExcuteData.Models;
+package com.example.fah.FAHModel.Models;
 
 public class TypePost {
     private String nameTypePost;

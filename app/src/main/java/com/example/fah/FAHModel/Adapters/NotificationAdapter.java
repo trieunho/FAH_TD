@@ -1,4 +1,4 @@
-package com.example.fah.FAHExcuteData.Adapters;
+package com.example.fah.FAHModel.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.fah.FAHExcuteData.Models.Notification;
+import com.example.fah.FAHModel.Models.Notification;
 import com.example.fah.R;
 
 import java.util.List;

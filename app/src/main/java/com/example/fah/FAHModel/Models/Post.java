@@ -1,4 +1,4 @@
-package com.example.fah.FAHExcuteData.Models;
+package com.example.fah.FAHModel.Models;
 
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHFieldCommon;
 

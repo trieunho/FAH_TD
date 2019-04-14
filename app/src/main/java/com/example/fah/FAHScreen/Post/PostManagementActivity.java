@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.*;
 import java.util.ArrayList;
 import java.util.List;
-import com.example.fah.FAHExcuteData.Models.Post;
+import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.R;
 
 public class PostManagementActivity extends AppCompatActivity {
@@ -17,7 +17,7 @@ public class PostManagementActivity extends AppCompatActivity {
 
         List<Post> image_details = getListData();
         final ListView listView = findViewById(R.id.lstPost);
-        listView.setAdapter(new com.example.fah.FAHExcuteData.Adapters.ListPostAdapter(this, image_details));
+        listView.setAdapter(new com.example.fah.FAHModel.Adapters.ListPostAdapter(this, image_details));
     }
 
     private List<Post> getListData() {

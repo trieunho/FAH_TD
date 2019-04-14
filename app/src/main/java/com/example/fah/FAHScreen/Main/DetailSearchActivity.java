@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.*;
 import android.support.v7.widget.Toolbar;
 
-import com.example.fah.FAHExcuteData.Adapters.SearchAdapter;
-import com.example.fah.FAHExcuteData.Models.Post;
+import com.example.fah.FAHModel.Adapters.SearchAdapter;
+import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.R;
 import java.util.ArrayList;
 import java.util.Date;
