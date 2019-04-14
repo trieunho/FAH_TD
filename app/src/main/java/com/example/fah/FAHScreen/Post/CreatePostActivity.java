@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.fah.FAHCommon.CheckWifi;
 import com.example.fah.FAHCommon.EmailValidator;
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHExcuteData.Models.Post;
 import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
@@ -88,7 +89,7 @@ public class CreatePostActivity extends AppCompatActivity {
             case R.id.btnPost: {
                 if (canPost() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                     try {
-                        myRef.push().setValue(new Post(
+                        FAHQuery.InsertData(new Post(
                                 txtTitle.getText().toString(),
                                 txtCompanyName.getText().toString(),
                                 cbxField.getText().toString(),
