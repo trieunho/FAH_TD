@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.fah.FAHCommon.FAHControl.FAHSpinner;
 import com.example.fah.TestControl.GridView.ObjectGrid;
 import com.example.fah.TestControl.GridView.CustomGridAdapter;
-import com.example.fah.FAHCommon.FAHMessage;
+import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.R;
 
 import java.util.ArrayList;

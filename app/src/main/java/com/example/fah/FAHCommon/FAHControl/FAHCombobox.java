@@ -3,16 +3,8 @@ package com.example.fah.FAHCommon.FAHControl;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-
-import com.example.fah.FAHCommon.FAHMessage;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.concurrent.Callable;
 
 public class FAHCombobox {
     private Activity activity;
@@ -21,10 +13,6 @@ public class FAHCombobox {
     private String[] itemSouce;
 
     public static int VALUEDEFAULT = -1;
-
-    public FAHCombobox(){
-        itemChoose = VALUEDEFAULT;
-    }
 
     public FAHCombobox(Activity activity, EditText editText, String[] itemSouce, int itemChoose){
         this.activity = activity;
@@ -45,26 +33,6 @@ public class FAHCombobox {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 ShowItemChoose();
-            }
-        });
-    }
-
-    public void OnItemChange(final String callable){
-        this.editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                new Callable<Void>() {
-                    public Void call() {
-                        callable.toString();
-                        return null;
-                    }
-                };
             }
         });
     }
