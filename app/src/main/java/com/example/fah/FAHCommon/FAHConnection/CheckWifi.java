@@ -1,4 +1,4 @@
-package com.example.fah.FAHCommon;
+package com.example.fah.FAHCommon.FAHConnection;
 
 import android.view.View;
 import android.widget.TextView;
