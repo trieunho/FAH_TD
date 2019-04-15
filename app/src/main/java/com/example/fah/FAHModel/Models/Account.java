@@ -124,6 +124,12 @@ public class Account extends FAHFieldCommon {
     public Account() {
     }
 
+    public Account(String accountName, String email, int statusBlock) {
+        this.accountName = accountName;
+        this.email = email;
+        this.statusBlock = statusBlock;
+    }
+
     public String getAccountID() {
         return accountID;
     }
