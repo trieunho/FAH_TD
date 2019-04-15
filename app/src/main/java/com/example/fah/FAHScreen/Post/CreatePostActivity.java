@@ -16,9 +16,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fah.FAHCommon.CheckWifi;
-import com.example.fah.FAHCommon.EmailValidator;
+import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
+import com.example.fah.FAHCommon.FAHExcuteData.EmailValidator;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
@@ -54,9 +54,9 @@ public class CreatePostActivity extends AppCompatActivity {
     CheckBox ckb2;
     CheckBox ckb3;
 
-    FAHCombobox cbx1 = new FAHCombobox();
-    FAHCombobox cbx2 = new FAHCombobox();
-    FAHCombobox cbx3 = new FAHCombobox();
+    FAHCombobox cbx1;
+    FAHCombobox cbx2;
+    FAHCombobox cbx3;
 
     DatePickerDialog datePickerDialog;
     DatabaseReference myRef;
@@ -180,31 +180,13 @@ public class CreatePostActivity extends AppCompatActivity {
         });
 
         // Salary
-        cbxLuong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String[] arrLuong = {
-                        "Cố định",
-                        "Trong khoảng",
-                        "Thỏa thuận"
-                };
-                cbx1.ShowItemChoose(CreatePostActivity.this, cbxLuong, arrLuong);
-            }
-        });
+        String[] arrLuong = {
+                "Cố định",
+                "Trong khoảng",
+                "Thỏa thuận"
+        };
+        cbx1 = new FAHCombobox(CreatePostActivity.this, cbxLuong, arrLuong, FAHCombobox.VALUEDEFAULT);
 
-        cbxLuong.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    String[] arrLuong = {
-                            "Cố định",
-                            "Trong khoảng",
-                            "Thỏa thuận"
-                    };
-                    cbx1.ShowItemChoose(CreatePostActivity.this, cbxLuong, arrLuong);
-                }
-            }
-        });
         cbxLuong.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -218,7 +200,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                switch (cbx1.GetItemChoose()) {
+                switch (cbx1.getItemChoose()) {
                     case 0:
                         txtLuong1.setVisibility(View.VISIBLE);
                         txtLuong2.setVisibility(View.GONE);
@@ -242,31 +224,13 @@ public class CreatePostActivity extends AppCompatActivity {
         });
 
         // Type of post
-        cbxTypeOfArticle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String[] arrLuong = {
-                        "Loại 1",
-                        "Loại 2",
-                        "Loại 3"
-                };
-                cbx2.ShowItemChoose(CreatePostActivity.this, cbxTypeOfArticle, arrLuong);
-            }
-        });
+        String[] arrTypeOfArticle = {
+                "Loại 1",
+                "Loại 2",
+                "Loại 3"
+        };
+        cbx2 = new FAHCombobox(CreatePostActivity.this, cbxTypeOfArticle, arrTypeOfArticle, FAHCombobox.VALUEDEFAULT);
 
-        cbxTypeOfArticle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    String[] arrLuong = {
-                            "Loại 1",
-                            "Loại 2",
-                            "Loại 3"
-                    };
-                    cbx2.ShowItemChoose(CreatePostActivity.this, cbxTypeOfArticle, arrLuong);
-                }
-            }
-        });
         cbxTypeOfArticle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -280,7 +244,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                switch (cbx2.GetItemChoose()) {
+                switch (cbx2.getItemChoose()) {
                     case 0:
                         txvLoai.setText("Tiền không là tiền");
                         break;
@@ -295,31 +259,13 @@ public class CreatePostActivity extends AppCompatActivity {
         });
 
         // Field
-        cbxField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String[] arrLuong = {
-                        "Công nghệ thông tin",
-                        "Bất động sản",
-                        "Lĩnh vực giải trí"
-                };
-                cbx3.ShowItemChoose(CreatePostActivity.this, cbxField, arrLuong);
-            }
-        });
+        String[] arrField = {
+                "Công nghệ thông tin",
+                "Bất động sản",
+                "Lĩnh vực giải trí"
+        };
 
-        cbxField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    String[] arrLuong = {
-                            "Công nghệ thông tin",
-                            "Bất động sản",
-                            "Lĩnh vực giải trí"
-                    };
-                    cbx3.ShowItemChoose(CreatePostActivity.this, cbxField, arrLuong);
-                }
-            }
-        });
+        cbx3 = new FAHCombobox(CreatePostActivity.this, cbxField, arrField, FAHCombobox.VALUEDEFAULT);
     }
 
     private boolean canPost(){
