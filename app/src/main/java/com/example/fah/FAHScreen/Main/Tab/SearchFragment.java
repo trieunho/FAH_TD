@@ -12,6 +12,8 @@ import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHMessage;
 import com.example.fah.R;
 
+import java.util.concurrent.Callable;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,11 +28,11 @@ public class SearchFragment extends Fragment {
     protected EditText cbbTime;
     protected Button btnSearch;
 
-    private FAHCombobox fahComboboxJob = new FAHCombobox();
     private String[] listJob = {"Đứng đường", "Đứng trụ điện", "Đứng gốc cây", "Đứng canteen", "Mệt thì ngồi"};
+    private FAHCombobox fahComboboxJob;
 
-    private FAHCombobox fahComboboxTime = new FAHCombobox();
     private String[] listTime = {"Buổi sáng", "Buổi chiều", "Buổi tối", "Cả ngày", "Cả đêm", "Xuyên màn đêm"};
+    private FAHCombobox fahComboboxTime;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -66,25 +68,13 @@ public class SearchFragment extends Fragment {
     // Get and set Combobox Job
     private void ComboboxJobControl(){
         cbbJob = view.findViewById(R.id.cbbJob);
-
-        cbbJob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fahComboboxJob.ShowItemChoose(getActivity(), cbbJob, listJob);
-            }
-        });
+        fahComboboxJob = new FAHCombobox(getActivity(), cbbJob, listJob, 1);
     }
 
     // Get and set Combobox Time
     private void ComboboxTimeControl(){
         cbbTime = view.findViewById(R.id.cbbTime);
-
-        cbbTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fahComboboxTime.ShowItemChoose(getActivity(), cbbTime, listTime);
-            }
-        });
+        fahComboboxTime = new FAHCombobox(getActivity(), cbbTime, listTime, FAHCombobox.VALUEDEFAULT);
     }
 
     private void ButtonSearchControl(){
@@ -93,12 +83,12 @@ public class SearchFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fahComboboxJob.GetItemChoose() == -1){
+                if(fahComboboxJob.getItemChoose() == -1){
                     FAHMessage.ToastMessage(getActivity(), "Chọn nghề giúp với");
                     return;
                 }
 
-                if(fahComboboxTime.GetItemChoose() == -1){
+                if(fahComboboxTime.getItemChoose() == -1){
                     FAHMessage.ToastMessage(getActivity(), "Chọn thời gian giúp với");
                     return;
                 }
