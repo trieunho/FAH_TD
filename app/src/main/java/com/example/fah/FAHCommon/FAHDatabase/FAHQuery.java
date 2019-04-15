@@ -1,6 +1,7 @@
 package com.example.fah.FAHCommon.FAHDatabase;
 
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
+import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,11 +19,17 @@ public class FAHQuery {
     }
 
     public static Query GetDataQuery(FAHQueryParam query){
-        Query result = reference.getReference(query.getTable()).orderByChild(query.getField());
+        Query result = GetData(query.getTable()).orderByChild(query.getField());
 
         switch (query.getTypeQuery()){
             case FAHQueryParam.EQUAL:
-                result = Equal(result, query.getParam(), query.getTypeParam());
+                result = equalTo(result, query);
+            case FAHQueryParam.START:
+                result = startAt(result, query);
+            case FAHQueryParam.END:
+                result = endAt(result, query);
+            case FAHQueryParam.BETWEEN:
+                result = between(result, query);
         }
 
         return result;
@@ -86,7 +93,7 @@ public class FAHQuery {
     private static String GetReferenceDB(Object data){
         String key = (String) CallMethodObject(data, "getKey", new Class[]{}, new Object[]{});
 
-        return GetNameDB(data).concat("/").concat(key);
+        return ExcuteString.GetUrlData(GetNameDB(data), key);
     }
 
     private static Object CallMethodObject(Object data, String methoud, Class[] typeClass, Object[] param){
@@ -121,18 +128,75 @@ public class FAHQuery {
         return data.getClass().getSimpleName();
     }
 
-    private static Query Equal(Query data, Object value, String type){
-        switch (type){
+    private static Query equalTo(Query data, FAHQueryParam query){
+        switch (query.getTypeParam()){
             case FAHQueryParam.TypeString: {
-                data = data.equalTo((String) value);
+                data = data.equalTo((String) query.getParam());
                 break;
             }
             case FAHQueryParam.TypeDouble: {
-                data = data.equalTo((Double) value);
+                data = data.equalTo((Double) query.getParam());
                 break;
             }
             case FAHQueryParam.TypeBoolean: {
-                data = data.equalTo((Boolean) value);
+                data = data.equalTo((Boolean) query.getParam());
+                break;
+            }
+        }
+
+        return data;
+    }
+
+    private static Query startAt(Query data, FAHQueryParam query){
+        switch (query.getTypeParam()){
+            case FAHQueryParam.TypeString: {
+                data = data.startAt((String) query.getParam());
+                break;
+            }
+            case FAHQueryParam.TypeDouble: {
+                data = data.startAt((Double) query.getParam());
+                break;
+            }
+            case FAHQueryParam.TypeBoolean: {
+                data = data.startAt((Boolean) query.getParam());
+                break;
+            }
+        }
+
+        return data;
+    }
+
+    private static Query endAt(Query data, FAHQueryParam query){
+        switch (query.getTypeParam()){
+            case FAHQueryParam.TypeString: {
+                data = data.endAt((String) query.getParam());
+                break;
+            }
+            case FAHQueryParam.TypeDouble: {
+                data = data.endAt((Double) query.getParam());
+                break;
+            }
+            case FAHQueryParam.TypeBoolean: {
+                data = data.endAt((Boolean) query.getParam());
+                break;
+            }
+        }
+
+        return data;
+    }
+
+    private static Query between(Query data, FAHQueryParam query){
+        switch (query.getTypeParam()){
+            case FAHQueryParam.TypeString: {
+                data = data.startAt((String) query.getParam()).endAt((String) query.getParam2());
+                break;
+            }
+            case FAHQueryParam.TypeDouble: {
+                data = data.startAt((Double) query.getParam()).endAt((String) query.getParam2());
+                break;
+            }
+            case FAHQueryParam.TypeBoolean: {
+                data = data.startAt((Boolean) query.getParam()).endAt((String) query.getParam2());
                 break;
             }
         }

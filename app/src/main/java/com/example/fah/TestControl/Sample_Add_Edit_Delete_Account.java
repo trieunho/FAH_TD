@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.TestDB;
+import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,8 +39,9 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
         btnThem=findViewById(R.id.btnaddSample);
         lvAccount=findViewById(R.id.lvAccountSample);
 
-        myRef = FAHQuery.GetData("Post");
-//        query = myRef.orderByChild("name").startAt("\uf8ff3\uf8ff");
+        String url = ExcuteString.GetUrlData("TestDB","-LcM21Sgm3mD2DnD8cIX");
+        myRef = FAHQuery.GetData("Account");
+        query = myRef.orderByValue().orderByChild("account");
 ////        FAHQueryParam queryParam = new FAHQueryParam("Account", "email", FAHQueryParam.EQUAL, "123456789", FAHQueryParam.TypeString);
 ////        query = FAHQuery.GetDataQuery(queryParam);
     }
@@ -53,7 +55,7 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
             }
         });
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 accountList = (ArrayList<TestDB>) FAHQuery.GetDataObject(dataSnapshot, new TestDB());
