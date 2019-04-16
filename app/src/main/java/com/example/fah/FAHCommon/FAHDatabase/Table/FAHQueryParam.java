@@ -1,10 +1,10 @@
 package com.example.fah.FAHCommon.FAHDatabase.Table;
 
 public class FAHQueryParam {
-    public static final String EQUAL = "=";
+    public static final String EQUAL = "==";
     public static final String START = ">=";
     public static final String END = "<=";
-    public static final String BETWEEN = "X < value < Y";
+    public static final String BETWEEN = "<<";
     public static final String ALIKE = "A%";
     public static final String LIKEA = "%A";
     public static final String TypeString = "String";

@@ -192,11 +192,11 @@ public class FAHQuery {
                 break;
             }
             case FAHQueryParam.TypeDouble: {
-                data = data.startAt((Double) query.getParam()).endAt((String) query.getParam2());
+                data = data.startAt((Double) query.getParam()).endAt((Double) query.getParam2());
                 break;
             }
             case FAHQueryParam.TypeBoolean: {
-                data = data.startAt((Boolean) query.getParam()).endAt((String) query.getParam2());
+                data = data.startAt((Boolean) query.getParam()).endAt((Boolean) query.getParam2());
                 break;
             }
         }
