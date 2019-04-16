@@ -88,7 +88,7 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
                 keySearch = editTextSearch.getText().toString();
                 if (keySearch.isEmpty()) {
                     // Show notification invaid
-                    Toast.makeText(ManageAccountByAdminActivity.this, "Bạn cần tài khoản muốn tìm !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManageAccountByAdminActivity.this, "Bạn cần nhập tài khoản muốn tìm !", Toast.LENGTH_SHORT).show();
                 } else {
                     search();
                 }

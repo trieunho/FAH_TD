@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <Button
+            android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="Tìm kiếm"
@@ -50,7 +51,7 @@
         android:id="@+id/tvResultOfSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tìm thấy 10 kết quả"/>
+        android:text=""/>
 
     <ListView
         android:id="@+id/lvAccount"
