@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.fah.FAHData.AccountData;
+import com.example.fah.FAHModel.Models.IEvenItem;
 import com.example.fah.FAHScreen.Main.GridView.Menu.GridListMenuMainAdapter;
 import com.example.fah.FAHScreen.Main.GridView.Menu.Menu;
-import com.example.fah.FAHScreen.User.ProfileActivity;
+import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.R;
-import com.example.fah.TestControl.TestActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class MenuFragment extends Fragment {
 
     private void GridViewControl(){
         List<Menu> listPost = getListData();
-        GridView gvMenu = view.findViewById(R.id.gvMenu);
+        final GridView gvMenu = view.findViewById(R.id.gvMenu);
         gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), listPost));
 
         // Khi người dùng click vào các GridItem
@@ -62,15 +63,29 @@ public class MenuFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-//                Menu objectGrid = (Menu) gvMenu.getItemAtPosition(position);
-                startActivity(new Intent(getContext(), TestActivity.class));
+                Menu objectGrid = (Menu) gvMenu.getItemAtPosition(position);
+                Toast.makeText(getContext(), "Name= "+objectGrid.getName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Event= "+ objectGrid.getEventClickItem().callEvent(), Toast.LENGTH_SHORT).show();
+                if( objectGrid.getEventClickItem() == null){
+                    Toast.makeText(getContext(), "Event not found!", Toast.LENGTH_SHORT).show();
+                }{
+                    objectGrid.getEventClickItem().callEvent();
+                }
+                //   startActivity(new Intent(getContext(), TestActivity.class));
             }
         });
     }
 
     private  List<Menu> getListData() {
         List<Menu> list = new ArrayList<>();
-        list.add(new Menu("Lê Anh Tuấn", "ic_launcher_avatar"));
+        if(AccountData.firebaseUser!=null){
+            list.add(new Menu(AccountData.firebaseUser.getEmail(), "ic_launcher_default_avata", new IEvenItem() {
+                @Override
+                public void callEvent() {
+                    Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
+                }
+            }));
+        }
         list.add(new Menu("Tìm kiếm công việc", "ic_launcher_search_job"));
         list.add(new Menu("Công việc của tôi", "ic_launcher_job"));
 
@@ -83,8 +98,26 @@ public class MenuFragment extends Fragment {
         list.add(new Menu("Quản lý người dùng", "ic_launcher_manage_account"));
         list.add(new Menu("Danh mục công việc", "ic_launcher_option"));
 
-        list.add(new Menu("Đăng xuất", "ic_launcher_logout"));
-        list.add(new Menu("Đăng nhập", "ic_launcher_login"));
+        list.add(new Menu("Đăng xuất", "ic_launcher_logout", new IEvenItem() {
+            @Override
+            public void callEvent() {
+                if( AccountData.firebaseAuth!=null){
+                    AccountData.firebaseAuth.signOut();
+                }else{
+                    Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }));
+        list.add(new Menu("Đăng nhập", "ic_launcher_login", new IEvenItem() {
+            @Override
+            public void callEvent() {
+                if(AccountData.firebaseUser!=null){
+                    Toast.makeText(getContext(), "User already exists ", Toast.LENGTH_SHORT).show();
+                }else{
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                }
+            }
+        }));
 
         return list;
     }
