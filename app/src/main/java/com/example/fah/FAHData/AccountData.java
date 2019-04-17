@@ -20,8 +20,8 @@ public class AccountData {
         this.firebaseAuth = firebaseAuth;
     }
 
-    public FirebaseUser getUserLogin() {
-        return firebaseAuth.getCurrentUser();
+    public static FirebaseUser getUserLogin() {
+        return firebaseUser;
     }
 
     public  boolean InsertAccount(){

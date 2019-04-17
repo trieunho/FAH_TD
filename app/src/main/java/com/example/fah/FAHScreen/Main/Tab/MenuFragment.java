@@ -16,6 +16,7 @@ import com.example.fah.FAHScreen.Main.GridView.Menu.GridListMenuMainAdapter;
 import com.example.fah.FAHScreen.Main.GridView.Menu.Menu;
 import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 public class MenuFragment extends Fragment {
     protected View view;
-
+     GridView gvMenu;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class MenuFragment extends Fragment {
 
     private void GridViewControl(){
         List<Menu> listPost = getListData();
-        final GridView gvMenu = view.findViewById(R.id.gvMenu);
+        gvMenu = view.findViewById(R.id.gvMenu);
         gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), listPost));
 
         // Khi người dùng click vào các GridItem
@@ -64,7 +65,6 @@ public class MenuFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Menu objectGrid = (Menu) gvMenu.getItemAtPosition(position);
-                Toast.makeText(getContext(), "Name= "+objectGrid.getName(), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(getContext(), "Event= "+ objectGrid.getEventClickItem().callEvent(), Toast.LENGTH_SHORT).show();
                 if( objectGrid.getEventClickItem() == null){
                     Toast.makeText(getContext(), "Event not found!", Toast.LENGTH_SHORT).show();
@@ -102,7 +102,9 @@ public class MenuFragment extends Fragment {
             @Override
             public void callEvent() {
                 if( AccountData.firebaseAuth!=null){
-                    AccountData.firebaseAuth.signOut();
+                    FirebaseAuth.getInstance().signOut();
+                    AccountData.firebaseUser = null;
+                    gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
                 }else{
                     Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
                 }
@@ -115,6 +117,7 @@ public class MenuFragment extends Fragment {
                     Toast.makeText(getContext(), "User already exists ", Toast.LENGTH_SHORT).show();
                 }else{
                     startActivity(new Intent(getContext(), LoginActivity.class));
+
                 }
             }
         }));
