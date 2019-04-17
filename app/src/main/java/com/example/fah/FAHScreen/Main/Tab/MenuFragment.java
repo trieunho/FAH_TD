@@ -16,7 +16,6 @@ import com.example.fah.FAHScreen.Main.GridView.Menu.GridListMenuMainAdapter;
 import com.example.fah.FAHScreen.Main.GridView.Menu.Menu;
 import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.R;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,8 +100,8 @@ public class MenuFragment extends Fragment {
         list.add(new Menu("Đăng xuất", "ic_launcher_logout", new IEvenItem() {
             @Override
             public void callEvent() {
-                if( AccountData.firebaseAuth!=null){
-                    FirebaseAuth.getInstance().signOut();
+                if(AccountData.firebaseUser!=null){
+                    AccountData.firebaseAuth.signOut();
                     AccountData.firebaseUser = null;
                     gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
                 }else{

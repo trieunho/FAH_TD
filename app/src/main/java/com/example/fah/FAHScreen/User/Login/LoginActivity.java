@@ -65,11 +65,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.createAccTextView:
                 Intent i2 = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(i2);
+                finish();
                 break;
 
             case R.id.resetPwTextView:
                 Intent i3 = new Intent(LoginActivity.this, ResetPasswordActivity.class);
                 startActivity(i3);
+                finish();
                 break;
 
             default:
@@ -99,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                            AccountData.firebaseUser = accountData.getFirebaseAuth().getCurrentUser();
-                          nextMain();
+                           nextMain();
                            // updateUI(user);
                         } else {
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
