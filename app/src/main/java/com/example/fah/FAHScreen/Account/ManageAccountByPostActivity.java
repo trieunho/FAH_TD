@@ -183,7 +183,6 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
 
             lvAccount.setAdapter(accountByPostAdapter);
     }
-
     /**
      * Exec input search
      */

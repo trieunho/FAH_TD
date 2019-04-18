@@ -2,6 +2,8 @@ package com.example.fah.FAHModel.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +12,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class AccountByAdminAdapter extends ArrayAdapter<Account> {
+public class AccountByAdminAdapter extends ArrayAdapter <Account> {
 
     Context context;
     int layout;
-    ArrayList<Account> accountList;
+    ArrayList <Account> accountList;
 
-    public AccountByAdminAdapter(Context context, int layout, ArrayList<Account> accountList) {
+    public AccountByAdminAdapter(Context context, int layout, ArrayList <Account> accountList) {
         super(context, layout, accountList);
         this.context = context;
         this.layout = layout;
@@ -54,6 +59,7 @@ public class AccountByAdminAdapter extends ArrayAdapter<Account> {
         final Button btnBlock = convertView.findViewById(R.id.btnBlock);
 
         final Account account = this.accountList.get(position);
+
         String stt = String.valueOf(position + 1);
 
         tvStt.setText(stt);
@@ -78,6 +84,54 @@ public class AccountByAdminAdapter extends ArrayAdapter<Account> {
             btnBlock.setText("Unlock");
         }
 
+        btnBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // how activity ???
+                // int position = (int) v.getTag();
+
+                showAlertDialog(account);
+            }
+        });
+
         return convertView;
+    }
+
+    /**
+     * Extends showAlertDialog
+     */
+    public void showAlertDialog(final Account account) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+        builder.setTitle("Chú ý !");
+        builder.setMessage("Bạn có muốn thay đổi quyền của " + account.getAccountName() + " ?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setNegativeButton("Đồng ý", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("TestHongCT");
+
+                if (account.getStatusBlock() == 0) {
+                    myRef.child("nani0").child("statusBlock").setValue(1);
+                } else {
+                    myRef.child("nani0").child("statusBlock").setValue(0);
+                }
+
+
+                Toast.makeText(context, "Thay đổi quyền thành công !", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
     }
 }
