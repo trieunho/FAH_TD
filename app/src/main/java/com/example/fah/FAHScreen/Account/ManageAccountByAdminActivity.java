@@ -1,17 +1,12 @@
 package com.example.fah.FAHScreen.Account;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -71,8 +66,6 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
         editTextSearch = findViewById(R.id.editTextSearch);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("TestHongCT");
-
-
     }
 
 
@@ -95,18 +88,8 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
             }
         });
 
-        // event click item in list
-        lvAccount.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // showInputBox(accountList.get(position), position);
-                showAlertDialog(accountList.get(position), position);
-                Toast.makeText(ManageAccountByAdminActivity.this, "You Clicked at ",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+     }
 
-    }
 
     /**
      * Set value for Adapter
@@ -215,66 +198,4 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Dialog defined
-     */
-    public void showInputBox(final Account account, final int index) {
-        final Dialog dialog = new Dialog(ManageAccountByAdminActivity.this);
-        dialog.setTitle("Chú ý !");
-        dialog.setContentView(R.layout.update_category_item);
-        TextView txtMessage = (TextView) dialog.findViewById(R.id.txtmessage);
-        txtMessage.setText("Bạn có muốn thay đổi quyền của abc ?");
-        txtMessage.setTextColor(Color.parseColor("#ff2222"));
-        final EditText editText = (EditText) dialog.findViewById(R.id.txtinput);
-
-        editText.setText(account.getAccountName());
-        Button btnDongY = (Button) dialog.findViewById(R.id.btnDongY);
-        btnDongY.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                myRef.child(account.getAccountName()).child("statusBlock").setValue(1);
-
-                Toast.makeText(ManageAccountByAdminActivity.this, "Thay đổi trạng thái thành công", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
-
-        Button btnHuy = (Button) dialog.findViewById(R.id.btnHuy);
-        btnHuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
-
-    /**
-     * Extends showAlertDialog
-     */
-    public void showAlertDialog(final Account account, final int index){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Chú ý 1");
-        builder.setMessage("Bạn có muốn thay đổi quyền của abc ?");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Hủy", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        builder.setNegativeButton("Đồng ý", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                myRef.child(account.getAccountName()).child("statusBlock").setValue(1);
-
-                Toast.makeText(ManageAccountByAdminActivity.this, "Thay đổi trạng thái thành công", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
-    }
 }
