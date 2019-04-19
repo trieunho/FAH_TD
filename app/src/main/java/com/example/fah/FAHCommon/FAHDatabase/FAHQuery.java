@@ -36,8 +36,9 @@ public class FAHQuery {
     }
 
     public static List<?> GetDataObject(DataSnapshot dataSnapshot, Object typeObject){
-        List<Object> listData = new ArrayList<>();
+        List<Object> listData = null;
         if (dataSnapshot.getValue() != null) {
+            listData = new ArrayList<>();
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 Object item = snapshot.getValue(typeObject.getClass());
                 CallMethodVoid(item, "setKey", new Class[]{String.class}, new Object[]{snapshot.getKey()});
