@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +19,10 @@ import android.widget.Toast;
 import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHExcuteData.EmailValidator;
+import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
+import com.example.fah.FAHModel.Models.TimeOfWork;
+import com.example.fah.FAHModel.Models.TypeOfPost;
 import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DatabaseReference;
@@ -43,21 +48,21 @@ public class CreatePostActivity extends AppCompatActivity {
     TextView lbl;
     EditText txtLuong2;
     EditText txvLoai;
-    String workingTime = "";
+    CheckBox ckbTime1;
+    CheckBox ckbTime2;
+    CheckBox ckbTime3;
     EditText cbxTypeOfArticle;
     EditText cbxField;
 
-    CheckBox ckb1;
-    CheckBox ckb2;
-    CheckBox ckb3;
-
-    FAHCombobox cbx1;
-    FAHCombobox cbx2;
-    FAHCombobox cbx3;
+    FAHCombobox controlSalary;
+    FAHCombobox controlType;
+    FAHCombobox controlField;
 
     DatePickerDialog datePickerDialog;
     DatabaseReference myRef;
     FirebaseDatabase database;
+
+    Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,7 @@ public class CreatePostActivity extends AppCompatActivity {
         setContentView(R.layout.create_post);
 
         addControls();
+        addEvents();
     }
 
     @Override
@@ -84,6 +90,15 @@ public class CreatePostActivity extends AppCompatActivity {
             case R.id.btnPost: {
                 if (canPost() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                     try {
+                        TypeOfPost top = new TypeOfPost();
+                        top.setTypeID(cbxTypeOfArticle.getText().toString().substring(5, 6));
+
+                        int time1 = ckbTime1.isChecked() ? 1 : 0;
+                        int time2 = ckbTime2.isChecked() ? 2 : 0;
+                        int time3 = ckbTime3.isChecked() ? 4 : 0;
+                        TimeOfWork tow = new TimeOfWork();
+                        tow.setTimeID(Integer.toString(time1 + time2 + time3));
+
                         myRef.push().setValue(new Post(
                                 txtTitle.getText().toString(),
                                 txtCompanyName.getText().toString(),
@@ -94,17 +109,21 @@ public class CreatePostActivity extends AppCompatActivity {
                                 txtSoLuong.getText().toString(),
                                 txtAddress.getText().toString(),
                                 txtDate.getText().toString(),
-                                workingTime,
+                                tow,
                                 cbxLuong.getText().toString(),
                                 txtLuong1.getText().toString(),
                                 txtLuong2.getText().toString(),
                                 txtEmail.getText().toString(),
                                 txtPhone.getText().toString(),
-                                Integer.parseInt(cbxTypeOfArticle.getText().toString().substring(4, 5))));
-                    } catch (Exception e) {
+                                top,
+                                account));
+
+                        Toast.makeText(this, "Tạo thành công", Toast.LENGTH_SHORT).show();
+
+                    }
+                    catch (Exception e) {
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
             default: {
@@ -154,11 +173,9 @@ public class CreatePostActivity extends AppCompatActivity {
         txvLoai = findViewById(R.id.txvLoai);
         cbxTypeOfArticle = findViewById(R.id.cbxTypeOfArticle);
         cbxField = findViewById(R.id.cbxField);
-
-        // workingTime
-        ckb1 = findViewById(R.id.ckbTime1);
-        ckb2 = findViewById(R.id.ckbTime2);
-        ckb3 = findViewById(R.id.ckbTime3);
+        ckbTime1 = findViewById(R.id.ckbTime1);
+        ckbTime2 = findViewById(R.id.ckbTime2);
+        ckbTime3 = findViewById(R.id.ckbTime3);
 
         // firebase
         database = FirebaseDatabase.getInstance();
@@ -170,21 +187,100 @@ public class CreatePostActivity extends AppCompatActivity {
                 "Trong khoảng",
                 "Thỏa thuận"
         };
-        cbx1 = new FAHCombobox(CreatePostActivity.this, cbxLuong, arrLuong, 0);
+        controlSalary = new FAHCombobox(CreatePostActivity.this, cbxLuong, arrLuong, 0);
 
         String[] arrLoai = {
                 "Loại 1",
                 "Loại 2",
                 "Loại 3"
         };
-        cbx2 = new FAHCombobox(CreatePostActivity.this, cbxTypeOfArticle, arrLoai, 0);
+        controlType = new FAHCombobox(CreatePostActivity.this, cbxTypeOfArticle, arrLoai, 0);
 
         String[] arrField = {
                 "Công nghệ thông tin",
                 "Bất động sản",
                 "Lĩnh vực giải trí"
         };
-        cbx3 = new FAHCombobox(CreatePostActivity.this, cbxField, arrField, 0);
+        controlField = new FAHCombobox(CreatePostActivity.this, cbxField, arrField, 0);
+
+        // Init
+        txtLuong2.setVisibility(View.GONE);
+        lbl.setVisibility(View.GONE);
+        txvLoai.setText("Tiền không là tiền");
+    }
+
+    private void addEvents() {
+        txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    onClickDate(v);
+                }
+            }
+        });
+
+        cbxLuong.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                switch (controlSalary.getItemChoose()) {
+                    case 0:
+                        txtLuong1.setVisibility(View.VISIBLE);
+                        txtLuong2.setVisibility(View.GONE);
+                        txtLuong2.setText("");
+                        lbl.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        txtLuong1.setVisibility(View.VISIBLE);
+                        txtLuong2.setVisibility(View.VISIBLE);
+                        lbl.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        txtLuong1.setVisibility(View.GONE);
+                        txtLuong2.setVisibility(View.GONE);
+                        txtLuong1.setText("");
+                        txtLuong2.setText("");
+                        lbl.setVisibility(View.GONE);
+                        break;
+                }
+            }
+        });
+
+        cbxTypeOfArticle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                switch (controlType.getItemChoose()) {
+                    case 0:
+                        txvLoai.setText("Tiền không là tiền");
+                        break;
+                    case 1:
+                        txvLoai.setText("Tiền vừa đẹp");
+                        break;
+                    case 2:
+                        txvLoai.setText("Tiền bố thí");
+                        break;
+                }
+            }
+        });
     }
 
     private boolean canPost(){
@@ -204,7 +300,21 @@ public class CreatePostActivity extends AppCompatActivity {
             txtAddress.requestFocus();
             Toast.makeText(this, "Chưa điền địa chỉ", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (txtEmail.getText().toString().equals("") || !EmailValidator.isValid(txtEmail.getText().toString())) {
+        } else if (controlSalary.getItemChoose() == 0 && txtLuong1.getText().toString().equals("")) {
+            txtLuong1.requestFocus();
+            Toast.makeText(this, "Chưa nhập Lương", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (controlSalary.getItemChoose() == 1) {
+            if (txtLuong1.getText().toString().equals("")) {
+                txtLuong1.requestFocus();
+                Toast.makeText(this, "Chưa nhập Lương trong khoảng", Toast.LENGTH_SHORT).show();
+                return false;
+            } else if (txtLuong2.getText().toString().equals("")){
+                txtLuong2.requestFocus();
+                Toast.makeText(this, "Chưa nhập Lương trong khoảng", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }else if (txtEmail.getText().toString().equals("") || !EmailValidator.isValid(txtEmail.getText().toString())) {
             txtEmail.requestFocus();
             Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
             return false;
@@ -218,10 +328,6 @@ public class CreatePostActivity extends AppCompatActivity {
             return false;
         }
 
-        workingTime = ckb1.isChecked() ? "Morning" + (ckb2.isChecked() ? ", Afternoon" + (ckb3.isChecked() ? ", Evening" : "") : "" + (ckb3.isChecked() ? ", Evening" : "")) : "" + (ckb2.isChecked() ? "Afternoon" + (ckb3.isChecked() ? ", Evening" : "") : "" + (ckb3.isChecked() ? ", Evening" : ""));
-
         return true;
     }
-
-
 }

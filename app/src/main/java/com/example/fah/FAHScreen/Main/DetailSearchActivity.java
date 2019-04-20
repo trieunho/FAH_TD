@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.*;
 import android.support.v7.widget.Toolbar;
 
+import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Adapters.SearchAdapter;
 import com.example.fah.FAHModel.Models.Post;
@@ -32,7 +33,12 @@ public class DetailSearchActivity extends AppCompatActivity {
     EditText cbxJob;
     EditText cbxCity;
     EditText cbxSalary;
-    EditText cbxLevel;
+    EditText cbxTime;
+
+    FAHCombobox controlJob;
+    FAHCombobox controlLocation;
+    FAHCombobox controlSalary;
+    FAHCombobox controlTime;
 
     DatabaseReference myRef;
 
@@ -73,9 +79,34 @@ public class DetailSearchActivity extends AppCompatActivity {
         cbxJob = findViewById(R.id.cbxJob);
         cbxCity = findViewById(R.id.cbxCity);
         cbxSalary = findViewById(R.id.cbxSalary);
-        cbxLevel = findViewById(R.id.cbxLevel);
+        cbxTime = findViewById(R.id.cbbTime);
 
         myRef = FAHQuery.GetData("Post");
+
+        String[] arrJob = {
+                "Công nghệ thông tin",
+                "Bất động sản",
+                "Lĩnh vực giải trí"
+        };
+        controlJob = new FAHCombobox(this, cbxJob, arrJob, -1);
+
+        controlLocation = new FAHCombobox(DetailSearchActivity.this, cbxCity, new String[] {
+                "Đà Nẵng",
+                "Hà Nội",
+                "TP. Hồ Chí Minh"
+        }, 0);
+
+        controlSalary = new FAHCombobox(DetailSearchActivity.this, cbxSalary, new String[] {
+                "Thỏa thuận",
+                "1000000 ~ 2000000",
+                "2000000 ~ 3000000"
+        }, 0);
+
+        controlTime = new FAHCombobox(DetailSearchActivity.this, cbxTime, new String[] {
+                "Buổi sáng",
+                "Buổi chiều",
+                "Buổi tối"
+        }, 0);
     }
 
     public void onClickSearch(View v) {
@@ -95,16 +126,20 @@ public class DetailSearchActivity extends AppCompatActivity {
                 List<Post> temp = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
 
                 for (Post item: temp) {
-                    Post p = new Post(
-                            item.getTitlePost(),
-                            item.getCompanyName(),
-                            item.getAddress(),
-                            item.getWorkingTime(),
-                            item.getTypeOfSalary().equals("Cố định") ? item.getSalary_from() :
-                                    item.getTypeOfSalary().equals("Trong khoảng") ? item.getSalary_from() + " ~ " + item.getSalary_to() : "Thỏa thuận",
-                            item.getDeadLine()
-                    );
-                    data.add(p);
+                    if (!cbxJob.getText().toString().equals("") && item.getField().equals(cbxJob.getText().toString())) {
+                        Post p = new Post(
+                                item.getTitlePost(),
+                                item.getCompanyName(),
+                                item.getAddress(),
+                                item.getTimeOfWork(),
+                                item.getTypeOfSalary().equals("Cố định") ? item.getSalary_from() :
+                                        item.getTypeOfSalary().equals("Trong khoảng") ? item.getSalary_from() + " ~ " + item.getSalary_to() : "Thỏa thuận",
+                                item.getDeadLine()
+                        );
+                        data.add(p);
+                    } else {
+
+                    }
                 }
 
                 lstSearch.setAdapter(new SearchAdapter(DetailSearchActivity.this, data));
