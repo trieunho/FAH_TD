@@ -10,8 +10,8 @@ public class Post extends FAHFieldCommon {
     private String accountStr;
     private String companyName;
     private String address;
-    private String luong;
-    private Date deadLine;
+    private String salary;
+    private String deadLine;
     private String jobDescription;
     private String required;
     private String field;
@@ -41,12 +41,12 @@ public class Post extends FAHFieldCommon {
         this.companyName = companyName;
     }
 
-    public Post(String titlePost, String companyName, String address, String workingTime, String luong, Date deadLine) {
+    public Post(String titlePost, String companyName, String address, String workingTime, String luong, String deadLine) {
         this.titlePost = titlePost;
         this.companyName = companyName;
         this.address = address;
         this.workingTime = workingTime;
-        this.luong = luong;
+        this.salary = luong;
         this.deadLine = deadLine;
     }
 
@@ -58,7 +58,7 @@ public class Post extends FAHFieldCommon {
                 String benifit,
                 String soLuong,
                 String address,
-                Date deadLine,
+                String deadLine,
                 String workingTime,
                 String typeOfSalary,
                 String salary_from,
@@ -124,19 +124,19 @@ public class Post extends FAHFieldCommon {
         this.address = address;
     }
 
-    public String getLuong() {
-        return luong;
+    public String getSalary() {
+        return salary;
     }
 
-    public void setLuong(String luong) {
-        this.luong = luong;
+    public void setSalary(String luong) {
+        this.salary = luong;
     }
 
-    public Date getDeadLine() {
+    public String getDeadLine() {
         return deadLine;
     }
 
-    public void setDeadLine(Date deadLine) {
+    public void setDeadLine(String deadLine) {
         this.deadLine = deadLine;
     }
 

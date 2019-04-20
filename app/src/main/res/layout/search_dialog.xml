@@ -31,7 +31,7 @@
         android:layout_height="@dimen/wrap_content_control" />
 
     <EditText
-        android:id="@+id/cbxLuong"
+        android:id="@+id/cbxSalary"
         android:editable="false"
         android:gravity="center"
         android:hint="Chọn mức lương"
@@ -44,7 +44,7 @@
         android:layout_height="@dimen/wrap_content_control" />
 
     <EditText
-        android:id="@+id/cbxTrinhDo"
+        android:id="@+id/cbxLevel"
         android:editable="false"
         android:gravity="center"
         android:hint="Chọn khung giờ làm việc"
@@ -55,4 +55,13 @@
         android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/btnSearchDialog"
+        android:text="Tìm kiếm"
+        android:onClick="onClickSearchDialog"
+        android:layout_margin="@dimen/margin_control"
+        android:gravity="center"/>
 </LinearLayout>

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class CreatePostActivity extends AppCompatActivity {
 
@@ -68,7 +65,6 @@ public class CreatePostActivity extends AppCompatActivity {
         setContentView(R.layout.create_post);
 
         addControls();
-        addEvents();
     }
 
     @Override
@@ -97,7 +93,7 @@ public class CreatePostActivity extends AppCompatActivity {
                                 txtBenifit.getText().toString(),
                                 txtSoLuong.getText().toString(),
                                 txtAddress.getText().toString(),
-                                txtDate.getText().toString().equals("") ? null : new Date(txtDate.getText().toString()),
+                                txtDate.getText().toString(),
                                 workingTime,
                                 cbxLuong.getText().toString(),
                                 txtLuong1.getText().toString(),
@@ -164,108 +160,31 @@ public class CreatePostActivity extends AppCompatActivity {
         ckb2 = findViewById(R.id.ckbTime2);
         ckb3 = findViewById(R.id.ckbTime3);
 
-        // Firebase
+        // firebase
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Post");
-    }
 
-    private void addEvents() {
-        txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    onClickDate(v);
-                }
-            }
-        });
-
-        // Salary
+        // combobox
         String[] arrLuong = {
                 "Cố định",
                 "Trong khoảng",
                 "Thỏa thuận"
         };
-        cbx1 = new FAHCombobox(CreatePostActivity.this, cbxLuong, arrLuong, FAHCombobox.VALUEDEFAULT);
+        cbx1 = new FAHCombobox(CreatePostActivity.this, cbxLuong, arrLuong, 0);
 
-        cbxLuong.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                switch (cbx1.getItemChoose()) {
-                    case 0:
-                        txtLuong1.setVisibility(View.VISIBLE);
-                        txtLuong2.setVisibility(View.GONE);
-                        txtLuong2.setText("");
-                        lbl.setVisibility(View.GONE);
-                        break;
-                    case 1:
-                        txtLuong1.setVisibility(View.VISIBLE);
-                        txtLuong2.setVisibility(View.VISIBLE);
-                        lbl.setVisibility(View.VISIBLE);
-                        break;
-                    case 2:
-                        txtLuong1.setVisibility(View.GONE);
-                        txtLuong2.setVisibility(View.GONE);
-                        txtLuong1.setText("");
-                        txtLuong2.setText("");
-                        lbl.setVisibility(View.GONE);
-                        break;
-                }
-            }
-        });
-
-        // Type of post
-        String[] arrTypeOfArticle = {
+        String[] arrLoai = {
                 "Loại 1",
                 "Loại 2",
                 "Loại 3"
         };
-        cbx2 = new FAHCombobox(CreatePostActivity.this, cbxTypeOfArticle, arrTypeOfArticle, FAHCombobox.VALUEDEFAULT);
+        cbx2 = new FAHCombobox(CreatePostActivity.this, cbxTypeOfArticle, arrLoai, 0);
 
-        cbxTypeOfArticle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                switch (cbx2.getItemChoose()) {
-                    case 0:
-                        txvLoai.setText("Tiền không là tiền");
-                        break;
-                    case 1:
-                        txvLoai.setText("Tiền vừa đẹp");
-                        break;
-                    case 2:
-                        txvLoai.setText("Tiền bố thí");
-                        break;
-                }
-            }
-        });
-
-        // Field
         String[] arrField = {
                 "Công nghệ thông tin",
                 "Bất động sản",
                 "Lĩnh vực giải trí"
         };
-
-        cbx3 = new FAHCombobox(CreatePostActivity.this, cbxField, arrField, FAHCombobox.VALUEDEFAULT);
+        cbx3 = new FAHCombobox(CreatePostActivity.this, cbxField, arrField, 0);
     }
 
     private boolean canPost(){
