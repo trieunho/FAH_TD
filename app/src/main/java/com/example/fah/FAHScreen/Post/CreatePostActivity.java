@@ -21,7 +21,6 @@ import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHExcuteData.EmailValidator;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
-import com.example.fah.FAHModel.Models.TimeOfWork;
 import com.example.fah.FAHModel.Models.TypeOfPost;
 import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
@@ -53,6 +52,7 @@ public class CreatePostActivity extends AppCompatActivity {
     CheckBox ckbTime3;
     EditText cbxTypeOfArticle;
     EditText cbxField;
+    String workingTime = "";
 
     FAHCombobox controlSalary;
     FAHCombobox controlType;
@@ -93,12 +93,6 @@ public class CreatePostActivity extends AppCompatActivity {
                         TypeOfPost top = new TypeOfPost();
                         top.setTypeID(cbxTypeOfArticle.getText().toString().substring(5, 6));
 
-                        int time1 = ckbTime1.isChecked() ? 1 : 0;
-                        int time2 = ckbTime2.isChecked() ? 2 : 0;
-                        int time3 = ckbTime3.isChecked() ? 4 : 0;
-                        TimeOfWork tow = new TimeOfWork();
-                        tow.setTimeID(Integer.toString(time1 + time2 + time3));
-
                         myRef.push().setValue(new Post(
                                 txtTitle.getText().toString(),
                                 txtCompanyName.getText().toString(),
@@ -109,7 +103,7 @@ public class CreatePostActivity extends AppCompatActivity {
                                 txtSoLuong.getText().toString(),
                                 txtAddress.getText().toString(),
                                 txtDate.getText().toString(),
-                                tow,
+                                workingTime,
                                 cbxLuong.getText().toString(),
                                 txtLuong1.getText().toString(),
                                 txtLuong2.getText().toString(),
@@ -327,6 +321,8 @@ public class CreatePostActivity extends AppCompatActivity {
             Toast.makeText(this, "Chưa chọn mức phí cho bài viết", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+        workingTime = ckbTime1.isChecked() ? "Buổi sáng" + (ckbTime2.isChecked() ? ", Buổi chiều" + (ckbTime3.isChecked() ? ", Evening" : "") : "" + (ckbTime3.isChecked() ? ", Buổi tối" : "")) : "" + (ckbTime2.isChecked() ? "Buổi chiều" + (ckbTime3.isChecked() ? ", Buổi tối" : "") : "" + (ckbTime3.isChecked() ? ", Buổi tối" : ""));
 
         return true;
     }

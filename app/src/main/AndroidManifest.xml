@@ -35,6 +35,7 @@
         <activity android:name=".FAHScreen.Post.CreatePostActivity" />
         <activity android:name=".FAHScreen.Post.DetailPostActivity" />
         <activity android:name=".FAHScreen.Post.PostManagementActivity" />
+        <activity android:name=".FAHScreen.Post.ListPostActivity" />
         <activity android:name=".FAHScreen.User.ProfileActivity" />
         <activity android:name=".FAHScreen.User.PersionalImformationActivity" />
         <activity android:name=".FAHScreen.User.Login.SignupActivity" />
