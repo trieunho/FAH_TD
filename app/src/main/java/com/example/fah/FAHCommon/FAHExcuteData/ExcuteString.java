@@ -15,4 +15,8 @@ public class ExcuteString {
     public static String GetUrlData(String... listParam) {
         return TextUtils.join("/", listParam);
     }
+
+    public static Boolean IsNullOrEmpty(String string){
+        return string == null || string == "";
+    }
 }
