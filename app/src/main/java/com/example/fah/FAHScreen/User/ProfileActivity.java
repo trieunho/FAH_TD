@@ -8,7 +8,8 @@ import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 
 public class ProfileActivity extends AppCompatActivity {
-    TextView userName;
+    TextView userName,userEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void addControl() {
         userName=findViewById(R.id.userName);
-        userName.setText(MainActivity.accountData.getUserLogin().getAccountName());
+        userEmail=findViewById(R.id.userEmail);
+        userName.setText(MainActivity.userLogin.getAccountName());
+        userEmail.setText(MainActivity.userLogin.getEmail());
+
     }
 }

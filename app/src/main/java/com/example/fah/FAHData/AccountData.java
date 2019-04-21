@@ -29,7 +29,7 @@ public class AccountData {
 
     }
 
-    public FirebaseAuth getFirebaseAuth() {
+    public static FirebaseAuth getFirebaseAuth() {
         return firebaseAuth;
     }
 

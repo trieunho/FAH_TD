@@ -78,8 +78,8 @@ public class MenuFragment extends Fragment {
 
     private  List<Menu> getListData() {
         List<Menu> list = new ArrayList<>();
-        if(AccountData.firebaseUser!=null){
-            list.add(new Menu(AccountData.firebaseUser.getEmail(), "ic_launcher_default_avata", new IEvenItem() {
+        if(MainActivity.userLogin.isLogin()==true){
+            list.add(new Menu((MainActivity.userLogin.getEmail()), "ic_launcher_default_avata", new IEvenItem() {
                 @Override
                 public void callEvent() {
                   startActivity(new Intent(getContext(), ProfileActivity.class));
@@ -106,7 +106,7 @@ public class MenuFragment extends Fragment {
                     AccountData.firebaseUser = null;
                     Account account=new Account();
                     account.setLogin(false);
-                    MainActivity.accountData.setUserLogin(account);
+                    MainActivity.userLogin=account;
                     gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
                 }else{
                     Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();

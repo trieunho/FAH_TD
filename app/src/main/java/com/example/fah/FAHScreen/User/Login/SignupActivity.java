@@ -123,8 +123,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                     Toast.LENGTH_SHORT).show();
 
                         }
-
-
                     }
                 });
 

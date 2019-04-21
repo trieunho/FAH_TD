@@ -25,12 +25,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button loginBtn;
     TextView resetBtn;
     TextView createAccountBtn;
+    AccountData accountData=new AccountData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-         if (MainActivity.accountData.getUserLogin().isLogin() ==true){
+         if (MainActivity.userLogin.isLogin() ==true){
             nextMain();
         }else{
             emailEditText = (EditText) findViewById(R.id.emailEditText);
@@ -94,17 +95,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        MainActivity.accountData.getFirebaseAuth().signInWithEmailAndPassword(email, password)
+        accountData.getFirebaseAuth().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                           AccountData.firebaseUser = MainActivity.accountData.getFirebaseAuth().getCurrentUser();
+                           AccountData.firebaseUser = accountData.getFirebaseAuth().getCurrentUser();
                       Account account =new Account();
                       account.setAccountName(AccountData.firebaseUser.getDisplayName());
                       account.setEmail(AccountData.firebaseUser.getEmail());
                       account.setLogin(true);
-                        MainActivity.accountData.setUserLogin(account);
+                            Toast.makeText(LoginActivity.this, "Email"+MainActivity.userLogin.getEmail(), Toast.LENGTH_SHORT).show();
+                            MainActivity.userLogin = account;
                            nextMain();
                            // updateUI(user);
                         } else {
