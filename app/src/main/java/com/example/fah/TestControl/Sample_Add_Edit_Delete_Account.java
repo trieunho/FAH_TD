@@ -49,8 +49,8 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<Account> list = new ArrayList<>();
-                list.add(new Account("1", "2", 1, "1"));
-                list.add(new Account("1", "2", 2, "2"));
+                list.add(new Account("1", "2", "1", 1));
+                list.add(new Account("1", "2", "2", 2));
                 TestDB data = new TestDB("123", list);
                 FAHQuery.InsertData(data);
             }
