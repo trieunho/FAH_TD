@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.TestDB;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
+import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
     Button btnThem;
@@ -39,23 +41,22 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
         btnThem=findViewById(R.id.btnaddSample);
         lvAccount=findViewById(R.id.lvAccountSample);
 
-        String url = ExcuteString.GetUrlData("TestDB","-LcM21Sgm3mD2DnD8cIX");
-        myRef = FAHQuery.GetData("Account");
-        query = myRef.orderByValue().orderByChild("account");
-////        FAHQueryParam queryParam = new FAHQueryParam("Account", "email", FAHQueryParam.EQUAL, "123456789", FAHQueryParam.TypeString);
-////        query = FAHQuery.GetDataQuery(queryParam);
+        myRef = FAHQuery.GetData("TestDB");
     }
 
     private void addEvent() {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TestDB data = new TestDB("123","123","123","123","123",new Date());
+                ArrayList<Account> list = new ArrayList<>();
+                list.add(new Account("1", "2", 1, "1"));
+                list.add(new Account("1", "2", 2, "2"));
+                TestDB data = new TestDB("123", list);
                 FAHQuery.InsertData(data);
             }
         });
 
-        query.addValueEventListener(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 accountList = (ArrayList<TestDB>) FAHQuery.GetDataObject(dataSnapshot, new TestDB());

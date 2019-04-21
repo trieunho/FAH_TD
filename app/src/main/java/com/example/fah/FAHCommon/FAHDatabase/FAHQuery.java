@@ -1,5 +1,7 @@
 package com.example.fah.FAHCommon.FAHDatabase;
 
+import android.text.TextUtils;
+
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.google.firebase.database.DataSnapshot;
@@ -7,6 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +54,8 @@ public class FAHQuery {
 
     public static void InsertData(Object data, String url){
         reference.getReference(url).push().setValue(data);
+//        String key = reference.getReference(url).push().getKey();
+//        UpdateListData(data, ExcuteString.GetUrlData(url, key));
     }
 
     public static void InsertData(Object data){
@@ -203,5 +208,39 @@ public class FAHQuery {
         }
 
         return data;
+    }
+
+    private static void UpdateListData(Object data, String url){
+        try {
+            for(Field field : data.getClass().getDeclaredFields()){
+                if(field.getType().getSimpleName().equals("ArrayList")){
+//                    String keyValue = ExcuteString.GetUrlData(url, field.getName());
+//                    List<?> value = (List<?>) field.get(new Object());
+//                    UpdateListDetail(value, keyValue);
+                }else{
+                    field.setAccessible(true);
+//                    Object value = field.get(field.getType());
+                    UpdateOrInsertData("1", url);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void UpdateListDetail(List<?> data, String url){
+        for(Object item : data){
+            String key = (String) CallMethodObject(item, "getKey", new Class[]{}, new Object[]{});
+            UpdateData(item, ExcuteString.GetUrlData(url, key));
+        }
+    }
+
+    private static void UpdateOrInsertData(Object data, String url){
+        String key = (String) CallMethodObject(data, "getKey", new Class[]{}, new Object[]{});
+        if(ExcuteString.IsNullOrEmpty(key)){
+            InsertData(data, ExcuteString.GetUrlData(url, key));
+        }else{
+            UpdateData(data, ExcuteString.GetUrlData(url, key));
+        }
     }
 }
