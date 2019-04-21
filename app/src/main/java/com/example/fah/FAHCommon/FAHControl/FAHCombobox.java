@@ -32,7 +32,9 @@ public class FAHCombobox {
         this.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                ShowItemChoose();
+                if (hasFocus) {
+                    ShowItemChoose();
+                }
             }
         });
     }

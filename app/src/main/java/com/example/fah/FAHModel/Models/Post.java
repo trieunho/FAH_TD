@@ -19,18 +19,16 @@ public class Post extends FAHFieldCommon {
     private String soLuong;
     private String email;
     private String phone;
-    private String workingTime;
     private String typeOfSalary;
     private String salary_from;
     private String salary_to;
     private Date approveDate;
     private Date dueDate;
-    private int typeOfArticle;
 
     private ArrayList<Account> listOfAccApply;
     private Account account;
     private TypeOfPost typeOfPost;
-    private TimeOfWork timeOfWork;
+    private String timeOfWork;
     private Category category;
 
     public Post(){}
@@ -41,11 +39,11 @@ public class Post extends FAHFieldCommon {
         this.companyName = companyName;
     }
 
-    public Post(String titlePost, String companyName, String address, String workingTime, String luong, String deadLine) {
+    public Post(String titlePost, String companyName, String address, String tow, String luong, String deadLine) {
         this.titlePost = titlePost;
         this.companyName = companyName;
         this.address = address;
-        this.workingTime = workingTime;
+        this.timeOfWork = tow;
         this.salary = luong;
         this.deadLine = deadLine;
     }
@@ -59,13 +57,14 @@ public class Post extends FAHFieldCommon {
                 String soLuong,
                 String address,
                 String deadLine,
-                String workingTime,
+                String tow,
                 String typeOfSalary,
                 String salary_from,
                 String salary_to,
                 String email,
                 String phone,
-                int typeOfArticle) {
+                TypeOfPost typeOfPost,
+                Account account) {
         this.titlePost = titlePost;
         this.companyName = companyName;
         this.field = field;
@@ -75,13 +74,14 @@ public class Post extends FAHFieldCommon {
         this.benifit = benifit;
         this.soLuong = soLuong;
         this.deadLine = deadLine;
-        this.workingTime = workingTime;
+        this.timeOfWork = tow;
         this.typeOfSalary = typeOfSalary;
         this.salary_from = salary_from;
         this.salary_to = salary_to;
         this.email = email;
         this.phone = phone;
-        this.typeOfArticle = typeOfArticle;
+        this.setTypeOfPost(typeOfPost);
+        this.account = account;
     }
 
     public String getEmail() {
@@ -138,14 +138,6 @@ public class Post extends FAHFieldCommon {
 
     public void setDeadLine(String deadLine) {
         this.deadLine = deadLine;
-    }
-
-    public String getWorkingTime() {
-        return workingTime;
-    }
-
-    public void setWorkingTime(String workingTime) {
-        this.workingTime = workingTime;
     }
 
     public String getJobDescription() {
@@ -220,11 +212,67 @@ public class Post extends FAHFieldCommon {
         this.salary_to = salary_to;
     }
 
-    public int getTypeOfArticle() {
-        return typeOfArticle;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setTypeOfArticle(int getTypeOfArticle) {
-        this.typeOfArticle = getTypeOfArticle;
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
+    public Date getApproveDate() {
+        return approveDate;
+    }
+
+    public void setApproveDate(Date approveDate) {
+        this.approveDate = approveDate;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public ArrayList<Account> getListOfAccApply() {
+        return listOfAccApply;
+    }
+
+    public void setListOfAccApply(ArrayList<Account> listOfAccApply) {
+        this.listOfAccApply = listOfAccApply;
+    }
+
+    public TypeOfPost getTypeOfPost() {
+        return typeOfPost;
+    }
+
+    public void setTypeOfPost(TypeOfPost typeOfPost) {
+        this.typeOfPost = typeOfPost;
+    }
+
+    public String getTimeOfWork() {
+        return timeOfWork;
+    }
+
+    public void setTimeOfWork(String timeOfWork) {
+        this.timeOfWork = timeOfWork;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

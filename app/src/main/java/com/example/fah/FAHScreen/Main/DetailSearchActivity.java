@@ -1,40 +1,38 @@
 package com.example.fah.FAHScreen.Main;
 
-import android.app.Dialog;
-import android.support.annotation.NonNull;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.*;
 import android.support.v7.widget.Toolbar;
 
-import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
-import com.example.fah.FAHModel.Adapters.SearchAdapter;
-import com.example.fah.FAHModel.Models.Post;
+import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
+import com.example.fah.FAHScreen.Post.ListPostActivity;
+import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
 
 public class DetailSearchActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    LinearLayout divSearch;
-    ListView lstSearch;
     Button btnSearch;
-    Button btnSearchDialog;
-    Dialog searchDialog;
 
     EditText cbxJob;
     EditText cbxCity;
     EditText cbxSalary;
-    EditText cbxLevel;
 
-    DatabaseReference myRef;
+    FAHCombobox controlJob;
+    FAHCombobox controlLocation;
+    FAHCombobox controlSalary;
+
+    CheckBox ckbTime1;
+    CheckBox ckbTime2;
+    CheckBox ckbTime3;
+
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +40,6 @@ public class DetailSearchActivity extends AppCompatActivity {
         setContentView(R.layout.detail_search_activity);
 
         addControls();
-        addEvents();
-    }
-
-    private void addEvents() {
-        lstSearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(DetailSearchActivity.this, "OKE", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     private void addControls() {
@@ -66,54 +49,64 @@ public class DetailSearchActivity extends AppCompatActivity {
         toolbar.setTitle("Tìm kiếm bài viết");
         setSupportActionBar(toolbar);
 
-        divSearch = findViewById(R.id.divSearch);
-        lstSearch = findViewById(R.id.lstSearch);
         btnSearch = findViewById(R.id.btnSearch);
-        btnSearchDialog = findViewById(R.id.btnSearchDialog);
         cbxJob = findViewById(R.id.cbxJob);
         cbxCity = findViewById(R.id.cbxCity);
         cbxSalary = findViewById(R.id.cbxSalary);
-        cbxLevel = findViewById(R.id.cbxLevel);
 
-        myRef = FAHQuery.GetData("Post");
+        ckbTime1 = findViewById(R.id.ckbTime1);
+        ckbTime2 = findViewById(R.id.ckbTime2);
+        ckbTime3 = findViewById(R.id.ckbTime3);
+
+        String[] arrJob = {
+                "Công nghệ thông tin",
+                "Bất động sản",
+                "Lĩnh vực giải trí"
+        };
+        controlJob = new FAHCombobox(DetailSearchActivity.this, cbxJob, arrJob, VALUEDEFAULT);
+
+        controlLocation = new FAHCombobox(DetailSearchActivity.this, cbxCity, new String[] {
+                "Đà Nẵng",
+                "Hà Nội",
+                "TP. Hồ Chí Minh"
+        }, VALUEDEFAULT);
+
+        controlSalary = new FAHCombobox(DetailSearchActivity.this, cbxSalary, new String[] {
+                "Thỏa thuận",
+                "1000000 ~ 2000000",
+                "2000000 ~ 3000000"
+        }, VALUEDEFAULT);
     }
 
-    public void onClickSearch(View v) {
-        searchDialog = new Dialog(DetailSearchActivity.this);
-        searchDialog.setTitle("Search Dialog");
-        searchDialog.setContentView(R.layout.search_dialog);
-        searchDialog.show();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.btn_search, menu);
+        return true;
     }
 
-    public void onClickSearchDialog(View v) {
-        searchDialog.hide();
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Post> data = new ArrayList<>();
-                List<Post> temp = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
-
-                for (Post item: temp) {
-                    Post p = new Post(
-                            item.getTitlePost(),
-                            item.getCompanyName(),
-                            item.getAddress(),
-                            item.getWorkingTime(),
-                            item.getTypeOfSalary().equals("Cố định") ? item.getSalary_from() :
-                                    item.getTypeOfSalary().equals("Trong khoảng") ? item.getSalary_from() + " ~ " + item.getSalary_to() : "Thỏa thuận",
-                            item.getDeadLine()
-                    );
-                    data.add(p);
-                }
-
-                lstSearch.setAdapter(new SearchAdapter(DetailSearchActivity.this, data));
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                startActivity(new Intent(DetailSearchActivity.this, HomeActivity.class));
+                finish();
+                return true;
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(DetailSearchActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            case R.id.btnSearch: {
+                Intent intent = new Intent(DetailSearchActivity.this, ListPostActivity.class);
+                intent.putExtra("job", cbxJob.getText().toString());
+                intent.putExtra("location", cbxCity.getText().toString());
+                intent.putExtra("salary", controlSalary.getItemChoose());
+                intent.putExtra("time1", ckbTime1.getText().toString());
+                intent.putExtra("time2", ckbTime2.getText().toString());
+                intent.putExtra("time3", ckbTime3.getText().toString());
+                startActivity(intent);
+                finish();
+                return true;
             }
-        });
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
     }
 }
