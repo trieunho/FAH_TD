@@ -21,6 +21,15 @@ public class Account extends FAHFieldCommon {
     private int coin;
     private int statusBlock;
     private   boolean isLogin;
+    private String avata;
+
+    public String getAvata() {
+        return avata;
+    }
+
+    public void setAvata(String avata) {
+        this.avata = avata;
+    }
 
     public boolean isLogin() {
         return isLogin;
@@ -49,7 +58,7 @@ public class Account extends FAHFieldCommon {
      */
     public Account(String accountID, String accountName, String sex,
                    String dateOfBirth, String address, String phone,
-                   String email, int role, int statusBlock, Category category) {
+                   String email, int role, int statusBlock, Category category, String avata) {
         super();
         this.accountID = accountID;
         this.accountName = accountName;
@@ -61,6 +70,7 @@ public class Account extends FAHFieldCommon {
         this.role = role;
         this.statusBlock = statusBlock;
         this.category = category;
+        this.avata = avata;
     }
 
     public String getCompanyIntro() {

@@ -39,7 +39,7 @@ public class AccountData {
 
 
 
-    public  void InsertAccount(Account account){
+    public static void InsertAccount(Account account){
          FAHQuery.InsertData(account);
     }
 

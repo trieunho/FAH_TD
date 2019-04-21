@@ -101,12 +101,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                            AccountData.firebaseUser = accountData.getFirebaseAuth().getCurrentUser();
-                      Account account =new Account();
-                      account.setAccountName(AccountData.firebaseUser.getDisplayName());
-                      account.setEmail(AccountData.firebaseUser.getEmail());
-                      account.setLogin(true);
-                            Toast.makeText(LoginActivity.this, "Email"+MainActivity.userLogin.getEmail(), Toast.LENGTH_SHORT).show();
-                            MainActivity.userLogin = account;
+                            Account account =new Account();
+                            account.setAccountName(AccountData.firebaseUser.getDisplayName());
+                            account.setEmail(AccountData.firebaseUser.getEmail());
+                            account.setLogin(true);
+                            MainActivity.userLogin=account;
                            nextMain();
                            // updateUI(user);
                         } else {

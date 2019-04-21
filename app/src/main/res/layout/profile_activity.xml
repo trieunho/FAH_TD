@@ -33,12 +33,14 @@
                     >
 
                 </LinearLayout>
-                <android.support.v7.widget.AppCompatImageView
+                <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:gravity="bottom"
+                    android:id="@+id/userAvata"
                     android:src="@drawable/meninblack"
                     />
+
                 <LinearLayout
                     android:layout_weight="1"
                     android:layout_width="match_parent"

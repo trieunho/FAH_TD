@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHData.AccountData;
+import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -108,7 +109,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    //  Log.d(TAG, "User profile updated.");
+                                                    Account account =new Account();
+                                                    account.setAccountName(AccountData.firebaseUser.getDisplayName());
+                                                    account.setEmail(AccountData.firebaseUser.getEmail());
+                                                    AccountData.InsertAccount(account);
                                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
                                                     finish();
                                                 }
