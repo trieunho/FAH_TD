@@ -11,10 +11,12 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.fah.FAHData.AccountData;
+import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.IEvenItem;
 import com.example.fah.FAHScreen.Main.GridView.Menu.GridListMenuMainAdapter;
 import com.example.fah.FAHScreen.Main.GridView.Menu.Menu;
 import com.example.fah.FAHScreen.User.Login.LoginActivity;
+import com.example.fah.FAHScreen.User.ProfileActivity;
 import com.example.fah.R;
 
 import java.util.ArrayList;
@@ -64,13 +66,12 @@ public class MenuFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Menu objectGrid = (Menu) gvMenu.getItemAtPosition(position);
-                //Toast.makeText(getContext(), "Event= "+ objectGrid.getEventClickItem().callEvent(), Toast.LENGTH_SHORT).show();
                 if( objectGrid.getEventClickItem() == null){
                     Toast.makeText(getContext(), "Event not found!", Toast.LENGTH_SHORT).show();
                 }{
                     objectGrid.getEventClickItem().callEvent();
                 }
-                //   startActivity(new Intent(getContext(), TestActivity.class));
+
             }
         });
     }
@@ -81,7 +82,7 @@ public class MenuFragment extends Fragment {
             list.add(new Menu(AccountData.firebaseUser.getEmail(), "ic_launcher_default_avata", new IEvenItem() {
                 @Override
                 public void callEvent() {
-                    Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
+                  startActivity(new Intent(getContext(), ProfileActivity.class));
                 }
             }));
         }
@@ -103,6 +104,9 @@ public class MenuFragment extends Fragment {
                 if(AccountData.firebaseUser!=null){
                     AccountData.firebaseAuth.signOut();
                     AccountData.firebaseUser = null;
+                    Account account=new Account();
+                    account.setLogin(false);
+                    MainActivity.accountData.setUserLogin(account);
                     gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
                 }else{
                     Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();

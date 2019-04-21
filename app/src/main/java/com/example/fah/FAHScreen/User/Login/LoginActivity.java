@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHData.AccountData;
+import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,7 +20,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-   private AccountData accountData;
     EditText emailEditText;
     EditText passwordEditText;
     Button loginBtn;
@@ -30,8 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        accountData = new AccountData();
-        if (accountData.getUserLogin() !=null){
+         if (MainActivity.accountData.getUserLogin().isLogin() ==true){
             nextMain();
         }else{
             emailEditText = (EditText) findViewById(R.id.emailEditText);
@@ -95,12 +94,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-                accountData.getFirebaseAuth().signInWithEmailAndPassword(email, password)
+        MainActivity.accountData.getFirebaseAuth().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                           AccountData.firebaseUser = accountData.getFirebaseAuth().getCurrentUser();
+                           AccountData.firebaseUser = MainActivity.accountData.getFirebaseAuth().getCurrentUser();
+                      Account account =new Account();
+                      account.setAccountName(AccountData.firebaseUser.getDisplayName());
+                      account.setEmail(AccountData.firebaseUser.getEmail());
+                      account.setLogin(true);
+                        MainActivity.accountData.setUserLogin(account);
                            nextMain();
                            // updateUI(user);
                         } else {

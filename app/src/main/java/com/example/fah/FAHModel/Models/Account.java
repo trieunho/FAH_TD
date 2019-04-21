@@ -20,6 +20,15 @@ public class Account extends FAHFieldCommon {
     private String companyIntro;
     private int coin;
     private int statusBlock;
+    private   boolean isLogin;
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
 
     private Category category;
     private ArrayList<Post> listPost;
