@@ -48,7 +48,7 @@ public class SearchAdapter extends BaseAdapter {
             holder.companyName = convertView.findViewById(R.id.txtCompanyName);
             holder.address =  convertView.findViewById(R.id.txtAddress);
             holder.thoiGian = convertView.findViewById(R.id.txtThoiGian);
-            holder.luong = convertView.findViewById(R.id.txtLuong);
+            holder.salary = convertView.findViewById(R.id.txtLuong);
             holder.deadLine = convertView.findViewById(R.id.txtDeadline);
             convertView.setTag(holder);
         } else {
@@ -59,9 +59,9 @@ public class SearchAdapter extends BaseAdapter {
         holder.titlePost.setText(post.getTitlePost());
         holder.companyName.setText(post.getCompanyName());
         holder.address.setText(post.getAddress());
-//        holder.thoiGian.setText(post.getThoiGian());
-        holder.luong.setText(post.getLuong());
-        holder.deadLine.setText(post.getDeadLine().getDay() + "/" + post.getDeadLine().getMonth() + "/" + post.getDeadLine().getYear());
+        holder.thoiGian.setText("Thời gian: " + post.getTimeOfWork());
+        holder.salary.setText("Lương: " + post.getSalary());
+        holder.deadLine.setText("Hạn nhận: " + post.getDeadLine());
 
         return convertView;
     }
@@ -70,7 +70,7 @@ public class SearchAdapter extends BaseAdapter {
         TextView titlePost;
         TextView companyName;
         TextView address;
-        TextView luong;
+        TextView salary;
         TextView thoiGian;
         TextView deadLine;
     }
