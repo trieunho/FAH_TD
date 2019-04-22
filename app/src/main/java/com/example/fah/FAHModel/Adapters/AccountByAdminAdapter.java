@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
+import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
 import com.google.firebase.database.DatabaseReference;
@@ -120,9 +122,11 @@ public class AccountByAdminAdapter extends ArrayAdapter <Account> {
                 DatabaseReference myRef = database.getReference("TestHongCT");
 
                 if (account.getStatusBlock() == 0) {
-                    myRef.child("nani0").child("statusBlock").setValue(1);
+                    FAHQuery.UpdateData(1, ExcuteString.GetUrlData("TestHongCT", account.getKey(), "statusBlock"));
+//                    myRef.child(account.getKey()).child("statusBlock").setValue(1);
                 } else {
-                    myRef.child("nani0").child("statusBlock").setValue(0);
+                    FAHQuery.UpdateData(0, ExcuteString.GetUrlData("TestHongCT", account.getKey(), "statusBlock"));
+//                    myRef.child(account.getKey()).child("statusBlock").setValue(0);
                 }
 
 

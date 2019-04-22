@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Adapters.AccountByAdminAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
@@ -109,20 +110,12 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
      * Get list Account from DB
      */
     private void getListAccount() {
+//        Query query = myRef.orderByChild()
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                accountList = new ArrayList <>();
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                if (dataSnapshot.getValue() != null) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Account account = snapshot.getValue(Account.class);
-                        accountList.add(account);
-                    }
-
-                    setAccountAdapter(accountList);
-                }
+                accountList = (ArrayList<Account>) FAHQuery.GetDataObject(dataSnapshot, new Account());
+                setAccountAdapter(accountList);
             }
 
             @Override
@@ -161,6 +154,7 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
      * Exec input search
      */
     private void search() {
+        "abc".contains("abc");
         keySearch = editTextSearch.getText().toString();
         query = myRef.orderByChild("accountName")
                 .startAt(keySearch)
