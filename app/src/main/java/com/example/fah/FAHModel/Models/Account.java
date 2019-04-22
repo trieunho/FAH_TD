@@ -22,6 +22,8 @@ public class Account extends FAHFieldCommon {
     private int statusBlock;
     private   boolean isLogin;
     private String avata;
+    private int statusSendInvation;
+
 
     public String getAvata() {
         return avata;
@@ -147,6 +149,14 @@ public class Account extends FAHFieldCommon {
         this.accountName = accountName;
         this.email = email;
         this.statusBlock = statusBlock;
+    }
+
+    public int getStatusSendInvation() {
+        return statusSendInvation;
+    }
+
+    public void setStatusSendInvation(int statusSendInvation) {
+        this.statusSendInvation = statusSendInvation;
     }
 
     public String getAccountID() {

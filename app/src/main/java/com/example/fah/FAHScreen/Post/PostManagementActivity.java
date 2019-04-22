@@ -1,12 +1,14 @@
 package com.example.fah.FAHScreen.Post;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.*;
-import java.util.ArrayList;
-import java.util.List;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
+
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostManagementActivity extends AppCompatActivity {
 
@@ -22,13 +24,13 @@ public class PostManagementActivity extends AppCompatActivity {
 
     private List<Post> getListData() {
         List<Post> list = new ArrayList<>();
-        Post vietnam = new Post("Tuyển thư ký chân dài", "CanhDV1", "F-Complex");
-        Post usa = new Post("Tuyển thư ký chân vừa", "CanhDV1", "F-Complex");
-        Post russia = new Post("Tuyển thư ký chân ngắn", "CanhDV1", "F-Complex");
+//        Post vietnam = new Post("Tuyển thư ký chân dài", "CanhDV1", "F-Complex");
+//        Post usa = new Post("Tuyển thư ký chân vừa", "CanhDV1", "F-Complex");
+//        Post russia = new Post("Tuyển thư ký chân ngắn", "CanhDV1", "F-Complex");
 
-        list.add(vietnam);
-        list.add(usa);
-        list.add(russia);
+//        list.add(vietnam);
+//        list.add(usa);
+//        list.add(russia);
 
         return list;
     }
