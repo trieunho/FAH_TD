@@ -18,8 +18,6 @@ import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -118,17 +116,11 @@ public class AccountByAdminAdapter extends ArrayAdapter <Account> {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("TestHongCT");
-
                 if (account.getStatusBlock() == 0) {
                     FAHQuery.UpdateData(1, ExcuteString.GetUrlData("TestHongCT", account.getKey(), "statusBlock"));
-//                    myRef.child(account.getKey()).child("statusBlock").setValue(1);
                 } else {
                     FAHQuery.UpdateData(0, ExcuteString.GetUrlData("TestHongCT", account.getKey(), "statusBlock"));
-//                    myRef.child(account.getKey()).child("statusBlock").setValue(0);
                 }
-
 
                 Toast.makeText(context, "Thay đổi quyền thành công !", Toast.LENGTH_SHORT).show();
             }

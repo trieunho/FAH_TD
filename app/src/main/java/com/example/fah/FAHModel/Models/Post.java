@@ -33,10 +33,19 @@ public class Post extends FAHFieldCommon {
 
     public Post(){}
 
+    public Post(String titlePost, String accountStr, String companyName,ArrayList <Account> listOfAccApply) {
+        this.titlePost = titlePost;
+        this.accountStr = accountStr;
+        this.companyName = companyName;
+        this.listOfAccApply = listOfAccApply;
+
+    }
+
     public Post(String titlePost, String accountStr, String companyName) {
         this.titlePost = titlePost;
         this.accountStr = accountStr;
         this.companyName = companyName;
+
     }
 
     public Post(String titlePost, String companyName, String address, String tow, String luong, String deadLine) {

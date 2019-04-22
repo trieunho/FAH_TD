@@ -16,7 +16,6 @@ public class FAHQueryParam {
     private Object param;
     private Object param2;
     private String typeParam;
-
     public FAHQueryParam(String table, String field, String typeQuery, Object param, String typeParam) {
         this.table = table;
         this.field = field;
