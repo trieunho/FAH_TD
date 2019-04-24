@@ -54,8 +54,6 @@ public class FAHQuery {
 
     public static void InsertData(Object data, String url){
         reference.getReference(url).push().setValue(data);
-//        String key = reference.getReference(url).push().getKey();
-//        UpdateListData(data, ExcuteString.GetUrlData(url, key));
     }
 
     public static void InsertData(Object data){
@@ -66,6 +64,26 @@ public class FAHQuery {
         for(Object item : data){
             InsertData(item);
         }
+    }
+
+    public static String InsertDataGetKey(Object data, String url){
+        String key = reference.getReference(url).push().getKey();
+        UpdateData(data, ExcuteString.GetUrlData(url, key));
+
+        return key;
+    }
+
+    public static String InsertDataGetKey(Object data){
+        return InsertDataGetKey(data, GetNameDB(data));
+    }
+
+    public static ArrayList<String> InsertDataGetKey(List<?> data){
+        ArrayList<String> listKey = new ArrayList<>();
+        for(Object item : data) {
+            listKey.add(InsertDataGetKey(item));
+        }
+
+        return listKey;
     }
 
     public static void UpdateData(Object data, String url){
