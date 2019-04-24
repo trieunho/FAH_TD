@@ -31,31 +31,16 @@
                     android:orientation="vertical"
                     android:layout_marginBottom="20dp"
                     >
-                    <ImageView
-                        android:layout_weight="1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/fb"
-                        android:layout_gravity="center"
-                        android:gravity="bottom"
-                        />
-                    <TextView
-                        android:layout_weight="1"
-                        android:id="@+id/sin"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="456 Friends"
-                        android:gravity="center"
-                        android:textSize="12dp"
-                        android:textColor="#85ffffff"
-                        />
+
                 </LinearLayout>
-                <android.support.v7.widget.AppCompatImageView
+                <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:gravity="bottom"
+                    android:id="@+id/userAvata"
                     android:src="@drawable/meninblack"
                     />
+
                 <LinearLayout
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -63,26 +48,7 @@
                     android:orientation="vertical"
                     android:layout_marginBottom="20dp"
                     >
-                    <ImageView
-                        android:layout_weight="1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/twitter"
-                        android:layout_gravity="center"
-                        android:gravity="bottom"
 
-                        />
-                    <TextView
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:id="@+id/sinn"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="562 Followings"
-                        android:layout_gravity="center"
-                        android:textSize="12dp"
-                        android:textColor="#85ffffff"
-                        />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -123,7 +89,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="#1b193b"
-                android:inputType="textPassword"
                 android:hint="Duong Cong Thanh"
                 android:textColor="#181737"
                 android:maxLength="12"
@@ -208,7 +173,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="#1b193b"
-                android:inputType="textPassword"
                 android:hint="07/07/1997"
                 android:textColor="#181737"
                 android:maxLength="12"
@@ -251,7 +215,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="#1b193b"
-                android:inputType="textPassword"
                 android:hint="09987654321"
                 android:textColor="#181737"
                 android:maxLength="12"

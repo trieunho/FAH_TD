@@ -20,6 +20,26 @@ public class Account extends FAHFieldCommon {
     private String companyIntro;
     private int coin;
     private int statusBlock;
+    private   boolean isLogin;
+    private String avata;
+    private int statusSendInvation;
+
+
+    public String getAvata() {
+        return avata;
+    }
+
+    public void setAvata(String avata) {
+        this.avata = avata;
+    }
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
 
     private Category category;
     private ArrayList<Post> listPost;
@@ -40,7 +60,7 @@ public class Account extends FAHFieldCommon {
      */
     public Account(String accountID, String accountName, String sex,
                    String dateOfBirth, String address, String phone,
-                   String email, int role, int statusBlock, Category category) {
+                   String email, int role, int statusBlock, Category category, String avata) {
         super();
         this.accountID = accountID;
         this.accountName = accountName;
@@ -52,6 +72,7 @@ public class Account extends FAHFieldCommon {
         this.role = role;
         this.statusBlock = statusBlock;
         this.category = category;
+        this.avata = avata;
     }
 
     public String getCompanyIntro() {
@@ -128,6 +149,14 @@ public class Account extends FAHFieldCommon {
         this.accountName = accountName;
         this.email = email;
         this.statusBlock = statusBlock;
+    }
+
+    public int getStatusSendInvation() {
+        return statusSendInvation;
+    }
+
+    public void setStatusSendInvation(int statusSendInvation) {
+        this.statusSendInvation = statusSendInvation;
     }
 
     public String getAccountID() {

@@ -14,10 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
+import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -116,15 +116,11 @@ public class AccountByAdminAdapter extends ArrayAdapter <Account> {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("TestHongCT");
-
                 if (account.getStatusBlock() == 0) {
-                    myRef.child("nani0").child("statusBlock").setValue(1);
+                    FAHQuery.UpdateData(1, ExcuteString.GetUrlData("TestHongCT", account.getKey(), "statusBlock"));
                 } else {
-                    myRef.child("nani0").child("statusBlock").setValue(0);
+                    FAHQuery.UpdateData(0, ExcuteString.GetUrlData("TestHongCT", account.getKey(), "statusBlock"));
                 }
-
 
                 Toast.makeText(context, "Thay đổi quyền thành công !", Toast.LENGTH_SHORT).show();
             }
