@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Adapters.SearchAdapter;
 import com.example.fah.FAHModel.Models.Post;
-import com.example.fah.FAHScreen.Main.DetailSearchActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -128,7 +127,7 @@ public class ListPostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                startActivity(new Intent(ListPostActivity.this, DetailSearchActivity.class));
+                startActivity(new Intent(ListPostActivity.this, DetailSearchPostActivity.class));
                 finish();
                 return true;
             }
