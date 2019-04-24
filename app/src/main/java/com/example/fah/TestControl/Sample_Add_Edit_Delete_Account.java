@@ -51,8 +51,10 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
                 ArrayList<Account> list = new ArrayList<>();
                 list.add(new Account("1", "2", "1", 1));
                 list.add(new Account("1", "2", "2", 2));
-                TestDB data = new TestDB("123", list);
-                FAHQuery.InsertData(data);
+                ArrayList<TestDB> listTest = new ArrayList<>();
+                listTest.add(new TestDB("123", list));
+                listTest.add(new TestDB("123", list));
+                ArrayList<String> key = FAHQuery.InsertDataGetKey(listTest);
             }
         });
 
