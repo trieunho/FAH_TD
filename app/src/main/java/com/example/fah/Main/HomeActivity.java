@@ -15,10 +15,10 @@ import android.widget.Toast;
 
 import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
 import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
+import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
 import com.example.fah.TestControl.Sample_Add_Edit_Delete_Account;
 import com.example.fah.FAHScreen.Account.SearchAccountActivity;
 import com.example.fah.FAHModel.Adapters.TestLayoutAdapter;
-import com.example.fah.FAHScreen.Main.DetailSearchActivity;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.FAHScreen.Manage.ManageCategoryActivity;
 import com.example.fah.FAHScreen.Manage.ManageTypePost;
@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity {
 //        layoutList.add(new TestLayout(HomeActivity.this, CreatePostActivity.class,"Tạo bài viết"));
 //        layoutList.add(new TestLayout(HomeActivity.this, PostManagementActivity.class,"Quản lý bài viết"));
 //        layoutList.add(new TestLayout(HomeActivity.this, DetailPostActivity.class,"Thông tin bài viết"));
-//        layoutList.add(new TestLayout(HomeActivity.this, DetailSearchActivity.class,"Tìm kiếm bài viết"));
+//        layoutList.add(new TestLayout(HomeActivity.this, DetailSearchPostActivity.class,"Tìm kiếm bài viết"));
 //        layoutList.add(new TestLayout(HomeActivity.this, ManageAccountByAdminActivity.class,"Quản lý account"));
 //        layoutList.add(new TestLayout(HomeActivity.this, MainActivity.class,"Main"));
         layoutList.add(new TestLayout(HomeActivity.this, MainActivity.class,"Main"));
@@ -79,7 +79,7 @@ public class HomeActivity extends AppCompatActivity {
         layoutList.add(new TestLayout(HomeActivity.this, CreatePostActivity.class,"Tạo bài đăng"));
         layoutList.add(new TestLayout(HomeActivity.this, DetailPostActivity.class,"Chi tiết bài đăng"));
         layoutList.add(new TestLayout(HomeActivity.this, PostManagementActivity.class,"Quản lý bài đăng"));
-        layoutList.add(new TestLayout(HomeActivity.this, DetailSearchActivity.class,"Tìm kiếm bài viết"));
+        layoutList.add(new TestLayout(HomeActivity.this, DetailSearchPostActivity.class,"Tìm kiếm bài viết"));
         layoutList.add(new TestLayout(HomeActivity.this, PersionalImformationActivity.class,"Profile user"));
         layoutList.add(new TestLayout(HomeActivity.this, Sample_Add_Edit_Delete_Account.class,"Sample Account"));
         layoutList.add(new TestLayout(HomeActivity.this, LoginActivity.class,"Login Activity"));

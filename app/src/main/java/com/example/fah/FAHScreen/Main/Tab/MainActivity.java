@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.fah.FAHModel.Models.Account;
-import com.example.fah.FAHScreen.Main.DetailSearchActivity;
+import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
 import com.example.fah.FAHScreen.Main.ViewPaper.ViewPaperMain;
 import com.example.fah.R;
 
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         // noinspection SimplifiableIfStatement
         switch (item.getItemId()){
             case R.id.action_search: {
-                startActivity(new Intent(this, DetailSearchActivity.class));
+                startActivity(new Intent(this, DetailSearchPostActivity.class));
                 return true;
             }
             default:{
