@@ -21,7 +21,7 @@ import com.example.fah.FAHModel.Adapters.TestLayoutAdapter;
 import com.example.fah.FAHScreen.Main.DetailSearchActivity;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.FAHScreen.Manage.ManageCategoryActivity;
-import com.example.fah.FAHScreen.Manage.ManageTypePost;
+import com.example.fah.FAHScreen.Manage.ManageTypePostActivity;
 import com.example.fah.FAHModel.Models.IEvenDialog;
 import com.example.fah.FAHModel.Models.TestLayout;
 import com.example.fah.FAHScreen.Post.CreatePostActivity;
@@ -75,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
         layoutList.add(new TestLayout(HomeActivity.this, ManageAccountByPostActivity.class,"Quản lý account theo bài viết"));
         layoutList.add(new TestLayout(HomeActivity.this, SearchAccountActivity.class,"Tìm kiếm account"));
         layoutList.add(new TestLayout(HomeActivity.this, ManageCategoryActivity.class,"Quản lý danh mục"));
-        layoutList.add(new TestLayout(HomeActivity.this, ManageTypePost.class,"Loại bài đăng"));
+        layoutList.add(new TestLayout(HomeActivity.this, ManageTypePostActivity.class,"Loại bài đăng"));
         layoutList.add(new TestLayout(HomeActivity.this, CreatePostActivity.class,"Tạo bài đăng"));
         layoutList.add(new TestLayout(HomeActivity.this, DetailPostActivity.class,"Chi tiết bài đăng"));
         layoutList.add(new TestLayout(HomeActivity.this, PostManagementActivity.class,"Quản lý bài đăng"));

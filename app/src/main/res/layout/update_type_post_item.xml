@@ -41,6 +41,7 @@
         android:layout_height="60dp"
         android:layout_below="@+id/txtInputTime"
         android:layout_toLeftOf="@+id/btnHuy"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
         style="@style/Widget.AppCompat.Button.Colored"
         android:text="OK" />
     <Button
@@ -49,6 +50,7 @@
         android:layout_height="60dp"
         android:layout_below="@+id/txtInputTime"
         style="@style/Widget.AppCompat.Button.Colored"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
         android:layout_alignParentRight="true"
         android:text="Cancel" />
 </RelativeLayout>

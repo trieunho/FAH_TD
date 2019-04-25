@@ -31,7 +31,7 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_menu, container, false);
-
+        
         GetControl();
 
         return view;

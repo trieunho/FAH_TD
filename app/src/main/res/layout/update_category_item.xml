@@ -13,6 +13,7 @@
         android:id="@+id/txtinput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/fah_control_edit_text"
         android:layout_below="@+id/txtmessage"
         android:padding="10dp"/>
 
