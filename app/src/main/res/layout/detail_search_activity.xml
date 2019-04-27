@@ -45,27 +45,16 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/cbxTime"
+        android:editable="false"
+        android:gravity="center"
+        android:hint="Chọn khung thời gian"
+        android:drawableLeft="@drawable/ic_timer_black"
+        android:drawableRight="@drawable/ic_arrow_down"
+        android:background="@drawable/fah_control_combobox"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ckbTime1"
-            android:text="Morning"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ckbTime2"
-            android:layout_marginLeft="@dimen/margin_control"
-            android:text="Afternoon"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ckbTime3"
-            android:layout_marginLeft="@dimen/margin_control"
-            android:text="Evening"/>
-    </LinearLayout>
+        android:layout_height="@dimen/wrap_content_control" />
 </LinearLayout>

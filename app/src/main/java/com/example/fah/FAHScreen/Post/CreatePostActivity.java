@@ -3,6 +3,7 @@ package com.example.fah.FAHScreen.Post;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -17,17 +18,24 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHExcuteData.EmailValidator;
 import com.example.fah.FAHModel.Models.Account;
+import com.example.fah.FAHModel.Models.Category;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.FAHModel.Models.TypeOfPost;
 import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.List;
 
+import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
 import static com.example.fah.FAHScreen.Main.Tab.MainActivity.userLogin;
 
 public class CreatePostActivity extends AppCompatActivity {
@@ -89,13 +97,21 @@ public class CreatePostActivity extends AppCompatActivity {
             case R.id.btnPost: {
                 if (canPost() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                     try {
+                        // firebase
+                        database = FirebaseDatabase.getInstance();
+                        myRef = database.getReference("Post");
+
                         TypeOfPost top = new TypeOfPost();
                         top.setTypeID(cbxTypeOfArticle.getText().toString().substring(5, 6));
+
+                        Category cgr = new Category();
+                        cgr.setCategoryID(String.valueOf(controlField.getItemChoose() + 1));
+                        cgr.setCategoryName(cbxField.getText().toString());
 
                         myRef.push().setValue(new Post(
                                 txtTitle.getText().toString(),
                                 txtCompanyName.getText().toString(),
-                                controlField.getItemChoose(),
+                                cgr,
                                 txtDescription.getText().toString(),
                                 txtRequired.getText().toString(),
                                 txtBenifit.getText().toString(),
@@ -170,10 +186,6 @@ public class CreatePostActivity extends AppCompatActivity {
         dtFrom = findViewById(R.id.dtFrom);
         dtTo = findViewById(R.id.dtTo);
 
-        // firebase
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Post");
-
         // combobox
         String[] arrLuong = {
                 "Cố định",
@@ -188,13 +200,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 "Loại 3"
         };
         controlType = new FAHCombobox(CreatePostActivity.this, cbxTypeOfArticle, arrLoai, 0);
-
-        String[] arrField = {
-                "Công nghệ thông tin",
-                "Bất động sản",
-                "Lĩnh vực giải trí"
-        };
-        controlField = new FAHCombobox(CreatePostActivity.this, cbxField, arrField, 0);
+        myRef = FAHQuery.GetData("CATEGORY_OF_POST");
 
         // Init
         txtLuong2.setVisibility(View.GONE);
@@ -206,6 +212,25 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Category> data = (List<Category>) FAHQuery.GetDataObject(dataSnapshot, new Category());
+                String[] list = new String[data.size()];
+
+                for (Category item: data) {
+                    list[Integer.parseInt(item.getCategoryID()) - 1] = item.getCategoryName();
+                }
+
+                controlField = new FAHCombobox(CreatePostActivity.this, cbxField, list, VALUEDEFAULT);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(CreatePostActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
