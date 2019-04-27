@@ -79,12 +79,12 @@ public class MenuFragment extends Fragment {
     private  List<Menu> getListData() {
         List<Menu> list = new ArrayList<>();
         if(MainActivity.userLogin.isLogin()==true){
-            list.add(new Menu((MainActivity.userLogin.getEmail()), "ic_launcher_default_avata", new IEvenItem() {
-                @Override
-                public void callEvent() {
-                  startActivity(new Intent(getContext(), ProfileActivity.class));
-                }
-            }));
+                list.add(new Menu((MainActivity.userLogin.getEmail()), "", new IEvenItem() {
+                    @Override
+                    public void callEvent() {
+                        startActivity(new Intent(getContext(), ProfileActivity.class));
+                    }
+                },true));
         }
         list.add(new Menu("Tìm kiếm công việc", "ic_launcher_search_job"));
         list.add(new Menu("Công việc của tôi", "ic_launcher_job"));

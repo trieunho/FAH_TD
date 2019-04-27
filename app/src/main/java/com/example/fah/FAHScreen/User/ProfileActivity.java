@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,8 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.CommonUtils.ImageUtils;
+import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -88,12 +94,32 @@ public class ProfileActivity extends AppCompatActivity {
                         imgBitmap.getWidth(), imgBitmap.getHeight(),
                         ImageUtils.AVATAR_WIDTH, ImageUtils.AVATAR_HEIGHT);
                          String imageBase64 = ImageUtils.encodeBase64(liteImage);
-                          userAvata.setImageDrawable(ImageUtils.roundedImage(ProfileActivity.this, liteImage));
+                      final   Account account=MainActivity.userLogin;
+                        account.setAvata(imageBase64);
 
+                        FirebaseDatabase.getInstance().getReference().child("Account")
+                                .child(MainActivity.userLogin.getKey())
+                               .setValue(account)
+                               .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                   @Override
+                                   public void onComplete(@NonNull Task<Void> task) {
+                                       if(task.isSuccessful()){
+                                           progressDoalog.dismiss();
+                                           userAvata.setImageDrawable(ImageUtils.roundedImage(ProfileActivity.this, liteImage));
+                                            MainActivity.userLogin = account;
+                                       }
+                                   }
+                               })
+                               .addOnFailureListener(new OnFailureListener() {
+                                   @Override
+                                   public void onFailure(@NonNull Exception e) {
+                                       progressDoalog.dismiss();
+                                       Toast.makeText(ProfileActivity.this, "Update thất bại.", Toast.LENGTH_SHORT).show();
+                                   }
+                               });
+                Toast.makeText(this, "Update thành công!", Toast.LENGTH_SHORT).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            }finally {
-              //  progressDoalog.dismiss();
             }
         }
     }

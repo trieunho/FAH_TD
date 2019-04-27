@@ -23,7 +23,17 @@ public class Account extends FAHFieldCommon {
     private   boolean isLogin;
     private String avata;
     private int statusSendInvation;
+    private String key;
 
+    @Override
+    public String getKey() {
+        return key;
+    }
+
+    @Override
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getAvata() {
         return avata;
@@ -39,6 +49,34 @@ public class Account extends FAHFieldCommon {
 
     public void setLogin(boolean login) {
         isLogin = login;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountID='" + accountID + '\'' +
+                ", accountName='" + accountName + '\'' +
+                ", sex='" + sex + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", companyName='" + companyName + '\'' +
+                ", companyAddress='" + companyAddress + '\'' +
+                ", companyPhone='" + companyPhone + '\'' +
+                ", companyEmail='" + companyEmail + '\'' +
+                ", companyIntro='" + companyIntro + '\'' +
+                ", coin=" + coin +
+                ", statusBlock=" + statusBlock +
+                ", isLogin=" + isLogin +
+                ", avata='" + avata + '\'' +
+                ", statusSendInvation=" + statusSendInvation +
+                ", key='" + key + '\'' +
+                ", category=" + category +
+                ", listPost=" + listPost +
+                ", listFavoritePost=" + listFavoritePost +
+                '}';
     }
 
     private Category category;
