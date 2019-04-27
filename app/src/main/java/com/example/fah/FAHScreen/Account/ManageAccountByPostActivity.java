@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
+import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHModel.Adapters.AccountByPostAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
@@ -105,7 +106,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
                 postList = new ArrayList <>();
                 ArrayList <Post>  listPostForAcc  = (ArrayList <Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                 for (Post item : listPostForAcc){
-                    if (item.getAccount()!=null &&"1".equals(item.getAccount().getKey())){
+                    if (item.getAccount()!= null &&"0".equals(item.getAccount().getKey())){
                         postList.add(item);
                     }
                 }
@@ -132,6 +133,12 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
         int size = 0;
         for (Post item : postList) {
             if (keySearch.equals(item.getKey())) {
+                if (item.getListOfAccApply() != null && item.getListOfAccApply().size() > 0) {
+                    for (int i = 0; i < item.getListOfAccApply().size(); i++) {
+                        FAHQuery.UpdateData(0, ExcuteString.GetUrlData("PostTestHongCT", item.getKey(), "listOfAccApply", String.valueOf(i), "statusSendInvation"));
+                        item.getListOfAccApply().get(i).setStatusSendInvation(0);
+                    }
+                }
                 AccountByPostAdapter accountByPostAdapter = new AccountByPostAdapter(
                         this,
                         R.layout.account_by_post_activity,

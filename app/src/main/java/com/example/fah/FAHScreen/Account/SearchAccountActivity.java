@@ -7,10 +7,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Adapters.AccountBySearchAdapter;
 import com.example.fah.FAHModel.Models.Account;
+import com.example.fah.FAHModel.Models.TypeOfPost;
+import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +29,28 @@ public class SearchAccountActivity extends AppCompatActivity {
     Spinner spnListOfTime;
     ListView lvAccount;
     TextView tvResultOfSearch;
+    ArrayList<TypeOfPost> listOfWork;
+    DatabaseReference myRef;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_account_activity);
+        Toast.makeText(SearchAccountActivity.this, MainActivity.userLogin.getEmail(),
+                Toast.LENGTH_SHORT).show();
         addControl();
 //        addEvent();
     }
 
     private void addControl() {
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("TYPE_OF_WORK");
+
         List<String> listOfWork = new ArrayList<>();
+
+
         listOfWork.add("Chọn công việc");
         listOfWork.add("Bảo vệ");
         listOfWork.add("Nhân viên bán hàng");
@@ -85,5 +105,20 @@ public class SearchAccountActivity extends AppCompatActivity {
         } else {
             tvResultOfSearch.setText("Không tìm thấy kết quả nào phù hợp !");
         }
+    }
+
+    private void getListTypeOfPost() {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listOfWork = (ArrayList<TypeOfPost>) FAHQuery.GetDataObject(dataSnapshot, new TypeOfPost());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Toast.makeText(SearchAccountActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
