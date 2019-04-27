@@ -179,21 +179,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wrap_content_control"
                     android:orientation="horizontal">
-                    <CheckBox
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/ckbTime1"
-                        android:text="Morning"/>
-                    <CheckBox
+                        android:layout_marginLeft="@dimen/margin_control"
+                        android:layout_marginRight="@dimen/margin_control"
+                        android:text="Từ"/>
+                    <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/ckbTime2"
-                        android:text="Afternoon"/>
-                    <CheckBox
+                        android:inputType="time"
+                        android:text="00"
+                        android:maxLength="2"
+                        android:id="@+id/dtFrom"/>
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/ckbTime3"
-                        android:text="Evening"/>
+                        android:layout_marginLeft="@dimen/margin_control"
+                        android:layout_marginRight="@dimen/margin_control"
+                        android:text="Giờ"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_control"
+                        android:layout_marginRight="@dimen/margin_control"
+                        android:text="Đến"/>
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="time"
+                        android:text="00"
+                        android:maxLength="2"
+                        android:id="@+id/dtTo"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_control"
+                        android:layout_marginRight="@dimen/margin_control"
+                        android:text="Giờ"/>
                 </LinearLayout>
 
                 <TextView

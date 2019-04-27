@@ -105,7 +105,8 @@ public class ListPostActivity extends AppCompatActivity {
                             item.getTitlePost(),
                             item.getCompanyName(),
                             item.getAddress(),
-                            item.getTimeOfWork(),
+                            item.getDtFrom(),
+                            item.getDtTo(),
                             item.getTypeOfSalary().equals("Cố định") ? item.getSalary_from() :
                                     item.getTypeOfSalary().equals("Trong khoảng") ? item.getSalary_from() + " ~ " + item.getSalary_to() : "Thỏa thuận",
                             item.getDeadLine()

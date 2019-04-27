@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.*;
 import android.support.v7.widget.Toolbar;
 
+import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
@@ -30,8 +31,6 @@ public class DetailSearchPostActivity extends AppCompatActivity {
     CheckBox ckbTime1;
     CheckBox ckbTime2;
     CheckBox ckbTime3;
-
-    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,15 +91,18 @@ public class DetailSearchPostActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.btnSearch: {
-                Intent intent = new Intent(DetailSearchPostActivity.this, ListPostActivity.class);
-                intent.putExtra("job", cbxJob.getText().toString());
-                intent.putExtra("location", cbxCity.getText().toString());
-                intent.putExtra("salary", controlSalary.getItemChoose());
-                intent.putExtra("time1", ckbTime1.getText().toString());
-                intent.putExtra("time2", ckbTime2.getText().toString());
-                intent.putExtra("time3", ckbTime3.getText().toString());
-                startActivity(intent);
-                finish();
+                if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
+                    Intent intent = new Intent(DetailSearchPostActivity.this, ListPostActivity.class);
+                    intent.putExtra("job", cbxJob.getText().toString());
+                    intent.putExtra("location", cbxCity.getText().toString());
+                    intent.putExtra("salary", controlSalary.getItemChoose());
+                    intent.putExtra("time1", ckbTime1.getText().toString());
+                    intent.putExtra("time2", ckbTime2.getText().toString());
+                    intent.putExtra("time3", ckbTime3.getText().toString());
+                    startActivity(intent);
+                    finish();
+                }
+
                 return true;
             }
             default: {

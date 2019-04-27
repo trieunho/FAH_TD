@@ -59,7 +59,7 @@ public class SearchAdapter extends BaseAdapter {
         holder.titlePost.setText(post.getTitlePost());
         holder.companyName.setText(post.getCompanyName());
         holder.address.setText(post.getAddress());
-        holder.thoiGian.setText("Thời gian: " + post.getTimeOfWork());
+        holder.thoiGian.setText("Từ " + post.getDtFrom() + " giờ Đến " + post.getDtTo());
         holder.salary.setText("Lương: " + post.getSalary());
         holder.deadLine.setText("Hạn nhận: " + post.getDeadLine());
 

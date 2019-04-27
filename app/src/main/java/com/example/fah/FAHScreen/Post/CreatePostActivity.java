@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+
+import static com.example.fah.FAHScreen.Main.Tab.MainActivity.userLogin;
 
 public class CreatePostActivity extends AppCompatActivity {
 
@@ -47,12 +48,10 @@ public class CreatePostActivity extends AppCompatActivity {
     TextView lbl;
     EditText txtLuong2;
     EditText txvLoai;
-    CheckBox ckbTime1;
-    CheckBox ckbTime2;
-    CheckBox ckbTime3;
+    EditText dtFrom;
+    EditText dtTo;
     EditText cbxTypeOfArticle;
     EditText cbxField;
-    String workingTime = "";
 
     FAHCombobox controlSalary;
     FAHCombobox controlType;
@@ -96,14 +95,15 @@ public class CreatePostActivity extends AppCompatActivity {
                         myRef.push().setValue(new Post(
                                 txtTitle.getText().toString(),
                                 txtCompanyName.getText().toString(),
-                                cbxField.getText().toString(),
+                                controlField.getItemChoose(),
                                 txtDescription.getText().toString(),
                                 txtRequired.getText().toString(),
                                 txtBenifit.getText().toString(),
                                 txtSoLuong.getText().toString(),
                                 txtAddress.getText().toString(),
                                 txtDate.getText().toString(),
-                                workingTime,
+                                dtFrom.getText().toString(),
+                                dtTo.getText().toString(),
                                 cbxLuong.getText().toString(),
                                 txtLuong1.getText().toString(),
                                 txtLuong2.getText().toString(),
@@ -167,9 +167,8 @@ public class CreatePostActivity extends AppCompatActivity {
         txvLoai = findViewById(R.id.txvLoai);
         cbxTypeOfArticle = findViewById(R.id.cbxTypeOfArticle);
         cbxField = findViewById(R.id.cbxField);
-        ckbTime1 = findViewById(R.id.ckbTime1);
-        ckbTime2 = findViewById(R.id.ckbTime2);
-        ckbTime3 = findViewById(R.id.ckbTime3);
+        dtFrom = findViewById(R.id.dtFrom);
+        dtTo = findViewById(R.id.dtTo);
 
         // firebase
         database = FirebaseDatabase.getInstance();
@@ -201,6 +200,9 @@ public class CreatePostActivity extends AppCompatActivity {
         txtLuong2.setVisibility(View.GONE);
         lbl.setVisibility(View.GONE);
         txvLoai.setText("Tiền không là tiền");
+
+        account = userLogin; // TODO
+        account = new Account("1", "Canh", "avancanh@gmail.com", 1);
     }
 
     private void addEvents() {
@@ -288,11 +290,15 @@ public class CreatePostActivity extends AppCompatActivity {
             return false;
         } else if (txtRequired.getText().toString().equals("")) {
             txtRequired.requestFocus();
-            Toast.makeText(this, "Basic Required không được để trống", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Yêu cầu cơ bản không được để trống", Toast.LENGTH_SHORT).show();
             return false;
         } else if (txtAddress.getText().toString().equals("")) {
             txtAddress.requestFocus();
             Toast.makeText(this, "Chưa điền địa chỉ", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (Integer.parseInt(dtFrom.getText().toString()) > Integer.parseInt(dtTo.getText().toString())) {
+            dtTo.requestFocus();
+            Toast.makeText(this, "Thời gian không hợp lệ", Toast.LENGTH_SHORT).show();
             return false;
         } else if (controlSalary.getItemChoose() == 0 && txtLuong1.getText().toString().equals("")) {
             txtLuong1.requestFocus();
@@ -321,8 +327,6 @@ public class CreatePostActivity extends AppCompatActivity {
             Toast.makeText(this, "Chưa chọn mức phí cho bài viết", Toast.LENGTH_SHORT).show();
             return false;
         }
-
-        workingTime = ckbTime1.isChecked() ? "Buổi sáng" + (ckbTime2.isChecked() ? ", Buổi chiều" + (ckbTime3.isChecked() ? ", Evening" : "") : "" + (ckbTime3.isChecked() ? ", Buổi tối" : "")) : "" + (ckbTime2.isChecked() ? "Buổi chiều" + (ckbTime3.isChecked() ? ", Buổi tối" : "") : "" + (ckbTime3.isChecked() ? ", Buổi tối" : ""));
 
         return true;
     }
