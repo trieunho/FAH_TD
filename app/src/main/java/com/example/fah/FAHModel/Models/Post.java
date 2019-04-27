@@ -14,7 +14,6 @@ public class Post extends FAHFieldCommon {
     private String deadLine;
     private String jobDescription;
     private String required;
-    private int field;
     private String benifit;
     private String soLuong;
     private String email;
@@ -46,7 +45,6 @@ public class Post extends FAHFieldCommon {
         this.titlePost = titlePost;
         this.accountStr = accountStr;
         this.companyName = companyName;
-
     }
 
     public Post(String titlePost, String companyName, String address, String dtFrom, String dtTo, String luong, String deadLine) {
@@ -61,7 +59,7 @@ public class Post extends FAHFieldCommon {
 
     public Post(String titlePost,
                 String companyName,
-                int field,
+                Category category,
                 String jobDescription,
                 String required,
                 String benifit,
@@ -79,7 +77,7 @@ public class Post extends FAHFieldCommon {
                 Account account) {
         this.titlePost = titlePost;
         this.companyName = companyName;
-        this.field = field;
+        this.setCategory(category);
         this.jobDescription = jobDescription;
         this.address = address;
         this.required = required;
@@ -223,14 +221,6 @@ public class Post extends FAHFieldCommon {
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    public int getField() {
-        return field;
-    }
-
-    public void setField(int field) {
-        this.field = field;
     }
 
     public Date getApproveDate() {
