@@ -112,7 +112,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                                     Account account =new Account();
                                                     account.setAccountName(AccountData.firebaseUser.getDisplayName());
                                                     account.setEmail(AccountData.firebaseUser.getEmail());
-                                                    AccountData.InsertAccount(account);
+                                                    String key = AccountData.InsertAccountGetKey(account);
+                                                    account.setKey(key);
+                                                    MainActivity.userLogin = account;
+                                                    MainActivity.userLogin.setLogin(true);
                                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
                                                     finish();
                                                 }

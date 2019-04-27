@@ -1,6 +1,9 @@
 package com.example.fah.FAHScreen.Main.GridView.Menu;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.fah.FAHCommon.CommonUtils.ImageUtils;
 import com.example.fah.R;
 
 import java.util.List;
@@ -54,10 +59,16 @@ public class GridListMenuMainAdapter extends BaseAdapter {
 
         Menu objMenu = this.listData.get(position);
         holder.tvNameFunc.setText(objMenu.getName());
+        if(objMenu.isUserMenu()==true)
+        {
+            holder.ivFunction.setImageDrawable(ImageUtils.roundedImage(context, getImageAvatar(objMenu.getImage())));
+        }
+        else
+         {
+             int imageId = this.getMipmapResIdByName(objMenu.getImage());
+             holder.ivFunction.setImageResource(imageId);
+         }
 
-        int imageId = this.getMipmapResIdByName(objMenu.getImage());
-
-        holder.ivFunction.setImageResource(imageId);
 
         return convertView;
     }
@@ -76,5 +87,16 @@ public class GridListMenuMainAdapter extends BaseAdapter {
         TextView tvNameFunc;
         ImageView ivFunction;
     }
+    private Bitmap getImageAvatar(String imgBase64) {
+        Bitmap src = null;
+        try {
+            byte[] decodedString = Base64.decode(imgBase64, Base64.DEFAULT);
+            src = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        } catch (Exception e) {
+            Toast.makeText(context, "Lỗi khi setimage", Toast.LENGTH_SHORT).show();
+        }
+        return src;
+    }
+
 
 }
