@@ -30,17 +30,15 @@ public class AccountByPostAdapter extends ArrayAdapter<Account> {
     Context context;
     int layout;
     ArrayList<Account> accountList;
-    String keyPost;
 
     DatabaseReference myRef;
     FirebaseDatabase database;
 
-    public AccountByPostAdapter(Context context, int layout, ArrayList<Account> accountList, String keyPost) {
+    public AccountByPostAdapter(Context context, int layout, ArrayList<Account> accountList) {
         super(context, layout, accountList);
         this.context = context;
         this.layout = layout;
         this.accountList = accountList;
-        this.keyPost = keyPost;
     }
 
     @Override
@@ -112,7 +110,7 @@ public class AccountByPostAdapter extends ArrayAdapter<Account> {
             @Override
             public void onClick(View v) {
                 if (account.getStatusSendInvation() != 1) {
-                    FAHQuery.UpdateData(1, ExcuteString.GetUrlData("PostTestHongCT", keyPost, "listOfAccApply", position + "", "statusSendInvation"));
+                    FAHQuery.UpdateData(1, ExcuteString.GetUrlData("PostTestHongCT", account.getKey(), "listOfAccApply", String.valueOf(position), "statusSendInvation"));
 
                     Toast.makeText(context, "Thay đổi quyền thành công !", Toast.LENGTH_SHORT).show();
                     btnSendInvitation.setBackgroundColor(context.getResources().getColor(R.color.colorCrimson));
