@@ -173,7 +173,8 @@ public class Account extends FAHFieldCommon {
      * @param email
      * @param role
      */
-    public Account(String accountID, String accountName, String email, int role) {
+    public Account(String key, String accountID, String accountName, String email, int role) {
+        this.key = key;
         this.accountID = accountID;
         this.accountName = accountName;
         this.email = email;

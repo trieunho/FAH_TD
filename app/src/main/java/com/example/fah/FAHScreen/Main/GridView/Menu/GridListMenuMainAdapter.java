@@ -61,13 +61,23 @@ public class GridListMenuMainAdapter extends BaseAdapter {
         holder.tvNameFunc.setText(objMenu.getName());
         if(objMenu.isUserMenu()==true)
         {
-            holder.ivFunction.setImageDrawable(ImageUtils.roundedImage(context, getImageAvatar(objMenu.getImage())));
+            if(objMenu.getImage()!=null && objMenu.getImage()!=""){
+
+                holder.ivFunction.setImageDrawable(ImageUtils.roundedImage(context, getImageAvatar(objMenu.getImage())));
+               // int imageId = this.getMipmapResIdByName("ic_launcher_default_avata");
+               // holder.ivFunction.setImageResource(imageId);
+            }else{
+                int imageId = this.getMipmapResIdByName("ic_launcher_default_avata");
+                holder.ivFunction.setImageResource(imageId);
+            }
+
         }
         else
          {
              int imageId = this.getMipmapResIdByName(objMenu.getImage());
              holder.ivFunction.setImageResource(imageId);
          }
+
 
 
         return convertView;
