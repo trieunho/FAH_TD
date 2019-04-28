@@ -1,7 +1,5 @@
 package com.example.fah.FAHCommon.FAHDatabase;
 
-import android.text.TextUtils;
-
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.google.firebase.database.DataSnapshot;
@@ -17,10 +15,20 @@ import java.util.List;
 public class FAHQuery {
     private static FirebaseDatabase reference = FirebaseDatabase.getInstance();
 
+    /**
+     * Get data theo url
+     * @param url
+     * @return
+     */
     public static DatabaseReference GetData(String url){
         return reference.getReference(url);
     }
 
+    /**
+     * Query data firebase
+     * @param query
+     * @return
+     */
     public static Query GetDataQuery(FAHQueryParam query){
         Query result = GetData(query.getTable()).orderByChild(query.getField());
 
@@ -38,6 +46,12 @@ public class FAHQuery {
         return result;
     }
 
+    /**
+     * Get 1 list data from child data
+     * @param dataSnapshot
+     * @param typeObject
+     * @return
+     */
     public static List<?> GetDataObject(DataSnapshot dataSnapshot, Object typeObject){
         List<Object> listData = null;
         if (dataSnapshot.getValue() != null) {
@@ -52,20 +66,65 @@ public class FAHQuery {
         return listData;
     }
 
+    /**
+     * Get object data by key
+     * @param dataSnapshot
+     * @param typeObject
+     * @return
+     */
+    public static Object GetDataObjectByKey(DataSnapshot dataSnapshot, Object typeObject){
+        if (dataSnapshot.getValue() != null) {
+            Object item = dataSnapshot.getValue(typeObject.getClass());
+            CallMethodVoid(item, "setKey", new Class[]{String.class}, new Object[]{dataSnapshot.getKey()});
+            return item;
+        }else{
+            return null;
+        }
+    }
+
+    /**
+     * Insert 1 data with url
+     * @param data
+     * @param url
+     */
     public static void InsertData(Object data, String url){
         reference.getReference(url).push().setValue(data);
     }
 
+    /**
+     * Insert 1 list data with url
+     * @param data
+     * @param url
+     */
+    public static void InsertData(List<?> data, String url){
+        for(Object item : data){
+            InsertData(item, url);
+        }
+    }
+
+    /**
+     * Insert 1 data with name object database
+     * @param data
+     */
     public static void InsertData(Object data){
         InsertData(data, GetNameDB(data));
     }
 
+    /**
+     * Insert 1 list data with name object database
+     * @param data
+     */
     public static void InsertData(List<?> data){
         for(Object item : data){
             InsertData(item);
         }
     }
 
+    /**
+     * Insert 1 data with url and get key
+     * @param data
+     * @param url
+     */
     public static String InsertDataGetKey(Object data, String url){
         String key = reference.getReference(url).push().getKey();
         UpdateData(data, ExcuteString.GetUrlData(url, key));
@@ -73,10 +132,32 @@ public class FAHQuery {
         return key;
     }
 
+    /**
+     * Insert 1 list data with url and get key
+     * @param data
+     * @param url
+     */
+    public static ArrayList<String> InsertDataGetKey(List<?> data, String url){
+        ArrayList<String> listKey = new ArrayList<>();
+        for(Object item : data) {
+            listKey.add(InsertDataGetKey(item, url));
+        }
+
+        return listKey;
+    }
+
+    /**
+     * Insert 1 data with name object and get key
+     * @param data
+     */
     public static String InsertDataGetKey(Object data){
         return InsertDataGetKey(data, GetNameDB(data));
     }
 
+    /**
+     * Insert 1 list data with name object and get key
+     * @param data
+     */
     public static ArrayList<String> InsertDataGetKey(List<?> data){
         ArrayList<String> listKey = new ArrayList<>();
         for(Object item : data) {
@@ -86,28 +167,66 @@ public class FAHQuery {
         return listKey;
     }
 
+    /**
+     * Update 1 data with url
+     * @param data
+     * @param url
+     */
     public static void UpdateData(Object data, String url){
         reference.getReference(url).setValue(data);
     }
 
+    /**
+     * Update 1 list data with url
+     * @param data
+     * @param url
+     */
+    public static void UpdateData(List<?> data, String url){
+        for(Object item : data){
+            UpdateData(item, url);
+        }
+    }
+
+    /**
+     * Update 1 data with name object
+     * @param data
+     */
     public static void UpdateData(Object data){
         UpdateData(data, GetReferenceDB(data));
     }
 
+    /**
+     * Update 1 list data with name object
+     * @param data
+     */
     public static void UpdateData(List<?> data){
         for(Object item : data){
             UpdateData(item);
         }
     }
 
-    public static void DeleteData(String url){
-        reference.getReference(url).removeValue();
+    /**
+     * Delete data with 1 url or 1 list url
+     * @param url
+     */
+    public static void DeleteData(String... url){
+        for(String item : url){
+            reference.getReference(item).removeValue();
+        }
     }
 
+    /**
+     * Delete data with name object, get key from 1 data
+     * @param data
+     */
     public static void DeleteData(Object data){
         DeleteData(GetReferenceDB(data));
     }
 
+    /**
+     * Delete data with name object, get key from 1 list data
+     * @param data
+     */
     public static void DeleteData(List<?> data){
         for(Object item : data){
             DeleteData(item);
