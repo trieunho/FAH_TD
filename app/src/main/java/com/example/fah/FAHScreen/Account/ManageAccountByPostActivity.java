@@ -41,7 +41,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
     ArrayList <Account> accountList;
     DatabaseReference myRef;
     FirebaseDatabase database;
-    HashMap<Integer,String> spinnerMap;
+    static HashMap<Integer,String> spinnerMap;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
