@@ -4,108 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_color_selector"
+    android:background="@mipmap/back"
     tools:context=".FAHScreen.User.Login.LoginActivity">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="336dp"
-        android:layout_height="432dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="10dp"
+        android:layout_height="350dp"
+        android:layout_centerInParent="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457">
-
-        <RelativeLayout
+        app:layout_constraintVertical_bias="0.457"
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <EditText
-                android:id="@+id/emailEditText"
-                android:layout_width="292dp"
-                android:layout_height="42dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="106dp"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+            android:layout_height="220dp"
+            android:orientation="vertical"
+            >
             <TextView
-                android:id="@+id/createAccTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="76dp"
-                android:text="Đăng ký"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
-
-            <Button
-                android:id="@+id/loginbutton"
-                android:layout_width="292dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="123dp"
-                android:background="?attr/colorPrimaryDark"
-                android:elevation="5dp"
-                android:text="Đăng nhập"
-                android:textColor="@android:color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
-
-            <EditText
-                android:id="@+id/passwordEditText"
-                android:layout_width="288dp"
-                android:layout_height="42dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="172dp"
-                android:ems="10"
-                android:hint="Mật khẩu"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
-
-            <TextView
-                android:id="@+id/loginTitleTextView"
-                android:layout_width="wrap_content"
+                android:id="@+id/signupTitleTextView"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="45dp"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="25dp"
                 android:text="ĐĂNG NHẬP"
+                android:layout_gravity="center"
                 android:textSize="30sp"
                 android:textStyle="italic"
                 android:typeface="monospace" />
-
-            <TextView
-                android:id="@+id/resetPwTextView"
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="35dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:text="Quên mật khẩu" />
+                android:layout_margin="10dp"
+                android:padding="15dp"
+                android:textSize="12dp"
+                android:id="@+id/emailEditText"
+                android:background="@drawable/shapeemail"
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                android:drawablePadding="10dp"
+                android:hint="Email"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:textColorHighlight="@color/colorWhite"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="15dp"
+                android:textSize="12dp"
+                android:id="@+id/passwordEditText"
+                android:background="@drawable/shapeemail"
+                android:drawableLeft="@drawable/ic_lock_black_24dp"
+                android:drawablePadding="10dp"
+                android:hint="Mật khẩu"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:textColorHighlight="@color/colorWhite"/>
+
 
             <View
                 android:id="@+id/divider"
@@ -114,8 +73,60 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="63dp" />
-        </RelativeLayout>
+        </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:orientation="vertical"
+    android:background="@mipmap/back">
+    <Button
+        android:id="@+id/loginbutton"
+        android:layout_width="292dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/white"
+        android:layout_marginBottom="10dp"
+        android:elevation="5dp"
+        android:layout_gravity="center"
+        android:text="Đăng nhập"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            android:background="@mipmap/back"
+            >
+            <TextView
+                android:id="@+id/createAccTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="Đăng ký"
+                android:textColor="@color/colorWhite"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <TextView
+                android:id="@+id/resetPwTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:textColor="@color/colorWhite"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="35dp"
 
-    </android.support.v7.widget.CardView>
+                android:textStyle="bold"
+                android:text="Quên mật khẩu" />
+        </LinearLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.CommonUtils.ImageUtils;
 import com.example.fah.FAHModel.Models.Account;
+import com.example.fah.FAHModel.Models.Image;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -96,10 +97,9 @@ public class ProfileActivity extends AppCompatActivity {
                          String imageBase64 = ImageUtils.encodeBase64(liteImage);
                       final   Account account=MainActivity.userLogin;
                         account.setAvata(imageBase64);
-
-                        FirebaseDatabase.getInstance().getReference().child("Account")
+                        FirebaseDatabase.getInstance().getReference().child("Avata")
                                 .child(MainActivity.userLogin.getKey())
-                               .setValue(account)
+                               .setValue(new Image(imageBase64))
                                .addOnCompleteListener(new OnCompleteListener<Void>() {
                                    @Override
                                    public void onComplete(@NonNull Task<Void> task) {
