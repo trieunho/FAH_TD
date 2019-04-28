@@ -57,6 +57,9 @@ public class MenuFragment extends Fragment {
                                     MainActivity.userLogin.setAvata(img.getSource());
                                     progressDoalog.dismiss();
                                     GetControl();
+                                }else{
+                                    progressDoalog.dismiss();
+                                    GetControl();
                                 }
                             }
 
