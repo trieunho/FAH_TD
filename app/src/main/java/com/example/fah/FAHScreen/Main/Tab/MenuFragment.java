@@ -63,6 +63,8 @@ public class MenuFragment extends Fragment {
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(getContext(), "Lỗi khi tải dữ liệu", Toast.LENGTH_SHORT).show();
+                            progressDoalog.dismiss();
                         }
                     });
                 }
