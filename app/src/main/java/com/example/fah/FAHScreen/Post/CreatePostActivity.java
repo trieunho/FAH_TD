@@ -20,6 +20,7 @@ import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHExcuteData.EmailValidator;
+import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Category;
 import com.example.fah.FAHModel.Models.Post;
@@ -32,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -128,6 +130,26 @@ public class CreatePostActivity extends AppCompatActivity {
                                 top,
                                 account));
 
+                        // update data Account: minus coin
+                        myRef = database.getReference("TYPE_OF_POST");
+                        final String keyTOP = top.getTypeID();
+                        myRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                ArrayList<TypeOfPost> typeOfPost = (ArrayList<TypeOfPost>) FAHQuery.GetDataObject(dataSnapshot, new TypeOfPost());
+                                for(TypeOfPost top : typeOfPost) {
+                                    if (top.getTypeID() != null && top.getTypeID().equals(keyTOP)) {
+                                        int coinNew = account.getCoin() - Integer.parseInt(top.getTypeCoin());
+                                        FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", account.getKey(),"coin"));
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+
                         Toast.makeText(this, "Tạo thành công", Toast.LENGTH_SHORT).show();
 
                     }
@@ -208,7 +230,7 @@ public class CreatePostActivity extends AppCompatActivity {
         txvLoai.setText("Tiền không là tiền");
 
         account = userLogin; // TODO
-        account = new Account("-LdU7f37X2QQBzZkHQ1Q","1", "Canh", "avancanh@gmail.com", 1);
+       // account = new Account("-LdU7f37X2QQBzZkHQ1Q","1", "Canh", "avancanh@gmail.com", 1);
     }
 
     private void addEvents() {
