@@ -1,6 +1,13 @@
 package com.example.fah.FAHCommon.FAHDatabase.Table;
 
 public class FAHQueryParam {
+    private String table;
+    private String field;
+    private String typeQuery;
+    private Object param;
+    private Object param2;
+    private String typeParam;
+
     public static final String EQUAL = "==";
     public static final String START = ">=";
     public static final String END = "<=";
@@ -10,18 +17,13 @@ public class FAHQueryParam {
     public static final String TypeString = "String";
     public static final String TypeDouble = "Double";
     public static final String TypeBoolean = "Boolean";
-    private String table;
-    private String field;
-    private String typeQuery;
-    private Object param;
-    private Object param2;
-    private String typeParam;
+
     public FAHQueryParam(String table, String field, String typeQuery, Object param, String typeParam) {
-        this.table = table;
-        this.field = field;
-        this.typeQuery = typeQuery;
-        this.param = param;
-        this.typeParam = typeParam;
+        this.table = table;  // Tên table hoặc url cần query
+        this.field = field;  // Tên field , có thể dùng parentField/childField để query thằng con
+        this.typeQuery = typeQuery; // Có 4 cái ở trên đó EQUAL, START, .. không có LIKE
+        this.param = param;   // Giá trị, BETWEEN thì dùng 2 param phía dưới
+        this.typeParam = typeParam;  // Loại dữ liệu TypeString, TypeDouble, TypeBoolean
     }
 
     public FAHQueryParam(String table, String field, String typeQuery, Object param, Object param2, String typeParam) {
