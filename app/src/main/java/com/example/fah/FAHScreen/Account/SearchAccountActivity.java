@@ -37,7 +37,7 @@ public class SearchAccountActivity extends AppCompatActivity {
 
     ArrayList<Category> listCategory;
     ArrayList<Account> listAccount;
-    HashMap<Integer, String> spinnerMap;
+    static HashMap<Integer, String> spinnerMap;
 
     DatabaseReference myRef;
     FirebaseDatabase database;
