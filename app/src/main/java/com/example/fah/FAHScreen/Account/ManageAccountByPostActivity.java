@@ -106,7 +106,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
                 postList = new ArrayList <>();
                 ArrayList <Post>  listPostForAcc  = (ArrayList <Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                 for (Post item : listPostForAcc){
-                    if (item.getAccount()!= null &&"0".equals(item.getAccount().getKey())){
+                    if (item.getAccount()!= null && "0".equals(item.getAccount().getKey())){
                         postList.add(item);
                     }
                 }
@@ -142,7 +142,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
                 AccountByPostAdapter accountByPostAdapter = new AccountByPostAdapter(
                         this,
                         R.layout.account_by_post_activity,
-                        item.getListOfAccApply(),item.getKey());
+                        item.getListOfAccApply());
 
                 lvAccount.setAdapter(accountByPostAdapter);
                 checkFlag = true;
