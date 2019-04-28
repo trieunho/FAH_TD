@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.TestDB;
-import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -19,8 +18,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
     Button btnThem;
@@ -49,8 +46,6 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<Account> list = new ArrayList<>();
-                list.add(new Account("1", "2", "1", 1));
-                list.add(new Account("1", "2", "2", 2));
                 ArrayList<TestDB> listTest = new ArrayList<>();
                 listTest.add(new TestDB("123", list));
                 listTest.add(new TestDB("123", list));
