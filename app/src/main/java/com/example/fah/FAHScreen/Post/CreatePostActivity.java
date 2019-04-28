@@ -105,7 +105,7 @@ public class CreatePostActivity extends AppCompatActivity {
                         top.setTypeID(cbxTypeOfArticle.getText().toString().substring(5, 6));
 
                         Category cgr = new Category();
-                        cgr.setCategoryID(String.valueOf(controlField.getItemChoose() + 1));
+                        cgr.setKey(String.valueOf(controlField.getItemChoose() + 1));
                         cgr.setCategoryName(cbxField.getText().toString());
 
                         myRef.push().setValue(new Post(
@@ -208,7 +208,7 @@ public class CreatePostActivity extends AppCompatActivity {
         txvLoai.setText("Tiền không là tiền");
 
         account = userLogin; // TODO
-        account = new Account("1", "Canh", "avancanh@gmail.com", 1);
+        account = new Account("-LdU7f37X2QQBzZkHQ1Q","1", "Canh", "avancanh@gmail.com", 1);
     }
 
     private void addEvents() {

@@ -64,7 +64,7 @@ public class ManageCategoryActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btnAdd);
 
         toolbar.setNavigationIcon(ic_chevron_left_black_24dp);
-        toolbar.setTitle("JOB MANAGEMENT");
+        toolbar.setTitle("Quản lý danh mục công việc");
         toolbar.setTitleMargin(2, 0, 0, 2);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
@@ -131,10 +131,10 @@ public class ManageCategoryActivity extends AppCompatActivity {
 
     public void showInputBox(final Category category, final int index) {
         final Dialog dialog = new Dialog(ManageCategoryActivity.this);
-        dialog.setTitle("EDIT CATEGORY NAME");
+        dialog.setTitle("Chỉnh sửa tên danh mục");
         dialog.setContentView(R.layout.update_category_item);
         TextView txtMessage = (TextView) dialog.findViewById(R.id.txtmessage);
-        txtMessage.setText("Please enter category name:");
+        txtMessage.setText("Vui lòng nhập tên danh mục ở đây:");
         txtMessage.setTextColor(Color.parseColor("#ff2222"));
         final EditText editText = (EditText) dialog.findViewById(R.id.txtinput);
         editText.addTextChangedListener(new TextWatcher() {
@@ -170,7 +170,7 @@ public class ManageCategoryActivity extends AppCompatActivity {
                 myRef.child(category.getCategoryID()).setValue(
                         new Category(category.getCategoryID(), editText.getText().toString())
                 );
-                Toast.makeText(ManageCategoryActivity.this, "Edit Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManageCategoryActivity.this, "Chỉnh sửa thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
