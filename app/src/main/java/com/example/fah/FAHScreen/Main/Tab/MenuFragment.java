@@ -1,7 +1,9 @@
 package com.example.fah.FAHScreen.Main.Tab;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +15,16 @@ import android.widget.Toast;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.IEvenItem;
+import com.example.fah.FAHModel.Models.Image;
 import com.example.fah.FAHScreen.Main.GridView.Menu.GridListMenuMainAdapter;
 import com.example.fah.FAHScreen.Main.GridView.Menu.Menu;
 import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.FAHScreen.User.ProfileActivity;
 import com.example.fah.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +35,43 @@ import java.util.List;
 public class MenuFragment extends Fragment {
     protected View view;
      GridView gvMenu;
+    ProgressDialog progressDoalog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        progressDoalog = new ProgressDialog(getContext());
+        progressDoalog.setMax(100);
+        progressDoalog.setMessage("Đang tải dữ liệu....");
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_menu, container, false);
+        if(MainActivity.userLogin.isLogin() == true){
+            progressDoalog.show();
+            try{
+                if (MainActivity.userLogin.getKey() != null) {
+                    FirebaseDatabase.getInstance().getReference().child("Avata").child(MainActivity.userLogin.getKey()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot != null) {
+                                Image img =dataSnapshot.getValue(Image.class);
+                                if(img!=null){
+                                    MainActivity.userLogin.setAvata(img.getSource());
+                                    progressDoalog.dismiss();
+                                    GetControl();
+                                }
+                            }
 
-        GetControl();
-
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                }
+            }catch (Exception e){
+                Toast.makeText(getContext(), "Lỗi"+e, Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            GetControl();
+        }
         return view;
     }
 
@@ -75,16 +111,15 @@ public class MenuFragment extends Fragment {
             }
         });
     }
-
     private  List<Menu> getListData() {
-        List<Menu> list = new ArrayList<>();
-        if(MainActivity.userLogin.isLogin()==true){
-                list.add(new Menu((MainActivity.userLogin.getEmail()), "", new IEvenItem() {
-                    @Override
-                    public void callEvent() {
-                        startActivity(new Intent(getContext(), ProfileActivity.class));
-                    }
-                },true));
+         List<Menu> list = new ArrayList<>();
+        if(MainActivity.userLogin.isLogin() == true) {
+            list.add(new Menu((MainActivity.userLogin.getEmail()), MainActivity.userLogin.getAvata(), new IEvenItem() {
+                @Override
+                public void callEvent() {
+                    startActivity(new Intent(getContext(), ProfileActivity.class));
+                }
+            }, true));
         }
         list.add(new Menu("Tìm kiếm công việc", "ic_launcher_search_job"));
         list.add(new Menu("Công việc của tôi", "ic_launcher_job"));
