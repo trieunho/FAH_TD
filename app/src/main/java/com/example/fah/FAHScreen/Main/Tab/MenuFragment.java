@@ -46,39 +46,7 @@ public class MenuFragment extends Fragment {
         progressDoalog.setMessage("Đang tải dữ liệu....");
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_menu, container, false);
-        if(MainActivity.userLogin.isLogin() == true){
-            progressDoalog.show();
-            try{
-                if (MainActivity.userLogin.getKey() != null) {
-                    FirebaseDatabase.getInstance().getReference().child("Avata").child(MainActivity.userLogin.getKey()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot != null) {
-                                Image img =dataSnapshot.getValue(Image.class);
-                                if(img!=null){
-                                    MainActivity.userLogin.setAvata(img.getSource());
-                                    progressDoalog.dismiss();
-                                    GetControl();
-                                }else{
-                                    progressDoalog.dismiss();
-                                    GetControl();
-                                }
-                            }
-
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(getContext(), "Lỗi khi tải dữ liệu", Toast.LENGTH_SHORT).show();
-                            progressDoalog.dismiss();
-                        }
-                    });
-                }
-            }catch (Exception e){
-                Toast.makeText(getContext(), "Lỗi"+e, Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            GetControl();
-        }
+        checkImageUser();
         return view;
     }
 
@@ -130,12 +98,10 @@ public class MenuFragment extends Fragment {
         }
         list.add(new Menu("Tìm kiếm công việc", "ic_launcher_search_job"));
         list.add(new Menu("Công việc của tôi", "ic_launcher_job"));
-
         list.add(new Menu("Đăng bài viết mới", "ic_launcher_add_job"));
         list.add(new Menu("Quản lý bài đăng", "ic_launcher_post"));
         list.add(new Menu("Tìm kiếm ứng viên", "ic_launcher_search_people"));
         list.add(new Menu("Danh sách ứng viên", "ic_launcher_list_people"));
-
         list.add(new Menu("Quản lý bài đăng", "ic_launcher_manage_post"));
         list.add(new Menu("Quản lý người dùng", "ic_launcher_manage_account"));
         list.add(new Menu("Danh mục công việc", "ic_launcher_option"));
@@ -143,46 +109,88 @@ public class MenuFragment extends Fragment {
         list.add(new Menu("Đăng xuất", "ic_launcher_logout", new IEvenItem() {
             @Override
             public void callEvent() {
-                new AlertDialog.Builder(getContext())
-                        .setTitle("Avatar")
-                        .setMessage("Bạn có muốn đăng xuất?")
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if(AccountData.firebaseUser!=null){
-                                    AccountData.firebaseAuth.signOut();
-                                    AccountData.firebaseUser = null;
-                                    Account account=new Account();
-                                    account.setLogin(false);
-                                    MainActivity.userLogin=account;
-                                    gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
-                                }else{
-                                    Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
-                                }
-                                dialogInterface.dismiss();
-
-                            }
-                        })
-                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        }).show();
+                EventLogout();
             }
         }));
         list.add(new Menu("Đăng nhập", "ic_launcher_login", new IEvenItem() {
             @Override
             public void callEvent() {
-                if(AccountData.firebaseUser!=null){
-                    Toast.makeText(getContext(), "User already exists ", Toast.LENGTH_SHORT).show();
-                }else{
-                    startActivity(new Intent(getContext(), LoginActivity.class));
-
-                }
+                checkAndCallLogin();
             }
         }));
 
         return list;
     }
+
+    private void checkAndCallLogin() {
+        if(AccountData.firebaseUser!=null){
+            Toast.makeText(getContext(), "User already exists ", Toast.LENGTH_SHORT).show();
+        }else{
+            startActivity(new Intent(getContext(), LoginActivity.class));
+
+        }
+    }
+    private void EventLogout(){
+        new AlertDialog.Builder(getContext())
+                .setTitle("THOÁT")
+                .setMessage("Bạn có muốn đăng xuất?")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(AccountData.firebaseUser!=null){
+                            AccountData.firebaseAuth.signOut();
+                            AccountData.firebaseUser = null;
+                            Account account=new Account();
+                            account.setLogin(false);
+                            MainActivity.userLogin=account;
+                            gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
+                        }else{
+                            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+                        }
+                        dialogInterface.dismiss();
+
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).show();
+    }
+private void checkImageUser(){
+    if(MainActivity.userLogin.isLogin() == true){
+        progressDoalog.show();
+        try{
+            if (MainActivity.userLogin.getKey() != null) {
+                FirebaseDatabase.getInstance().getReference().child("Avata").child(MainActivity.userLogin.getKey()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot != null) {
+                            Image img =dataSnapshot.getValue(Image.class);
+                            if(img!=null){
+                                MainActivity.userLogin.setAvata(img.getSource());
+                                progressDoalog.dismiss();
+                                GetControl();
+                            }else{
+                                progressDoalog.dismiss();
+                                GetControl();
+                            }
+                        }
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(getContext(), "Lỗi khi tải dữ liệu", Toast.LENGTH_SHORT).show();
+                        progressDoalog.dismiss();
+                    }
+                });
+            }
+        }catch (Exception e){
+            Toast.makeText(getContext(), "Lỗi"+e, Toast.LENGTH_SHORT).show();
+        }
+    }else{
+        GetControl();
+    }
+}
 }
