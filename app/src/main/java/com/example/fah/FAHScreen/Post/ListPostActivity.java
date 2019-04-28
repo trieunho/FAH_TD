@@ -28,12 +28,10 @@ public class ListPostActivity extends AppCompatActivity {
     ListView lstSearch;
 
     // param
-    String job;
+    int job;
     String location;
     int salary;
-    String time1;
-    String time2;
-    String time3;
+    int time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +46,13 @@ public class ListPostActivity extends AppCompatActivity {
 
         // Get param
         Intent intent = getIntent();
-        job = intent.getStringExtra("job");
+        job = intent.getIntExtra("job", -1);
         location = intent.getStringExtra("location");
         salary = intent.getIntExtra("salary", -1);
-        time1 = intent.getStringExtra("time1");
-        time2 = intent.getStringExtra("time2");
-        time3 = intent.getStringExtra("time3");
+        time = intent.getIntExtra("time", -1);
 
         // Add controls
         lstSearch = findViewById(R.id.lstSearch);
-
         myRef = FAHQuery.GetData("Post");
 
         addEvents();
@@ -71,7 +66,7 @@ public class ListPostActivity extends AppCompatActivity {
                 List<Post> temp = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
 
                 for (Post item: temp) {
-                    if (!job.equals("") && !job.equals(item.getField())) {
+                    if (job != -1 && !item.getCategory().getCategoryID().equals(job + 1)) {
                         continue;
                     }
 
@@ -101,11 +96,41 @@ public class ListPostActivity extends AppCompatActivity {
                         }
                     }
 
+                    if (time != -1) {
+                        switch (time) {
+                            case 0:
+                                if (!(Integer.parseInt(item.getDtFrom()) <= 8 || Integer.parseInt(item.getDtFrom()) >= 6)
+                                    && !(Integer.parseInt(item.getDtTo()) <= 12 || Integer.parseInt(item.getDtTo()) >= 10)){
+                                    continue;
+                                }
+                                break;
+                            case 1:
+                                if (!(Integer.parseInt(item.getDtFrom()) <= 14 || Integer.parseInt(item.getDtFrom()) >= 12)
+                                        && !(Integer.parseInt(item.getDtTo()) <= 18 || Integer.parseInt(item.getDtTo()) >= 16)){
+                                    continue;
+                                }
+                                break;
+                            case 2:
+                                if (!(Integer.parseInt(item.getDtFrom()) <= 19 || Integer.parseInt(item.getDtFrom()) >= 17)
+                                        && !(Integer.parseInt(item.getDtTo()) <= 23 || Integer.parseInt(item.getDtTo()) >= 21)){
+                                    continue;
+                                }
+                                break;
+                            case 3:
+                                if (!(Integer.parseInt(item.getDtFrom()) == 22 || Integer.parseInt(item.getDtFrom()) == 23 || Integer.parseInt(item.getDtFrom()) == 24 || Integer.parseInt(item.getDtFrom()) == 0)
+                                        && !(Integer.parseInt(item.getDtTo()) <= 4 || Integer.parseInt(item.getDtTo()) >= 5)){
+                                    continue;
+                                }
+                                break;
+                        }
+                    }
+
                     Post post = new Post(
                             item.getTitlePost(),
                             item.getCompanyName(),
                             item.getAddress(),
-                            item.getTimeOfWork(),
+                            item.getDtFrom(),
+                            item.getDtTo(),
                             item.getTypeOfSalary().equals("Cố định") ? item.getSalary_from() :
                                     item.getTypeOfSalary().equals("Trong khoảng") ? item.getSalary_from() + " ~ " + item.getSalary_to() : "Thỏa thuận",
                             item.getDeadLine()

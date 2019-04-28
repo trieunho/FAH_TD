@@ -140,7 +140,7 @@ public class HomeProfileActivity extends AppCompatActivity {
 
     private void setImageAvatar(Context context, String imgBase64) {
         try {
-            Resources res = getResources();
+           Resources res = getResources();
             //Nếu chưa có avatar thì để hình mặc định
             Bitmap src;
             if (imgBase64.equals("default")) {

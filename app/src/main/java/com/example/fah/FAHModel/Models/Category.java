@@ -1,6 +1,8 @@
 package com.example.fah.FAHModel.Models;
 
-public class Category {
+import com.example.fah.FAHCommon.FAHDatabase.Table.FAHFieldCommon;
+
+public class Category extends FAHFieldCommon {
 
     private String categoryID;
     private String categoryName;

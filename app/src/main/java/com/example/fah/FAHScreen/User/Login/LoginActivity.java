@@ -18,6 +18,10 @@ import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     EditText emailEditText;
@@ -100,14 +104,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Toast.makeText(LoginActivity.this, "email="+AccountData.firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                            AccountData.firebaseUser = accountData.getFirebaseAuth().getCurrentUser();
-                            Account account =new Account();
-                            account.setAccountName(AccountData.firebaseUser.getDisplayName());
-                            account.setEmail(AccountData.firebaseUser.getEmail());
-                            account.setLogin(true);
-                            MainActivity.userLogin=account;
-                           nextMain();
-                           // updateUI(user);
+                            FirebaseDatabase.getInstance().getReference().child("Account")
+                                    .orderByChild("email")
+                                    .equalTo(AccountData.firebaseUser.getEmail()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        Account account=dataSnapshot.getValue(Account.class);
+//                                    account.setLogin(true);
+//                                    MainActivity.userLogin = account;
+//                                    nextMain();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                         } else {
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();

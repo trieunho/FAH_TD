@@ -42,7 +42,9 @@ public class AccountData {
     public static void InsertAccount(Account account){
          FAHQuery.InsertData(account);
     }
-
+    public static String InsertAccountGetKey(Account account){
+       return FAHQuery.InsertDataGetKey(account);
+    }
     public  boolean InsertListAccount(){
         return true;
     }

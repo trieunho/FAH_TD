@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Adapters.CategoryAdapter;
 import com.example.fah.FAHModel.Models.Category;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
@@ -82,7 +83,7 @@ public class ManageCategoryActivity extends AppCompatActivity {
                     int categoryID = 1;
                     Category newCategory;
                     if (categoryList != null && categoryList.size() > 0) {
-                        categoryID =  Integer.parseInt(categoryList.get(categoryList.size() - 1).getCategoryID()) +1 ;
+                        categoryID = Integer.parseInt(categoryList.get(categoryList.size() - 1).getCategoryID()) + 1;
                         newCategory = new Category(String.valueOf(categoryID), categoryName);
                     } else {
                         newCategory = new Category(String.valueOf(categoryID), categoryName);
@@ -153,8 +154,8 @@ public class ManageCategoryActivity extends AppCompatActivity {
                  * the afterTextChanged method to be called again.
                  * Hence the return statement after the first removal.
                  */
-                for(int i = s.length()-1; i >= 0; i--){
-                    if(s.charAt(i) == '\n'){
+                for (int i = s.length() - 1; i >= 0; i--) {
+                    if (s.charAt(i) == '\n') {
                         s.delete(i, i + 1);
                         return;
                     }
@@ -196,17 +197,8 @@ public class ManageCategoryActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                categoryList = new ArrayList<>();
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                if (dataSnapshot.getValue() != null) {
-                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                        Category category = snapshot.getValue(Category.class);
-                        categoryList.add(category);
-                    }
-
-                    setCategoryAdapter(categoryList);
-                }
+                categoryList = (ArrayList<Category>) FAHQuery.GetDataObject(dataSnapshot, new Category());
+                setCategoryAdapter(categoryList);
             }
 
             @Override

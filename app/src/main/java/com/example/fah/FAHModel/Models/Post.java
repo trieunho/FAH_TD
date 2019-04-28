@@ -14,7 +14,6 @@ public class Post extends FAHFieldCommon {
     private String deadLine;
     private String jobDescription;
     private String required;
-    private String field;
     private String benifit;
     private String soLuong;
     private String email;
@@ -28,7 +27,8 @@ public class Post extends FAHFieldCommon {
     private ArrayList<Account> listOfAccApply;
     private Account account;
     private TypeOfPost typeOfPost;
-    private String timeOfWork;
+    private String dtFrom;
+    private String dtTo;
     private Category category;
 
     public Post(){}
@@ -45,28 +45,29 @@ public class Post extends FAHFieldCommon {
         this.titlePost = titlePost;
         this.accountStr = accountStr;
         this.companyName = companyName;
-
     }
 
-    public Post(String titlePost, String companyName, String address, String tow, String luong, String deadLine) {
+    public Post(String titlePost, String companyName, String address, String dtFrom, String dtTo, String luong, String deadLine) {
         this.titlePost = titlePost;
         this.companyName = companyName;
         this.address = address;
-        this.timeOfWork = tow;
+        this.dtFrom = dtFrom;
+        this.dtTo = dtTo;
         this.salary = luong;
         this.deadLine = deadLine;
     }
 
     public Post(String titlePost,
                 String companyName,
-                String field,
+                Category category,
                 String jobDescription,
                 String required,
                 String benifit,
                 String soLuong,
                 String address,
                 String deadLine,
-                String tow,
+                String dtFrom,
+                String dtTo,
                 String typeOfSalary,
                 String salary_from,
                 String salary_to,
@@ -76,14 +77,15 @@ public class Post extends FAHFieldCommon {
                 Account account) {
         this.titlePost = titlePost;
         this.companyName = companyName;
-        this.field = field;
+        this.setCategory(category);
         this.jobDescription = jobDescription;
         this.address = address;
         this.required = required;
         this.benifit = benifit;
         this.soLuong = soLuong;
         this.deadLine = deadLine;
-        this.timeOfWork = tow;
+        this.dtFrom = dtFrom;
+        this.dtTo = dtTo;
         this.typeOfSalary = typeOfSalary;
         this.salary_from = salary_from;
         this.salary_to = salary_to;
@@ -165,14 +167,6 @@ public class Post extends FAHFieldCommon {
         this.required = required;
     }
 
-    public String getAboutCompany() {
-        return field;
-    }
-
-    public void setAboutCompany(String field) {
-        this.field = field;
-    }
-
     public String getBenifit() {
         return benifit;
     }
@@ -229,14 +223,6 @@ public class Post extends FAHFieldCommon {
         this.account = account;
     }
 
-    public String getField() {
-        return field;
-    }
-
-    public void setField(String field) {
-        this.field = field;
-    }
-
     public Date getApproveDate() {
         return approveDate;
     }
@@ -269,19 +255,27 @@ public class Post extends FAHFieldCommon {
         this.typeOfPost = typeOfPost;
     }
 
-    public String getTimeOfWork() {
-        return timeOfWork;
-    }
-
-    public void setTimeOfWork(String timeOfWork) {
-        this.timeOfWork = timeOfWork;
-    }
-
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getDtFrom() {
+        return dtFrom;
+    }
+
+    public void setDtFrom(String dtFrom) {
+        this.dtFrom = dtFrom;
+    }
+
+    public String getDtTo() {
+        return dtTo;
+    }
+
+    public void setDtTo(String dtTo) {
+        this.dtTo = dtTo;
     }
 }
