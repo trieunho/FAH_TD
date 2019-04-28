@@ -1,10 +1,12 @@
 package com.example.fah.FAHScreen.Main.Tab;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -141,16 +143,32 @@ public class MenuFragment extends Fragment {
         list.add(new Menu("Đăng xuất", "ic_launcher_logout", new IEvenItem() {
             @Override
             public void callEvent() {
-                if(AccountData.firebaseUser!=null){
-                    AccountData.firebaseAuth.signOut();
-                    AccountData.firebaseUser = null;
-                    Account account=new Account();
-                    account.setLogin(false);
-                    MainActivity.userLogin=account;
-                    gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
-                }else{
-                    Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
-                }
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Avatar")
+                        .setMessage("Bạn có muốn đăng xuất?")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if(AccountData.firebaseUser!=null){
+                                    AccountData.firebaseAuth.signOut();
+                                    AccountData.firebaseUser = null;
+                                    Account account=new Account();
+                                    account.setLogin(false);
+                                    MainActivity.userLogin=account;
+                                    gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
+                                }else{
+                                    Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+                                }
+                                dialogInterface.dismiss();
+
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).show();
             }
         }));
         list.add(new Menu("Đăng nhập", "ic_launcher_login", new IEvenItem() {
