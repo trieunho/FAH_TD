@@ -88,8 +88,8 @@ public class MenuFragment extends Fragment {
     }
     private  List<Menu> getListData() {
          List<Menu> list = new ArrayList<>();
-        if(MainActivity.userLogin.isLogin() == true) {
-            list.add(new Menu((MainActivity.userLogin.getEmail()), MainActivity.userLogin.getAvata(), new IEvenItem() {
+        if(AccountData.userLogin.isLogin() == true) {
+            list.add(new Menu((AccountData.userLogin.getEmail()), AccountData.userLogin.getAvata(), new IEvenItem() {
                 @Override
                 public void callEvent() {
                     startActivity(new Intent(getContext(), ProfileActivity.class));
@@ -142,7 +142,7 @@ public class MenuFragment extends Fragment {
                             AccountData.firebaseUser = null;
                             Account account=new Account();
                             account.setLogin(false);
-                            MainActivity.userLogin=account;
+                            AccountData.userLogin = account;
                             gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
                         }else{
                             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
@@ -159,17 +159,17 @@ public class MenuFragment extends Fragment {
                 }).show();
     }
 private void checkImageUser(){
-    if(MainActivity.userLogin.isLogin() == true){
+    if(AccountData.userLogin.isLogin() == true){
         progressDoalog.show();
         try{
-            if (MainActivity.userLogin.getKey() != null) {
-                FirebaseDatabase.getInstance().getReference().child("Avata").child(MainActivity.userLogin.getKey()).addValueEventListener(new ValueEventListener() {
+            if (AccountData.userLogin.getKey() != null) {
+                FirebaseDatabase.getInstance().getReference().child("Avata").child(AccountData.userLogin.getKey()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot != null) {
                             Image img =dataSnapshot.getValue(Image.class);
                             if(img!=null){
-                                MainActivity.userLogin.setAvata(img.getSource());
+                                AccountData.userLogin.setAvata(img.getSource());
                                 progressDoalog.dismiss();
                                 GetControl();
                             }else{
