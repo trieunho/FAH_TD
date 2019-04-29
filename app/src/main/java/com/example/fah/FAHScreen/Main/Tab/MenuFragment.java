@@ -88,7 +88,7 @@ public class MenuFragment extends Fragment {
     }
     private  List<Menu> getListData() {
          List<Menu> list = new ArrayList<>();
-        if(AccountData.userLogin.isLogin() == true) {
+        if(AccountData.userLogin!=null && AccountData.userLogin.isLogin() == true) {
             list.add(new Menu((AccountData.userLogin.getEmail()), AccountData.userLogin.getAvata(), new IEvenItem() {
                 @Override
                 public void callEvent() {
@@ -159,7 +159,7 @@ public class MenuFragment extends Fragment {
                 }).show();
     }
 private void checkImageUser(){
-    if(AccountData.userLogin.isLogin() == true){
+    if(AccountData.userLogin!=null && AccountData.userLogin.isLogin() == true){
         progressDoalog.show();
         try{
             if (AccountData.userLogin.getKey() != null) {

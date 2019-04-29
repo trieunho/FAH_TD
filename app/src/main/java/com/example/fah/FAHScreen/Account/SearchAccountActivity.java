@@ -52,7 +52,6 @@ public class SearchAccountActivity extends AppCompatActivity {
         addControl();
 //        addEvent();
     }
-
     private void addEvent() {
         lvAccountSrch = findViewById(R.id.lvAccountSrch);
         lvAccountSrch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
