@@ -14,6 +14,7 @@ public class FAHQueryParam {
     public static final String BETWEEN = "<<";
     public static final String ALIKE = "A%";
     public static final String LIKEA = "%A";
+    public static final String TypeInteger = "Integer";
     public static final String TypeString = "String";
     public static final String TypeDouble = "Double";
     public static final String TypeBoolean = "Boolean";
