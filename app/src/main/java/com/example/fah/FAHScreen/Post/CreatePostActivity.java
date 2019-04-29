@@ -60,7 +60,7 @@ public class CreatePostActivity extends AppCompatActivity {
     EditText txvLoai;
     EditText dtFrom;
     EditText dtTo;
-    EditText cbxTypeOfArticle;
+    EditText cbxTOP;
     EditText cbxField;
 
     FAHCombobox controlSalary;
@@ -104,7 +104,7 @@ public class CreatePostActivity extends AppCompatActivity {
                         myRef = database.getReference("Post");
 
                         TypeOfPost top = new TypeOfPost();
-                        top.setTypeID(cbxTypeOfArticle.getText().toString().substring(5, 6));
+                        top.setTypeID(cbxTOP.getText().toString().substring(5, 6));
 
                         Category cgr = new Category();
                         cgr.setKey(String.valueOf(controlField.getItemChoose() + 1));
@@ -120,8 +120,8 @@ public class CreatePostActivity extends AppCompatActivity {
                                 txtSoLuong.getText().toString(),
                                 txtAddress.getText().toString(),
                                 txtDate.getText().toString(),
-                                dtFrom.getText().toString(),
-                                dtTo.getText().toString(),
+                                Integer.parseInt(dtFrom.getText().toString()),
+                                Integer.parseInt(dtTo.getText().toString()),
                                 cbxLuong.getText().toString(),
                                 txtLuong1.getText().toString(),
                                 txtLuong2.getText().toString(),
@@ -203,7 +203,7 @@ public class CreatePostActivity extends AppCompatActivity {
         txtLuong2 = findViewById(R.id.txtLuong2);
         lbl = findViewById(R.id.lbl);
         txvLoai = findViewById(R.id.txvLoai);
-        cbxTypeOfArticle = findViewById(R.id.cbxTypeOfArticle);
+        cbxTOP = findViewById(R.id.cbxTOP);
         cbxField = findViewById(R.id.cbxField);
         dtFrom = findViewById(R.id.dtFrom);
         dtTo = findViewById(R.id.dtTo);
@@ -216,13 +216,13 @@ public class CreatePostActivity extends AppCompatActivity {
         };
         controlSalary = new FAHCombobox(CreatePostActivity.this, cbxLuong, arrLuong, 0);
 
-        String[] arrLoai = {
+        // combobox
+        String[] arrTOP = {
                 "Loại 1",
                 "Loại 2",
                 "Loại 3"
         };
-        controlType = new FAHCombobox(CreatePostActivity.this, cbxTypeOfArticle, arrLoai, 0);
-        myRef = FAHQuery.GetData("CATEGORY_OF_POST");
+        controlType = new FAHCombobox(CreatePostActivity.this, cbxTOP, arrTOP, 0);
 
         // Init
         txtLuong2.setVisibility(View.GONE);
@@ -234,6 +234,7 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+		myRef = FAHQuery.GetData("CATEGORY_OF_POST");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -298,7 +299,7 @@ public class CreatePostActivity extends AppCompatActivity {
             }
         });
 
-        cbxTypeOfArticle.addTextChangedListener(new TextWatcher() {
+        cbxTOP.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -369,8 +370,8 @@ public class CreatePostActivity extends AppCompatActivity {
             txtPhone.requestFocus();
             Toast.makeText(this, "Chưa nhập số điện thoại", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (cbxTypeOfArticle.getText().toString().equals("")) {
-            cbxTypeOfArticle.requestFocus();
+        } else if (cbxTOP.getText().toString().equals("")) {
+            cbxTOP.requestFocus();
             Toast.makeText(this, "Chưa chọn mức phí cho bài viết", Toast.LENGTH_SHORT).show();
             return false;
         }
