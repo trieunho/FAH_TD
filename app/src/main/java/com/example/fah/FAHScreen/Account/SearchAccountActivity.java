@@ -101,18 +101,47 @@ public class SearchAccountActivity extends AppCompatActivity {
                                 ArrayList<Account> listAcc = new ArrayList<>();
 
                                 for (Account acc : listAccount) {
-                                    if (acc.getCategory() != null
-                                            && ("All".equals(categoryID)
-                                            || categoryID.equals(acc.getCategory().getCategoryID()))) {
-                                        if (startTime == null
-                                                || "".equals(startTime)
-                                                || Integer.parseInt(startTime) - acc.getDtFrom() < 1
-                                                || acc.getDtFrom() - Integer.parseInt(startTime) < 1) {
-                                            if (endTime == null
-                                                    || "".equals(endTime)
-                                                    || Integer.parseInt(endTime) - acc.getDtFrom() < 1
-                                                    || acc.getDtFrom() - Integer.parseInt(endTime) < 1) {
-                                                listAcc.add(acc);
+                                    if (acc.getRole() == 0) {
+                                        if (acc.getCategory() != null
+                                                && ("All".equals(categoryID)
+                                                || categoryID.equals(acc.getCategory().getCategoryID()))) {
+
+
+                                            if (startTime == null || "".equals(startTime)) {
+                                                int stTime = Integer.parseInt(startTime) - acc.getDtFrom();
+                                                switch (stTime) {
+                                                    case 1:
+                                                        break;
+                                                    case -1:
+                                                        break;
+                                                    case 0:
+                                                        break;
+                                                    case 23:
+                                                        break;
+                                                    case -23:
+                                                        break;
+                                                    default:
+                                                        continue;
+                                                }
+
+                                                if (endTime == null || "".equals(endTime)) {
+                                                    int enTime = Integer.parseInt(endTime) - acc.getDtTo();
+                                                    switch (enTime) {
+                                                        case 1:
+                                                            break;
+                                                        case -1:
+                                                            break;
+                                                        case 0:
+                                                            break;
+                                                        case 23:
+                                                            break;
+                                                        case -23:
+                                                            break;
+                                                        default:
+                                                            continue;
+                                                    }
+                                                    listAcc.add(acc);
+                                                }
                                             }
                                         }
                                     }
