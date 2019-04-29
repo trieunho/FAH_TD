@@ -12,19 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHData.AccountData;
-import com.example.fah.FAHModel.Models.Account;
+import com.example.fah.FAHModel.Models.IEvenItem;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     EditText emailEditText;
@@ -32,7 +25,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button loginBtn;
     TextView resetBtn;
     TextView createAccountBtn;
-    AccountData accountData = new AccountData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,12 +92,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Please enter email", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Vui lòng nhập Email", Toast.LENGTH_LONG).show();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Vui lòng nhập mật khẩu", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -114,46 +106,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            final Account account = new Account();
-                            //  Toast.makeText(LoginActivity.this, "email="+AccountData.firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
-                            AccountData.firebaseUser = AccountData.firebaseAuth.getCurrentUser();
-                            FirebaseDatabase.getInstance().getReference().child("Account")
-                                    .orderByChild("email")
-                                    .equalTo(AccountData.firebaseUser.getEmail()).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    try {
-                                        JSONObject obj = new JSONObject(dataSnapshot.getValue().toString());
-                                        JSONObject arr = obj.getJSONObject(obj.names().get(0).toString());
-                                        account.setAccountID(!arr.isNull("accountID") ? arr.getString("accountID") : null);
-                                        account.setAccountName(!arr.isNull("accountName") ? arr.getString("accountName") : null);
-                                        account.setSex(!arr.isNull("sex") ? arr.getString("sex") : null);
-                                        account.setDateOfBirth(!arr.isNull("dateOfBirth") ? arr.getString("dateOfBirth") : null);
-                                        account.setAddress(!arr.isNull("address") ? arr.getString("address") : null);
-                                        account.setPhone(!arr.isNull("phone") ? arr.getString("phone") : null);
-                                        account.setEmail(!arr.isNull("email") ? arr.getString("email") : null);
-                                        account.setRole(!arr.isNull("role") ? Integer.parseInt(arr.getString("role")) : null);
-                                        account.setCompanyName(!arr.isNull("companyName") ? arr.getString("companyName") : null);
-                                        account.setCompanyAddress(!arr.isNull("companyAddress") ? arr.getString("companyAddress") : null);
-                                        account.setCompanyPhone(!arr.isNull("companyPhone") ? arr.getString("companyPhone") : null);
-                                        account.setCompanyEmail(!arr.isNull("companyEmail") ? arr.getString("companyEmail") : null);
-                                        account.setCompanyIntro(!arr.isNull("companyIntro") ? arr.getString("companyIntro") : null);
-                                        account.setCoin(!arr.isNull("coin") ? Integer.parseInt(arr.getString("coin")) : null);
-                                        account.setStatusBlock(!arr.isNull("statusBlock") ? Integer.parseInt(arr.getString("statusBlock")) : null);
-                                        account.setLogin(true);
-                                        account.setStatusBlock(!arr.isNull("statusSendInvation") ? Integer.parseInt(arr.getString("statusSendInvation")) : null);
-                                        account.setKey(!arr.isNull("key") ? arr.getString("key") : null);
-                                        AccountData.userLogin = account;
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                        Toast.makeText(LoginActivity.this, "Lỗi:" + e, Toast.LENGTH_SHORT).show();
+                            try {
+                                AccountData.GetAccount(new IEvenItem() {
+                                    @Override
+                                    public void callEvent() {
+                                        nextMain();
                                     }
-                                    nextMain();
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                }
-                            });
+                                });
+                            } catch (Exception e) {
+                                Toast.makeText(LoginActivity.this, "Lỗi khi tải thông tin người dùng.", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(LoginActivity.this, "Đăng nhập không hợp lệ.",
                                     Toast.LENGTH_SHORT).show();
