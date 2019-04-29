@@ -108,6 +108,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
                         Category cgr = new Category();
                         cgr.setKey(String.valueOf(controlField.getItemChoose() + 1));
+                        cgr.setCategoryID(String.valueOf(controlField.getItemChoose() + 1));
                         cgr.setCategoryName(cbxField.getText().toString());
 
                         myRef.push().setValue(new Post(
