@@ -174,7 +174,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         final String createEmail = signUpEmailEditTxt.getText().toString().trim();
         String createPassword = signUppasswordEditTxt.getText().toString().trim();
         String createConfrimPassword = signUpConfirmPasswordEditTxt.getText().toString().trim();
-
         if (TextUtils.isEmpty(createName)) {
             Toast.makeText(this, "Vui lòng nhập tên.", Toast.LENGTH_LONG).show();
             signUpNameEditTxt.requestFocus();
@@ -201,9 +200,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
         if (radioButtonuv.isChecked()) {
-            ValidateUV();
+            if (!ValidateUV()) return;
         } else {
-            ValidateTD();
+            if (!ValidateTD()) return;
         }
 
         AccountData.firebaseAuth.createUserWithEmailAndPassword(createEmail, createPassword)
@@ -262,9 +261,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             }
 
                         } else {
-                            // If sign in fails, display a message to the user.
-
-                            Toast.makeText(SignupActivity.this, "Authentication failed.",
+                            Toast.makeText(SignupActivity.this, "Đăng ký gặp sự cố.",
                                     Toast.LENGTH_SHORT).show();
 
                         }
@@ -277,87 +274,88 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         return (password.length() > 0 || password.equals(";")) && matcher.find();
     }
 
-    private void ValidateTD() {
+    private boolean ValidateTD() {
         if (TextUtils.isEmpty(signUpDateOfBirthtd.getText())) {
             Toast.makeText(this, "Vui lòng nhập ngày sinh.", Toast.LENGTH_LONG).show();
             signUpDateOfBirthtd.requestFocus();
-            return;
+            return false;
         }
         if (TextUtils.isEmpty(signUpcompanyName.getText())) {
             Toast.makeText(this, "Vui lòng nhập tên công ty.", Toast.LENGTH_LONG).show();
             signUpcompanyName.requestFocus();
-            return;
+            return false;
         }
         if (TextUtils.isEmpty(signUpcompanyAddress.getText())) {
             Toast.makeText(this, "Vui lòng nhập địa chỉ.", Toast.LENGTH_LONG).show();
             signUpcompanyAddress.requestFocus();
-            return;
+            return false;
         }
         if (TextUtils.isEmpty(signUpcompanyPhone.getText())) {
             Toast.makeText(this, "Vui lòng nhập số điện thoại công ty.", Toast.LENGTH_LONG).show();
             signUpcompanyPhone.requestFocus();
-            return;
+            return false;
         }
         if (TextUtils.isEmpty(signUpcompanyEmail.getText())) {
             Toast.makeText(this, "Vui lòng nhập email công ty.", Toast.LENGTH_LONG).show();
             signUpcompanyEmail.requestFocus();
-            return;
+            return false;
         }
+        return true;
 
     }
 
-    private void ValidateUV() {
+    private boolean ValidateUV() {
         if (TextUtils.isEmpty(signUpDateOfBirthuv.getText())) {
             Toast.makeText(this, "Vui lòng nhập ngày sinh.", Toast.LENGTH_LONG).show();
             signUpDateOfBirthuv.requestFocus();
-            return;
+            return false;
         }
         if (TextUtils.isEmpty(signUpAddressuv.getText())) {
             Toast.makeText(this, "Vui lòng nhập đại chỉ.", Toast.LENGTH_LONG).show();
             signUpAddressuv.requestFocus();
-            return;
+            return false;
         }
         if (TextUtils.isEmpty(signUpPhoneuv.getText())) {
             Toast.makeText(this, "Vui lòng nhập số điện thoại.", Toast.LENGTH_LONG).show();
             signUpPhoneuv.requestFocus();
-            return;
+            return false;
         }
         if (TextUtils.isEmpty(signUpFromTimeuv.getText())) {
             Toast.makeText(this, "Vui lòng nhập thời gian làm việc.", Toast.LENGTH_LONG).show();
             signUpFromTimeuv.requestFocus();
-            return;
+            return false;
         } else {
             try {
-                int totime = Integer.parseInt(signUpFromTimeuv.toString());
-                if ((totime > 23 && totime < 0) || Double.parseDouble(signUpFromTimeuv.toString()) - totime > 0)
+                int totime = Integer.parseInt(signUpFromTimeuv.getText().toString());
+                if (totime > 23 || totime < 0 || (Double.parseDouble(signUpFromTimeuv.getText().toString()) - totime) > 0)
                     throw new Exception();
             } catch (Exception e) {
                 Toast.makeText(this, "Sai kiểu thời gian(0-23)", Toast.LENGTH_SHORT).show();
                 signUpFromTimeuv.requestFocus();
-                return;
+                return false;
             }
         }
         if (TextUtils.isEmpty(signUpToTimeuv.getText())) {
             Toast.makeText(this, "Vui lòng nhập thời gian làm việc.", Toast.LENGTH_LONG).show();
             signUpToTimeuv.requestFocus();
-            return;
+            return false;
         } else {
             try {
-                int totime = Integer.parseInt(signUpToTimeuv.toString());
-                if ((totime > 23 && totime < 0) || Double.parseDouble(signUpToTimeuv.toString()) - totime > 0)
+                int totime = Integer.parseInt(signUpToTimeuv.getText().toString());
+                if (totime > 23 || totime < 0 || (Double.parseDouble(signUpToTimeuv.getText().toString()) - totime) > 0)
                     throw new Exception();
             } catch (Exception e) {
                 Toast.makeText(this, "Sai kiểu thời gian(0-23)", Toast.LENGTH_SHORT).show();
                 signUpToTimeuv.requestFocus();
-                return;
+                return false;
             }
         }
         if (spnListOfJob.getSelectedItemPosition() == 0) {
             Toast.makeText(this, "Vui lòng chọn công việc.", Toast.LENGTH_LONG).show();
             spnListOfJob.requestFocus();
-            return;
+            return false;
         }
-
+        return true;
     }
 
 
@@ -376,8 +374,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         };
     }
-
-
     @Override
     public void onStart() {
         super.onStart();
