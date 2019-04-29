@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class ListPostActivity extends AppCompatActivity {
@@ -64,6 +66,7 @@ public class ListPostActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Post> data = new ArrayList<>();
                 List<Post> temp = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
+                Collections.sort(temp);
 
                 for (Post item: temp) {
                     if (job != -1 && !item.getCategory().getCategoryID().equals(job + 1)) {
