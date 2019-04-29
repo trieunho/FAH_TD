@@ -308,35 +308,31 @@
                     android:text="Loại bài viết: "
                     android:textStyle="bold"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-                <GridLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wrap_content_control"
                     android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
-                    <TableRow
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/cbxTOP"
+                        android:editable="false"
+                        android:layout_width="120dp"
                         android:layout_height="@dimen/wrap_content_control"
-                        android:layout_width="fill_parent">
-                        <EditText
-                            android:id="@+id/cbxTypeOfArticle"
-                            android:layout_width="120dp"
-                            android:editable="false"
-                            android:layout_height="@dimen/wrap_content_control"
-                            android:gravity="center"
-                            android:background="@drawable/fah_control_combobox"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:drawableRight="@drawable/ic_arrow_down"/>
-                        <EditText
-                            android:id="@+id/txvLoai"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/wrap_content_control"
-                            android:editable="false"
-                            android:focusable="false"
-                            android:gravity="center"
-                            android:layout_marginLeft="@dimen/margin_control"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:background="@drawable/fah_control_edit_test_default"/>
-                    </TableRow>
-                </GridLayout>
+                        android:gravity="center"
+                        android:background="@drawable/fah_control_combobox"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:drawableRight="@drawable/ic_arrow_down"/>
+                    <EditText
+                        android:id="@+id/txvLoai"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:layout_marginLeft="@dimen/margin_control"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:background="@drawable/fah_control_edit_test_default"/>
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

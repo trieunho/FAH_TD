@@ -13,6 +13,7 @@ import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Models.Category;
+import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -116,7 +117,7 @@ public class DetailSearchPostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                startActivity(new Intent(DetailSearchPostActivity.this, HomeActivity.class));
+                startActivity(new Intent(DetailSearchPostActivity.this, MainActivity.class));
                 finish();
                 return true;
             }

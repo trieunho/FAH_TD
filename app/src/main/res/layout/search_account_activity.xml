@@ -39,13 +39,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlack"
-                android:text="Thời gian làm việc: "/>
-            <Spinner
-                android:id="@+id/spnListOfTime"
-                android:layout_width="200dp"
+                android:text="Thời gian làm việc: Từ "/>
+            <EditText
+                android:id="@+id/txtStartTime"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="Đến "/>
+
+            <EditText
+                android:id="@+id/txtEndTime"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -56,6 +67,7 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <Button
+            android:id="@+id/btnFind"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="Tìm kiếm"

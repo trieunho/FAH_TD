@@ -10,21 +10,23 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
+import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHModel.Adapters.SearchAdapter;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ListPostActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    DatabaseReference myRef;
+    Query myRef;
     ListView lstSearch;
 
     // param
@@ -53,7 +55,7 @@ public class ListPostActivity extends AppCompatActivity {
 
         // Add controls
         lstSearch = findViewById(R.id.lstSearch);
-        myRef = FAHQuery.GetData("Post");
+        myRef = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, 1, FAHQueryParam.TypeInteger));
 
         addEvents();
     }
@@ -64,9 +66,11 @@ public class ListPostActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Post> data = new ArrayList<>();
                 List<Post> temp = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
+                if (temp == null) return;
+                Collections.sort(temp);
 
                 for (Post item: temp) {
-                    if (job != -1 && !item.getCategory().getCategoryID().equals(job + 1)) {
+                    if (job != -1 && !item.getCategory().getCategoryID().equals(String.valueOf(job + 1))) {
                         continue;
                     }
 
@@ -99,26 +103,26 @@ public class ListPostActivity extends AppCompatActivity {
                     if (time != -1) {
                         switch (time) {
                             case 0:
-                                if (!(Integer.parseInt(item.getDtFrom()) <= 8 || Integer.parseInt(item.getDtFrom()) >= 6)
-                                    && !(Integer.parseInt(item.getDtTo()) <= 12 || Integer.parseInt(item.getDtTo()) >= 10)){
+                                if (!(item.getDtFrom() <= 8 || item.getDtFrom() >= 6)
+                                        && !(item.getDtTo() <= 12 || item.getDtTo() >= 10)){
                                     continue;
                                 }
                                 break;
                             case 1:
-                                if (!(Integer.parseInt(item.getDtFrom()) <= 14 || Integer.parseInt(item.getDtFrom()) >= 12)
-                                        && !(Integer.parseInt(item.getDtTo()) <= 18 || Integer.parseInt(item.getDtTo()) >= 16)){
+                                if (!(item.getDtFrom() <= 14 || item.getDtFrom() >= 12)
+                                        && !(item.getDtTo() <= 18 || item.getDtTo() >= 16)){
                                     continue;
                                 }
                                 break;
                             case 2:
-                                if (!(Integer.parseInt(item.getDtFrom()) <= 19 || Integer.parseInt(item.getDtFrom()) >= 17)
-                                        && !(Integer.parseInt(item.getDtTo()) <= 23 || Integer.parseInt(item.getDtTo()) >= 21)){
+                                if (!(item.getDtFrom() <= 19 || item.getDtFrom() >= 17)
+                                        && !(item.getDtTo() <= 23 || item.getDtTo() >= 21)){
                                     continue;
                                 }
                                 break;
                             case 3:
-                                if (!(Integer.parseInt(item.getDtFrom()) == 22 || Integer.parseInt(item.getDtFrom()) == 23 || Integer.parseInt(item.getDtFrom()) == 24 || Integer.parseInt(item.getDtFrom()) == 0)
-                                        && !(Integer.parseInt(item.getDtTo()) <= 4 || Integer.parseInt(item.getDtTo()) >= 5)){
+                                if (!(item.getDtFrom() == 22 || item.getDtFrom() == 23 || item.getDtFrom() == 24 || item.getDtFrom() == 0)
+                                        && !(item.getDtTo() <= 4 || item.getDtTo() >= 5)){
                                     continue;
                                 }
                                 break;
