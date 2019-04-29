@@ -24,6 +24,9 @@ public class Account extends FAHFieldCommon {
     private String avata;
     private int statusSendInvation;
     private String key;
+    private int dtFrom;
+    private int dtTo;
+
 
     @Override
     public String getKey() {
@@ -188,6 +191,22 @@ public class Account extends FAHFieldCommon {
         this.accountName = accountName;
         this.email = email;
         this.statusBlock = statusBlock;
+    }
+
+    public int getDtFrom() {
+        return dtFrom;
+    }
+
+    public void setDtFrom(int dtFrom) {
+        this.dtFrom = dtFrom;
+    }
+
+    public int getDtTo() {
+        return dtTo;
+    }
+
+    public void setDtTo(int dtTo) {
+        this.dtTo = dtTo;
     }
 
     public int getStatusSendInvation() {

@@ -5,7 +5,7 @@ import com.example.fah.FAHCommon.FAHDatabase.Table.FAHFieldCommon;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Post extends FAHFieldCommon {
+public class Post extends FAHFieldCommon implements Comparable<Post> {
     private String titlePost;
     private String accountStr;
     private String companyName;
@@ -23,13 +23,14 @@ public class Post extends FAHFieldCommon {
     private String salary_to;
     private Date approveDate;
     private Date dueDate;
+    private int dtFrom;
+    private int dtTo;
 
     private ArrayList<Account> listOfAccApply;
     private Account account;
     private TypeOfPost typeOfPost;
-    private String dtFrom;
-    private String dtTo;
     private Category category;
+    private int status;
 
     public Post(){}
 
@@ -38,7 +39,6 @@ public class Post extends FAHFieldCommon {
         this.accountStr = accountStr;
         this.companyName = companyName;
         this.listOfAccApply = listOfAccApply;
-
     }
 
     public Post(String titlePost, String accountStr, String companyName) {
@@ -47,7 +47,7 @@ public class Post extends FAHFieldCommon {
         this.companyName = companyName;
     }
 
-    public Post(String titlePost, String companyName, String address, String dtFrom, String dtTo, String luong, String deadLine) {
+    public Post(String titlePost, String companyName, String address, int dtFrom, int dtTo, String luong, String deadLine) {
         this.titlePost = titlePost;
         this.companyName = companyName;
         this.address = address;
@@ -66,8 +66,8 @@ public class Post extends FAHFieldCommon {
                 String soLuong,
                 String address,
                 String deadLine,
-                String dtFrom,
-                String dtTo,
+                int dtFrom,
+                int dtTo,
                 String typeOfSalary,
                 String salary_from,
                 String salary_to,
@@ -93,6 +93,15 @@ public class Post extends FAHFieldCommon {
         this.phone = phone;
         this.setTypeOfPost(typeOfPost);
         this.account = account;
+    }
+
+    public int compareTo(Post post) {
+        if (this.getTypeOfPost().getTypeID().equals(post.getTypeOfPost().getTypeID()))
+            return 0;
+        else if (Integer.parseInt(this.getTypeOfPost().getTypeID()) < Integer.parseInt(post.getTypeOfPost().getTypeID()))
+            return 1;
+        else
+            return -1;
     }
 
     public String getEmail() {
@@ -263,19 +272,27 @@ public class Post extends FAHFieldCommon {
         this.category = category;
     }
 
-    public String getDtFrom() {
+    public int getDtFrom() {
         return dtFrom;
     }
 
-    public void setDtFrom(String dtFrom) {
+    public void setDtFrom(int dtFrom) {
         this.dtFrom = dtFrom;
     }
 
-    public String getDtTo() {
+    public int getDtTo() {
         return dtTo;
     }
 
-    public void setDtTo(String dtTo) {
+    public void setDtTo(int dtTo) {
         this.dtTo = dtTo;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

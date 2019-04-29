@@ -35,12 +35,16 @@ public class FAHQuery {
         switch (query.getTypeQuery()){
             case FAHQueryParam.EQUAL:
                 result = equalTo(result, query);
+                break;
             case FAHQueryParam.START:
                 result = startAt(result, query);
+                break;
             case FAHQueryParam.END:
                 result = endAt(result, query);
+                break;
             case FAHQueryParam.BETWEEN:
                 result = between(result, query);
+                break;
         }
 
         return result;
@@ -273,6 +277,10 @@ public class FAHQuery {
 
     private static Query equalTo(Query data, FAHQueryParam query){
         switch (query.getTypeParam()){
+            case FAHQueryParam.TypeInteger: {
+                data = data.equalTo((Integer) query.getParam());
+                break;
+            }
             case FAHQueryParam.TypeString: {
                 data = data.equalTo((String) query.getParam());
                 break;
