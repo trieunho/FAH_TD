@@ -71,7 +71,7 @@ public class CreatePostActivity extends AppCompatActivity {
     DatabaseReference myRef;
     FirebaseDatabase database;
 
-    Account account;
+    Account user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +129,8 @@ public class CreatePostActivity extends AppCompatActivity {
                                 txtEmail.getText().toString(),
                                 txtPhone.getText().toString(),
                                 top,
-                                account));
+                                user,
+                                new ArrayList<Account>()));
 
                         // update data Account: minus coin
                         myRef = database.getReference("TYPE_OF_POST");
@@ -140,8 +141,8 @@ public class CreatePostActivity extends AppCompatActivity {
                                 ArrayList<TypeOfPost> typeOfPost = (ArrayList<TypeOfPost>) FAHQuery.GetDataObject(dataSnapshot, new TypeOfPost());
                                 for(TypeOfPost top : typeOfPost) {
                                     if (top.getTypeID() != null && top.getTypeID().equals(keyTOP)) {
-                                        int coinNew = account.getCoin() - Integer.parseInt(top.getTypeCoin());
-                                        FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", account.getKey(),"coin"));
+                                        int coinNew = user.getCoin() - Integer.parseInt(top.getTypeCoin());
+                                        FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", user.getKey(),"coin"));
                                     }
                                 }
                             }
@@ -230,7 +231,7 @@ public class CreatePostActivity extends AppCompatActivity {
         lbl.setVisibility(View.GONE);
         txvLoai.setText("Tiền không là tiền");
 
-        account = userLogin; // TODO
+        user = userLogin; // TODO
        // account = new Account("-LdU7f37X2QQBzZkHQ1Q","1", "Canh", "avancanh@gmail.com", 1);
     }
 
@@ -345,7 +346,11 @@ public class CreatePostActivity extends AppCompatActivity {
             txtAddress.requestFocus();
             Toast.makeText(this, "Chưa điền địa chỉ", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (Integer.parseInt(dtFrom.getText().toString()) > Integer.parseInt(dtTo.getText().toString())) {
+        } else if (Integer.parseInt(dtFrom.getText().toString()) < 0 || Integer.parseInt(dtFrom.getText().toString()) > 24){
+            dtFrom.requestFocus();
+            Toast.makeText(this, "Thời gian không hợp lệ", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (Integer.parseInt(dtTo.getText().toString()) < 0 || Integer.parseInt(dtTo.getText().toString()) > 24){
             dtTo.requestFocus();
             Toast.makeText(this, "Thời gian không hợp lệ", Toast.LENGTH_SHORT).show();
             return false;

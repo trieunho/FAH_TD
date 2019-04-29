@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -40,6 +42,11 @@ public class ListPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_post);
 
+        addControls();
+        addEvents();
+    }
+
+    private void addControls() {
         // toolbar
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_backspace_black);
@@ -56,8 +63,6 @@ public class ListPostActivity extends AppCompatActivity {
         // Add controls
         lstSearch = findViewById(R.id.lstSearch);
         myRef = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, 1, FAHQueryParam.TypeInteger));
-
-        addEvents();
     }
 
     private void addEvents() {
@@ -148,6 +153,15 @@ public class ListPostActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(ListPostActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        lstSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ListPostActivity.this, DetailPostActivity.class);
+                intent.putExtra("position", position);
+                startActivity(intent);
             }
         });
     }
