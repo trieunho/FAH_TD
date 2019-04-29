@@ -1,8 +1,10 @@
 package com.example.fah.FAHScreen.Account;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,6 +30,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.example.fah.R.drawable.ic_chevron_left_black_24dp;
+
 /**
  * Manage Account By Post Activity
  * @createDate: 19/03/2019
@@ -38,6 +42,8 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
     TextView tvResultOfSearch;
     Spinner spnListOfPost;
     Button btnSearch;
+    Toolbar toolbar;
+
     ArrayList <Post> postList;
     ArrayList <Account> accountList;
     DatabaseReference myRef;
@@ -61,6 +67,14 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Post");
+
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(ic_chevron_left_black_24dp);
+        toolbar.setTitle("Danh sách ứng tuyển");
+        toolbar.setTitleMargin(2, 0, 0, 2);
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
     }
 
     private void addEvent() {

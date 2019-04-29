@@ -1,10 +1,12 @@
 package com.example.fah.FAHScreen.Account;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,10 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
-import com.example.fah.FAHData.AccountData;
+import com.example.fah.FAHData.CategoryData;
 import com.example.fah.FAHModel.Adapters.AccountBySearchAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Category;
+import com.example.fah.FAHModel.Models.IEvenItem;
 import com.example.fah.FAHScreen.User.PersionalImformationActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -32,13 +35,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.example.fah.R.drawable.ic_chevron_left_black_24dp;
+
 public class SearchAccountActivity extends AppCompatActivity {
     Spinner spnListOfJob;
     ListView lvAccountSrch;
     TextView tvResultOfSearch;
+    EditText txtStartTime;
+    EditText txtEndTime;
     Button btnFind;
+    Toolbar toolbar;
 
-    ArrayList<Category> listCategory;
     ArrayList<Account> listAccount;
     static HashMap<Integer, String> spinnerMap;
 
@@ -50,50 +57,40 @@ public class SearchAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_account_activity);
         addControl();
-//        addEvent();
-    }
-    private void addEvent() {
-        lvAccountSrch = findViewById(R.id.lvAccountSrch);
-        lvAccountSrch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(SearchAccountActivity.this, AccountData.userLogin.getEmail(),
-                        Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(SearchAccountActivity.this, PersionalImformationActivity.class);
-                intent.putExtra("key", listAccount.get(position).getKey());
-                startActivity(intent);
-                finish();
-            }
-        });
+        addEvent();
     }
 
     private void addControl() {
-
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("CATEGORY_OF_POST");
 
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(ic_chevron_left_black_24dp);
+        toolbar.setTitle("Tìm kiếm ứng viên");
+        toolbar.setTitleMargin(2, 0, 0, 2);
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
+
         spnListOfJob = findViewById(R.id.spnListOfJob);
-        final EditText txtStartTime = findViewById(R.id.txtStartTime);
-        final EditText txtEndTime = findViewById(R.id.txtEndTime);
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listCategory = (ArrayList<Category>) FAHQuery.GetDataObject(dataSnapshot, new Category());
-                setTitlePostAdapter(listCategory);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        txtStartTime = findViewById(R.id.txtStartTime);
+        txtEndTime = findViewById(R.id.txtEndTime);
         lvAccountSrch = findViewById(R.id.lvAccountSrch);
         tvResultOfSearch = findViewById(R.id.tvResultOfSearch);
-        setListAdapter(listAccount);
         btnFind = findViewById(R.id.btnFind);
+
+    }
+
+    private void addEvent() {
+        // Set list category
+        CategoryData.setUpCategoryData(new IEvenItem() {
+            @Override
+            public void callEvent() {
+                setTitlePostAdapter(CategoryData.categoryList);
+            }
+        });
+
+        // Set event handle click Button Find
+        setListAdapter(listAccount);
         btnFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,6 +169,19 @@ public class SearchAccountActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Set event handle click item of list view Account
+        lvAccountSrch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(SearchAccountActivity.this, PersionalImformationActivity.class);
+                intent.putExtra("key", listAccount.get(position).getKey());
+                Toast.makeText(SearchAccountActivity.this, listAccount.get(position).getKey(),
+                        Toast.LENGTH_LONG).show();
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void setListAdapter(ArrayList<Account> listAccount) {
@@ -191,7 +201,6 @@ public class SearchAccountActivity extends AppCompatActivity {
             lvAccountSrch.setAdapter(accountBySearchAdapter);
             tvResultOfSearch.setText("Không tìm thấy kết quả nào phù hợp !");
         }
-        addEvent();
     }
 
     /**
@@ -204,9 +213,9 @@ public class SearchAccountActivity extends AppCompatActivity {
         spinnerMap.put(0, "All");
         listOfCategory.add("Tất cả");
         if (categoryList != null) {
-            for (int i = 0; i < categoryList.size(); i++) {
-                spinnerMap.put(i, categoryList.get(i).getCategoryID());
-                listOfCategory.add(categoryList.get(i).getCategoryName());
+            for (int i = 1; i <= categoryList.size(); i++) {
+                spinnerMap.put(i, categoryList.get(i - 1).getCategoryID());
+                listOfCategory.add(categoryList.get(i - 1).getCategoryName());
             }
 
             ArrayAdapter<String> listOfPostAdapter =
@@ -217,7 +226,6 @@ public class SearchAccountActivity extends AppCompatActivity {
             spnListOfJob.setAdapter(listOfPostAdapter);
         }
     }
-
 
     private boolean validateInputTime(String Time) {
         try {

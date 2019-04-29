@@ -1,9 +1,11 @@
 package com.example.fah.FAHScreen.Account;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -26,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.example.fah.R.drawable.ic_chevron_left_black_24dp;
+
 /**
  * Manage Account Activity
  *
@@ -37,6 +41,8 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
     ListView lvAccount;
     TextView tvResultOfSearch;
     EditText editTextSearch;
+    Toolbar toolbar;
+
     AccountByAdminAdapter adapter;
     DatabaseReference myRef;
     Query query;
@@ -67,6 +73,13 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
         editTextSearch = findViewById(R.id.editTextSearch);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("TestHongCT");
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(ic_chevron_left_black_24dp);
+        toolbar.setTitle("Block người dùng");
+        toolbar.setTitleMargin(2, 0, 0, 2);
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
     }
 
 
