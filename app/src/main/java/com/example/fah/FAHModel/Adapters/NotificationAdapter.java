@@ -55,7 +55,7 @@ public class NotificationAdapter extends BaseAdapter {
         Notification notification = notificationList.get(position);
         txtNotification.setText(notification.getNotification());
         txtTime.setText(notification.getTime());
-        imageView.setImageResource(notification.getImage());
+        //imageView.setImageResource(notification.getImage());
         return convertView;
     }
 }
