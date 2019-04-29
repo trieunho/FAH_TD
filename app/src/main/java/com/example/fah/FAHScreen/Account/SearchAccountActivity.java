@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
+import com.example.fah.FAHData.CategoryData;
 import com.example.fah.FAHModel.Adapters.AccountBySearchAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Category;
@@ -60,18 +61,23 @@ public class SearchAccountActivity extends AppCompatActivity {
         spnListOfJob = findViewById(R.id.spnListOfJob);
         final EditText txtStartTime = findViewById(R.id.txtStartTime);
         final EditText txtEndTime = findViewById(R.id.txtEndTime);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listCategory = (ArrayList<Category>) FAHQuery.GetDataObject(dataSnapshot, new Category());
-                setTitlePostAdapter(listCategory);
-            }
+        CategoryData categoryData = new CategoryData();
+        categoryData.getListCategory();
+        listCategory = CategoryData.categoryList;
+        setTitlePostAdapter(listCategory);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                listCategory = (ArrayList<Category>) FAHQuery.GetDataObject(dataSnapshot, new Category());
+//                setTitlePostAdapter(listCategory);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
         lvAccount = findViewById(R.id.lvAccount);
         tvResultOfSearch = findViewById(R.id.tvResultOfSearch);
         setListAdapter(listAccount);
@@ -95,7 +101,7 @@ public class SearchAccountActivity extends AppCompatActivity {
                                 ArrayList<Account> listAcc = new ArrayList<>();
 
                                 for (Account acc : listAccount) {
-                                    if (acc.getCategory()!= null
+                                    if (acc.getCategory() != null
                                             && ("All".equals(categoryID)
                                             || categoryID.equals(acc.getCategory().getCategoryID()))) {
                                         if (startTime == null
