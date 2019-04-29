@@ -1,10 +1,12 @@
 package com.example.fah.FAHScreen.Account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,11 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
-import com.example.fah.FAHData.CategoryData;
 import com.example.fah.FAHModel.Adapters.AccountBySearchAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Category;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
+import com.example.fah.FAHScreen.User.PersionalImformationActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +34,7 @@ import java.util.List;
 
 public class SearchAccountActivity extends AppCompatActivity {
     Spinner spnListOfJob;
-    ListView lvAccount;
+    ListView lvAccountSrch;
     TextView tvResultOfSearch;
     Button btnFind;
 
@@ -47,10 +49,25 @@ public class SearchAccountActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_account_activity);
-        Toast.makeText(SearchAccountActivity.this, MainActivity.userLogin.getEmail(),
-                Toast.LENGTH_SHORT).show();
         addControl();
 //        addEvent();
+    }
+
+    private void addEvent() {
+        lvAccountSrch = findViewById(R.id.lvAccountSrch);
+        lvAccountSrch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(SearchAccountActivity.this, MainActivity.userLogin.getEmail(),
+                        Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(SearchAccountActivity.this, PersionalImformationActivity.class);
+                intent.putExtra("key", listAccount.get(position).getKey());
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void addControl() {
@@ -61,24 +78,20 @@ public class SearchAccountActivity extends AppCompatActivity {
         spnListOfJob = findViewById(R.id.spnListOfJob);
         final EditText txtStartTime = findViewById(R.id.txtStartTime);
         final EditText txtEndTime = findViewById(R.id.txtEndTime);
-        CategoryData categoryData = new CategoryData();
-        categoryData.getListCategory();
-        listCategory = CategoryData.categoryList;
-        setTitlePostAdapter(listCategory);
 
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                listCategory = (ArrayList<Category>) FAHQuery.GetDataObject(dataSnapshot, new Category());
-//                setTitlePostAdapter(listCategory);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-        lvAccount = findViewById(R.id.lvAccount);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listCategory = (ArrayList<Category>) FAHQuery.GetDataObject(dataSnapshot, new Category());
+                setTitlePostAdapter(listCategory);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        lvAccountSrch = findViewById(R.id.lvAccountSrch);
         tvResultOfSearch = findViewById(R.id.tvResultOfSearch);
         setListAdapter(listAccount);
         btnFind = findViewById(R.id.btnFind);
@@ -107,7 +120,7 @@ public class SearchAccountActivity extends AppCompatActivity {
                                                 || categoryID.equals(acc.getCategory().getCategoryID()))) {
 
 
-                                            if (startTime == null || "".equals(startTime)) {
+                                            if (startTime != null && !"".equals(startTime)) {
                                                 int stTime = Integer.parseInt(startTime) - acc.getDtFrom();
                                                 switch (stTime) {
                                                     case 1:
@@ -124,25 +137,27 @@ public class SearchAccountActivity extends AppCompatActivity {
                                                         continue;
                                                 }
 
-                                                if (endTime == null || "".equals(endTime)) {
-                                                    int enTime = Integer.parseInt(endTime) - acc.getDtTo();
-                                                    switch (enTime) {
-                                                        case 1:
-                                                            break;
-                                                        case -1:
-                                                            break;
-                                                        case 0:
-                                                            break;
-                                                        case 23:
-                                                            break;
-                                                        case -23:
-                                                            break;
-                                                        default:
-                                                            continue;
-                                                    }
-                                                    listAcc.add(acc);
+                                            }
+
+                                            if (endTime != null && !"".equals(endTime)) {
+                                                int enTime = Integer.parseInt(endTime) - acc.getDtTo();
+                                                switch (enTime) {
+                                                    case 1:
+                                                        break;
+                                                    case -1:
+                                                        break;
+                                                    case 0:
+                                                        break;
+                                                    case 23:
+                                                        break;
+                                                    case -23:
+                                                        break;
+                                                    default:
+                                                        continue;
                                                 }
                                             }
+
+                                            listAcc.add(acc);
                                         }
                                     }
                                 }
@@ -168,15 +183,16 @@ public class SearchAccountActivity extends AppCompatActivity {
                     SearchAccountActivity.this,
                     R.layout.account_by_search_activity,
                     listAccount);
-            lvAccount.setAdapter(accountBySearchAdapter);
+            lvAccountSrch.setAdapter(accountBySearchAdapter);
         } else {
             AccountBySearchAdapter accountBySearchAdapter = new AccountBySearchAdapter(
                     SearchAccountActivity.this,
                     R.layout.account_by_search_activity,
                     new ArrayList<Account>());
-            lvAccount.setAdapter(accountBySearchAdapter);
+            lvAccountSrch.setAdapter(accountBySearchAdapter);
             tvResultOfSearch.setText("Không tìm thấy kết quả nào phù hợp !");
         }
+        addEvent();
     }
 
     /**

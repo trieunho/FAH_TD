@@ -84,7 +84,7 @@
         android:text="Tìm thấy 10 kết quả"/>
 
     <ListView
-        android:id="@+id/lvAccount"
+        android:id="@+id/lvAccountSrch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 
