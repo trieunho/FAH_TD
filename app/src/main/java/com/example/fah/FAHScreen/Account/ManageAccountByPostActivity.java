@@ -16,6 +16,7 @@ import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHModel.Adapters.AccountByPostAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
+import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,7 +60,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
         spnListOfPost = findViewById(R.id.spnListOfPost);
 
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("PostTestHongCT");
+        myRef = database.getReference("Post");
     }
 
     private void addEvent() {
@@ -100,26 +101,28 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
      * Get list Post from DB
      */
     private void getListTittle() {
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                postList = new ArrayList <>();
-                ArrayList <Post>  listPostForAcc  = (ArrayList <Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
-                for (Post item : listPostForAcc){
-                    if (item.getAccount()!= null && "0".equals(item.getAccount().getKey())){
-                        postList.add(item);
+        if (MainActivity.userLogin != null && MainActivity.userLogin.getKey() != null) {
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    postList = new ArrayList<>();
+                    ArrayList<Post> listPostForAcc = (ArrayList<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
+                    for (Post item : listPostForAcc) {
+                        if (item.getAccount() != null && MainActivity.userLogin.getKey().equals(item.getAccount().getKey())) {
+                            postList.add(item);
+                        }
                     }
+
+                    setTitlePostAdapter(postList);
                 }
 
-               setTitlePostAdapter(postList);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Toast.makeText(ManageAccountByPostActivity.this, "Error", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Toast.makeText(ManageAccountByPostActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     /**
@@ -135,7 +138,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
             if (keySearch.equals(item.getKey())) {
                 if (item.getListOfAccApply() != null && item.getListOfAccApply().size() > 0) {
                     for (int i = 0; i < item.getListOfAccApply().size(); i++) {
-                        FAHQuery.UpdateData(0, ExcuteString.GetUrlData("PostTestHongCT", item.getKey(), "listOfAccApply", String.valueOf(i), "statusSendInvation"));
+                        FAHQuery.UpdateData(0, ExcuteString.GetUrlData("Post", item.getKey(), "listOfAccApply", String.valueOf(i), "statusSendInvation"));
                         item.getListOfAccApply().get(i).setStatusSendInvation(0);
                     }
                 }
