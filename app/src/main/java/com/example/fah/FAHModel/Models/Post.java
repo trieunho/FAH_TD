@@ -27,7 +27,7 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
     private int dtTo;
 
     private ArrayList<Account> listOfAccApply;
-    private Account account;
+    private Account user;
     private TypeOfPost typeOfPost;
     private Category category;
     private int status;
@@ -74,34 +74,36 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
                 String email,
                 String phone,
                 TypeOfPost typeOfPost,
-                Account account) {
-        this.titlePost = titlePost;
-        this.companyName = companyName;
+                Account user,
+                ArrayList<Account> listOfAccApply) {
+        this.setTitlePost(titlePost);
+        this.setCompanyName(companyName);
         this.setCategory(category);
-        this.jobDescription = jobDescription;
-        this.address = address;
-        this.required = required;
-        this.benifit = benifit;
-        this.soLuong = soLuong;
-        this.deadLine = deadLine;
-        this.dtFrom = dtFrom;
-        this.dtTo = dtTo;
-        this.typeOfSalary = typeOfSalary;
-        this.salary_from = salary_from;
-        this.salary_to = salary_to;
-        this.email = email;
-        this.phone = phone;
+        this.setJobDescription(jobDescription);
+        this.setAddress(address);
+        this.setRequired(required);
+        this.setBenifit(benifit);
+        this.setSoLuong(soLuong);
+        this.setDeadLine(deadLine);
+        this.setDtFrom(dtFrom);
+        this.setDtTo(dtTo);
+        this.setTypeOfSalary(typeOfSalary);
+        this.setSalary_from(salary_from);
+        this.setSalary_to(salary_to);
+        this.setEmail(email);
+        this.setPhone(phone);
         this.setTypeOfPost(typeOfPost);
-        this.account = account;
+        this.setAccount(user);
+        this.setListOfAccApply(listOfAccApply);
     }
 
     public int compareTo(Post post) {
         if (this.getTypeOfPost().getTypeID().equals(post.getTypeOfPost().getTypeID()))
             return 0;
         else if (Integer.parseInt(this.getTypeOfPost().getTypeID()) < Integer.parseInt(post.getTypeOfPost().getTypeID()))
-            return 1;
-        else
             return -1;
+        else
+            return 1;
     }
 
     public String getEmail() {
@@ -225,11 +227,11 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
     }
 
     public Account getAccount() {
-        return account;
+        return user;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setAccount(Account user) {
+        this.user = user;
     }
 
     public Date getApproveDate() {
