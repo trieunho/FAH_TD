@@ -43,18 +43,8 @@ public class NotificationFragment extends Fragment {
 
     private List<Notification> getListData() {
         List<Notification> list = new ArrayList<Notification>();
-        Notification notification1 = new Notification("HaHandleHandle action bar item clicks here Handle action bar item clicks here Handle action bar itemHandle action bar item clicks here Handle action bar item clicks here Handle action bar itemHandle action bar item clicks here Handle action bar item clicks here Handle action bar item action bar item clicks here Handle action bar item clicks here Handle action bar itemndle action bar item clicks here Handle action bar item clicks here Handle action bar item clicks here Handle action bar item clicks here. The action bar will Handle action bar item clicks here. The action bar will Handle action bar item clicks here. The action bar will","5 phút trước",R.drawable.ic_arrow_down);
-        Notification notification2 = new Notification("Handle action bar item clicks here. The action bar will","5 phút trước",R.drawable.ic_arrow_down);
-        Notification notification3 = new Notification("Handle action bar item clicks here. The action bar will Handle action bar item clicks here. The action bar will","5 phút trước",R.drawable.ic_arrow_down);
-        Notification notification4 = new Notification("Handle action bar item clicks here. The action bar will","5 phút trước",R.drawable.ic_arrow_down);
-        Notification notification5 = new Notification("Handle action bar item clicks here. The action bar will","5 phút trước",R.drawable.ic_arrow_down);
-        Notification notification6 = new Notification("Handle action bar item clicks here. The action bar willHandle action bar item clicks here. The action123567890987654 bar willHandle action bar item clicks here. The action bar willHandle action bar item clicks here. The aion bar item clicks here. The afsfdsgfgfgđfction bar will","5 phút trước",R.drawable.ic_arrow_down);
 
-        list.add(notification1);
-        list.add(notification2);
-        list.add(notification3);
-        list.add(notification4);
-        list.add(notification5);
+     Notification notification6 = new Notification("Handle action bar item clicks here. The action bar willHandle action bar item clicks here. The action123567890987654 bar willHandle action bar item clicks here. The action bar willHandle action bar item clicks here. The aion bar item clicks here. The afsfdsgfgfgđfction bar will","5 phút trước",R.drawable.ic_arrow_down+"");
         list.add(notification6);
 
         return list;
