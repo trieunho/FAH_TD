@@ -2,27 +2,21 @@ package com.example.fah.FAHScreen.Main.GridView.Menu;
 
 import com.example.fah.FAHModel.Models.IEvenItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Menu {
     private String name;
     private String image;
-    private boolean isUserMenu;
+    private IEvenItem eventClickItem;
+    private String permission;
 
-    public Menu(String name, String image, IEvenItem eventClickItem, boolean isUserMenu) {
+    public Menu(String name, String image, String permission) {
         this.name = name;
         this.image = image;
-        this.isUserMenu = isUserMenu;
-        this.eventClickItem = eventClickItem;
+        this.permission = permission;
     }
 
-    public boolean isUserMenu() {
-        return isUserMenu;
-    }
-
-    public void setUserMenu(boolean userMenu) {
-        isUserMenu = userMenu;
-    }
-
-    IEvenItem eventClickItem;
     public Menu(String name, String image){
         this.name = name;
         this.image = image;
@@ -56,5 +50,13 @@ public class Menu {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 }
