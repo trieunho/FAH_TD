@@ -39,7 +39,6 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
         this.accountStr = accountStr;
         this.companyName = companyName;
         this.listOfAccApply = listOfAccApply;
-
     }
 
     public Post(String titlePost, String accountStr, String companyName) {

@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +33,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     Button signUpBtn;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
-
+    private RadioButton radioButtontd;
+    private RadioButton radioButtonuv;
+    private LinearLayout layout_td;
+    private LinearLayout layout_uv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,15 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         returnToLoginTextV = (TextView) findViewById(R.id.loginReturnTextView);
         returnToLoginTextV.setOnClickListener(this);
         signUpBtn = (Button) findViewById(R.id.signUpButton);
+        this.radioButtontd =  this.findViewById(R.id.radioButton_td);
+        this.radioButtonuv  =  this.findViewById(R.id.radioButton_uv);
+        layout_td=findViewById(R.id.nhaTuyenDungLayout);
+        layout_uv=findViewById(R.id.ungVienLayout);
+        layout_uv.setVisibility(View.VISIBLE);
+        layout_td.setVisibility(View.GONE);
+        radioButtontd.setOnClickListener(this);
+        radioButtonuv.setOnClickListener(this);
         signUpBtn.setOnClickListener(this);
-
         createAuthStateListener();
 
     }
@@ -58,6 +70,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.signUpButton:
                 createUserAccount();
+                break;
+            case R.id.radioButton_td:
+                layout_td.setVisibility(View.VISIBLE);
+                layout_uv.setVisibility(View.GONE);
+                break;
+            case R.id.radioButton_uv:
+                layout_td.setVisibility(View.GONE);
+                layout_uv.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.loginReturnTextView:
