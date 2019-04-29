@@ -38,7 +38,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
-import static com.example.fah.FAHScreen.Main.Tab.MainActivity.userLogin;
+import static com.example.fah.FAHData.AccountData.userLogin;
 
 public class CreatePostActivity extends AppCompatActivity {
 

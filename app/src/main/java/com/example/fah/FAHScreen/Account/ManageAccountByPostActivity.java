@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
+import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Adapters.AccountByPostAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
-import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -101,14 +101,14 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
      * Get list Post from DB
      */
     private void getListTittle() {
-        if (MainActivity.userLogin != null && MainActivity.userLogin.getKey() != null) {
+        if (AccountData.userLogin != null && AccountData.userLogin.getKey() != null) {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     postList = new ArrayList<>();
                     ArrayList<Post> listPostForAcc = (ArrayList<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                     for (Post item : listPostForAcc) {
-                        if (item.getAccount() != null && MainActivity.userLogin.getKey().equals(item.getAccount().getKey())) {
+                        if (item.getAccount() != null && AccountData.userLogin.getKey().equals(item.getAccount().getKey())) {
                             postList.add(item);
                         }
                     }

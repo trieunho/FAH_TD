@@ -16,10 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
+import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Adapters.AccountBySearchAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Category;
-import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.FAHScreen.User.PersionalImformationActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -59,7 +59,7 @@ public class SearchAccountActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(SearchAccountActivity.this, MainActivity.userLogin.getEmail(),
+                Toast.makeText(SearchAccountActivity.this, AccountData.userLogin.getEmail(),
                         Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(SearchAccountActivity.this, PersionalImformationActivity.class);
