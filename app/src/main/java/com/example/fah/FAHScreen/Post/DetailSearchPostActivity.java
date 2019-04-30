@@ -14,7 +14,6 @@ import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Models.Category;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
-import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +39,11 @@ public class DetailSearchPostActivity extends AppCompatActivity {
     FAHCombobox controlSalary;
     FAHCombobox controlTime;
 
+    int job;
+    int location;
+    int salary;
+    int time;
+
     DatabaseReference myRef;
 
     @Override
@@ -62,7 +66,7 @@ public class DetailSearchPostActivity extends AppCompatActivity {
                     list[Integer.parseInt(item.getCategoryID()) - 1] = item.getCategoryName();
                 }
 
-                controlJob = new FAHCombobox(DetailSearchPostActivity.this, cbxJob, list, VALUEDEFAULT);
+                controlJob = new FAHCombobox(DetailSearchPostActivity.this, cbxJob, list, job);
             }
 
             @Override
@@ -73,6 +77,13 @@ public class DetailSearchPostActivity extends AppCompatActivity {
     }
 
     private void addControls() {
+        // get param
+        Intent intent = getIntent();
+        job = intent.getIntExtra("job", VALUEDEFAULT);
+        location = intent.getIntExtra("indexLocation", VALUEDEFAULT);
+        salary = intent.getIntExtra("salary", VALUEDEFAULT);
+        time = intent.getIntExtra("time", VALUEDEFAULT);
+
         // toolbar
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_backspace_black);
@@ -91,20 +102,20 @@ public class DetailSearchPostActivity extends AppCompatActivity {
                 "Đà Nẵng",
                 "Hà Nội",
                 "TP. Hồ Chí Minh"
-        }, VALUEDEFAULT);
+        }, location);
 
         controlSalary = new FAHCombobox(DetailSearchPostActivity.this, cbxSalary, new String[] {
                 "Thỏa thuận",
                 "1000000 ~ 2000000",
                 "2000000 ~ 3000000"
-        }, VALUEDEFAULT);
+        }, salary);
 
         controlTime = new FAHCombobox(DetailSearchPostActivity.this, cbxTime, new String[] {
                 "Từ 7 Giờ Đến 11 Giờ",
                 "Từ 13 Giờ Đến 17 Giờ",
                 "Từ 18 Giờ Đến 22 Giờ",
                 "Từ 23 Giờ Đến 5 Giờ"
-        }, VALUEDEFAULT);
+        }, time);
     }
 
     @Override
@@ -126,6 +137,7 @@ public class DetailSearchPostActivity extends AppCompatActivity {
                     Intent intent = new Intent(DetailSearchPostActivity.this, ListPostActivity.class);
                     intent.putExtra("job", controlJob.getItemChoose());
                     intent.putExtra("location", cbxCity.getText().toString());
+                    intent.putExtra("indexLocation", controlLocation.getItemChoose());
                     intent.putExtra("salary", controlSalary.getItemChoose());
                     intent.putExtra("time", controlTime.getItemChoose());
                     startActivity(intent);

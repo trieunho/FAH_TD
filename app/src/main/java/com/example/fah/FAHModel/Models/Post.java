@@ -10,7 +10,6 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
     private String accountStr;
     private String companyName;
     private String address;
-    private String salary;
     private String deadLine;
     private String jobDescription;
     private String required;
@@ -47,13 +46,24 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
         this.companyName = companyName;
     }
 
-    public Post(String titlePost, String companyName, String address, int dtFrom, int dtTo, String luong, String deadLine) {
+    public Post(
+            String titlePost,
+            String companyName,
+            String address,
+            int dtFrom,
+            int dtTo,
+            String typeOfSalary,
+            String salary_from,
+            String salary_to,
+            String deadLine) {
         this.titlePost = titlePost;
         this.companyName = companyName;
         this.address = address;
         this.dtFrom = dtFrom;
         this.dtTo = dtTo;
-        this.salary = luong;
+        this.setTypeOfSalary(typeOfSalary);
+        this.setSalary_from(salary_from);
+        this.setSalary_to(salary_to);
         this.deadLine = deadLine;
     }
 
@@ -144,14 +154,6 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getSalary() {
-        return salary;
-    }
-
-    public void setSalary(String luong) {
-        this.salary = luong;
     }
 
     public String getDeadLine() {
