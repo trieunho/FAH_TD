@@ -25,15 +25,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
+
 public class ListPostActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     Query myRef;
     ListView lstSearch;
+    List<Post> data;
 
     // param
     int job;
-    String location;
+    String location = "";
+    int indexLocation;
     int salary;
     int time;
 
@@ -55,10 +59,11 @@ public class ListPostActivity extends AppCompatActivity {
 
         // Get param
         Intent intent = getIntent();
-        job = intent.getIntExtra("job", -1);
+        job = intent.getIntExtra("job", VALUEDEFAULT);
         location = intent.getStringExtra("location");
-        salary = intent.getIntExtra("salary", -1);
-        time = intent.getIntExtra("time", -1);
+        indexLocation = intent.getIntExtra("indexLocation", VALUEDEFAULT);
+        salary = intent.getIntExtra("salary", VALUEDEFAULT);
+        time = intent.getIntExtra("time", VALUEDEFAULT);
 
         // Add controls
         lstSearch = findViewById(R.id.lstSearch);
@@ -69,21 +74,21 @@ public class ListPostActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Post> data = new ArrayList<>();
+                data = new ArrayList<>();
                 List<Post> temp = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                 if (temp == null) return;
                 Collections.sort(temp);
 
                 for (Post item: temp) {
-                    if (job != -1 && !item.getCategory().getCategoryID().equals(String.valueOf(job + 1))) {
+                    if (job != VALUEDEFAULT && !item.getCategory().getCategoryID().equals(String.valueOf(job + 1))) {
                         continue;
                     }
 
-                    if (!location.equals("") && item.getAddress().indexOf(location) == -1) {
+                    if (!location.equals("") && item.getAddress().contains(location)) {
                         continue;
                     }
 
-                    if (salary != -1) {
+                    if (salary != VALUEDEFAULT) {
                         switch (salary) {
                             case 0:
                                 if (!item.getTypeOfSalary().equals("Thỏa thuận")) {
@@ -105,32 +110,36 @@ public class ListPostActivity extends AppCompatActivity {
                         }
                     }
 
-                    if (time != -1) {
+                    if (time != VALUEDEFAULT) {
                         switch (time) {
                             case 0:
-                                if (!(item.getDtFrom() <= 8 || item.getDtFrom() >= 6)
-                                        && !(item.getDtTo() <= 12 || item.getDtTo() >= 10)){
+                                if (item.getDtFrom() <= 8 && item.getDtFrom() >= 6
+                                        && item.getDtTo() <= 12 && item.getDtTo() >= 10){
+                                    break;
+                                } else {
                                     continue;
                                 }
-                                break;
                             case 1:
-                                if (!(item.getDtFrom() <= 14 || item.getDtFrom() >= 12)
-                                        && !(item.getDtTo() <= 18 || item.getDtTo() >= 16)){
+                                if (item.getDtFrom() <= 14 && item.getDtFrom() >= 12
+                                        && item.getDtTo() <= 18 && item.getDtTo() >= 16){
+                                    break;
+                                } else {
                                     continue;
                                 }
-                                break;
                             case 2:
-                                if (!(item.getDtFrom() <= 19 || item.getDtFrom() >= 17)
-                                        && !(item.getDtTo() <= 23 || item.getDtTo() >= 21)){
+                                if (item.getDtFrom() <= 19 && item.getDtFrom() >= 17
+                                        && item.getDtTo() <= 23 && item.getDtTo() >= 21){
+                                    break;
+                                } else {
                                     continue;
                                 }
-                                break;
                             case 3:
-                                if (!(item.getDtFrom() == 22 || item.getDtFrom() == 23 || item.getDtFrom() == 24 || item.getDtFrom() == 0)
-                                        && !(item.getDtTo() <= 4 || item.getDtTo() >= 5)){
+                                if ((item.getDtFrom() == 22 || item.getDtFrom() == 23 || item.getDtFrom() == 24 || item.getDtFrom() == 0)
+                                        && item.getDtTo() >= 4 && item.getDtTo() <= 6) {
+                                    break;
+                                } else {
                                     continue;
                                 }
-                                break;
                         }
                     }
 
@@ -140,10 +149,12 @@ public class ListPostActivity extends AppCompatActivity {
                             item.getAddress(),
                             item.getDtFrom(),
                             item.getDtTo(),
-                            item.getTypeOfSalary().equals("Cố định") ? item.getSalary_from() :
-                                    item.getTypeOfSalary().equals("Trong khoảng") ? item.getSalary_from() + " ~ " + item.getSalary_to() : "Thỏa thuận",
+                            item.getTypeOfSalary(),
+                            item.getSalary_from(),
+                            item.getSalary_to(),
                             item.getDeadLine()
                     );
+                    post.setKey(item.getKey());
                     data.add(post);
                 }
 
@@ -160,7 +171,12 @@ public class ListPostActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListPostActivity.this, DetailPostActivity.class);
-                intent.putExtra("position", position);
+                intent.putExtra("key", data.get(position).getKey());
+                intent.putExtra("job", job);
+                intent.putExtra("location", location);
+                intent.putExtra("indexLocation", indexLocation);
+                intent.putExtra("salary", salary);
+                intent.putExtra("time", time);
                 startActivity(intent);
             }
         });
@@ -170,7 +186,12 @@ public class ListPostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                startActivity(new Intent(ListPostActivity.this, DetailSearchPostActivity.class));
+                Intent intent = new Intent(ListPostActivity.this, DetailSearchPostActivity.class);
+                intent.putExtra("job", job);
+                intent.putExtra("location", location);
+                intent.putExtra("salary", salary);
+                intent.putExtra("time", time);
+                startActivity(intent);
                 finish();
                 return true;
             }
