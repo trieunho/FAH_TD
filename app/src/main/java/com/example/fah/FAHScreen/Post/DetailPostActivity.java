@@ -20,7 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
 import static com.example.fah.FAHData.AccountData.userLogin;
 
 import java.util.ArrayList;
@@ -47,13 +46,6 @@ public class DetailPostActivity extends AppCompatActivity {
     Button btnSubmit;
 
     Post data;
-
-    // param
-    int job;
-    String location = "";
-    int indexLocation;
-    int salary;
-    int time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,14 +107,6 @@ public class DetailPostActivity extends AppCompatActivity {
     }
 
     private void addControls() {
-        // Get param
-        Intent intent = getIntent();
-        job = intent.getIntExtra("job", VALUEDEFAULT);
-        location = intent.getStringExtra("location");
-        indexLocation = intent.getIntExtra("location", VALUEDEFAULT);
-        salary = intent.getIntExtra("salary", VALUEDEFAULT);
-        time = intent.getIntExtra("time", VALUEDEFAULT);
-
         // toolbar
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_backspace_black);
@@ -187,13 +171,7 @@ public class DetailPostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                Intent intent = new Intent(DetailPostActivity.this, ListPostActivity.class);
-                intent.putExtra("job", job);
-                intent.putExtra("location", location);
-                intent.putExtra("indexLocation", indexLocation);
-                intent.putExtra("salary", salary);
-                intent.putExtra("time", time);
-                startActivity(intent);
+                finish();
                 return true;
             }
             default: {

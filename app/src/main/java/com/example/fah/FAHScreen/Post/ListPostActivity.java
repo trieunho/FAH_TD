@@ -84,7 +84,7 @@ public class ListPostActivity extends AppCompatActivity {
                         continue;
                     }
 
-                    if (!location.equals("") && item.getAddress().contains(location)) {
+                    if (!location.equals("") && !item.getAddress().contains(location)) {
                         continue;
                     }
 
@@ -96,14 +96,14 @@ public class ListPostActivity extends AppCompatActivity {
                                 }
                                 break;
                             case 1:
-                                if (Integer.parseInt(item.getSalary_from()) < 1000000
-                                        || Integer.parseInt(item.getSalary_from()) > 2000000) {
+                                if (Integer.parseInt(item.getSalary_from()) >= 1000000
+                                        && Integer.parseInt(item.getSalary_from()) <= 2000000) {
                                     continue;
                                 }
                                 break;
                             case 2:
-                                if (Integer.parseInt(item.getSalary_from()) < 2000000
-                                        && Integer.parseInt(item.getSalary_from()) > 3000000) {
+                                if (Integer.parseInt(item.getSalary_from()) <= 2000000
+                                        && Integer.parseInt(item.getSalary_from()) >= 3000000) {
                                     continue;
                                 }
                                 break;
@@ -172,11 +172,6 @@ public class ListPostActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListPostActivity.this, DetailPostActivity.class);
                 intent.putExtra("key", data.get(position).getKey());
-                intent.putExtra("job", job);
-                intent.putExtra("location", location);
-                intent.putExtra("indexLocation", indexLocation);
-                intent.putExtra("salary", salary);
-                intent.putExtra("time", time);
                 startActivity(intent);
             }
         });
@@ -186,12 +181,6 @@ public class ListPostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                Intent intent = new Intent(ListPostActivity.this, DetailSearchPostActivity.class);
-                intent.putExtra("job", job);
-                intent.putExtra("location", location);
-                intent.putExtra("salary", salary);
-                intent.putExtra("time", time);
-                startActivity(intent);
                 finish();
                 return true;
             }
