@@ -13,7 +13,6 @@ import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Models.Category;
-import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,10 +38,10 @@ public class DetailSearchPostActivity extends AppCompatActivity {
     FAHCombobox controlSalary;
     FAHCombobox controlTime;
 
-    int job;
-    int location;
-    int salary;
-    int time;
+    int job = VALUEDEFAULT;
+    int location = VALUEDEFAULT;
+    int salary = VALUEDEFAULT;
+    int time = VALUEDEFAULT;
 
     DatabaseReference myRef;
 
@@ -77,13 +76,6 @@ public class DetailSearchPostActivity extends AppCompatActivity {
     }
 
     private void addControls() {
-        // get param
-        Intent intent = getIntent();
-        job = intent.getIntExtra("job", VALUEDEFAULT);
-        location = intent.getIntExtra("indexLocation", VALUEDEFAULT);
-        salary = intent.getIntExtra("salary", VALUEDEFAULT);
-        time = intent.getIntExtra("time", VALUEDEFAULT);
-
         // toolbar
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_backspace_black);
@@ -128,20 +120,18 @@ public class DetailSearchPostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                startActivity(new Intent(DetailSearchPostActivity.this, MainActivity.class));
                 finish();
                 return true;
             }
             case R.id.btnSearch: {
                 if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                     Intent intent = new Intent(DetailSearchPostActivity.this, ListPostActivity.class);
-                    intent.putExtra("job", controlJob.getItemChoose());
+                    intent.putExtra("job", controlJob != null ? controlJob.getItemChoose() : VALUEDEFAULT);
                     intent.putExtra("location", cbxCity.getText().toString());
                     intent.putExtra("indexLocation", controlLocation.getItemChoose());
                     intent.putExtra("salary", controlSalary.getItemChoose());
                     intent.putExtra("time", controlTime.getItemChoose());
                     startActivity(intent);
-                    finish();
                 }
 
                 return true;
