@@ -225,7 +225,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                                     account.setAccountName(AccountData.firebaseUser.getDisplayName());
                                                     account.setEmail(AccountData.firebaseUser.getEmail());
                                                     if (radioButtonuv.isChecked()) {
-                                                        account.setRole(0);
+                                                        account.setRole(1);
                                                         account.setPhone(signUpPhoneuv.getText().toString());
                                                         account.setAddress(signUpAddressuv.getText().toString());
                                                         account.setStatusBlock(0);
@@ -237,7 +237,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                                         account.setDtFrom(Integer.parseInt(signUpFromTimeuv.getText().toString()));
 
                                                     } else {
-                                                        account.setRole(1);
+                                                        account.setRole(2);
                                                         account.setStatusBlock(0);
                                                         account.setCoin(0);
                                                         account.setSex(radioButton_sexNamtd.isChecked() ? "Nam" : "Nữ");
