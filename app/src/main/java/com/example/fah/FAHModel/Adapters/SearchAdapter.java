@@ -56,8 +56,8 @@ public class SearchAdapter extends BaseAdapter {
         }
 
         Post post = this.listData.get(position);
-        String salary = post.getTypeOfSalary() != null ? post.getTypeOfSalary().equals("Thỏa thuận") ? post.getTypeOfSalary()
-                : post.getTypeOfSalary().equals("Cố định") ? post.getSalary_from() : post.getSalary_from() + " ~ " + post.getSalary_to() : "";
+        String salary = post.getTypeOfSalary() == 2 ? "Thỏa thuận"
+                : post.getTypeOfSalary() == 0 ? post.getSalary_from() : post.getSalary_from() + " ~ " + post.getSalary_to();
         holder.titlePost.setText(post.getTitlePost());
         holder.companyName.setText(post.getCompanyName());
         holder.address.setText(post.getAddress());

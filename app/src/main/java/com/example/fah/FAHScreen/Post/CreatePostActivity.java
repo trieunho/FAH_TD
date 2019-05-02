@@ -33,8 +33,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
@@ -71,8 +71,6 @@ public class CreatePostActivity extends AppCompatActivity {
     DatabaseReference myRef;
     FirebaseDatabase database;
 
-    Account user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,17 +90,13 @@ public class CreatePostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                startActivity(new Intent(CreatePostActivity.this, HomeActivity.class));
                 finish();
                 return true;
             }
             case R.id.btnPost: {
                 if (canPost() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                     try {
-                        // firebase
-                        database = FirebaseDatabase.getInstance();
-                        myRef = database.getReference("Post");
-
+                        myRef = FirebaseDatabase.getInstance().getReference("Post");
                         TypeOfPost top = new TypeOfPost();
                         top.setTypeID(cbxTOP.getText().toString().substring(5, 6));
 
@@ -123,28 +117,22 @@ public class CreatePostActivity extends AppCompatActivity {
                                 txtDate.getText().toString(),
                                 Integer.parseInt(dtFrom.getText().toString()),
                                 Integer.parseInt(dtTo.getText().toString()),
-                                cbxLuong.getText().toString(),
+                                controlSalary.getItemChoose(),
                                 txtLuong1.getText().toString(),
                                 txtLuong2.getText().toString(),
                                 txtEmail.getText().toString(),
                                 txtPhone.getText().toString(),
                                 top,
-                                user,
-                                new ArrayList<Account>()));
+                                userLogin,
+                                new Date()));
 
                         // update data Account: minus coin
-                        myRef = database.getReference("TYPE_OF_POST");
-                        final String keyTOP = top.getTypeID();
+                        myRef = database.getReference("TYPE_OF_POST").child(top.getTypeID());
                         myRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                ArrayList<TypeOfPost> typeOfPost = (ArrayList<TypeOfPost>) FAHQuery.GetDataObject(dataSnapshot, new TypeOfPost());
-                                for(TypeOfPost top : typeOfPost) {
-                                    if (top.getTypeID() != null && top.getTypeID().equals(keyTOP)) {
-                                        int coinNew = user.getCoin() - Integer.parseInt(top.getTypeCoin());
-                                        FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", user.getKey(),"coin"));
-                                    }
-                                }
+                                int coinNew = userLogin.getCoin() - Integer.parseInt(dataSnapshot.getValue(TypeOfPost.class).getTypeCoin());
+                                FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
                             }
 
                             @Override
@@ -230,9 +218,6 @@ public class CreatePostActivity extends AppCompatActivity {
         txtLuong2.setVisibility(View.GONE);
         lbl.setVisibility(View.GONE);
         txvLoai.setText("Tiền không là tiền");
-
-        user = userLogin; // TODO
-       // account = new Account("-LdU7f37X2QQBzZkHQ1Q","1", "Canh", "avancanh@gmail.com", 1);
     }
 
     private void addEvents() {
@@ -327,6 +312,51 @@ public class CreatePostActivity extends AppCompatActivity {
                 }
             }
         });
+
+        initItem();
+    }
+
+    private void initItem(){
+        if (getIntent().getStringExtra("key") != null && !getIntent().getStringExtra("key").isEmpty()) {
+            FirebaseDatabase.getInstance().getReference().child("Post")
+                    .child(getIntent().getStringExtra("key")).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Post data = dataSnapshot.getValue(Post.class);
+                        txtTitle.setText(data.getTitlePost());
+                        txtCompanyName.setText(data.getCompanyName());
+                        controlField.setItemChoose(Integer.parseInt(data.getCategory().getCategoryID()) - 1);
+                        txtDescription.setText(data.getJobDescription());
+                        txtRequired.setText(data.getRequired());
+                        txtBenifit.setText(data.getBenifit());
+                        txtSoLuong.setText(data.getSoLuong());
+                        txtDate.setText(data.getDeadLine());
+                        txtAddress.setText(data.getAddress());
+                        dtFrom.setText(String.valueOf(data.getDtFrom()));
+                        dtTo.setText(String.valueOf(data.getDtTo()));
+                        controlSalary.setItemChoose(data.getTypeOfSalary());
+                        switch (controlSalary.getItemChoose()) {
+                            case 0:
+                                txtLuong1.setText(data.getSalary_from());
+                                break;
+                            case 1:
+                                txtLuong1.setText(data.getSalary_from());
+                                txtLuong2.setText(data.getSalary_to());
+                                break;
+                            default:
+                                break;
+                        }
+                        txtEmail.setText(data.getEmail());
+                        txtPhone.setText(data.getPhone());
+                        controlType.setItemChoose(Integer.parseInt(data.getTypeOfPost().getTypeID()));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(CreatePostActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        }
     }
 
     private boolean canPost(){
