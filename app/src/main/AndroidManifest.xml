@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fah">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -8,6 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERAA" />
+
     <application
         android:name=".FAHCommon.FAHConnection.Wifi"
         android:allowBackup="true"
@@ -16,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".TestControl.Sample_Add_Edit_Delete_Account"></activity>
+        <activity android:name=".FAHScreen.Other.RulesActivity"></activity>
+        <activity android:name=".TestControl.Sample_Add_Edit_Delete_Account" />
         <activity android:name=".TestControl.TestActivity" />
         <activity android:name=".Main.HomeActivity">
             <intent-filter>
@@ -25,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FAHScreen.Main.Tab.MainActivity"></activity>
+        <activity android:name=".FAHScreen.Main.Tab.MainActivity" />
         <activity android:name=".FAHScreen.Post.DetailSearchPostActivity" />
         <activity android:name=".FAHScreen.Account.ManageAccountByAdminActivity" />
         <activity android:name=".FAHScreen.Account.ManageAccountByPostActivity" />
