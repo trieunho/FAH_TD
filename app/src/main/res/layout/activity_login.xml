@@ -60,6 +60,7 @@
                 android:background="@drawable/shapeemail"
                 android:drawableLeft="@drawable/ic_lock_black_24dp"
                 android:drawablePadding="10dp"
+                android:inputType="textPassword"
                 android:hint="Mật khẩu"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"

@@ -9,16 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.fah.FAHModel.Models.Account;
-import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
 import com.example.fah.FAHScreen.Main.ViewPaper.ViewPaperMain;
+import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
 import com.example.fah.R;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private ViewPaperMain viewPaperMain = new ViewPaperMain();
-    public static Account userLogin=new Account();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

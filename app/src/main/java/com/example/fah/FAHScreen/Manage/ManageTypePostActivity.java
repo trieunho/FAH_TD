@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 import static com.example.fah.R.drawable.ic_chevron_left_black_24dp;
 
-public class ManageTypePost extends AppCompatActivity {
+public class ManageTypePostActivity extends AppCompatActivity {
 
 
     DatabaseReference myRef;
@@ -74,7 +74,7 @@ public class ManageTypePost extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                Toast.makeText(ManageTypePost.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManageTypePostActivity.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -87,7 +87,7 @@ public class ManageTypePost extends AppCompatActivity {
     }
 
     private void showInputBox(final TypeOfPost typeOfPost, int position) {
-        final Dialog dialog = new Dialog(ManageTypePost.this);
+        final Dialog dialog = new Dialog(ManageTypePostActivity.this);
         dialog.setTitle("EDIT TYPE OF POST");
         dialog.setContentView(R.layout.update_type_post_item);
         final TextView txtMessageCoin = dialog.findViewById(R.id.txtMessageCoin);
@@ -117,7 +117,7 @@ public class ManageTypePost extends AppCompatActivity {
                                 txtInputCoin.getText().toString(),
                                 txtInputTime.getText().toString())
                 );
-                Toast.makeText(ManageTypePost.this, "Edit Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManageTypePostActivity.this, "Edit Success", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -138,7 +138,7 @@ public class ManageTypePost extends AppCompatActivity {
 
     private void setTypeOfPostAdapter(@NonNull ArrayList<TypeOfPost> typeOfPostList) {
         typeOfPostAdapter = new TypeOfPostAdapter(
-                ManageTypePost.this,
+                ManageTypePostActivity.this,
                 R.layout.grid_type_of_post_item,
                 typeOfPostList);
 

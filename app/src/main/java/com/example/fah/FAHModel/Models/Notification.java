@@ -4,11 +4,11 @@ public class Notification {
     private String notificationID;
     private String notification;
     private String time;
-    private int image;
+    private String image;
 
     private Account account;
 
-    public Notification(String notification, String time, int image) {
+    public Notification(String notification, String time, String image) {
         this.notification = notification;
         this.time = time;
         this.image = image;
@@ -30,11 +30,11 @@ public class Notification {
         this.time = time;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }
