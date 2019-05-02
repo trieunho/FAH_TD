@@ -16,9 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.CommonUtils.ImageUtils;
+import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Image;
-import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -95,10 +95,10 @@ public class ProfileActivity extends AppCompatActivity {
                         imgBitmap.getWidth(), imgBitmap.getHeight(),
                         ImageUtils.AVATAR_WIDTH, ImageUtils.AVATAR_HEIGHT);
                          String imageBase64 = ImageUtils.encodeBase64(liteImage);
-                      final   Account account=MainActivity.userLogin;
+                      final   Account account= AccountData.userLogin;
                         account.setAvata(imageBase64);
                         FirebaseDatabase.getInstance().getReference().child("Avata")
-                                .child(MainActivity.userLogin.getKey())
+                                .child(AccountData.userLogin.getKey())
                                .setValue(new Image(imageBase64))
                                .addOnCompleteListener(new OnCompleteListener<Void>() {
                                    @Override
@@ -106,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
                                        if(task.isSuccessful()){
                                            progressDoalog.dismiss();
                                            userAvata.setImageDrawable(ImageUtils.roundedImage(ProfileActivity.this, liteImage));
-                                            MainActivity.userLogin = account;
+                                           AccountData.userLogin = account;
                                        }
                                    }
                                })
@@ -127,8 +127,8 @@ public class ProfileActivity extends AppCompatActivity {
         userName=findViewById(R.id.userName);
         userEmail=findViewById(R.id.userEmail);
         userAvata=findViewById(R.id.userAvata);
-        userName.setText(MainActivity.userLogin.getAccountName());
-        userEmail.setText(MainActivity.userLogin.getEmail());
+        userName.setText(AccountData.userLogin.getAccountName());
+        userEmail.setText(AccountData.userLogin.getEmail());
 
     }
 }

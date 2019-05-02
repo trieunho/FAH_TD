@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FAHScreen.Manage.ManageTypePost">
+    tools:context=".FAHScreen.Manage.ManageTypePostActivity">
 
     <include layout="@layout/check_connection_header"/>
     <LinearLayout

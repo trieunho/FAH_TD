@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class MenuFragment extends Fragment {
     protected View view;
-     GridView gvMenu;
+    GridView gvMenu;
     ProgressDialog progressDoalog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -142,7 +142,7 @@ public class MenuFragment extends Fragment {
                             AccountData.firebaseUser = null;
                             Account account=new Account();
                             account.setLogin(false);
-                            MainActivity.userLogin=account;
+//                            MainActivity.userLogin=account;
                             gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData(), "1"));
                         }else{
                             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
@@ -160,38 +160,38 @@ public class MenuFragment extends Fragment {
     }
 
     private void checkImageUser(){
-        if(MainActivity.userLogin.isLogin() == true){
-            progressDoalog.show();
-            try{
-                if (MainActivity.userLogin.getKey() != null) {
-                    FirebaseDatabase.getInstance().getReference().child("Avata").child(MainActivity.userLogin.getKey()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot != null) {
-                                Image img =dataSnapshot.getValue(Image.class);
-                                if(img!=null){
-                                    MainActivity.userLogin.setAvata(img.getSource());
-                                    progressDoalog.dismiss();
-                                    GetControl();
-                                }else{
-                                    progressDoalog.dismiss();
-                                    GetControl();
-                                }
-                            }
-
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(getContext(), "Lỗi khi tải dữ liệu", Toast.LENGTH_SHORT).show();
-                            progressDoalog.dismiss();
-                        }
-                    });
-                }
-            }catch (Exception e){
-                Toast.makeText(getContext(), "Lỗi"+e, Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            GetControl();
-        }
+//        if(MainActivity.userLogin.isLogin() == true){
+//            progressDoalog.show();
+//            try{
+//                if (MainActivity.userLogin.getKey() != null) {
+//                    FirebaseDatabase.getInstance().getReference().child("Avata").child(MainActivity.userLogin.getKey()).addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            if (dataSnapshot != null) {
+//                                Image img =dataSnapshot.getValue(Image.class);
+//                                if(img!=null){
+//                                    MainActivity.userLogin.setAvata(img.getSource());
+//                                    progressDoalog.dismiss();
+//                                    GetControl();
+//                                }else{
+//                                    progressDoalog.dismiss();
+//                                    GetControl();
+//                                }
+//                            }
+//
+//                        }
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//                            Toast.makeText(getContext(), "Lỗi khi tải dữ liệu", Toast.LENGTH_SHORT).show();
+//                            progressDoalog.dismiss();
+//                        }
+//                    });
+//                }
+//            }catch (Exception e){
+//                Toast.makeText(getContext(), "Lỗi"+e, Toast.LENGTH_SHORT).show();
+//            }
+//        }else{
+//            GetControl();
+//        }
     }
 }

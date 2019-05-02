@@ -31,7 +31,7 @@
         <activity android:name=".FAHScreen.Account.ManageAccountByPostActivity" />
         <activity android:name=".FAHScreen.Account.SearchAccountActivity" />
         <activity android:name=".FAHScreen.Manage.ManageCategoryActivity" />
-        <activity android:name=".FAHScreen.Manage.ManageTypePost" />
+        <activity android:name=".FAHScreen.Manage.ManageTypePostActivity" />
         <activity android:name=".FAHScreen.Post.CreatePostActivity" />
         <activity android:name=".FAHScreen.Post.DetailPostActivity" />
         <activity android:name=".FAHScreen.Post.PostManagementActivity" />
