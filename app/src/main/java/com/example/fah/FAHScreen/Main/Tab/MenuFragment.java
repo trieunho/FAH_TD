@@ -18,16 +18,9 @@ import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.IEvenItem;
 import com.example.fah.FAHModel.Models.Image;
-import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
-import com.example.fah.FAHScreen.Account.SearchAccountActivity;
 import com.example.fah.FAHScreen.Main.GridView.Menu.GridListMenuMainAdapter;
 import com.example.fah.FAHScreen.Main.GridView.Menu.Menu;
-import com.example.fah.FAHScreen.Manage.ManageCategoryActivity;
-import com.example.fah.FAHScreen.Manage.ManageTypePostActivity;
-import com.example.fah.FAHScreen.Post.CreatePostActivity;
-import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
 import com.example.fah.FAHScreen.User.Login.LoginActivity;
-import com.example.fah.FAHScreen.User.Login.SignupActivity;
 import com.example.fah.FAHScreen.User.ProfileActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -45,7 +38,6 @@ public class MenuFragment extends Fragment {
     protected View view;
     GridView gvMenu;
     ProgressDialog progressDoalog;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,12 +50,12 @@ public class MenuFragment extends Fragment {
         return view;
     }
 
-    private void GetControl() {
+    private void GetControl(){
         ImageControl();
         GridViewControl();
     }
 
-    private void ImageControl() {
+    private void ImageControl(){
 //        ImageView ivAvatar = view.findViewById(R.id.ivAvatar);
 //        ivAvatar.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -74,11 +66,10 @@ public class MenuFragment extends Fragment {
 
     }
 
-    private void GridViewControl() {
-        List<Menu> listPost = getListData();
-
+    private void GridViewControl(){
+        List<Menu> listMenu = getListData();
         gvMenu = view.findViewById(R.id.gvMenu);
-        gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), listPost));
+        gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), listMenu, "1"));
 
         // Khi người dùng click vào các GridItem
         gvMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,266 +77,74 @@ public class MenuFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Menu objectGrid = (Menu) gvMenu.getItemAtPosition(position);
-                if (objectGrid.getEventClickItem() == null) {
+                if( objectGrid.getEventClickItem() == null){
                     Toast.makeText(getContext(), "Event not found!", Toast.LENGTH_SHORT).show();
-                }
-                {
+                }{
                     objectGrid.getEventClickItem().callEvent();
                 }
 
             }
         });
     }
-
-    private List<Menu> getListData() {
-        List<Menu> list;
-        if (AccountData.userLogin == null || !AccountData.userLogin.isLogin()) {
-            list = getListMenuNotLogin();
-        } else {
-            switch (AccountData.userLogin.getRole()) {
-                case 1:
-                    list = getListMenuUser();
-                    break;
-                case 2:
-                    list = getListMenuCompany();
-                    break;
-                case 3:
-                    list = getListMenuAdmin();
-                    break;
-                default:
-                    list = getListMenuNotLogin();
-            }
-        }
-//        if (AccountData.userLogin != null && AccountData.userLogin.isLogin() == true) {
-//            list.add(new Menu((AccountData.userLogin.getEmail()), AccountData.userLogin.getAvata(), new IEvenItem() {
-//                @Override
-//                public void callEvent() {
-//                    startActivity(new Intent(getContext(), ProfileActivity.class));
-//                }
-//            }, true));
-//        }
-//        list.add(new Menu("Tìm kiếm công việc", "ic_launcher_search_job"));
-//        list.add(new Menu("Công việc của tôi", "ic_launcher_job"));
-//        list.add(new Menu("Đăng bài viết mới", "ic_launcher_add_job"));
-//        list.add(new Menu("Quản lý bài đăng", "ic_launcher_post"));
-//        list.add(new Menu("Tìm kiếm ứng viên", "ic_launcher_search_people"));
-//        list.add(new Menu("Danh sách ứng viên", "ic_launcher_list_people"));
-//        list.add(new Menu("Quản lý bài đăng", "ic_launcher_manage_post"));
-//        list.add(new Menu("Quản lý người dùng", "ic_launcher_manage_account"));
-//        list.add(new Menu("Danh mục công việc", "ic_launcher_option"));
-//
-//        list.add(new Menu("Đăng xuất", "ic_launcher_logout", new IEvenItem() {
-//            @Override
-//            public void callEvent() {
-//                EventLogout();
-//            }
-//        }));
-//        list.add(new Menu("Đăng nhập", "ic_launcher_login", new IEvenItem() {
-//            @Override
-//            public void callEvent() {
-//                checkAndCallLogin();
-//            }
-//        }));
-
-        return list;
-    }
-
-    private List<Menu> getListMenuNotLogin() {
+    private  List<Menu> getListData() {
         List<Menu> list = new ArrayList<>();
+        list.add(new Menu("Avatar", "ic_launcher_search_job", ""));
+        list.add(new Menu("Chính sách bảo mật", "", ""));
+        list.add(new Menu("Chỉnh sửa danh sách công việc", "", ""));
+        list.add(new Menu("Chỉnh sửa loại bài viết", "", ""));
+        list.add(new Menu("Đăng bài viết mới", "ic_launcher_add_job"));
         list.add(new Menu("Đăng nhập", "ic_launcher_login", new IEvenItem() {
             @Override
             public void callEvent() {
                 checkAndCallLogin();
             }
         }));
-        list.add(new Menu("Đăng ký", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), SignupActivity.class));
-            }
-        }));
-        list.add(new Menu("Điều khoản", "ic_launcher_add_job"));
-        list.add(new Menu("Chính sách bảo mật", "ic_launcher_post"));
-        list.add(new Menu("Trợ giúp", "ic_launcher_search_people"));
-
-        return list;
-    }
-
-    private List<Menu> getListMenuUser() {
-        List<Menu> list = new ArrayList<>();
-        list.add(new Menu((AccountData.userLogin.getEmail()), AccountData.userLogin.getAvata(), new IEvenItem() {
-                @Override
-                public void callEvent() {
-                    startActivity(new Intent(getContext(), ProfileActivity.class));
-                }
-            }, true));
-        list.add(new Menu("Thông báo", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-//                checkAndCallLogin();
-//                startActivity(new Intent(getContext(), SignupActivity.class));
-            }
-        }));
-        list.add(new Menu("Công việc của tôi", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                checkAndCallLogin();
-                startActivity(new Intent(getContext(), SignupActivity.class));
-            }
-        }));
-        list.add(new Menu("Tìm kiếm công việc", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), DetailSearchPostActivity.class));
-            }
-        }));
-
-
-        list.add(new Menu("Điều khoản", "ic_launcher_add_job"));
-        list.add(new Menu("Chính sách bảo mật", "ic_launcher_post"));
-        list.add(new Menu("Trợ giúp", "ic_launcher_search_people"));
         list.add(new Menu("Đăng xuất", "ic_launcher_logout", new IEvenItem() {
             @Override
             public void callEvent() {
                 EventLogout();
             }
         }));
+        list.add(new Menu("Điều khoản", "", ""));
+        list.add(new Menu("Quản lý bài đăng", "ic_launcher_manage_post"));
+        list.add(new Menu("Quản lý người dùng", "ic_launcher_manage_account"));
 
-        return list;
-    }
+        list.add(new Menu("Tìm kiếm công việc", "ic_launcher_search_job", ""));
+        list.add(new Menu("Công việc của tôi", "ic_launcher_job"));
+        list.add(new Menu("Quản lý bài đăng", "ic_launcher_post"));
+        list.add(new Menu("Tìm kiếm ứng viên", "ic_launcher_search_people"));
+        list.add(new Menu("Danh sách ứng viên", "ic_launcher_list_people"));
+        list.add(new Menu("Danh mục công việc", "ic_launcher_option"));
 
-    private List<Menu> getListMenuCompany() {
-        List<Menu> list = new ArrayList<>();
-        list.add(new Menu((AccountData.userLogin.getEmail()), AccountData.userLogin.getAvata(), new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), ProfileActivity.class));
-            }
-        }, true));
-        list.add(new Menu("Thông báo", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-//                TODO
-//                checkAndCallLogin();
-//                startActivity(new Intent(getContext(), SignupActivity.class));
-            }
-        }));
-        list.add(new Menu("Đăng bài mới", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), CreatePostActivity.class));
-            }
-        }));
-        list.add(new Menu("Quản lý bài viết", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), CreatePostActivity.class));
-            }
-        }));
-        list.add(new Menu("Tìm kiếm ứng viên", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), SearchAccountActivity.class));
-            }
-        }));
-        list.add(new Menu("Tìm kiếm công việc", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), DetailSearchPostActivity.class));
-            }
-        }));
 
-        list.add(new Menu("Điều khoản", "ic_launcher_add_job"));
-        list.add(new Menu("Chính sách bảo mật", "ic_launcher_post"));
-        list.add(new Menu("Trợ giúp", "ic_launcher_search_people"));
-        list.add(new Menu("Đăng xuất", "ic_launcher_logout", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                EventLogout();
-            }
-        }));
 
-        return list;
-    }
-
-    private List<Menu> getListMenuAdmin() {
-        List<Menu> list = new ArrayList<>();
-        list.add(new Menu((AccountData.userLogin.getEmail()), AccountData.userLogin.getAvata(), new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), ProfileActivity.class));
-            }
-        }, true));
-        list.add(new Menu("Thông báo", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-//                TODO
-//                checkAndCallLogin();
-//                startActivity(new Intent(getContext(), SignupActivity.class));
-            }
-        }));
-        list.add(new Menu("Duyệt bài viết", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), CreatePostActivity.class));
-            }
-        }));
-        list.add(new Menu("Quản lý người dùng", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), ManageAccountByAdminActivity.class));
-            }
-        }));
-        list.add(new Menu("Quản lý danh mục công việc", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), ManageCategoryActivity.class));
-            }
-        }));
-        list.add(new Menu("Quản lý loại bài viết", "ic_launcher_login", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                startActivity(new Intent(getContext(), ManageTypePostActivity.class));
-            }
-        }));
-
-        list.add(new Menu("Điều khoản", "ic_launcher_add_job"));
-        list.add(new Menu("Chính sách bảo mật", "ic_launcher_post"));
-        list.add(new Menu("Trợ giúp", "ic_launcher_search_people"));
-        list.add(new Menu("Đăng xuất", "ic_launcher_logout", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                EventLogout();
-            }
-        }));
 
         return list;
     }
 
     private void checkAndCallLogin() {
-        if (AccountData.firebaseUser != null) {
+        if(AccountData.firebaseUser!=null){
             Toast.makeText(getContext(), "User already exists ", Toast.LENGTH_SHORT).show();
-        } else {
+        }else{
             startActivity(new Intent(getContext(), LoginActivity.class));
 
         }
     }
-
-    private void EventLogout() {
+    private void EventLogout(){
         new AlertDialog.Builder(getContext())
                 .setTitle("THOÁT")
                 .setMessage("Bạn có muốn đăng xuất?")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (AccountData.firebaseUser != null) {
+                        if(AccountData.firebaseUser!=null){
                             AccountData.firebaseAuth.signOut();
                             AccountData.firebaseUser = null;
-                            Account account = new Account();
+                            Account account=new Account();
                             account.setLogin(false);
-                            AccountData.userLogin = account;
-                            gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
-                        } else {
+//                            MainActivity.userLogin=account;
+                            gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData(), "1"));
+                        }else{
                             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
                         }
                         dialogInterface.dismiss();
@@ -360,40 +159,39 @@ public class MenuFragment extends Fragment {
                 }).show();
     }
 
-    private void checkImageUser() {
-        if (AccountData.userLogin != null && AccountData.userLogin.isLogin() == true) {
-            progressDoalog.show();
-            try {
-                if (AccountData.userLogin.getKey() != null) {
-                    FirebaseDatabase.getInstance().getReference().child("Avata").child(AccountData.userLogin.getKey()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot != null) {
-                                Image img = dataSnapshot.getValue(Image.class);
-                                if (img != null) {
-                                    AccountData.userLogin.setAvata(img.getSource());
-                                    progressDoalog.dismiss();
-                                    GetControl();
-                                } else {
-                                    progressDoalog.dismiss();
-                                    GetControl();
-                                }
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(getContext(), "Lỗi khi tải dữ liệu", Toast.LENGTH_SHORT).show();
-                            progressDoalog.dismiss();
-                        }
-                    });
-                }
-            } catch (Exception e) {
-                Toast.makeText(getContext(), "Lỗi" + e, Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            GetControl();
-        }
+    private void checkImageUser(){
+//        if(MainActivity.userLogin.isLogin() == true){
+//            progressDoalog.show();
+//            try{
+//                if (MainActivity.userLogin.getKey() != null) {
+//                    FirebaseDatabase.getInstance().getReference().child("Avata").child(MainActivity.userLogin.getKey()).addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            if (dataSnapshot != null) {
+//                                Image img =dataSnapshot.getValue(Image.class);
+//                                if(img!=null){
+//                                    MainActivity.userLogin.setAvata(img.getSource());
+//                                    progressDoalog.dismiss();
+//                                    GetControl();
+//                                }else{
+//                                    progressDoalog.dismiss();
+//                                    GetControl();
+//                                }
+//                            }
+//
+//                        }
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//                            Toast.makeText(getContext(), "Lỗi khi tải dữ liệu", Toast.LENGTH_SHORT).show();
+//                            progressDoalog.dismiss();
+//                        }
+//                    });
+//                }
+//            }catch (Exception e){
+//                Toast.makeText(getContext(), "Lỗi"+e, Toast.LENGTH_SHORT).show();
+//            }
+//        }else{
+//            GetControl();
+//        }
     }
 }
