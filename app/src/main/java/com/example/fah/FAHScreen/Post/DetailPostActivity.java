@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class DetailPostActivity extends AppCompatActivity {
     TextView txtTime;
     TextView txtNumber;
     TextView txtPhone;
+    TextView txtAddress;
     TextView txtCategory;
     TextView txtSalary;
     TextView txtDeadline;
@@ -56,14 +58,24 @@ public class DetailPostActivity extends AppCompatActivity {
         addEvents();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.btn_edit, menu);
+//        if (userLogin.getRole() == 2) {
+//
+//        }
+
+        return true;
+    }
+
     private void addEvents() {
         FirebaseDatabase.getInstance().getReference().child("Post")
                 .child(getIntent().getStringExtra("key")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data = dataSnapshot.getValue(Post.class);
-                String salary = data.getTypeOfSalary() != null ? data.getTypeOfSalary().equals("Thỏa thuận") ? data.getTypeOfSalary()
-                        : data.getTypeOfSalary().equals("Cố định") ? data.getSalary_from() : data.getSalary_from() + " ~ " + data.getSalary_to() : "";
+                String salary = data.getTypeOfSalary() == 2 ? "Thỏa thuận"
+                        : data.getTypeOfSalary() == 0 ? data.getSalary_from() : data.getSalary_from() + " ~ " + data.getSalary_to();
 
                 txtPic.setText("Pic: " + data.getAccount().getAccountName());
                 txtTitle.setText(data.getTitlePost());
@@ -72,6 +84,7 @@ public class DetailPostActivity extends AppCompatActivity {
                 txtTime.setText(data.getDtFrom() + " Giờ Đến " + data.getDtTo() + " Giờ");
                 txtNumber.setText(data.getSoLuong());
                 txtPhone.setText(data.getPhone());
+                txtAddress.setText(data.getAddress());
                 txtSalary.setText(salary);
                 txtDeadline.setText(data.getDeadLine());
                 txtDescription2.setText(data.getJobDescription());
@@ -119,6 +132,7 @@ public class DetailPostActivity extends AppCompatActivity {
         txtTime = findViewById(R.id.txtTime);
         txtNumber = findViewById(R.id.txtNumber);
         txtPhone = findViewById(R.id.txtPhone);
+        txtAddress = findViewById(R.id.txtAddress);
         txtCategory = findViewById(R.id.txtCategory);
         txtSalary = findViewById(R.id.txtSalary);
         txtDeadline = findViewById(R.id.txtDeadline);
@@ -173,6 +187,11 @@ public class DetailPostActivity extends AppCompatActivity {
             case android.R.id.home: {
                 finish();
                 return true;
+            }
+            case R.id.btnEdit: {
+                Intent intent = new Intent(DetailPostActivity.this, CreatePostActivity.class);
+                intent.putExtra("key", data.getKey());
+                startActivity(intent);
             }
             default: {
                 return super.onOptionsItemSelected(item);

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,7 +29,7 @@
         android:editable="false"
         android:gravity="center"
         android:hint="Chọn khu vực"
-        android:drawableLeft="@drawable/ic_work_black"
+        android:drawableLeft="@drawable/ic_place_black_24dp"
         android:drawableRight="@drawable/ic_arrow_down"
         android:background="@drawable/fah_control_combobox"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -37,7 +42,7 @@
         android:editable="false"
         android:gravity="center"
         android:hint="Chọn mức lương"
-        android:drawableLeft="@drawable/ic_timer_black"
+        android:drawableLeft="@drawable/ic_attach_money_black_24dp"
         android:drawableRight="@drawable/ic_arrow_down"
         android:background="@drawable/fah_control_combobox"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -58,3 +63,4 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
 </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

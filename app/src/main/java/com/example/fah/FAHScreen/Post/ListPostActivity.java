@@ -91,19 +91,19 @@ public class ListPostActivity extends AppCompatActivity {
                     if (salary != VALUEDEFAULT) {
                         switch (salary) {
                             case 0:
-                                if (!item.getTypeOfSalary().equals("Thỏa thuận")) {
+                                if (item.getTypeOfSalary() != 0) {
                                     continue;
                                 }
                                 break;
                             case 1:
-                                if (Integer.parseInt(item.getSalary_from()) >= 1000000
-                                        && Integer.parseInt(item.getSalary_from()) <= 2000000) {
+                                if (Integer.parseInt(item.getSalary_from()) < 1000000
+                                        || Integer.parseInt(item.getSalary_from()) > 2000000) {
                                     continue;
                                 }
                                 break;
                             case 2:
-                                if (Integer.parseInt(item.getSalary_from()) <= 2000000
-                                        && Integer.parseInt(item.getSalary_from()) >= 3000000) {
+                                if (Integer.parseInt(item.getSalary_from()) < 2000000
+                                        || Integer.parseInt(item.getSalary_from()) > 3000000) {
                                     continue;
                                 }
                                 break;

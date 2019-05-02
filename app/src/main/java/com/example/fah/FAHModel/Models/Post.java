@@ -17,11 +17,12 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
     private String soLuong;
     private String email;
     private String phone;
-    private String typeOfSalary;
+    private int typeOfSalary;
     private String salary_from;
     private String salary_to;
     private Date approveDate;
     private Date dueDate;
+    private Date createDate;
     private int dtFrom;
     private int dtTo;
 
@@ -52,7 +53,7 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
             String address,
             int dtFrom,
             int dtTo,
-            String typeOfSalary,
+            int typeOfSalary,
             String salary_from,
             String salary_to,
             String deadLine) {
@@ -78,14 +79,14 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
                 String deadLine,
                 int dtFrom,
                 int dtTo,
-                String typeOfSalary,
+                int typeOfSalary,
                 String salary_from,
                 String salary_to,
                 String email,
                 String phone,
                 TypeOfPost typeOfPost,
                 Account user,
-                ArrayList<Account> listOfAccApply) {
+                Date createDate) {
         this.setTitlePost(titlePost);
         this.setCompanyName(companyName);
         this.setCategory(category);
@@ -104,7 +105,7 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
         this.setPhone(phone);
         this.setTypeOfPost(typeOfPost);
         this.setAccount(user);
-        this.setListOfAccApply(listOfAccApply);
+        this.setCreateDate(createDate);
     }
 
     public int compareTo(Post post) {
@@ -204,11 +205,11 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
         this.phone = phone;
     }
 
-    public String getTypeOfSalary() {
+    public int getTypeOfSalary() {
         return typeOfSalary;
     }
 
-    public void setTypeOfSalary(String typeOfSalary) {
+    public void setTypeOfSalary(int typeOfSalary) {
         this.typeOfSalary = typeOfSalary;
     }
 
@@ -298,5 +299,13 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }
