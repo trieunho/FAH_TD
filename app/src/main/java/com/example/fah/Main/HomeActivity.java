@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
 import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
+import com.example.fah.FAHScreen.Other.RulesActivity;
 import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
 import com.example.fah.TestControl.Sample_Add_Edit_Delete_Account;
 import com.example.fah.FAHScreen.Account.SearchAccountActivity;
@@ -83,6 +84,7 @@ public class HomeActivity extends AppCompatActivity {
         layoutList.add(new TestLayout(HomeActivity.this, PersionalImformationActivity.class,"Profile user"));
         layoutList.add(new TestLayout(HomeActivity.this, Sample_Add_Edit_Delete_Account.class,"Sample Account"));
         layoutList.add(new TestLayout(HomeActivity.this, LoginActivity.class,"Login Activity"));
+        layoutList.add(new TestLayout(HomeActivity.this, RulesActivity.class,"Điều khoaản"));
         layoutList.add(new TestLayout(HomeActivity.this, "Dialog Login", TestLayout.TYPE_DIALOG, new IEvenDialog() {
             @Override
             public void setEvent() {
