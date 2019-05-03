@@ -65,7 +65,6 @@ public class ListPostAdapter extends BaseAdapter {
             holder.companyName = convertView.findViewById(R.id.txtCompanyName);
             holder.btnApprove = convertView.findViewById(R.id.btnApprove);
             holder.btnDel = convertView.findViewById(R.id.btnDel);
-            holder.isConnect = convertView.findViewById(R.id.isConnect);
             convertView.setTag(holder);
 
             convertView.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +107,5 @@ public class ListPostAdapter extends BaseAdapter {
         TextView companyName;
         Button btnApprove;
         Button btnDel;
-        TextView isConnect;
     }
 }
