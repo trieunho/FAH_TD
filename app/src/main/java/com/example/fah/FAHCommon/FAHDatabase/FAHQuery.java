@@ -1,5 +1,6 @@
 package com.example.fah.FAHCommon.FAHDatabase;
 
+import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.google.firebase.database.DataSnapshot;
@@ -176,8 +177,14 @@ public class FAHQuery {
      * @param data
      * @param url
      */
-    public static void UpdateData(Object data, String url){
-        reference.getReference(url).setValue(data);
+    public static String UpdateData(Object data, String url){
+        try {
+            reference.getReference(url).setValue(data);
+            return "";
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+
     }
 
     /**
@@ -213,9 +220,14 @@ public class FAHQuery {
      * Delete data with 1 url or 1 list url
      * @param url
      */
-    public static void DeleteData(String... url){
-        for(String item : url){
-            reference.getReference(item).removeValue();
+    public static String DeleteData(String... url){
+        try {
+            for (String item : url){
+                reference.getReference(item).removeValue();
+            }
+            return "";
+        } catch (Exception ex) {
+            return ex.getMessage();
         }
     }
 
@@ -232,7 +244,7 @@ public class FAHQuery {
      * @param data
      */
     public static void DeleteData(List<?> data){
-        for(Object item : data){
+        for (Object item : data){
             DeleteData(item);
         }
     }

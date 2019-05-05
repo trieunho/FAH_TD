@@ -2,6 +2,7 @@ package com.example.fah.FAHModel.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.List;
 
 public class ListPostAdapter extends BaseAdapter {
@@ -72,6 +72,7 @@ public class ListPostAdapter extends BaseAdapter {
             holder.titlePost =  convertView.findViewById(R.id.txtTitlePost);
             holder.account = convertView.findViewById(R.id.txtAccount);
             holder.companyName = convertView.findViewById(R.id.txtCompanyName);
+            holder.createDate = convertView.findViewById(R.id.txtCreateDate);
             holder.btnApprove = convertView.findViewById(R.id.btnApprove);
             holder.btnDel = convertView.findViewById(R.id.btnDel);
             convertView.setTag(holder);
@@ -79,7 +80,7 @@ public class ListPostAdapter extends BaseAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    iOnButtonCLick.onItemClick(position, creator.getAccountName());
+                    iOnButtonCLick.onItemClick(position, creator.getAccountName(), current.getKey());
                 }
             });
         } else {
@@ -89,6 +90,7 @@ public class ListPostAdapter extends BaseAdapter {
         current = this.listData.get(position);
         holder.titlePost.setText(current.getTitlePost());
         holder.companyName.setText("Công ty: " + current.getCompanyName());
+        holder.createDate.setText("Ngày tạo: " + DateFormat.format("dd/MM/yyyy", current.getCreateDate()));
         holder.btnApprove.setText(current.getStatus() == 0 ? "Duyệt" : "Đã duyệt");
         holder.btnApprove.setEnabled(current.getStatus() == 0);
         FirebaseDatabase.getInstance().getReference().child("Account")
@@ -127,6 +129,7 @@ public class ListPostAdapter extends BaseAdapter {
         TextView titlePost;
         TextView account;
         TextView companyName;
+        TextView createDate;
         Button btnApprove;
         Button btnDel;
     }

@@ -5,5 +5,5 @@ public interface IOnButtonCLick {
 
     void onBtnDelClick(int position);
 
-    void onItemClick(int position, String accountName);
+    void onItemClick(int position, String accountName, String key);
 }
