@@ -110,9 +110,9 @@ public class AccountByPostAdapter extends ArrayAdapter<Account> {
             @Override
             public void onClick(View v) {
                 if (account.getStatusSendInvation() != 1) {
-                    FAHQuery.UpdateData(1, ExcuteString.GetUrlData("PostTestHongCT", account.getKey(), "listOfAccApply", String.valueOf(position), "statusSendInvation"));
+                    FAHQuery.UpdateData(1, ExcuteString.GetUrlData("Post", account.getKey(), "listOfAccApply", String.valueOf(position), "statusSendInvation"));
 
-                    Toast.makeText(context, "Thay đổi quyền thành công !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Đã gửi lời mời thành công!", Toast.LENGTH_SHORT).show();
                     btnSendInvitation.setBackgroundColor(context.getResources().getColor(R.color.colorCrimson));
                     btnSendInvitation.setText("Đã gửi lời mời");
                     notifyDataSetChanged();

@@ -117,9 +117,9 @@ public class AccountByAdminAdapter extends ArrayAdapter <Account> {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 if (account.getStatusBlock() == 0) {
-                    FAHQuery.UpdateData(1, ExcuteString.GetUrlData("TestHongCT", account.getKey(), "statusBlock"));
+                    FAHQuery.UpdateData(1, ExcuteString.GetUrlData("Account", account.getKey(), "statusBlock"));
                 } else {
-                    FAHQuery.UpdateData(0, ExcuteString.GetUrlData("TestHongCT", account.getKey(), "statusBlock"));
+                    FAHQuery.UpdateData(0, ExcuteString.GetUrlData("Account", account.getKey(), "statusBlock"));
                 }
 
                 Toast.makeText(context, "Thay đổi quyền thành công !", Toast.LENGTH_SHORT).show();
