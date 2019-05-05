@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
+import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHExcuteData.EmailValidator;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
@@ -140,11 +141,11 @@ public class CreatePostActivity extends AppCompatActivity {
                                 }
                             });
 
-                            Toast.makeText(this, "Tạo thành công", Toast.LENGTH_SHORT).show();
+                            FAHMessage.ToastMessage(CreatePostActivity.this, "Tạo thành công");
 
                         }
                         catch (Exception e) {
-                            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            FAHMessage.ToastMessage(CreatePostActivity.this, e.getMessage());
                         }
                     } else {
                         dataUpdate.setTitlePost(txtTitle.getText().toString());
@@ -163,9 +164,10 @@ public class CreatePostActivity extends AppCompatActivity {
                         dataUpdate.setSalary_to(txtLuong2.getText().toString());
                         dataUpdate.setEmail(txtEmail.getText().toString());
                         dataUpdate.setPhone(txtPhone.getText().toString());
+                        dataUpdate.setStatus(0);
                         FAHQuery.UpdateData(dataUpdate, "Post/" + getIntent().getStringExtra("key"));
 
-                        Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        FAHMessage.ToastMessage(CreatePostActivity.this, "Cập nhật thành công");
                         finish();
                     }
                 }
