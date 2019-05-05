@@ -1,14 +1,11 @@
 package com.example.fah.FAHCommon.FAHDatabase.Table;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import java.util.Date;
 
-import java.time.ZonedDateTime;
-
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class FAHFieldCommon {
     private String key;
-    private ZonedDateTime addDate = ZonedDateTime.now();
+    private Date addDate = new Date();
+    private Date updDate = new Date();
 
     public FAHFieldCommon() {
     }
@@ -25,11 +22,19 @@ public class FAHFieldCommon {
         this.key = key;
     }
 
-    public ZonedDateTime getAddDate() {
+    public Date getAddDate() {
         return addDate;
     }
 
-    public void setAddDate(ZonedDateTime addDate) {
+    public void setAddDate(Date addDate) {
         this.addDate = addDate;
+    }
+
+    public Date getUpdDate() {
+        return updDate;
+    }
+
+    public void setUpdDate(Date updDate) {
+        this.updDate = updDate;
     }
 }

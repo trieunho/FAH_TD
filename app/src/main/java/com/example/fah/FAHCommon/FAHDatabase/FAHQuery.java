@@ -10,6 +10,7 @@ import com.google.firebase.database.Query;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FAHQuery {
@@ -177,6 +178,7 @@ public class FAHQuery {
      * @param url
      */
     public static void UpdateData(Object data, String url){
+        // SetDateUpdateInsertData(data); xem lại
         reference.getReference(url).setValue(data);
     }
 
@@ -241,6 +243,13 @@ public class FAHQuery {
         String key = (String) CallMethodObject(data, "getKey", new Class[]{}, new Object[]{});
 
         return ExcuteString.GetUrlData(GetNameDB(data), key);
+    }
+
+    private static void SetDateUpdateInsertData(Object data){
+        if(CallMethodObject(data, "getAddDate", new Class[]{Date.class}, new Object[]{new Date()}) == null){
+            CallMethodVoid(data, "setAddDate", new Class[]{Date.class}, new Object[]{new Date()});
+        }
+        CallMethodVoid(data, "setUpdDate", new Class[]{Date.class}, new Object[]{new Date()});
     }
 
     private static Object CallMethodObject(Object data, String methoud, Class[] typeClass, Object[] param){
