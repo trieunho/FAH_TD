@@ -32,7 +32,7 @@ public class ListPostActivity extends AppCompatActivity {
     Toolbar toolbar;
     Query myRef;
     ListView lstSearch;
-    List<Post> data;
+    List<Post> listPost;
 
     // param
     int job;
@@ -74,7 +74,7 @@ public class ListPostActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                data = new ArrayList<>();
+                listPost = new ArrayList<>();
                 List<Post> temp = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                 if (temp == null) return;
                 Collections.sort(temp);
@@ -155,10 +155,10 @@ public class ListPostActivity extends AppCompatActivity {
                             item.getDeadLine()
                     );
                     post.setKey(item.getKey());
-                    data.add(post);
+                    listPost.add(post);
                 }
 
-                lstSearch.setAdapter(new SearchAdapter(ListPostActivity.this, data));
+                lstSearch.setAdapter(new SearchAdapter(ListPostActivity.this, listPost));
             }
 
             @Override
@@ -171,7 +171,7 @@ public class ListPostActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListPostActivity.this, DetailPostActivity.class);
-                intent.putExtra("key", data.get(position).getKey());
+                intent.putExtra("key", listPost.get(position).getKey());
                 startActivity(intent);
             }
         });

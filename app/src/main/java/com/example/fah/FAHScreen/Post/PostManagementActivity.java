@@ -166,10 +166,11 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, String accountName) {
         if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
             Intent intent = new Intent(PostManagementActivity.this, DetailPostActivity.class);
             intent.putExtra("position", position);
+            intent.putExtra("pic", accountName);
             startActivity(intent);
         }
     }
