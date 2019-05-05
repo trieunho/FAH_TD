@@ -61,11 +61,11 @@ public class DetailPostActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.btn_edit, menu);
-//        if (userLogin.getRole() == 2) {
+//        if (userLogin.getRole() == 3) {
 //
 //        }
 
-        return true;
+        return false;
     }
 
     private void addEvents() {
@@ -100,9 +100,21 @@ public class DetailPostActivity extends AppCompatActivity {
                         txtRequired2.setText(data.getRequired());
                         txtQuyenLoi2.setText(data.getBenifit());
 
+                        if (userLogin != null && userLogin.isLogin()) {
+                            if (userLogin.getKey().equals(creator.getKey())) {
+                                btnSubmit.setVisibility(View.GONE);
+                            } else {
+                                btnSubmit.setVisibility(View.VISIBLE);
+                            }
+                        } else {
+                            btnSubmit.setVisibility(View.GONE);
+                        }
+
                         if (data.getListAccount() != null && data.getListAccount().size() > 0
                                 && data.getListAccount().contains(userLogin.getKey())) {
-                            btnSubmit.setEnabled(false);
+                            btnSubmit.setText("Đã ứng tuyển");
+                        } else {
+                            btnSubmit.setText("Ứng tuyển");
                         }
                     }
 
@@ -122,9 +134,17 @@ public class DetailPostActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                data.getListAccount().add(userLogin.getKey());
+                if (btnSubmit.getText().equals("Ứng tuyển")) {
+                    if (data.getListAccount() == null) {
+                        data.setListAccount(new ArrayList<String>());
+                    }
 
-                FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+                    data.getListAccount().add(userLogin.getKey());
+                    FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+                } else {
+                    data.getListAccount().remove(userLogin.getKey());
+                    FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+                }
             }
         });
     }
@@ -157,8 +177,6 @@ public class DetailPostActivity extends AppCompatActivity {
         txtRequired2.setVisibility(View.GONE);
         txtQuyenLoi2 = findViewById(R.id.txtQuyenLoi2);
         txtQuyenLoi2.setVisibility(View.GONE);
-
-        btnSubmit.setEnabled(userLogin != null && userLogin.isLogin());
     }
 
     public void onToggleJob(View v) {
