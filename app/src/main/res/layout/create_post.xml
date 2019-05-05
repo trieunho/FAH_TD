@@ -256,7 +256,9 @@
                                 android:background="@drawable/fah_control_edit_test_default"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:inputType="numberDecimal"
-                                android:singleLine="true" />
+                                android:textAlignment="viewEnd"
+                                android:singleLine="true"
+                                android:gravity="end" />
                             <TextView
                                 android:id="@+id/lbl"
                                 android:layout_width="wrap_content"
@@ -271,7 +273,9 @@
                                 android:background="@drawable/fah_control_edit_test_default"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:inputType="numberDecimal"
-                                android:singleLine="true" />
+                                android:textAlignment="viewEnd"
+                                android:singleLine="true"
+                                android:gravity="end" />
                         </TableRow>
                     </GridLayout>
 

@@ -27,18 +27,19 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
     private int dtTo;
 
     private ArrayList<Account> listOfAccApply;
-    private Account user;
+    private ArrayList<String> listAccount;
+    private String keyAccount;
     private TypeOfPost typeOfPost;
     private Category category;
     private int status;
 
     public Post(){}
 
-    public Post(String titlePost, String accountStr, String companyName,ArrayList <Account> listOfAccApply) {
+    public Post(String titlePost, String accountStr, String companyName, String accApply) {
         this.titlePost = titlePost;
         this.accountStr = accountStr;
         this.companyName = companyName;
-        this.listOfAccApply = listOfAccApply;
+        this.listAccount.add(accApply);
     }
 
     public Post(String titlePost, String accountStr, String companyName) {
@@ -85,7 +86,7 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
                 String email,
                 String phone,
                 TypeOfPost typeOfPost,
-                Account user,
+                String keyAccount,
                 Date createDate) {
         this.setTitlePost(titlePost);
         this.setCompanyName(companyName);
@@ -104,7 +105,7 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
         this.setEmail(email);
         this.setPhone(phone);
         this.setTypeOfPost(typeOfPost);
-        this.setAccount(user);
+        this.setKeyAccount(keyAccount);
         this.setCreateDate(createDate);
     }
 
@@ -115,6 +116,22 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
             return -1;
         else
             return 1;
+    }
+
+    public ArrayList<String> getListAccount() {
+        return listAccount;
+    }
+
+    public void setListAccount(ArrayList<String> listAccount) {
+        this.listAccount = listAccount;
+    }
+
+    public String getKeyAccount() {
+        return keyAccount;
+    }
+
+    public void setKeyAccount(String keyAccount) {
+        this.keyAccount = keyAccount;
     }
 
     public String getEmail() {
@@ -229,14 +246,6 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
         this.salary_to = salary_to;
     }
 
-    public Account getAccount() {
-        return user;
-    }
-
-    public void setAccount(Account user) {
-        this.user = user;
-    }
-
     public Date getApproveDate() {
         return approveDate;
     }
@@ -251,14 +260,6 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
 
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
-    }
-
-    public ArrayList<Account> getListOfAccApply() {
-        return listOfAccApply;
-    }
-
-    public void setListOfAccApply(ArrayList<Account> listOfAccApply) {
-        this.listOfAccApply = listOfAccApply;
     }
 
     public TypeOfPost getTypeOfPost() {
@@ -307,5 +308,13 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public ArrayList<Account> getListOfAccApply() {
+        return listOfAccApply;
+    }
+
+    public void setListOfAccApply(ArrayList<Account> listOfAccApply) {
+        this.listOfAccApply = listOfAccApply;
     }
 }
