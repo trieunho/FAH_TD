@@ -190,7 +190,7 @@ public class DetailPostActivity extends AppCompatActivity {
             }
             case R.id.btnEdit: {
                 Intent intent = new Intent(DetailPostActivity.this, CreatePostActivity.class);
-                intent.putExtra("key", data.getKey());
+                intent.putExtra("key", getIntent().getStringExtra("key"));
                 startActivity(intent);
             }
             default: {

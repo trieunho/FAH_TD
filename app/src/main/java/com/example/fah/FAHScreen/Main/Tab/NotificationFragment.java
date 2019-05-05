@@ -44,7 +44,7 @@ public class NotificationFragment extends Fragment {
     private List<Notification> getListData() {
         List<Notification> list = new ArrayList<Notification>();
 
-     Notification notification6 = new Notification("Handle action bar item clicks here. The action bar willHandle action bar item clicks here. The action123567890987654 bar willHandle action bar item clicks here. The action bar willHandle action bar item clicks here. The aion bar item clicks here. The afsfdsgfgfgđfction bar will","5 phút trước",R.drawable.ic_arrow_down+"");
+     Notification notification6 = new Notification("1","1","1","1","1","1");
         list.add(notification6);
 
         return list;

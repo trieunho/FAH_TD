@@ -1,7 +1,6 @@
 package com.example.fah.FAHScreen.Post;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -21,11 +20,9 @@ import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHExcuteData.EmailValidator;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
-import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Category;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.FAHModel.Models.TypeOfPost;
-import com.example.fah.Main.HomeActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -69,7 +66,6 @@ public class CreatePostActivity extends AppCompatActivity {
 
     DatePickerDialog datePickerDialog;
     DatabaseReference myRef;
-    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,10 +123,11 @@ public class CreatePostActivity extends AppCompatActivity {
                                 new Date()));
 
                         // update data Account: minus coin
-                        myRef = database.getReference("TYPE_OF_POST").child(top.getTypeID());
+                        myRef = FirebaseDatabase.getInstance().getReference("TYPE_OF_POST").child(top.getTypeID());
                         myRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (userLogin == null) return;
                                 int coinNew = userLogin.getCoin() - Integer.parseInt(dataSnapshot.getValue(TypeOfPost.class).getTypeCoin());
                                 FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
                             }
@@ -349,6 +346,7 @@ public class CreatePostActivity extends AppCompatActivity {
                         txtEmail.setText(data.getEmail());
                         txtPhone.setText(data.getPhone());
                         controlType.setItemChoose(Integer.parseInt(data.getTypeOfPost().getTypeID()));
+                        txtTitle.requestFocus();
                     }
 
                     @Override
