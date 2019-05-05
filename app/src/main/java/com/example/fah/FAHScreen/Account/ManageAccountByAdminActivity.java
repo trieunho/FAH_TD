@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.Account;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Adapters.AccountByAdminAdapter;
 import com.example.fah.FAHModel.Models.Account;
+import com.example.fah.FAHScreen.User.PersionalImformationActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -72,7 +75,7 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
         btnSearch = findViewById(R.id.btnSearch);
         editTextSearch = findViewById(R.id.editTextSearch);
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("TestHongCT");
+        myRef = database.getReference("Account");
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(ic_chevron_left_black_24dp);
@@ -81,7 +84,6 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
     }
-
 
     /**
      * Event click button search
@@ -102,8 +104,19 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
             }
         });
 
-     }
+        // Set event handle click item of list view Account
+        lvAccount.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ManageAccountByAdminActivity.this, PersionalImformationActivity.class);
+                intent.putExtra("key", accountList.get(position).getKey());
+                Toast.makeText(ManageAccountByAdminActivity.this, accountList.get(position).getKey(),
+                        Toast.LENGTH_LONG).show();
+                startActivity(intent);
+            }
+        });
 
+     }
 
     /**
      * Set value for Adapter
