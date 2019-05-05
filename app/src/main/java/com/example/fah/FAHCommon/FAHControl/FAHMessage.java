@@ -17,18 +17,12 @@ public class FAHMessage {
                 .setAction("Action", null).show();
     }
 
-    public static void AlertDialogMessage(final Activity activity){
+    public static void AlertDialogMessage(Activity activity, String title, String content, String nameButton){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("ThangCoder.Com");
-        builder.setMessage("Bạn có muốn đăng xuất không?");
+        builder.setTitle(title);
+        builder.setMessage(content);
         builder.setCancelable(false);
-        builder.setPositiveButton("Ứ chịu", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(activity, "Không thoát được", Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.setNegativeButton("Đăng xuất", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(nameButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
