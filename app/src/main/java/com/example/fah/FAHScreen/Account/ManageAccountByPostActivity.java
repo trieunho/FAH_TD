@@ -122,7 +122,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
                     postList = new ArrayList<>();
                     ArrayList<Post> listPostForAcc = (ArrayList<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                     for (Post item : listPostForAcc) {
-                        if (item.getAccount() != null && AccountData.userLogin.getKey().equals(item.getAccount().getKey())) {
+                        if (item.getKeyAccount() != null && AccountData.userLogin.getKey().equals(item.getKeyAccount())) {
                             postList.add(item);
                         }
                     }
@@ -150,10 +150,10 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
         int size = 0;
         for (Post item : postList) {
             if (keySearch.equals(item.getKey())) {
-                if (item.getListOfAccApply() != null && item.getListOfAccApply().size() > 0) {
-                    for (int i = 0; i < item.getListOfAccApply().size(); i++) {
+                if (item.getListAccount() != null && item.getListAccount().size() > 0) {
+                    for (int i = 0; i < item.getListAccount().size(); i++) {
                         FAHQuery.UpdateData(0, ExcuteString.GetUrlData("Post", item.getKey(), "listOfAccApply", String.valueOf(i), "statusSendInvation"));
-                        item.getListOfAccApply().get(i).setStatusSendInvation(0);
+//                        item.getListOfAccApply().get(i).setStatusSendInvation(0);
                     }
                 }
                 AccountByPostAdapter accountByPostAdapter = new AccountByPostAdapter(
@@ -163,7 +163,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
 
                 lvAccount.setAdapter(accountByPostAdapter);
                 checkFlag = true;
-                size = item.getListOfAccApply().size();
+                size = item.getListAccount().size();
                 break;
             }
         }

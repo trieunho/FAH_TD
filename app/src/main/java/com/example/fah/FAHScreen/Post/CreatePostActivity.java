@@ -67,6 +67,9 @@ public class CreatePostActivity extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     DatabaseReference myRef;
 
+    int status = 0;
+    Post dataUpdate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,57 +94,79 @@ public class CreatePostActivity extends AppCompatActivity {
             }
             case R.id.btnPost: {
                 if (canPost() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
-                    try {
-                        myRef = FirebaseDatabase.getInstance().getReference("Post");
-                        TypeOfPost top = new TypeOfPost();
-                        top.setTypeID(cbxTOP.getText().toString().substring(5, 6));
+                    TypeOfPost top = new TypeOfPost();
+                    top.setTypeID(cbxTOP.getText().toString().substring(5, 6));
 
-                        Category cgr = new Category();
-                        cgr.setKey(String.valueOf(controlField.getItemChoose() + 1));
-                        cgr.setCategoryID(String.valueOf(controlField.getItemChoose() + 1));
-                        cgr.setCategoryName(cbxField.getText().toString());
+                    Category cgr = new Category();
+                    cgr.setKey(String.valueOf(controlField.getItemChoose() + 1));
+                    cgr.setCategoryID(String.valueOf(controlField.getItemChoose() + 1));
+                    cgr.setCategoryName(cbxField.getText().toString());
+                    if (getIntent().getStringExtra("key") == null) {
+                        try {
+                            dataUpdate = new Post(
+                                    txtTitle.getText().toString(),
+                                    txtCompanyName.getText().toString(),
+                                    cgr,
+                                    txtDescription.getText().toString(),
+                                    txtRequired.getText().toString(),
+                                    txtBenifit.getText().toString(),
+                                    txtSoLuong.getText().toString(),
+                                    txtAddress.getText().toString(),
+                                    txtDate.getText().toString(),
+                                    Integer.parseInt(dtFrom.getText().toString()),
+                                    Integer.parseInt(dtTo.getText().toString()),
+                                    controlSalary.getItemChoose(),
+                                    txtLuong1.getText().toString(),
+                                    txtLuong2.getText().toString(),
+                                    txtEmail.getText().toString(),
+                                    txtPhone.getText().toString(),
+                                    top,
+                                    userLogin.getKey(),
+                                    new Date());
+                            FAHQuery.InsertData(dataUpdate, "Post");
 
-                        myRef.push().setValue(new Post(
-                                txtTitle.getText().toString(),
-                                txtCompanyName.getText().toString(),
-                                cgr,
-                                txtDescription.getText().toString(),
-                                txtRequired.getText().toString(),
-                                txtBenifit.getText().toString(),
-                                txtSoLuong.getText().toString(),
-                                txtAddress.getText().toString(),
-                                txtDate.getText().toString(),
-                                Integer.parseInt(dtFrom.getText().toString()),
-                                Integer.parseInt(dtTo.getText().toString()),
-                                controlSalary.getItemChoose(),
-                                txtLuong1.getText().toString(),
-                                txtLuong2.getText().toString(),
-                                txtEmail.getText().toString(),
-                                txtPhone.getText().toString(),
-                                top,
-                                userLogin,
-                                new Date()));
+                            // update data Account: minus coin
+                            myRef = FirebaseDatabase.getInstance().getReference("TYPE_OF_POST").child(top.getTypeID());
+                            myRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (userLogin == null) return;
+                                    int coinNew = userLogin.getCoin() - Integer.parseInt(dataSnapshot.getValue(TypeOfPost.class).getTypeCoin());
+                                    FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
+                                }
 
-                        // update data Account: minus coin
-                        myRef = FirebaseDatabase.getInstance().getReference("TYPE_OF_POST").child(top.getTypeID());
-                        myRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (userLogin == null) return;
-                                int coinNew = userLogin.getCoin() - Integer.parseInt(dataSnapshot.getValue(TypeOfPost.class).getTypeCoin());
-                                FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
-                            }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                }
+                            });
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                            }
-                        });
+                            Toast.makeText(this, "Tạo thành công", Toast.LENGTH_SHORT).show();
 
-                        Toast.makeText(this, "Tạo thành công", Toast.LENGTH_SHORT).show();
+                        }
+                        catch (Exception e) {
+                            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        dataUpdate.setTitlePost(txtTitle.getText().toString());
+                        dataUpdate.setCompanyName(txtCompanyName.getText().toString());
+                        dataUpdate.setCategory(cgr);
+                        dataUpdate.setJobDescription(txtDescription.getText().toString());
+                        dataUpdate.setRequired(txtRequired.getText().toString());
+                        dataUpdate.setBenifit(txtBenifit.getText().toString());
+                        dataUpdate.setSoLuong(txtSoLuong.getText().toString());
+                        dataUpdate.setAddress(txtAddress.getText().toString());
+                        dataUpdate.setDeadLine(txtDate.getText().toString());
+                        dataUpdate.setDtFrom(Integer.parseInt(dtFrom.getText().toString()));
+                        dataUpdate.setDtTo(Integer.parseInt(dtTo.getText().toString()));
+                        dataUpdate.setTypeOfSalary(controlSalary.getItemChoose());
+                        dataUpdate.setSalary_from(txtLuong1.getText().toString());
+                        dataUpdate.setSalary_to(txtLuong2.getText().toString());
+                        dataUpdate.setEmail(txtEmail.getText().toString());
+                        dataUpdate.setPhone(txtPhone.getText().toString());
+                        FAHQuery.UpdateData(dataUpdate, "Post/" + getIntent().getStringExtra("key"));
 
-                    }
-                    catch (Exception e) {
-                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 }
             }
@@ -154,7 +179,7 @@ public class CreatePostActivity extends AppCompatActivity {
     public void onClickDate(View v) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
+        int month = c.get(Calendar.MONTH) + 1;
         int day = c.get(Calendar.DAY_OF_MONTH);
         datePickerDialog = new DatePickerDialog(CreatePostActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
@@ -319,33 +344,35 @@ public class CreatePostActivity extends AppCompatActivity {
                     .child(getIntent().getStringExtra("key")).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Post data = dataSnapshot.getValue(Post.class);
-                        txtTitle.setText(data.getTitlePost());
-                        txtCompanyName.setText(data.getCompanyName());
-                        controlField.setItemChoose(Integer.parseInt(data.getCategory().getCategoryID()) - 1);
-                        txtDescription.setText(data.getJobDescription());
-                        txtRequired.setText(data.getRequired());
-                        txtBenifit.setText(data.getBenifit());
-                        txtSoLuong.setText(data.getSoLuong());
-                        txtDate.setText(data.getDeadLine());
-                        txtAddress.setText(data.getAddress());
-                        dtFrom.setText(String.valueOf(data.getDtFrom()));
-                        dtTo.setText(String.valueOf(data.getDtTo()));
-                        controlSalary.setItemChoose(data.getTypeOfSalary());
+                        dataUpdate = dataSnapshot.getValue(Post.class);
+                        txtTitle.setText(dataUpdate.getTitlePost());
+                        txtCompanyName.setText(dataUpdate.getCompanyName());
+                        controlField.setItemChoose(Integer.parseInt(dataUpdate.getCategory().getCategoryID()) - 1);
+                        txtDescription.setText(dataUpdate.getJobDescription());
+                        txtRequired.setText(dataUpdate.getRequired());
+                        txtBenifit.setText(dataUpdate.getBenifit());
+                        txtSoLuong.setText(dataUpdate.getSoLuong());
+                        txtDate.setText(dataUpdate.getDeadLine());
+                        txtAddress.setText(dataUpdate.getAddress());
+                        dtFrom.setText(String.valueOf(dataUpdate.getDtFrom()));
+                        dtTo.setText(String.valueOf(dataUpdate.getDtTo()));
+                        controlSalary.setItemChoose(dataUpdate.getTypeOfSalary());
                         switch (controlSalary.getItemChoose()) {
                             case 0:
-                                txtLuong1.setText(data.getSalary_from());
+                                txtLuong1.setText(dataUpdate.getSalary_from());
                                 break;
                             case 1:
-                                txtLuong1.setText(data.getSalary_from());
-                                txtLuong2.setText(data.getSalary_to());
+                                txtLuong1.setText(dataUpdate.getSalary_from());
+                                txtLuong2.setText(dataUpdate.getSalary_to());
                                 break;
                             default:
                                 break;
                         }
-                        txtEmail.setText(data.getEmail());
-                        txtPhone.setText(data.getPhone());
-                        controlType.setItemChoose(Integer.parseInt(data.getTypeOfPost().getTypeID()));
+                        txtEmail.setText(dataUpdate.getEmail());
+                        txtPhone.setText(dataUpdate.getPhone());
+                        controlType.setItemChoose(Integer.parseInt(dataUpdate.getTypeOfPost().getTypeID()));
+                        status = dataUpdate.getStatus();
+                        cbxTOP.setEnabled(false);
                         txtTitle.requestFocus();
                     }
 

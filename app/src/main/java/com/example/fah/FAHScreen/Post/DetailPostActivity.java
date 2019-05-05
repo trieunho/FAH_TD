@@ -74,27 +74,43 @@ public class DetailPostActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data = dataSnapshot.getValue(Post.class);
-                String salary = data.getTypeOfSalary() == 2 ? "Thỏa thuận"
-                        : data.getTypeOfSalary() == 0 ? data.getSalary_from() : data.getSalary_from() + " ~ " + data.getSalary_to();
 
-                txtPic.setText("Pic: " + data.getAccount().getAccountName());
-                txtTitle.setText(data.getTitlePost());
-                txtCompanyName.setText(data.getCompanyName());
-                txtCategory.setText(data.getCategory().getCategoryName());
-                txtTime.setText(data.getDtFrom() + " Giờ Đến " + data.getDtTo() + " Giờ");
-                txtNumber.setText(data.getSoLuong());
-                txtPhone.setText(data.getPhone());
-                txtAddress.setText(data.getAddress());
-                txtSalary.setText(salary);
-                txtDeadline.setText(data.getDeadLine());
-                txtDescription2.setText(data.getJobDescription());
-                txtRequired2.setText(data.getRequired());
-                txtQuyenLoi2.setText(data.getBenifit());
+                // Get Account
+                FirebaseDatabase.getInstance().getReference().child("Account")
+                        .child(data.getKeyAccount()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Account creator = dataSnapshot.getValue(Account.class);
 
-                if (data.getListOfAccApply() != null && data.getListOfAccApply().size() > 0
-                    && data.getListOfAccApply().contains(userLogin)) {
-                    btnSubmit.setEnabled(false);
-                }
+                        // Set data
+                        String salary = data.getTypeOfSalary() == 2 ? "Thỏa thuận"
+                                : data.getTypeOfSalary() == 0 ? data.getSalary_from() : data.getSalary_from() + " ~ " + data.getSalary_to();
+
+                        txtPic.setText("Pic: " + creator.getAccountName());
+                        txtTitle.setText(data.getTitlePost());
+                        txtCompanyName.setText(data.getCompanyName());
+                        txtCategory.setText(data.getCategory().getCategoryName());
+                        txtTime.setText(data.getDtFrom() + " Giờ Đến " + data.getDtTo() + " Giờ");
+                        txtNumber.setText(data.getSoLuong());
+                        txtPhone.setText(data.getPhone());
+                        txtAddress.setText(data.getAddress());
+                        txtSalary.setText(salary);
+                        txtDeadline.setText(data.getDeadLine());
+                        txtDescription2.setText(data.getJobDescription());
+                        txtRequired2.setText(data.getRequired());
+                        txtQuyenLoi2.setText(data.getBenifit());
+
+                        if (data.getListAccount() != null && data.getListAccount().size() > 0
+                                && data.getListAccount().contains(userLogin.getKey())) {
+                            btnSubmit.setEnabled(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -106,13 +122,7 @@ public class DetailPostActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (data.getListOfAccApply() == null) {
-                    ArrayList<Account> acc = new ArrayList<>();
-                    acc.add(userLogin);
-                    data.setListOfAccApply(acc);
-                } else {
-                    data.getListOfAccApply().add(userLogin);
-                }
+                data.getListAccount().add(userLogin.getKey());
 
                 FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
             }

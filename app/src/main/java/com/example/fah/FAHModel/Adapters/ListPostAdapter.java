@@ -1,6 +1,7 @@
 package com.example.fah.FAHModel.Adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,15 @@ import android.widget.TextView;
 import android.widget.BaseAdapter;
 import android.widget.*;
 
+import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.FAHScreen.Post.IOnButtonCLick;
 import com.example.fah.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.List;
 
 public class ListPostAdapter extends BaseAdapter {
@@ -19,6 +26,8 @@ public class ListPostAdapter extends BaseAdapter {
     private List<Post> listData;
     private LayoutInflater layoutInflater;
     private IOnButtonCLick iOnButtonCLick;
+    Post current;
+    Account creator;
 
     public void registerBtnClick(IOnButtonCLick iOnButtonCLick) {
         this.iOnButtonCLick = iOnButtonCLick;
@@ -70,19 +79,32 @@ public class ListPostAdapter extends BaseAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    iOnButtonCLick.onItemClick(position);
+                    iOnButtonCLick.onItemClick(position, creator.getAccountName());
                 }
             });
         } else {
             holder = (ViewPost) convertView.getTag();
         }
 
-        Post post = this.listData.get(position);
-        holder.titlePost.setText(post.getTitlePost());
-        holder.account.setText("Người đăng: " + post.getAccount().getAccountName());
-        holder.companyName.setText("Công ty: " + post.getCompanyName());
-        holder.btnApprove.setText(post.getStatus() == 0 ? "Duyệt" : "Đã duyệt");
-        holder.btnApprove.setEnabled(post.getStatus() == 0);
+        current = this.listData.get(position);
+        FirebaseDatabase.getInstance().getReference().child("Account")
+                .child(current.getKeyAccount()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                creator = dataSnapshot.getValue(Account.class);
+                holder.titlePost.setText(current.getTitlePost());
+                holder.account.setText("Người đăng: " + creator.getAccountName());
+                holder.companyName.setText("Công ty: " + current.getCompanyName());
+                holder.btnApprove.setText(current.getStatus() == 0 ? "Duyệt" : "Đã duyệt");
+                holder.btnApprove.setEnabled(current.getStatus() == 0);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         holder.btnApprove.setOnClickListener(new View.OnClickListener() {
             @Override
