@@ -11,10 +11,11 @@ public class Menu {
     private IEvenItem eventClickItem;
     private String permission;
 
-    public Menu(String name, String image, String permission) {
+    public Menu(String name, String image, String permission, IEvenItem eventClickItem) {
         this.name = name;
         this.image = image;
         this.permission = permission;
+        this.eventClickItem = eventClickItem;
     }
 
     public Menu(String name, String image){

@@ -71,7 +71,7 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
             }
 
             if (userLogin.getRole() == 3) {
-                getMenuInflater().inflate(R.menu.btn_del, menu);
+//                getMenuInflater().inflate(R.menu.btn_del, menu);
             }
         }
 
@@ -253,15 +253,15 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
         if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
             if (itemId == R.id.btnSubmit) {
                 data.getListAccount().add(userLogin.getKey());
-                String str = FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
-                if (!str.isEmpty()) {
-                    ToastMessage(DetailPostActivity.this, str);
-                }
+                FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+//                if (!str.isEmpty()) {
+//                    ToastMessage(DetailPostActivity.this, str);
+//                }
             } else if (itemId == R.id.btnDel) {
-                String rs = FAHQuery.DeleteData(new String[]{data.getClass().getSimpleName() + "/" + data.getKey()});
-                if (!rs.isEmpty()) {
-                    ToastMessage(DetailPostActivity.this, rs);
-                }
+                FAHQuery.DeleteData(new String[]{data.getClass().getSimpleName() + "/" + data.getKey()});
+//                if (!rs.isEmpty()) {
+//                    ToastMessage(DetailPostActivity.this, rs);
+//                }
                 finish();
 
             }
