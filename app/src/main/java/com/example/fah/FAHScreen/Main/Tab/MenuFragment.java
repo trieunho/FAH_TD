@@ -50,6 +50,7 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_menu, container, false);
         checkImageUser();
+        GetControl();
         return view;
     }
 
