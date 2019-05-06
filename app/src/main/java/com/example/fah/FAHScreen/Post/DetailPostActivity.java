@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 
+import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
+import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
@@ -21,11 +23,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.fah.FAHCommon.FAHControl.FAHMessage.AlertDialogMessage;
+import static com.example.fah.FAHCommon.FAHControl.FAHMessage.ToastMessage;
 import static com.example.fah.FAHData.AccountData.userLogin;
 
 import java.util.ArrayList;
 
-public class DetailPostActivity extends AppCompatActivity {
+public class DetailPostActivity extends AppCompatActivity implements IConfirmClick {
 
     Toolbar toolbar;
 
@@ -48,6 +52,7 @@ public class DetailPostActivity extends AppCompatActivity {
     Button btnSubmit;
 
     Post data;
+    int itemId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +65,15 @@ public class DetailPostActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.btn_edit, menu);
-//        if (userLogin.getRole() == 2) {
-//
-//        }
+        if (userLogin != null) {
+            if (userLogin.getRole() == 2 && userLogin.getKey().equals(data.getKeyAccount())) {
+                getMenuInflater().inflate(R.menu.btn_edit, menu);
+            }
+
+            if (userLogin.getRole() == 3) {
+//                getMenuInflater().inflate(R.menu.btn_del, menu);
+            }
+        }
 
         return true;
     }
@@ -74,6 +84,7 @@ public class DetailPostActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data = dataSnapshot.getValue(Post.class);
+                if (data == null) return;
 
                 // Get Account
                 FirebaseDatabase.getInstance().getReference().child("Account")
@@ -100,9 +111,20 @@ public class DetailPostActivity extends AppCompatActivity {
                         txtRequired2.setText(data.getRequired());
                         txtQuyenLoi2.setText(data.getBenifit());
 
-                        if (data.getListAccount() != null && data.getListAccount().size() > 0
-                                && data.getListAccount().contains(userLogin.getKey())) {
-                            btnSubmit.setEnabled(false);
+                        if (userLogin != null && userLogin.isLogin() && userLogin.getRole() == 1) {
+                            if (userLogin.getKey().equals(creator.getKey())) {
+                                btnSubmit.setVisibility(View.GONE);
+                            } else {
+                                btnSubmit.setVisibility(View.VISIBLE);
+                                if (data.getListAccount() != null && data.getListAccount().size() > 0
+                                        && data.getListAccount().contains(userLogin.getKey())) {
+                                    btnSubmit.setText("Đã ứng tuyển");
+                                } else {
+                                    btnSubmit.setText("Ứng tuyển");
+                                }
+                            }
+                        } else {
+                            btnSubmit.setVisibility(View.GONE);
                         }
                     }
 
@@ -122,9 +144,18 @@ public class DetailPostActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                data.getListAccount().add(userLogin.getKey());
+                if (btnSubmit.getText().equals("Ứng tuyển")) {
+                    if (data.getListAccount() == null) {
+                        data.setListAccount(new ArrayList<String>());
+                    }
 
-                FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+                    itemId = R.id.btnSubmit;
+                    AlertDialogMessage(DetailPostActivity.this, "Confirm", "Bạn có thực sự muốn ứng tuyển", "Đồng ý", "Không");
+
+                } else {
+                    data.getListAccount().remove(userLogin.getKey());
+                    FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+                }
             }
         });
     }
@@ -158,7 +189,7 @@ public class DetailPostActivity extends AppCompatActivity {
         txtQuyenLoi2 = findViewById(R.id.txtQuyenLoi2);
         txtQuyenLoi2.setVisibility(View.GONE);
 
-        btnSubmit.setEnabled(userLogin != null && userLogin.isLogin());
+        FAHMessage.confirmBtnClick(DetailPostActivity.this);
     }
 
     public void onToggleJob(View v) {
@@ -193,7 +224,8 @@ public class DetailPostActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        itemId = item.getItemId();
+        switch (itemId) {
             case android.R.id.home: {
                 finish();
                 return true;
@@ -202,10 +234,44 @@ public class DetailPostActivity extends AppCompatActivity {
                 Intent intent = new Intent(DetailPostActivity.this, CreatePostActivity.class);
                 intent.putExtra("key", getIntent().getStringExtra("key"));
                 startActivity(intent);
+                return true;
+            }
+            case R.id.btnDel: {
+                if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
+                    AlertDialogMessage(DetailPostActivity.this, "Xác nhận", "Bạn có thực sự muốn xóa ?", "Có", "Không");
+                }
+                return true;
             }
             default: {
                 return super.onOptionsItemSelected(item);
             }
         }
+    }
+
+    @Override
+    public void onYesClick() {
+        if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
+            if (itemId == R.id.btnSubmit) {
+                data.getListAccount().add(userLogin.getKey());
+                FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+//                if (!str.isEmpty()) {
+//                    ToastMessage(DetailPostActivity.this, str);
+//                }
+            } else if (itemId == R.id.btnDel) {
+                FAHQuery.DeleteData(new String[]{data.getClass().getSimpleName() + "/" + data.getKey()});
+//                if (!rs.isEmpty()) {
+//                    ToastMessage(DetailPostActivity.this, rs);
+//                }
+                finish();
+
+            }
+
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FAHMessage.unConfirmBtnClick();
     }
 }

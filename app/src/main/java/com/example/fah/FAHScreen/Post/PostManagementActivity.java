@@ -16,7 +16,6 @@ import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHModel.Adapters.ListPostAdapter;
-import com.example.fah.FAHModel.Adapters.SearchAdapter;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -72,7 +71,8 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
                 if (isChecked && ckbUnApprove.isChecked()) {
                     approveQuery = FAHQuery.GetData("Post");
                 } else if (!isChecked && !ckbUnApprove.isChecked()) {
-                    listView.setAdapter(new SearchAdapter(PostManagementActivity.this, null));
+                    listPostAdapter.setData(new ArrayList<Post>());
+                    listView.setAdapter(listPostAdapter);
                     return;
                 } else {
                     approveQuery = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, isChecked ? 1 : 0, FAHQueryParam.TypeInteger));
@@ -102,7 +102,8 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
                 if (isChecked && ckbApprove.isChecked()) {
                     approveQuery = FAHQuery.GetData("Post");
                 } else if (!isChecked && !ckbApprove.isChecked()) {
-                    listView.setAdapter(new SearchAdapter(PostManagementActivity.this, null));
+                    listPostAdapter.setData(new ArrayList<Post>());
+                    listView.setAdapter(listPostAdapter);
                     return;
                 } else {
                     approveQuery = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, isChecked ? 0 : 1, FAHQueryParam.TypeInteger));
@@ -166,9 +167,10 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
     }
 
     @Override
-    public void onItemClick(int position, String accountName) {
+    public void onItemClick(int position, String accountName, String key) {
         if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
             Intent intent = new Intent(PostManagementActivity.this, DetailPostActivity.class);
+            intent.putExtra("key", key);
             intent.putExtra("position", position);
             intent.putExtra("pic", accountName);
             startActivity(intent);

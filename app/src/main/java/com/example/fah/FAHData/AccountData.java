@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Models.Account;
-import com.example.fah.FAHModel.Models.IEvenItem;
+import com.example.fah.FAHModel.Models.IEventData;
 import com.example.fah.FAHModel.Models.Image;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,9 +43,8 @@ public class AccountData {
         FAHQuery.UpdateData(account);
     }
 
-    public static void GetAccount(final IEvenItem event) throws Exception {
+    public static void GetAccount(final IEventData event) throws Exception {
         final Account account = new Account();
-        //  Toast.makeText(LoginActivity.this, "email="+AccountData.firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
         AccountData.firebaseUser = AccountData.firebaseAuth.getCurrentUser();
         FirebaseDatabase.getInstance().getReference().child("Account")
                 .orderByChild("email")
@@ -89,7 +88,17 @@ public class AccountData {
                         }
                     }
                     AccountData.userLogin = account;
-                    event.callEvent();
+                    setImageSourceAvata(new IEventData() {
+                        @Override
+                        public void EventSuccess() {
+                            event.EventSuccess();
+                        }
+
+                        @Override
+                        public void EventFail() {
+                            event.EventSuccess();
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
@@ -112,7 +121,7 @@ public class AccountData {
         return true;
     }
 
-    public static Image getImageSourceAvata() {
+    private static   Image setImageSourceAvata(final IEventData eventData) {
         final Image image = new Image();
         if (userLogin != null && userLogin.getKey() != null) {
             FirebaseDatabase.getInstance().getReference().child("Avata").child(userLogin.getKey()).addValueEventListener(new ValueEventListener() {
@@ -121,11 +130,11 @@ public class AccountData {
                     if (dataSnapshot != null) {
                         Image img = dataSnapshot.getValue(Image.class);
                         if (img != null) {
-                            image.setSource(img.getSource());
+                            AccountData.userLogin.setAvata(img.getSource());
                         }
+                        eventData.EventSuccess();
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 

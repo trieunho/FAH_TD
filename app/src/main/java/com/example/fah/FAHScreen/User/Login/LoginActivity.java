@@ -8,12 +8,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHData.AccountData;
-import com.example.fah.FAHModel.Models.IEvenItem;
-import com.example.fah.FAHScreen.Main.Tab.MainActivity;
+import com.example.fah.FAHModel.Models.IEventData;
+import com.example.fah.FAHScreen.User.ProfileActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +26,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button loginBtn;
     TextView resetBtn;
     TextView createAccountBtn;
-
+    LinearLayout ActivityLoginLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void addControl() {
+        ActivityLoginLayout=findViewById(R.id.ActivityLoginLayout);
+        ActivityLoginLayout.setMinimumWidth(200);
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
         loginBtn = (Button) findViewById(R.id.loginbutton);
@@ -54,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void nextMain() {
-        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        Intent i = new Intent(LoginActivity.this, ProfileActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();
@@ -107,10 +110,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             try {
-                                AccountData.GetAccount(new IEvenItem() {
+                                AccountData.GetAccount(new IEventData() {
                                     @Override
-                                    public void callEvent() {
+                                    public void EventSuccess() {
                                         nextMain();
+                                    }
+
+                                    @Override
+                                    public void EventFail() {
+                                        Toast.makeText(LoginActivity.this, "Lỗi không thể lấy được thông tin người dùng!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             } catch (Exception e) {

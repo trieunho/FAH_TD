@@ -8,6 +8,7 @@
     tools:context=".FAHScreen.User.Login.LoginActivity">
 
     <LinearLayout
+        android:id="@+id/ActivityLoginLayout"
         android:layout_width="336dp"
         android:layout_height="350dp"
         android:layout_centerInParent="true"

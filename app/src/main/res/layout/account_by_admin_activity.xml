@@ -54,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/small_button_control"
                 android:text="Unlock"
+                android:focusable="false"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                 android:background="@drawable/fah_control_button"/>
         </LinearLayout>
