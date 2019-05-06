@@ -123,13 +123,13 @@ public class GridListMenuMainAdapter extends BaseAdapter {
     }
 
     private boolean checkPermissonUser(String permission){
-//        if(ExcuteString.IsNullOrEmpty(permission)){
-//            return false;
-//        }
-//
-//        if(permission.indexOf(this.permissionUser) == -1){
-//            return false;
-//        }
+        if(ExcuteString.IsNullOrEmpty(permission)){
+            return true;
+        }
+
+        if(permission.indexOf(this.permissionUser) == -1){
+            return false;
+        }
 
         return true;
     }

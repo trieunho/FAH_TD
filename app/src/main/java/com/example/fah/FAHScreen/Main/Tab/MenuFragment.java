@@ -18,8 +18,11 @@ import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.IEvenItem;
 import com.example.fah.FAHModel.Models.Image;
+import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
 import com.example.fah.FAHScreen.Main.GridView.Menu.GridListMenuMainAdapter;
 import com.example.fah.FAHScreen.Main.GridView.Menu.Menu;
+import com.example.fah.FAHScreen.Manage.ManageCategoryActivity;
+import com.example.fah.FAHScreen.Manage.ManageTypePostActivity;
 import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
 import com.example.fah.FAHScreen.Post.ListPostActivity;
 import com.example.fah.FAHScreen.Post.PostManagementActivity;
@@ -92,54 +95,78 @@ public class MenuFragment extends Fragment {
     }
     private  List<Menu> getListData() {
         List<Menu> list = new ArrayList<>();
-//        list.add(new Menu("Avatar", "ic_launcher_search_job", "", new IEvenItem() {
-//            @Override
-//            public void callEvent() {
-//
-//            }
-//        }));
-//        list.add(new Menu("Chính sách bảo mật", "", ""));
-//        list.add(new Menu("Chỉnh sửa danh sách công việc", "", ""));
-//        list.add(new Menu("Chỉnh sửa loại bài viết", "", ""));
-//        list.add(new Menu("Đăng bài viết mới", "ic_launcher_add_job"));
-        list.add(new Menu("Đăng nhập", "ic_launcher_login", new IEvenItem() {
+        list.add(new Menu("Avatar", "ic_launcher_search_job", "123", new IEvenItem() {
+            @Override
+            public void callEvent() {
+
+            }
+        }));
+        list.add(new Menu("Đăng nhập", "ic_launcher_login", "0", new IEvenItem() {
             @Override
             public void callEvent() {
                 checkAndCallLogin();
             }
         }));
-        list.add(new Menu("Đăng xuất", "ic_launcher_logout", new IEvenItem() {
-            @Override
-            public void callEvent() {
-                EventLogout();
-            }
-        }));
-//        list.add(new Menu("Điều khoản", "", ""));
-//        list.add(new Menu("Quản lý bài đăng", "ic_launcher_manage_post"));
-//        list.add(new Menu("Quản lý người dùng", "ic_launcher_manage_account"));
-
-        list.add(new Menu("Tìm kiếm công việc", "ic_launcher_search_job", "", new IEvenItem() {
+        list.add(new Menu("Tìm kiếm bài đăng", "ic_launcher_search_job", "12", new IEvenItem() {
             @Override
             public void callEvent() {
                 startActivity(new Intent(getContext(), DetailSearchPostActivity.class));
             }
         }));
-//        list.add(new Menu("Công việc của tôi", "ic_launcher_job"));
-        list.add(new Menu("Quản lý bài đăng", "ic_launcher_post", "", new IEvenItem() {
+        list.add(new Menu("Quản lý bài đăng", "ic_launcher_manage_post", "2", new IEvenItem() {
             @Override
             public void callEvent() {
                 startActivity(new Intent(getContext(), ListPostActivity.class));
             }
         }));
-        list.add(new Menu("Duyệt bài đăng", "ic_launcher_post", "", new IEvenItem() {
+        list.add(new Menu("Duyệt bài đăng", "ic_launcher_post", "3", new IEvenItem() {
             @Override
             public void callEvent() {
                 startActivity(new Intent(getContext(), PostManagementActivity.class));
             }
         }));
-//        list.add(new Menu("Tìm kiếm ứng viên", "ic_launcher_search_people"));
-//        list.add(new Menu("Danh sách ứng viên", "ic_launcher_list_people"));
-//        list.add(new Menu("Danh mục công việc", "ic_launcher_option"));
+        list.add(new Menu("Quản lý người dùng", "ic_launcher_manage_account", "3", new IEvenItem() {
+            @Override
+            public void callEvent() {
+                startActivity(new Intent(getContext(), ManageAccountByAdminActivity.class));
+            }
+        }));
+        list.add(new Menu("Quản lý danh mục", "ic_launcher_option", "3", new IEvenItem() {
+            @Override
+            public void callEvent() {
+                startActivity(new Intent(getContext(), ManageCategoryActivity.class));
+            }
+        }));
+        list.add(new Menu("Quản lý loại bài viết", "ic_launcher_option", "3", new IEvenItem() {
+            @Override
+            public void callEvent() {
+                startActivity(new Intent(getContext(), ManageTypePostActivity.class));
+            }
+        }));
+        list.add(new Menu("Điều khoản", "ic_launcher_option", "0123", new IEvenItem() {
+            @Override
+            public void callEvent() {
+                startActivity(new Intent(getContext(), ManageTypePostActivity.class));
+            }
+        }));
+        list.add(new Menu("Chính sách bảo mật", "ic_launcher_option", "0123", new IEvenItem() {
+            @Override
+            public void callEvent() {
+                startActivity(new Intent(getContext(), ManageTypePostActivity.class));
+            }
+        }));
+        list.add(new Menu("Trợ giúp", "ic_launcher_option", "0123", new IEvenItem() {
+            @Override
+            public void callEvent() {
+                startActivity(new Intent(getContext(), ManageTypePostActivity.class));
+            }
+        }));
+        list.add(new Menu("Đăng xuất", "ic_launcher_logout", "123", new IEvenItem() {
+            @Override
+            public void callEvent() {
+                EventLogout();
+            }
+        }));
 
         return list;
     }
