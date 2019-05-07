@@ -1,17 +1,26 @@
 package com.example.fah.FAHScreen.Main.Tab;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
+import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
+import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Adapters.SearchAdapter;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,6 +29,9 @@ import java.util.List;
 public class HotPostFragment extends Fragment {
     protected View view;
     protected ListView listView;
+    private List<Post> listCreate;
+    Query myRef;
+    protected TextView txtTitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,31 +39,52 @@ public class HotPostFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_hot_post, container, false);
 
-        GetControl();
+        addControls();
+        addEvents();
 
         return view;
     }
 
-    private void GetControl(){
-        GridViewControl();
+    private void addControls(){
+        if (AccountData.userLogin != null) {
+            if (AccountData.userLogin.getRole() == 1) {
+                txtTitle.setText("Danh sách bài viết đã ứng tuyển");
+            } else if (AccountData.userLogin.getRole() == 2) {
+                txtTitle.setText("Bài viết của tôi");
+            }
+        }
+
+        myRef = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, 1, FAHQueryParam.TypeInteger));
     }
 
-    private void GridViewControl(){
-        List<Post> listPost = getListData();
-        listView = view.findViewById(R.id.listView);
-        listView.setAdapter(new SearchAdapter(getContext(), listPost));
-    }
+    private void addEvents() {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Post> listData = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
+                listCreate = new ArrayList<>();
+                if (listData != null && listData.size() > 0) {
+                    if (AccountData.userLogin.getRole() == 2) {
+                        for (Post item : listData) {
+                            if (item.getKeyAccount().equals(AccountData.userLogin.getKey())) {
+                                listCreate.add(item);
+                            }
+                        }
+                    } else if (AccountData.userLogin.getRole() == 1) {
+                        for (Post item : listData) {
+                            if (item.getListAccount().contains(AccountData.userLogin.getKey())) {
+                                listCreate.add(item);
+                            }
+                        }
+                    }
+                }
 
-    private  List<Post> getListData() {
-        List<com.example.fah.FAHModel.Models.Post> list = new ArrayList<>();
-//        Post vietnam = new Post("Tuyển nhân viên phục vụ cà phê", "QUÁN CÀ PHÊ VEN ĐƯỜNG", "Địa điểm", "Thời gian làm việc", "Mức lương", new Date("01/04/2019"));
-//        Post usa = new Post("Tuyển nhân viên phục vụ cà phê", "QUÁN CÀ PHÊ VEN ĐƯỜNG", "Địa điểm", "Thời gian làm việc", "Mức lương", new Date("01/04/2019"));
-//        Post russia = new Post("Tuyển nhân viên phục vụ cà phê", "QUÁN CÀ PHÊ VEN ĐƯỜNG", "Địa điểm", "Thời gian làm việc", "Mức lương", new Date("01/04/2019"));
-//
-//        list.add(vietnam);
-//        list.add(usa);
-//        list.add(russia);
+                listView.setAdapter(new SearchAdapter(getContext(), listCreate));
+            }
 
-        return list;
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 }

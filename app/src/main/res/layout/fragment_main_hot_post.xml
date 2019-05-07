@@ -7,7 +7,9 @@
     tools:context=".FAHScreen.Main.Tab.HotPostFragment">
     <TextView
         android:text="Việc làm của tôi"
+        android:id="@+id/txtTitle"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <ListView

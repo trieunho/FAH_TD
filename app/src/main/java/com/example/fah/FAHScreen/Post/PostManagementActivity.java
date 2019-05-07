@@ -132,7 +132,7 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
         // toolbar
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_backspace_black);
-        toolbar.setTitle("Tạo bài viết");
+        toolbar.setTitle("Duyệt bài viết");
         setSupportActionBar(toolbar);
 
         listView = findViewById(R.id.lstPost);

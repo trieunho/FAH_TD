@@ -372,7 +372,7 @@ public class CreatePostActivity extends AppCompatActivity {
                         }
                         txtEmail.setText(dataUpdate.getEmail());
                         txtPhone.setText(dataUpdate.getPhone());
-                        controlType.setItemChoose(Integer.parseInt(dataUpdate.getTypeOfPost().getTypeID()));
+                        controlType.setItemChoose(Integer.parseInt(dataUpdate.getTypeOfPost().getTypeID()) - 1);
                         status = dataUpdate.getStatus();
                         cbxTOP.setEnabled(false);
                         txtTitle.requestFocus();
