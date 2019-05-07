@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class FAHFieldCommon {
     private String key;
-    private Date addDate = new Date();
-    private Date updDate = new Date();
+    private Date addDate;
+    private Date updDate;
 
     public FAHFieldCommon() {
     }

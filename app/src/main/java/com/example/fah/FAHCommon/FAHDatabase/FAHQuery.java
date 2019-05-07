@@ -179,7 +179,7 @@ public class FAHQuery {
      * @param url
      */
     public static void UpdateData(Object data, String url){
-        // SetDateUpdateInsertData(data); xem lại
+        SetDateUpdateInsertData(data);
         reference.getReference(url).setValue(data);
     }
 
@@ -247,7 +247,7 @@ public class FAHQuery {
     }
 
     private static void SetDateUpdateInsertData(Object data){
-        if(CallMethodObject(data, "getAddDate", new Class[]{Date.class}, new Object[]{new Date()}) == null){
+        if(CallMethodObject(data, "getAddDate", new Class[]{}, new Object[]{}) == null){
             CallMethodVoid(data, "setAddDate", new Class[]{Date.class}, new Object[]{new Date()});
         }
         CallMethodVoid(data, "setUpdDate", new Class[]{Date.class}, new Object[]{new Date()});
