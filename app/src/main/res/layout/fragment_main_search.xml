@@ -9,7 +9,7 @@
         android:id="@+id/cbbJob"
         android:focusable="false"
         android:gravity="center"
-        android:hint="Chọn việc làm"
+        android:hint="Tất cả"
         android:drawableLeft="@drawable/ic_work_black"
         android:drawableRight="@drawable/ic_arrow_down"
         android:background="@drawable/fah_control_combobox"
@@ -17,19 +17,44 @@
         android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
-
-    <EditText
-        android:id="@+id/cbbTime"
-        android:focusable="false"
-        android:gravity="center"
-        android:hint="Chọn thời gian"
-        android:drawableLeft="@drawable/ic_timer_black"
-        android:drawableRight="@drawable/ic_arrow_down"
-        android:background="@drawable/fah_control_combobox"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_margin="@dimen/margin_control"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:text=" Thời gian làm việc"
+            android:drawableLeft="@drawable/ic_timer_black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/txtStartTime"
+            android:gravity="center"
+            android:hint="Từ"
+            android:inputType="number"
+            android:maxLength="2"
+            android:background="@drawable/fah_control_edit_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_margin="@dimen/margin_control"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/wrap_content_control" />
+        <EditText
+            android:id="@+id/txtEndTime"
+            android:gravity="center"
+            android:hint="Đến"
+            android:inputType="number"
+            android:maxLength="2"
+            android:background="@drawable/fah_control_edit_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_margin="@dimen/margin_control"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/wrap_content_control" />
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/btnSearch"
@@ -40,4 +65,43 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
 
+    <LinearLayout
+        android:id="@+id/lnlNotLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/wrap_content_control"
+            android:layout_margin="@dimen/margin_control"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="ĐĂNG KÝ"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/wrap_content_control"
+            android:layout_margin="@dimen/margin_control"
+            android:layout_weight="1"
+            android:background="@color/colorCrimson"
+            android:text="ĐĂNG NHẬP"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="CÔNG VIỆC ĐANG HOT"
+        android:background="@color/colorCrimson"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />/>
+    <ListView
+        android:id="@+id/lvHotPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
 </LinearLayout>
