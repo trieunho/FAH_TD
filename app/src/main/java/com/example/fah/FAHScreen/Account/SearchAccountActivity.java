@@ -110,7 +110,7 @@ public class SearchAccountActivity extends AppCompatActivity {
                                 ArrayList<Account> listAcc = new ArrayList<>();
 
                                 for (Account acc : listAccount) {
-                                    if (acc.getRole() == 0) {
+                                    if (acc.getRole() == 0 && acc.getStatusBlock() != 1) {
                                         if (acc.getCategory() != null
                                                 && ("All".equals(categoryID)
                                                 || categoryID.equals(acc.getCategory().getCategoryID()))) {
