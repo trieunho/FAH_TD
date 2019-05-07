@@ -45,11 +45,9 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Account> list = new ArrayList<>();
-                ArrayList<TestDB> listTest = new ArrayList<>();
-                listTest.add(new TestDB("123", list));
-                listTest.add(new TestDB("123", list));
-                ArrayList<String> key = FAHQuery.InsertDataGetKey(listTest);
+                TestDB test = accountList.get(0);
+                test.setTitlePost("Không được nghe");
+                FAHQuery.UpdateData(test);
             }
         });
 
