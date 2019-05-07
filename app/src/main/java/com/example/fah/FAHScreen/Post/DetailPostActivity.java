@@ -11,12 +11,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
+import android.widget.TableRow;
+import android.widget.EditText;
 
 import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
+import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,6 +31,7 @@ import static com.example.fah.FAHCommon.FAHControl.FAHMessage.ToastMessage;
 import static com.example.fah.FAHData.AccountData.userLogin;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DetailPostActivity extends AppCompatActivity implements IConfirmClick {
 
@@ -49,7 +53,11 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
     TextView txtRequired2;
     TextView txtQuyenLoi2;
     TextView txtQuyenLoi1;
+
+    TextView txtSubmitMember;
     Button btnSubmit;
+    TableRow txtSubmit;
+    Button btnDetailSubmit;
 
     Post data;
     int itemId;
@@ -66,12 +74,10 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (userLogin != null) {
-            if (userLogin.getRole() == 2 && userLogin.getKey().equals(data.getKeyAccount())) {
+            if (userLogin.getRole() == 2 && userLogin.getKey().equals(getIntent().getStringExtra("keyAccount"))) {
                 getMenuInflater().inflate(R.menu.btn_edit, menu);
-            }
-
-            if (userLogin.getRole() == 3) {
-//                getMenuInflater().inflate(R.menu.btn_del, menu);
+            } else if (userLogin.getRole() == 3) {
+                getMenuInflater().inflate(R.menu.btn_del, menu);
             }
         }
 
@@ -111,16 +117,32 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                         txtRequired2.setText(data.getRequired());
                         txtQuyenLoi2.setText(data.getBenifit());
 
-                        if (userLogin != null && userLogin.isLogin() && userLogin.getRole() == 1) {
-                            if (userLogin.getKey().equals(creator.getKey())) {
-                                btnSubmit.setVisibility(View.GONE);
-                            } else {
-                                btnSubmit.setVisibility(View.VISIBLE);
-                                if (data.getListAccount() != null && data.getListAccount().size() > 0
-                                        && data.getListAccount().contains(userLogin.getKey())) {
-                                    btnSubmit.setText("Đã ứng tuyển");
+                        if (userLogin != null) {
+                            if (userLogin.getRole() == 1) {
+                                if (userLogin.getKey().equals(creator.getKey())) {
+                                    btnSubmit.setVisibility(View.GONE);
                                 } else {
-                                    btnSubmit.setText("Ứng tuyển");
+                                    btnSubmit.setVisibility(View.VISIBLE);
+                                    if (data.getListAccount() != null && data.getListAccount().size() > 0
+                                            && data.getListAccount().contains(userLogin.getKey())) {
+                                        btnSubmit.setText("Đã ứng tuyển");
+                                    } else {
+                                        btnSubmit.setText("Ứng tuyển");
+                                    }
+                                }
+                            } else if (userLogin.getRole() == 3) {
+                                btnSubmit.setText(data.getStatus() == 1 ? "Đã duyệt" : "Duyệt");
+                                btnSubmit.setEnabled(data.getStatus() == 0);
+                            } else if (userLogin.getRole() == 2) {
+                                if (userLogin.getKey().equals(creator.getKey())) {
+                                    txtSubmit.setVisibility(View.VISIBLE);
+                                    if (data.getListAccount() != null && data.getListAccount().size() > 0) {
+                                        txtSubmitMember.setText(String.valueOf(data.getListAccount().size()));
+                                    } else {
+                                        txtSubmitMember.setText("0");
+                                    }
+                                } else {
+                                    txtSubmit.setVisibility(View.GONE);
                                 }
                             }
                         } else {
@@ -152,10 +174,29 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                     itemId = R.id.btnSubmit;
                     AlertDialogMessage(DetailPostActivity.this, "Confirm", "Bạn có thực sự muốn ứng tuyển", "Đồng ý", "Không");
 
-                } else {
-                    data.getListAccount().remove(userLogin.getKey());
-                    FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+                } else if (btnSubmit.getText().equals("Đã ứng tuyển")) {
+                    try {
+                        if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
+                            data.getListAccount().remove(userLogin.getKey());
+                            FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+                        }
+                    } catch (Exception ex) {
+                        ToastMessage(DetailPostActivity.this, ex.getMessage());
+                    }
+                } else if (btnSubmit.getText().equals("Duyệt")) {
+                    if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
+                        data.setStatus(1);
+                        data.setApproveDate(new Date());
+                        FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + data.getKey());
+                    }
                 }
+            }
+        });
+
+        btnDetailSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DetailPostActivity.this, ManageAccountByPostActivity.class));
             }
         });
     }
@@ -188,6 +229,10 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
         txtRequired2.setVisibility(View.GONE);
         txtQuyenLoi2 = findViewById(R.id.txtQuyenLoi2);
         txtQuyenLoi2.setVisibility(View.GONE);
+
+        txtSubmit = findViewById(R.id.txtSubmit);
+        btnDetailSubmit = findViewById(R.id.btnDetailSubmit);
+        txtSubmitMember = findViewById(R.id.txtSubmitMember);
 
         FAHMessage.confirmBtnClick(DetailPostActivity.this);
     }
@@ -252,18 +297,19 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
     public void onYesClick() {
         if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
             if (itemId == R.id.btnSubmit) {
-                data.getListAccount().add(userLogin.getKey());
-                FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
-//                if (!str.isEmpty()) {
-//                    ToastMessage(DetailPostActivity.this, str);
-//                }
+                try {
+                    data.getListAccount().add(userLogin.getKey());
+                    FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+                } catch (Exception ex) {
+                    ToastMessage(DetailPostActivity.this, ex.getMessage());
+                }
             } else if (itemId == R.id.btnDel) {
-                FAHQuery.DeleteData(new String[]{data.getClass().getSimpleName() + "/" + data.getKey()});
-//                if (!rs.isEmpty()) {
-//                    ToastMessage(DetailPostActivity.this, rs);
-//                }
+                try {
+                    FAHQuery.DeleteData(new String[]{data.getClass().getSimpleName() + "/" + data.getKey()});
+                } catch (Exception ex) {
+                    ToastMessage(DetailPostActivity.this, ex.getMessage());
+                }
                 finish();
-
             }
 
         }

@@ -59,11 +59,13 @@ public class ListPostActivity extends AppCompatActivity {
 
         // Get param
         Intent intent = getIntent();
-        job = intent.getIntExtra("job", VALUEDEFAULT);
-        location = intent.getStringExtra("location");
-        indexLocation = intent.getIntExtra("indexLocation", VALUEDEFAULT);
-        salary = intent.getIntExtra("salary", VALUEDEFAULT);
-        time = intent.getIntExtra("time", VALUEDEFAULT);
+        if (intent != null) {
+            job = intent.getIntExtra("job", VALUEDEFAULT);
+            location = intent.getStringExtra("location");
+            indexLocation = intent.getIntExtra("indexLocation", VALUEDEFAULT);
+            salary = intent.getIntExtra("salary", VALUEDEFAULT);
+            time = intent.getIntExtra("time", VALUEDEFAULT);
+        }
 
         // Add controls
         lstSearch = findViewById(R.id.lstSearch);
@@ -84,7 +86,7 @@ public class ListPostActivity extends AppCompatActivity {
                         continue;
                     }
 
-                    if (!location.equals("") && !item.getAddress().contains(location)) {
+                    if (location != null && !location.equals("") && !item.getAddress().contains(location)) {
                         continue;
                     }
 
@@ -155,6 +157,7 @@ public class ListPostActivity extends AppCompatActivity {
                             item.getDeadLine()
                     );
                     post.setKey(item.getKey());
+                    post.setKeyAccount(item.getKeyAccount());
                     listPost.add(post);
                 }
 
@@ -172,6 +175,7 @@ public class ListPostActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListPostActivity.this, DetailPostActivity.class);
                 intent.putExtra("key", listPost.get(position).getKey());
+                intent.putExtra("keyAccount", listPost.get(position).getKeyAccount());
                 startActivity(intent);
             }
         });

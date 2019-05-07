@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.IEventData;
+import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.FAHScreen.User.ProfileActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void nextMain() {
-        Intent i = new Intent(LoginActivity.this, ProfileActivity.class);
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();
