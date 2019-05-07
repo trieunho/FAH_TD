@@ -29,7 +29,6 @@ public class FAHMessage {
         Snackbar.make(view, content, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
-
     public static void AlertDialogMessage(final Activity activity, String title, String message, String yes, String no){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(title);

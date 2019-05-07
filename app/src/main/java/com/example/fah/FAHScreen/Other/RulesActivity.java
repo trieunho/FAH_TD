@@ -133,11 +133,12 @@ public class RulesActivity extends AppCompatActivity {
                     " cho dù là tạm thời hay lâu dài. Bạn sẽ phải chịu trách nhiệm pháp lý và/hoặc trách nhiệm cá nhân cho tất cả việc sử dụng các thông tin đăng ký," +
                     " mật khẩu tại trang App BaBaQ của bạn, bất kể việc sử dụng đó có được bạn cho phép hay không.\n" +
                 "5.\tThông tin Nhà tuyển dụng đăng trên BaBaQ không được chứa đựng những nội dung:\n" +
-                "\ta.\tThông tin không xác thực, sai lệch, hoặc gây hiểu lầm.\n" +
-                "\tb.\tĐăng tải công việc không phù hợp với luật pháp hiện hành.\n" +
-                "\tc.\tĐăng tải những nội dung không liên quan đến việc tuyển dụng nhân sự, những công việc.\n" +
-                "\td.\tYêu cầu người tìm việc phải trả tiền đặt cọc, phí đặt chỗ, phí xử lý thông tin\n" +
-                "\te.\tBaBaQ không cho phép tuyển dụng nhiều hơn 1 vị trí công việc trong mỗi tin đăng không có thật hoặc vi phạm đạo đức, pháp luật. Khoản chi phí tương tự khác, một cách trực tiếp hoặc gián tiếp, và/hoặc yêu cầu người tìm việc mua hàng. tuyển.\n" +
+                    "\ta.\tThông tin không xác thực, sai lệch, hoặc gây hiểu lầm.\n" +
+                    "\tb.\tĐăng tải công việc không phù hợp với luật pháp hiện hành.\n" +
+                    "\tc.\tĐăng tải những nội dung không liên quan đến việc tuyển dụng nhân sự, những công việc.\n" +
+                    "\td.\tYêu cầu người tìm việc phải trả tiền đặt cọc, phí đặt chỗ, phí xử lý thông tin\n" +
+                    "\te.\tBaBaQ không cho phép tuyển dụng nhiều hơn 1 vị trí công việc trong mỗi tin đăng không có thật hoặc vi phạm đạo đức, pháp luật." +
+                        " Khoản chi phí tương tự khác, một cách trực tiếp hoặc gián tiếp, và hoặc yêu cầu người tìm việc mua hàng. tuyển.\n" +
                 "\tf.\tBaBaQ có quyền loại bỏ bất cứ tài liệu nhà tuyển dụng hoặc nội dung từ bất kỳ trang App BaBaQ mà không phù hợp với bản điều khoản này.\n" +
                 "6.\tNếu bất cứ lúc nào trong quá trình sử dụng Dịch vụ BaBaQ, bạn trình bày sai sự thật hoặc sử dụng thông tin mạo danh để tuyển dụng trên BaBaQ" +
                     " hoặc vi phạm các điều khoản này, BaBaQ có quyền đơn phương chấm dứt việc sử dụng các dịch vụ của bạn trên trang App BaBaQ.\n" +
@@ -183,7 +184,7 @@ public class RulesActivity extends AppCompatActivity {
                     " và quyền này vẫn còn nguyên giá trị và hiệu lực.\n" +
                 "11.\tBạn đồng ý rằng, bất kỳ khiếu tố hoặc tố tụng nào phát sinh từ App này phải được đệ trình trong vòng một (1) năm sau khi khiêu tố hoặc tố tụng ấy phát sinh," +
                     " nếu không khiếu tố sẽ hoàn toàn vô hiệu;\n" +
-                "12.\tChúng tôi có thể chuyển nhượng quyền lợi và nghĩa vụ của mình chiểu theo bản Thỏa thuận sử dụng này và chúng tôi sẽ được giải phóng khỏi bất kỳ nghĩa vụ nào phát sinh sau đó.\n";
+                "12.\tChúng tôi có thể chuyển nhượng quyền lợi và nghĩa vụ của mình chiểu theo bản Thỏa thuận sử dụng này và chúng tôi sẽ được giải phóng khỏi bất kỳ nghĩa vụ nào phát sinh sau đó.";
     }
 
     private void getContentTextView(){

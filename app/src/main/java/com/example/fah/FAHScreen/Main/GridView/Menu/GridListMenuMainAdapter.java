@@ -124,7 +124,7 @@ public class GridListMenuMainAdapter extends BaseAdapter {
 
     private boolean checkPermissonUser(String permission){
         if(ExcuteString.IsNullOrEmpty(permission)){
-            return false;
+            return true;
         }
 
         if(permission.indexOf(this.permissionUser) == -1){
