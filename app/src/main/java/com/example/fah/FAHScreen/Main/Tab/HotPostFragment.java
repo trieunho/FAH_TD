@@ -31,7 +31,7 @@ public class HotPostFragment extends Fragment {
     protected ListView listView;
     private List<Post> listCreate;
     Query myRef;
-    protected TextView txtTitle;
+    TextView txtTitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,19 +39,22 @@ public class HotPostFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_hot_post, container, false);
 
-        addControls();
-        addEvents();
+        if (AccountData.userLogin != null && AccountData.userLogin.getRole() > 0) {
+            addControls();
+            addEvents();
+        }
 
         return view;
     }
 
     private void addControls(){
-        if (AccountData.userLogin != null) {
-            if (AccountData.userLogin.getRole() == 1) {
-                txtTitle.setText("Danh sách bài viết đã ứng tuyển");
-            } else if (AccountData.userLogin.getRole() == 2) {
-                txtTitle.setText("Bài viết của tôi");
-            }
+        txtTitle = view.findViewById(R.id.txtTitle);
+        listView = view.findViewById(R.id.listView);
+
+        if (AccountData.userLogin.getRole() == 1) {
+            txtTitle.setText("Danh sách bài viết đã ứng tuyển");
+        } else if (AccountData.userLogin.getRole() == 2) {
+            txtTitle.setText("Bài viết của tôi");
         }
 
         myRef = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, 1, FAHQueryParam.TypeInteger));
