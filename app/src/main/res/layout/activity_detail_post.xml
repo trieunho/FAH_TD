@@ -262,37 +262,44 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:id="@+id/txtSubmit"
-            android:visibility="gone"
-            android:layout_margin="@dimen/margin_control">
+            android:visibility="visible">
             <LinearLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:orientation="horizontal">
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:enabled="false"
-                    android:id="@+id/txtSubmitMember"
-                    android:text="20"
-                    android:padding="@dimen/padding_control"
-                    android:layout_margin="@dimen/margin_control"
-                    android:background="@drawable/fah_control_edit_test_default"/>
-                <TextView
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textStyle="italic"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:text="người đã ứng tuyển"/>
+                    android:layout_margin="@dimen/margin_control"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:enabled="false"
+                        android:id="@+id/txtSubmitMember"
+                        android:text="20"
+                        android:padding="@dimen/padding_control"
+                        android:layout_margin="@dimen/margin_control"
+                        android:background="@drawable/fah_control_edit_test_default"/>
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textStyle="italic"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:text="người đã ứng tuyển"/>
+                </LinearLayout>
+
                 <Button
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:id="@+id/btnDetailSubmit"
+                    android:background="@drawable/fah_control_button"
+                    android:gravity="center"
                     android:textStyle="bold"
-                    android:layout_marginLeft="@dimen/margin_control"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:text="Xem chi tiết"/>
+                    android:text="Danh sách ứng tuyển"/>
             </LinearLayout>
-
         </TableRow>
         <TableRow
             android:layout_height="wrap_content"

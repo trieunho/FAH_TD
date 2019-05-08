@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 import android.widget.TableRow;
-import android.widget.EditText;
 
 import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHMessage;
@@ -172,7 +171,7 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                     }
 
                     itemId = R.id.btnSubmit;
-                    AlertDialogMessage(DetailPostActivity.this, "Confirm", "Bạn có thực sự muốn ứng tuyển", "Đồng ý", "Không");
+                    AlertDialogMessage(DetailPostActivity.this, "Xác nhận", "Bạn có thực sự muốn ứng tuyển", "Đồng ý", "Không");
 
                 } else if (btnSubmit.getText().equals("Đã ứng tuyển")) {
                     try {

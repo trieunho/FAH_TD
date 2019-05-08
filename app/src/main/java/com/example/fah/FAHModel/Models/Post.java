@@ -22,7 +22,6 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
     private String salary_to;
     private Date approveDate;
     private Date dueDate;
-    private Date createDate;
     private int dtFrom;
     private int dtTo;
 
@@ -86,8 +85,7 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
                 String email,
                 String phone,
                 TypeOfPost typeOfPost,
-                String keyAccount,
-                Date createDate) {
+                String keyAccount) {
         this.setTitlePost(titlePost);
         this.setCompanyName(companyName);
         this.setCategory(category);
@@ -106,7 +104,6 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
         this.setPhone(phone);
         this.setTypeOfPost(typeOfPost);
         this.setKeyAccount(keyAccount);
-        this.setCreateDate(createDate);
     }
 
     public int compareTo(Post post) {
@@ -300,14 +297,6 @@ public class Post extends FAHFieldCommon implements Comparable<Post> {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public ArrayList<Account> getListOfAccApply() {
