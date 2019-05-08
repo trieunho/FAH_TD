@@ -19,8 +19,8 @@ public class ImageData {
             }
 
             @Override
-            public void EventFail() {
-                eventData.EventFail();
+            public void EventFail(String message) {
+                eventData.EventFail(message);
             }
         })));
     }
@@ -33,8 +33,8 @@ public class ImageData {
             }
 
             @Override
-            public void EventFail() {
-                eventData.EventFail();
+            public void EventFail(String message) {
+                eventData.EventFail(message);
             }
         })));
     }
@@ -45,7 +45,7 @@ public class ImageData {
             byte[] decodedString = Base64.decode(imgBase64, Base64.DEFAULT);
             src = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         } catch (Exception e) {
-            eventData.EventFail();
+            eventData.EventFail(e.getMessage());
         }
         return src;
     }

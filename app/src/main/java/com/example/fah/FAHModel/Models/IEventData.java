@@ -1,6 +1,6 @@
 package com.example.fah.FAHModel.Models;
 
 public interface IEventData {
-    public void EventSuccess();
-    public void EventFail();
+     void EventSuccess();
+     void EventFail(String message);
 }

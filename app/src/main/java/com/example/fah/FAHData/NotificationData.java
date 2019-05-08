@@ -43,20 +43,20 @@ public class NotificationData {
                                 if (task.isSuccessful()) {
                                     event.EventSuccess();
                                 } else {
-                                    event.EventFail();
+                                    event.EventFail("Lỗi khi thêm thông báo, vui lòng thử lại sau!");
                                 }
                             }
                         });
                     }
                     @Override
-                    public void EventFail() {
-                        event.EventFail();
+                    public void EventFail(String message) {
+                        event.EventFail(message);
                     }
                 });
             }
             @Override
-            public void EventFail() {
-                event.EventFail();
+            public void EventFail(String message) {
+                event.EventFail(message);
             }
         });
 
@@ -77,14 +77,15 @@ public class NotificationData {
                         if (task.isSuccessful()) {
                             event.EventSuccess();
                         } else {
-                            event.EventFail();
+                            event.EventFail("Lỗi khi thêm thông báo cho tất cả người dùng, vui lòng kiểm tra lại.");
                         }
                     }
                 });
             }
 
             @Override
-            public void EventFail() {
+            public void EventFail(String message) {
+                event.EventFail(message);
             }
         });
 
@@ -133,7 +134,7 @@ public class NotificationData {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        eventData.EventFail();
+                        eventData.EventFail("Lỗi khi đọc thông báo chung.");
                     }
                 });
     }
