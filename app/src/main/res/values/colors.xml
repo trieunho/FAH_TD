@@ -2,11 +2,13 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#98D543</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
-    <color name="signupColor">#000000</color>
-
+    <color name="colorRoyalBlue">#3577e5</color>
+    <color name="colorCrimson">#dc3545</color>
+    <color name="signUpColor">#000000</color>
+    <color name="grey_200">#EEEEEE</color>
     /*
     * Color rule
     */
@@ -14,6 +16,10 @@
     <color name="colorSolidDefault">#FFFFFF</color>
     <color name="colorSolidFocus">#FFFFFF</color>
     <color name="colorSolidDisabled">#575252</color>
+    <color name="colorSolidGray">#e9ebee</color>
+    <color name="colorSolidLightBlue">#bce4ef</color>
+    <color name="colorSolidLavender">#d7eaf9</color>
+    <color name="colorSolidWhiteSmoke">#f2f5f7</color>
     // Container
     <color name="colorStrokeDefault">#E9DFDF</color>
     <color name="colorStrokeFocus">#C04BBF</color>
@@ -46,12 +52,26 @@
     <color name="colorButtonStrokeDisabled">@color/colorStrokeDisabled</color>
 
     // Gradient
-    <color name="startColorButtonDefault">#CC98D5</color>
-    <color name="centerColorButtonDefault">#A45AB1</color>
-    <color name="endColorButtonDefault">#CC98D5</color>
+    <color name="startColorButtonDefault">#5681F0</color>
+    <color name="centerColorButtonDefault">#0943EC</color>
+    <color name="endColorButtonDefault">#5681F0</color>
 
-    <color name="startColorButtonPress">#89D0F0</color>
-    <color name="centerColorButtonPress">#0AA8F1</color>
-    <color name="endColorButtonPress">#89D0F0</color>
+    <color name="startColorButtonPress">#F5D851</color>
+    <color name="centerColorButtonPress">#DAF10A</color>
+    <color name="endColorButtonPress">#F5D851</color>
+
+    /*
+    * Combobox
+    */
+    <color name="colorComboboxSolidDefault">@color/colorSolidDefault</color>
+    <color name="colorComboboxSolidDisabled">@color/colorSolidDisabled</color>
+
+    <color name="colorComboboxStrokeDefault">@color/colorStrokeDefault</color>
+    <color name="colorComboboxStrokeDisabled">@color/colorStrokeDisabled</color>
+
+    /*
+    * Icon
+    */
+    <color name="colorIcon">#EC5050</color>
 
 </resources>

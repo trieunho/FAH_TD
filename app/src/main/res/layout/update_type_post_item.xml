@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtMessageCoin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="abc"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/txtInputCoin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtMessageCoin"
+        android:background="@drawable/fah_control_edit_text"
+        android:text="20"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/txtMessageTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtInputCoin"
+        android:text="abc"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/txtInputTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fah_control_edit_text"
+        android:layout_below="@+id/txtMessageTime"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btnDongY"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/txtInputTime"
+        android:layout_toLeftOf="@+id/btnHuy"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="OK" />
+    <Button
+        android:id="@+id/btnHuy"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/txtInputTime"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_alignParentRight="true"
+        android:text="Cancel" />
+</RelativeLayout>

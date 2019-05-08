@@ -1,20 +1,21 @@
 package com.example.fah.TestControl;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.fah.Control.FAHSpinner;
-import com.example.fah.FHADefine.FAHMessage;
+import com.example.fah.FAHCommon.FAHControl.FAHSpinner;
+import com.example.fah.TestControl.GridView.ObjectGrid;
+import com.example.fah.TestControl.GridView.CustomGridAdapter;
+import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.R;
 
 import java.util.ArrayList;
@@ -29,9 +30,9 @@ import java.util.List;
 public class TestFragment extends Fragment {
     public View view;
 
-    public EditText editText1;
+    public Spinner spinner;
+    public EditText editText;
     public Button button;
-    public Button button1;
 
     public TestFragment() {
         // Required empty public constructor
@@ -43,54 +44,78 @@ public class TestFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_test, container, false);
 
-        getControl();
+        GetControl();
 
         return view;
     }
 
-    public void onClickButton(View view){
-        if(editText1.isEnabled() || button.isEnabled()){
-            editText1.setEnabled(false);
-            button.setEnabled(false);
-        }else{
-            editText1.setEnabled(true);
-            button.setEnabled(true);
-        }
+    private void GetControl(){
+        SpinnerControl();
+        EditTextControl();
+        ButtonControl();
+        GridViewControl();
     }
 
-    private void getControl(){
-        // User design
-        Spinner spTime = view.findViewById(R.id.spTime);
-        Spinner spJob = view.findViewById(R.id.spJob);
+    private void SpinnerControl(){
+        spinner = view.findViewById(R.id.spinner);
 
+        // Set item source
         List<String> listJob = new ArrayList();
         listJob.add("Java");
         listJob.add("Android");
         listJob.add("PHP");
         listJob.add("C#");
         listJob.add("ASP.NET");
+        FAHSpinner.setItemSource(getActivity(), spinner, listJob);
+    }
 
-        // Sử dụng
-        FAHSpinner.setItemSource(getActivity(), spJob, listJob);
+    private void EditTextControl(){
+        editText = view.findViewById(R.id.editText);
+    }
 
-        List<String> listTime = new ArrayList();
-        listTime.add("Buổi sáng");
-        listTime.add("Buổi chiều");
-        listTime.add("Buổi tối");
-        listTime.add("Tất cả");
-
-        FAHSpinner.setItemSource(getActivity(), spTime, listTime);
-
-        editText1 = view.findViewById(R.id.name_edit_text1);
+    private void ButtonControl(){
         button = view.findViewById(R.id.button);
-        button1 = view.findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener()
-        {
+
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                FAHMessage.AlertDialogMessage(getActivity());
+            public void onClick(View v) {
+                FAHMessage.ToastMessage(getActivity(), "Click button");
             }
         });
+    }
+
+    private void GridViewControl(){
+        List<ObjectGrid> image_details = getListData();
+        final GridView gridView = view.findViewById(R.id.gridView);
+        gridView.setAdapter(new CustomGridAdapter(getActivity(), image_details));
+
+        // Khi người dùng click vào các GridItem
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Object o = gridView.getItemAtPosition(position);
+                ObjectGrid objectGrid = (ObjectGrid) o;
+                Toast.makeText(getActivity(), "Selected :"
+                        + " " + objectGrid, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private  List<ObjectGrid> getListData() {
+        List<ObjectGrid> list = new ArrayList<>();
+        ObjectGrid vietnam = new ObjectGrid("Vietnam 111111111111111111111111111111111111111111111111111111111111111111111111111111 1111111111111111111111111111111111", "ic_arrow_down", 98000000);
+        ObjectGrid usa = new ObjectGrid("United States", "ic_arrow_down", 320000000);
+        ObjectGrid russia = new ObjectGrid("Russia", "ic_arrow_down", 142000000);
+        ObjectGrid australia = new ObjectGrid("Australia", "ic_arrow_down", 23766305);
+        ObjectGrid japan = new ObjectGrid("Japan", "ic_arrow_down", 126788677);
+
+        list.add(vietnam);
+        list.add(usa);
+        list.add(russia);
+        list.add(australia);
+        list.add(japan);
+
+        return list;
     }
 }

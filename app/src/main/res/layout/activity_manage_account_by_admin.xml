@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".FAHScreen.Account.ManageAccountByAdminActivity">
+
+    <include layout="@layout/check_connection_header"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_manage_account"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Tên Account: "/>
+        <!--<EditText-->
+            <!--android:id="@+id/editTextSearch"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>-->
+        <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+            android:id="@+id/editTextSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:imeOptions="actionSearch"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_margin="@dimen/margin_control"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/small_button_control"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:text="Tìm kiếm"
+            android:background="@drawable/fah_control_button" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvResultOfSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        />
+
+    <ListView
+        android:id="@+id/lvAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -3,13 +3,10 @@
     android:shape="rectangle"
     android:padding="10dp"
     >
-    <solid android:color="@color/colorButtonSolidFocus"/>
-    <stroke android:width="1dip" android:color="@color/colorButtonStrokeFocus"/>
+    <solid android:color="@color/colorButtonSolidDefault"/>
+    <stroke android:width="1dip" android:color="@color/colorButtonStrokeDefault"/>
     <corners
-        android:bottomRightRadius="@dimen/radius_control"
-        android:bottomLeftRadius="@dimen/radius_control"
-        android:topLeftRadius="@dimen/radius_control"
-        android:topRightRadius="@dimen/radius_control"/>
+        android:radius="@dimen/radius_control"/>
     <gradient
         android:startColor="@color/startColorButtonDefault"
         android:centerColor="@color/centerColorButtonDefault"

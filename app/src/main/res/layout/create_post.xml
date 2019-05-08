@@ -1,196 +1,345 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ScrollView
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
+        <include layout="@layout/check_connection_header"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical">
-            <TextView
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tiêu đề: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <EditText
-                android:id="@+id/txtTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mô tả công việc: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <EditText
-                android:id="@+id/txtDescription"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:gravity="top"
-                android:inputType="text|textMultiLine"
-                android:scrollbars="vertical" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Yêu cầu cơ bản: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <EditText
-                android:id="@+id/txtRequired"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:gravity="top"
-                android:inputType="text|textMultiLine"
-                android:scrollbars="vertical" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Quyền lợi: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <EditText
-                android:id="@+id/txtQuyenLoi"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:gravity="top"
-                android:inputType="text|textMultiLine"
-                android:scrollbars="vertical" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nơi làm việc: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <EditText
-                android:id="@+id/txtCompanyAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Thời gian làm việc: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40sp"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Buổi sáng"
-                    android:textSize="15sp" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Buổi chiều"
-                    android:textSize="15sp" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Buổi tối"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mức lương: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/txtLuong"
+                android:layout_height="match_parent">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true" />
-            </LinearLayout>
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tiêu đề: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/txtTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:layout_marginBottom="10dp"
+                        android:drawableLeft="@drawable/ic_directions_car"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:background="@drawable/fah_control_edit_test_default"
+                        android:singleLine="true" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Email: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <EditText
-                android:id="@+id/txtEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tên công ty: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/txtCompanyName"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:layout_marginBottom="10dp"
+                        android:drawableLeft="@drawable/ic_directions_car"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:background="@drawable/fah_control_edit_test_default"
+                        android:singleLine="true" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Điện thoại: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <EditText
-                android:id="@+id/txtPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="phone" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lĩnh vực hoạt động: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/cbxField"
+                        android:editable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:gravity="center"
+                        android:background="@drawable/fah_control_combobox"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:drawableRight="@drawable/ic_arrow_down"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hạn ứng tuyển: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <EditText
-                android:id="@+id/txtDueDate"
-                android:onClick="onClickDate"
-                android:layout_width="match_parent"
-                android:layout_gravity="left"
-                android:hint="mm/dd/yyyy"
-                android:layout_height="match_parent"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mô tả công việc: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/txtDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/fah_control_edit_test_default"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:gravity="top"
+                        android:inputType="text|textMultiLine"
+                        android:scrollbars="vertical" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Loại bài đăng: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Yêu cầu cơ bản: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/txtRequired"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/fah_control_edit_test_default"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:gravity="top"
+                        android:inputType="text|textMultiLine"
+                        android:scrollbars="vertical" />
 
-                <Spinner
-                    android:id="@+id/spnLoai"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"></Spinner>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Quyền lợi: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/txtBenifit"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/fah_control_edit_test_default"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:gravity="top"
+                        android:inputType="text|textMultiLine"
+                        android:scrollbars="vertical" />
 
-                <TextView
-                    android:id="@+id/txvLoai"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Số lượng ứng tuyển: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/txtSoLuong"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:layout_marginBottom="10dp"
+                        android:drawableLeft="@drawable/ic_directions_car"
+                        android:background="@drawable/fah_control_edit_test_default"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:inputType="number"
+                        android:singleLine="true"/>
 
-            <Button
-                android:id="@+id/btnPost"
-                android:onClick="onClickSubmit"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Đăng bài" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hạn ứng tuyển: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/txtDate"
+                        android:onClick="onClickDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:layout_marginBottom="10dp"
+                        android:drawableLeft="@drawable/ic_menu_gallery"
+                        android:background="@drawable/fah_control_edit_test_default"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:layout_gravity="left"
+                        android:editable="false"
+                        android:hint="mm/dd/yyyy"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Địa chỉ: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/txtAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:layout_marginBottom="10dp"
+                        android:drawableLeft="@drawable/ic_directions_car"
+                        android:background="@drawable/fah_control_edit_test_default"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Thời gian làm việc: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_control"
+                            android:layout_marginRight="@dimen/margin_control"
+                            android:text="Từ"/>
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="time"
+                            android:text="00"
+                            android:maxLength="2"
+                            android:id="@+id/dtFrom"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_control"
+                            android:layout_marginRight="@dimen/margin_control"
+                            android:text="Giờ"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_control"
+                            android:layout_marginRight="@dimen/margin_control"
+                            android:text="Đến"/>
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="time"
+                            android:text="00"
+                            android:maxLength="2"
+                            android:id="@+id/dtTo"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_control"
+                            android:layout_marginRight="@dimen/margin_control"
+                            android:text="Giờ"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lương: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:layout_marginBottom="10dp"
+                        android:columnCount="4"
+                        android:orientation="vertical">
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/wrap_content_control">
+                            <EditText
+                                android:id="@+id/cbxLuong"
+                                android:editable="false"
+                                android:gravity="center"
+                                android:background="@drawable/fah_control_combobox"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:drawableRight="@drawable/ic_arrow_down"
+                                android:layout_marginRight="@dimen/margin_control"
+                                android:layout_width="120dp"
+                                android:layout_height="@dimen/wrap_content_control" />
+                            <EditText
+                                android:id="@+id/txtLuong1"
+                                android:layout_width="90dp"
+                                android:layout_height="@dimen/wrap_content_control"
+                                android:background="@drawable/fah_control_edit_test_default"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:inputType="numberDecimal"
+                                android:singleLine="true"/>
+                            <TextView
+                                android:id="@+id/lbl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="~"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"/>
+                            <EditText
+                                android:id="@+id/txtLuong2"
+                                android:layout_width="90dp"
+                                android:layout_height="@dimen/wrap_content_control"
+                                android:background="@drawable/fah_control_edit_test_default"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:inputType="numberDecimal"
+                                android:singleLine="true"/>
+                        </TableRow>
+                    </GridLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Email: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/txtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:layout_marginBottom="10dp"
+                        android:drawableLeft="@drawable/ic_directions_car"
+                        android:background="@drawable/fah_control_edit_test_default"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:inputType="textEmailAddress" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Số điện thoại: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <EditText
+                        android:id="@+id/txtPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:layout_marginBottom="10dp"
+                        android:drawableLeft="@drawable/ic_directions_car"
+                        android:background="@drawable/fah_control_edit_test_default"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:inputType="phone" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Loại bài viết: "
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/wrap_content_control"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:id="@+id/cbxTOP"
+                            android:editable="false"
+                            android:layout_width="120dp"
+                            android:layout_height="@dimen/wrap_content_control"
+                            android:gravity="center"
+                            android:background="@drawable/fah_control_combobox"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:drawableRight="@drawable/ic_arrow_down"/>
+                        <EditText
+                            android:id="@+id/txvLoai"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/wrap_content_control"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/margin_control"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:background="@drawable/fah_control_edit_test_default"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

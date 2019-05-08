@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/check_connection_header"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        android:layout_above="@+id/infoNomal"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/back"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="50dp"
+            android:contentDescription="TODO" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#0000"
+            android:padding="16dp"
+            android:text="THÔNG TIN CÁ NHÂN"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="0dp"
+                    >
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:gravity="bottom"
+                    android:id="@+id/userAvata"
+                    android:src="@drawable/meninblack"
+                    />
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="0dp"
+                    >
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:id="@+id/infoNomal"
+        android:scrollbars="vertical"
+        android:layout_height="400dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/usrusr"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Tên hiển thị"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profileUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="right"
+                    android:hint="Duong Cong Thanh"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:textColor="#181737"
+                    android:textColorHint="#1b193b"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Giới tính"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profileUserSex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="right"
+                    android:hint="Nam"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:textColor="#181737"
+                    android:textColorHint="#1b193b"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Ngày sinh"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profileUserBirthDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="right"
+                    android:hint="07/07/1997"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:textColor="#181737"
+                    android:textColorHint="#1b193b"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Di động"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profileUserPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="right"
+                    android:hint="09987654321"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:textColor="#181737"
+                    android:textColorHint="#1b193b"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Di động"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profileUserAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="right"
+                    android:hint="09987654321"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:textColor="#181737"
+                    android:textColorHint="#1b193b"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mail"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Email"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/profileUserEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="right"
+                    android:hint="utduong77@mail.com"
+                    android:padding="16dp"
+                    android:textColor="#181737"
+                    android:textColorHint="#1b193b"
+                    android:textSize="18dp" />
+            </LinearLayout>
+            />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:id="@+id/profileTimeWorkLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="left"
+                        android:maxLength="17"
+                        android:padding="16dp"
+                        android:text="Thờ gian vào ca"
+                        android:textColor="#a2a1b8"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/profileUserTimeStart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="right"
+                        android:hint="7h"
+                        android:maxLength="17"
+                        android:padding="16dp"
+                        android:textColor="#181737"
+                        android:textColorHint="#1b193b"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dad8d8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="left"
+                        android:maxLength="17"
+                        android:padding="16dp"
+                        android:text="Thờ gian ra ca"
+                        android:textColor="#a2a1b8"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/profileUserTimeEnd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="right"
+                        android:hint="17h "
+                        android:maxLength="12"
+                        android:padding="16dp"
+                        android:textColor="#181737"
+                        android:textColorHint="#1b193b"
+                        android:textSize="16dp" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dad8d8" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/profileCompanyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="left"
+                        android:maxLength="17"
+                        android:padding="16dp"
+                        android:text="Tên công ty"
+                        android:textColor="#a2a1b8"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/profileUsercompanyName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="right"
+                        android:hint="FPT Software"
+                        android:padding="16dp"
+                        android:textColor="#181737"
+                        android:textColorHint="#1b193b"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dad8d8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="left"
+                        android:maxLength="20"
+                        android:padding="16dp"
+                        android:text="Địa chỉ công ty"
+                        android:textColor="#a2a1b8"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/profileUsercompanyAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="right"
+                        android:hint="Hưng kỳ khởi nghĩa "
+                        android:maxLength="12"
+                        android:padding="16dp"
+                        android:textColor="#181737"
+                        android:textColorHint="#1b193b"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dad8d8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="left"
+                        android:maxLength="20"
+                        android:padding="16dp"
+                        android:text="Di động công ty"
+                        android:textColor="#a2a1b8"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/profileUsercompanyPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="right"
+                        android:hint="17h "
+                        android:maxLength="12"
+                        android:padding="16dp"
+                        android:textColor="#181737"
+                        android:textColorHint="#1b193b"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dad8d8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="left"
+                        android:maxLength="17"
+                        android:padding="16dp"
+                        android:text="Email công ty"
+                        android:textColor="#a2a1b8"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/profileUsercompanyEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="right"
+                        android:hint="17h "
+                        android:maxLength="12"
+                        android:padding="16dp"
+                        android:textColor="#181737"
+                        android:textColorHint="#1b193b"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dad8d8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+                        android:gravity="left"
+                        android:padding="16dp"
+                        android:text="Thông tin công ty"
+                        android:textColor="#a2a1b8"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dad8d8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/profileUsercompanyIntro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="textMultiLine"
+                        android:text="Công ty của chúng tôi chuyên thiết kế phần mềm cho các doanh nghiệp lớn hàng đầu việt nam"
+                        android:textColor="#181737" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
