@@ -216,8 +216,8 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void EventFail() {
-                        Toast.makeText(ProfileActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();
+                    public void EventFail(String message) {
+                        Toast.makeText(ProfileActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.User.Login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,11 +16,13 @@ import android.widget.Toast;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.IEventData;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
-import com.example.fah.FAHScreen.User.ProfileActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     EditText emailEditText;
@@ -27,11 +30,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button loginBtn;
     TextView resetBtn;
     TextView createAccountBtn;
+    ProgressDialog progressDoalog;
     LinearLayout ActivityLoginLayout;
+    private final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        progressDoalog = new ProgressDialog(LoginActivity.this);
+        progressDoalog.setMax(100);
+        progressDoalog.setMessage("Đang vào hệ thống....");
+        progressDoalog.setTitle("Đăng Nhập");
         if (AccountData.userLogin != null) {
             if (AccountData.userLogin.isLogin() == true) {
                 nextMain();
@@ -58,10 +68,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void nextMain() {
-        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
-        finish();
+        if(AccountData.userLogin.getStatusBlock()==1){
+            Toast.makeText(this, "Tài khoản này đã bị khóa, vui lòng liên hệ quản trị viên để mở hoạt dộng.", Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
+        }
     }
 
 
@@ -90,11 +105,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+    private boolean validate(String emailStr, String password) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return (password.length() > 0 || password.equals(";")) && matcher.find();
+    }
 
     public void loginUser() {
-
-        String email = emailEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+        if(email!="" && email!=null){
+            email = email.trim();
+        }
+        if(password!="" && password!=null){
+            password = password.trim();
+        }
+        if (!validate(email, password)) {
+            Toast.makeText(this, "Email hoặc mật khẩu không hợp lệ.", Toast.LENGTH_SHORT).show();
+            emailEditText.requestFocus();
+            return;
+        }
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Vui lòng nhập Email", Toast.LENGTH_LONG).show();
             return;
@@ -104,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Vui lòng nhập mật khẩu", Toast.LENGTH_LONG).show();
             return;
         }
-
+        progressDoalog.show();
         AccountData.firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -114,20 +143,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 AccountData.GetAccount(new IEventData() {
                                     @Override
                                     public void EventSuccess() {
-                                        nextMain();
+                                         nextMain();
+                                        progressDoalog.dismiss();
                                     }
 
                                     @Override
-                                    public void EventFail() {
-                                        Toast.makeText(LoginActivity.this, "Lỗi không thể lấy được thông tin người dùng!", Toast.LENGTH_SHORT).show();
+                                    public void EventFail(String message) {
+                                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                                        progressDoalog.dismiss();
                                     }
                                 });
                             } catch (Exception e) {
                                 Toast.makeText(LoginActivity.this, "Lỗi khi tải thông tin người dùng.", Toast.LENGTH_SHORT).show();
+                                progressDoalog.dismiss();
                             }
                         } else {
                             Toast.makeText(LoginActivity.this, "Đăng nhập không hợp lệ.",
                                     Toast.LENGTH_SHORT).show();
+                            progressDoalog.dismiss();
                         }
                     }
                 });

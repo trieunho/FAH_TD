@@ -60,8 +60,8 @@ public class AccountData {
                         }
 
                         @Override
-                        public void EventFail() {
-                            event.EventSuccess();
+                        public void EventFail(String message) {
+                            event.EventFail(message);
                         }
                     });
                 } catch (Exception e) {
@@ -100,7 +100,7 @@ public class AccountData {
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    eventData.EventFail("Không thể truy cập được hình ảnh.");
                 }
             });
         }
