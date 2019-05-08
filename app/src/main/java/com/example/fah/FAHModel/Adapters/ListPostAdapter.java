@@ -90,7 +90,7 @@ public class ListPostAdapter extends BaseAdapter {
         current = this.listData.get(position);
         holder.titlePost.setText(current.getTitlePost());
         holder.companyName.setText("Công ty: " + current.getCompanyName());
-        holder.createDate.setText("Ngày tạo: " + DateFormat.format("dd/MM/yyyy", current.getCreateDate()));
+        holder.createDate.setText("Ngày tạo: " + DateFormat.format("dd/MM/yyyy", current.getAddDate()));
         holder.btnApprove.setText(current.getStatus() == 0 ? "Duyệt" : "Đã duyệt");
         holder.btnApprove.setEnabled(current.getStatus() == 0);
         FirebaseDatabase.getInstance().getReference().child("Account")

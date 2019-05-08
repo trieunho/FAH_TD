@@ -122,8 +122,7 @@ public class CreatePostActivity extends AppCompatActivity {
                                     txtEmail.getText().toString(),
                                     txtPhone.getText().toString(),
                                     top,
-                                    userLogin.getKey(),
-                                    new Date());
+                                    userLogin.getKey());
                             FAHQuery.InsertData(dataUpdate, "Post");
 
                             // update data Account: minus coin

@@ -25,6 +25,7 @@ import com.example.fah.FAHScreen.Manage.ManageCategoryActivity;
 import com.example.fah.FAHScreen.Manage.ManageTypePostActivity;
 import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
 import com.example.fah.FAHScreen.Post.ListPostActivity;
+import com.example.fah.FAHScreen.Post.ManageCandidateByPost;
 import com.example.fah.FAHScreen.Post.PostManagementActivity;
 import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.FAHScreen.User.ProfileActivity;
@@ -116,7 +117,7 @@ public class MenuFragment extends Fragment {
         list.add(new Menu("Quản lý bài đăng", "ic_launcher_manage_post", "2", new IEvenItem() {
             @Override
             public void callEvent() {
-                startActivity(new Intent(getContext(), ListPostActivity.class));
+                startActivity(new Intent(getContext(), ManageCandidateByPost.class));
             }
         }));
         list.add(new Menu("Duyệt bài đăng", "ic_launcher_post", "3", new IEvenItem() {
