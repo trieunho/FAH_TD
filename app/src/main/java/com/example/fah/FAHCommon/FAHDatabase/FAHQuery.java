@@ -1,6 +1,5 @@
 package com.example.fah.FAHCommon.FAHDatabase;
 
-import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.google.firebase.database.DataSnapshot;
@@ -89,49 +88,11 @@ public class FAHQuery {
     }
 
     /**
-     * Insert 1 data with url
-     * @param data
-     * @param url
-     */
-    public static void InsertData(Object data, String url){
-        reference.getReference(url).push().setValue(data);
-    }
-
-    /**
-     * Insert 1 list data with url
-     * @param data
-     * @param url
-     */
-    public static void InsertData(List<?> data, String url){
-        for(Object item : data){
-            InsertData(item, url);
-        }
-    }
-
-    /**
-     * Insert 1 data with name object database
-     * @param data
-     */
-    public static void InsertData(Object data){
-        InsertData(data, GetNameDB(data));
-    }
-
-    /**
-     * Insert 1 list data with name object database
-     * @param data
-     */
-    public static void InsertData(List<?> data){
-        for(Object item : data){
-            InsertData(item);
-        }
-    }
-
-    /**
      * Insert 1 data with url and get key
      * @param data
      * @param url
      */
-    public static String InsertDataGetKey(Object data, String url){
+    public static String InsertData(Object data, String url){
         String key = reference.getReference(url).push().getKey();
         UpdateData(data, ExcuteString.GetUrlData(url, key));
 
@@ -143,31 +104,32 @@ public class FAHQuery {
      * @param data
      * @param url
      */
-    public static ArrayList<String> InsertDataGetKey(List<?> data, String url){
+    public static ArrayList<String> InsertData(List<?> data, String url){
         ArrayList<String> listKey = new ArrayList<>();
         for(Object item : data) {
-            listKey.add(InsertDataGetKey(item, url));
+            listKey.add(InsertData(item, url));
         }
 
         return listKey;
     }
 
     /**
-     * Insert 1 data with name object and get key
+     * Insert 1 data with name object database
      * @param data
      */
-    public static String InsertDataGetKey(Object data){
-        return InsertDataGetKey(data, GetNameDB(data));
+    public static String InsertData(Object data){
+        SetDateInsertData(data);
+        return InsertData(data, GetNameDB(data));
     }
 
     /**
-     * Insert 1 list data with name object and get key
+     * Insert 1 list data with name object database
      * @param data
      */
-    public static ArrayList<String> InsertDataGetKey(List<?> data){
+    public static ArrayList<String> InsertData(List<?> data){
         ArrayList<String> listKey = new ArrayList<>();
-        for(Object item : data) {
-            listKey.add(InsertDataGetKey(item));
+        for(Object item : data){
+            InsertData(item);
         }
 
         return listKey;
@@ -179,8 +141,9 @@ public class FAHQuery {
      * @param url
      */
     public static void UpdateData(Object data, String url){
-        SetDateUpdateInsertData(data);
-        reference.getReference(url).setValue(data);
+        UpdateDataDetail(data, url);
+        String[] keyTable = url.split("/", 2);
+        UpdateDataDetail(new Date(), ExcuteString.GetUrlData(keyTable[0], keyTable[1], "updDate"));
     }
 
     /**
@@ -240,16 +203,21 @@ public class FAHQuery {
         }
     }
 
+    private static void UpdateDataDetail(Object data, String url){
+        reference.getReference(url).setValue(data);
+    }
+
     private static String GetReferenceDB(Object data){
         String key = (String) CallMethodObject(data, "getKey", new Class[]{}, new Object[]{});
 
         return ExcuteString.GetUrlData(GetNameDB(data), key);
     }
 
-    private static void SetDateUpdateInsertData(Object data){
-        if(CallMethodObject(data, "getAddDate", new Class[]{}, new Object[]{}) == null){
-            CallMethodVoid(data, "setAddDate", new Class[]{Date.class}, new Object[]{new Date()});
-        }
+    private static void SetDateInsertData(Object data){
+        CallMethodVoid(data, "setAddDate", new Class[]{Date.class}, new Object[]{new Date()});
+    }
+
+    private static void SetDateUpdateData(Object data){
         CallMethodVoid(data, "setUpdDate", new Class[]{Date.class}, new Object[]{new Date()});
     }
 
@@ -363,39 +331,5 @@ public class FAHQuery {
         }
 
         return data;
-    }
-
-    private static void UpdateListData(Object data, String url){
-        try {
-            for(Field field : data.getClass().getDeclaredFields()){
-                if(field.getType().getSimpleName().equals("ArrayList")){
-//                    String keyValue = ExcuteString.GetUrlData(url, field.getName());
-//                    List<?> value = (List<?>) field.get(new Object());
-//                    UpdateListDetail(value, keyValue);
-                }else{
-                    field.setAccessible(true);
-//                    Object value = field.get(field.getType());
-                    UpdateOrInsertData("1", url);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void UpdateListDetail(List<?> data, String url){
-        for(Object item : data){
-            String key = (String) CallMethodObject(item, "getKey", new Class[]{}, new Object[]{});
-            UpdateData(item, ExcuteString.GetUrlData(url, key));
-        }
-    }
-
-    private static void UpdateOrInsertData(Object data, String url){
-        String key = (String) CallMethodObject(data, "getKey", new Class[]{}, new Object[]{});
-        if(ExcuteString.IsNullOrEmpty(key)){
-            InsertData(data, ExcuteString.GetUrlData(url, key));
-        }else{
-            UpdateData(data, ExcuteString.GetUrlData(url, key));
-        }
     }
 }

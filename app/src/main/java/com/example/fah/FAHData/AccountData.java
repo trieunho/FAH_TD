@@ -31,7 +31,7 @@ public class AccountData {
     }
 
     public static String InsertAccountGetKey(Account account) {
-        return FAHQuery.InsertDataGetKey(account);
+        return FAHQuery.InsertData(account);
     }
 
     public boolean InsertListAccount() {

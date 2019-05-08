@@ -47,7 +47,7 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
             public void onClick(View v) {
                 TestDB test = accountList.get(0);
                 test.setTitlePost("Không được nghe");
-                FAHQuery.UpdateData(test);
+                FAHQuery.InsertData(test);
             }
         });
 
