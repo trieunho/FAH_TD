@@ -43,7 +43,6 @@ public class AccountData {
     }
 
     public static void GetAccount(final IEventData event) throws Exception {
-        final Account account = new Account();
         AccountData.firebaseUser = AccountData.firebaseAuth.getCurrentUser();
         FirebaseDatabase.getInstance().getReference().child("Account")
                 .orderByChild("email")

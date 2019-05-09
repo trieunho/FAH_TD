@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     LinearLayout ActivityLoginLayout;
     private final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void addControl() {
-        ActivityLoginLayout=findViewById(R.id.ActivityLoginLayout);
+        ActivityLoginLayout = findViewById(R.id.ActivityLoginLayout);
         ActivityLoginLayout.setMinimumWidth(200);
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
@@ -68,10 +69,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void nextMain() {
-        if(AccountData.userLogin.getStatusBlock()==1){
+        if (AccountData.userLogin.getStatusBlock() == 1) {
             Toast.makeText(this, "Tài khoản này đã bị khóa, vui lòng liên hệ quản trị viên để mở hoạt dộng.", Toast.LENGTH_SHORT).show();
             return;
-        }else{
+        } else {
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
@@ -105,6 +106,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+
     private boolean validate(String emailStr, String password) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return (password.length() > 0 || password.equals(";")) && matcher.find();
@@ -113,10 +115,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void loginUser() {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        if(email!="" && email!=null){
+        if (email != "" && email != null) {
             email = email.trim();
         }
-        if(password!="" && password!=null){
+        if (password != "" && password != null) {
             password = password.trim();
         }
         if (!validate(email, password)) {
@@ -143,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 AccountData.GetAccount(new IEventData() {
                                     @Override
                                     public void EventSuccess() {
-                                         nextMain();
+                                        nextMain();
                                         progressDoalog.dismiss();
                                     }
 

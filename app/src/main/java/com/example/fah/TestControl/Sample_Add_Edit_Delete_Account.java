@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.TestDB;
+import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -46,8 +47,7 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TestDB test = accountList.get(0);
-                test.setTitlePost("Không được nghe");
-                FAHQuery.InsertData(test);
+                FAHQuery.DeleteData(ExcuteString.GetUrlData("TestDB", test.getKey(), "titlePost"));
             }
         });
 
