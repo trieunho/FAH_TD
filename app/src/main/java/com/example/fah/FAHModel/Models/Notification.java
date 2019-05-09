@@ -7,14 +7,24 @@ public class Notification {
     private String image;
     public String title;
     private String accountKey;
+    private int screenId;
 
-    public Notification(String notificationID, String body, String time, String image, String title, String accountKey) {
+    public Notification(String notificationID, String body, String time, String image, String title, String accountKey, int screenId) {
         this.notificationID = notificationID;
         this.body = body;
         this.time = time;
         this.image = image;
         this.title = title;
         this.accountKey = accountKey;
+        this.screenId = screenId;
+    }
+
+    public int getScreenId() {
+        return screenId;
+    }
+
+    public void setScreenId(int screenId) {
+        this.screenId = screenId;
     }
 
     public Notification() {
