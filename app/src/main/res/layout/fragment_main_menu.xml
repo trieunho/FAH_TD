@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".FAHScreen.Main.Tab.MenuFragment">
-    <!--<de.hdodenhof.circleimageview.CircleImageView-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/ivAvatar"-->
-        <!--android:layout_margin="@dimen/margin_control"-->
-        <!--android:layout_width="96dp"-->
-        <!--android:layout_height="96dp"-->
-        <!--android:src="@mipmap/ic_launcher_avatar_round"-->
-        <!--app:civ_border_width="1dp"-->
-        <!--app:civ_border_color="#FF000000"/>-->
 
     <GridView
         android:id="@+id/gvMenu"
