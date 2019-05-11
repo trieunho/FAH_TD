@@ -38,8 +38,14 @@ public class AccountData {
         return true;
     }
 
-    public static void UpdateAccount(Account account) {
-        FAHQuery.UpdateData(account);
+    public static void UpdateAccount(Account account,final IEventData event) {
+        try{
+            FAHQuery.UpdateData(account);
+            event.EventSuccess();
+        }catch (Exception e){
+            event.EventFail("Đã gặp sự cố khi update, vui lòng thử lại sau.");
+        }
+
     }
 
     public static void GetAccount(final IEventData event) throws Exception {
@@ -64,7 +70,7 @@ public class AccountData {
                         }
                     });
                 } catch (Exception e) {
-                    throw e;
+                    event.EventFail("Đăng nhập gặp sự cố, vui lòng liên hệ quản trị viên.");
                 }
             }
 

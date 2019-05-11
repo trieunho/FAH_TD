@@ -20,6 +20,7 @@ import com.example.fah.FAHData.CategoryData;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Category;
 import com.example.fah.FAHModel.Models.IEvenItem;
+import com.example.fah.FAHModel.Models.IEventData;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -221,7 +222,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    Account account = new Account();
+                                                    final Account account = new Account();
                                                     account.setAccountName(AccountData.firebaseUser.getDisplayName());
                                                     account.setEmail(AccountData.firebaseUser.getEmail());
                                                     if (radioButtonuv.isChecked()) {
@@ -250,11 +251,20 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                                     }
                                                     String key = AccountData.InsertAccountGetKey(account);
                                                     account.setKey(key);
-                                                    AccountData.UpdateAccount(account);
-                                                    AccountData.userLogin = account;
-                                                    AccountData.userLogin.setLogin(true);
-                                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                                                    finish();
+                                                    AccountData.UpdateAccount(account, new IEventData() {
+                                                        @Override
+                                                        public void EventSuccess() {
+                                                            AccountData.userLogin = account;
+                                                            AccountData.userLogin.setLogin(true);
+                                                            startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                                                            finish();
+                                                        }
+                                                        @Override
+                                                        public void EventFail(String message) {
+                                                            Toast.makeText(SignupActivity.this, message, Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+
                                                 }
                                             }
                                         });
