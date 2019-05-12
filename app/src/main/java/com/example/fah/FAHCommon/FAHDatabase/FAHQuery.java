@@ -150,7 +150,7 @@ public class FAHQuery {
      */
     public static void UpdateData(Object data, String url) {
         UpdateDataDetail(data, url);
-        String[] keyTable = url.split("/", 2);
+        String[] keyTable = url.split("/");
         UpdateDataDetail(new Date(), ExcuteString.GetUrlData(keyTable[0], keyTable[1], "updDate"));
     }
 
