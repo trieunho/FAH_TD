@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -17,23 +16,18 @@ import android.widget.Toast;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.IEvenItem;
-import com.example.fah.FAHModel.Models.Image;
 import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
 import com.example.fah.FAHScreen.Main.GridView.Menu.GridListMenuMainAdapter;
 import com.example.fah.FAHScreen.Main.GridView.Menu.Menu;
 import com.example.fah.FAHScreen.Manage.ManageCategoryActivity;
 import com.example.fah.FAHScreen.Manage.ManageTypePostActivity;
+import com.example.fah.FAHScreen.Other.RulesActivity;
 import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
-import com.example.fah.FAHScreen.Post.ListPostActivity;
 import com.example.fah.FAHScreen.Post.ManageCandidateByPost;
 import com.example.fah.FAHScreen.Post.PostManagementActivity;
 import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.FAHScreen.User.ProfileActivity;
 import com.example.fah.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +40,7 @@ public class MenuFragment extends Fragment {
     GridView gvMenu;
     ProgressDialog progressDoalog;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         progressDoalog = new ProgressDialog(getContext());
         progressDoalog.setMax(100);
         progressDoalog.setMessage("Đang tải dữ liệu....");
@@ -77,7 +70,7 @@ public class MenuFragment extends Fragment {
     private void GridViewControl(){
         List<Menu> listMenu = getListData();
         gvMenu = view.findViewById(R.id.gvMenu);
-        gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), listMenu, ""));
+        gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), listMenu));
 
         // Khi người dùng click vào các GridItem
         gvMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,7 +92,7 @@ public class MenuFragment extends Fragment {
         list.add(new Menu("Avatar", "ic_launcher_search_job", "123", new IEvenItem() {
             @Override
             public void callEvent() {
-
+                startActivity(new Intent(getContext(), ProfileActivity.class));
             }
         }));
         list.add(new Menu("Đăng nhập", "ic_launcher_login", "0", new IEvenItem() {
@@ -147,19 +140,19 @@ public class MenuFragment extends Fragment {
         list.add(new Menu("Điều khoản", "ic_launcher_option", "0123", new IEvenItem() {
             @Override
             public void callEvent() {
-                startActivity(new Intent(getContext(), ManageTypePostActivity.class));
+                startActivity(new Intent(getContext(), RulesActivity.class));
             }
         }));
         list.add(new Menu("Chính sách bảo mật", "ic_launcher_option", "0123", new IEvenItem() {
             @Override
             public void callEvent() {
-                startActivity(new Intent(getContext(), ManageTypePostActivity.class));
+                startActivity(new Intent(getContext(), RulesActivity.class));
             }
         }));
         list.add(new Menu("Trợ giúp", "ic_launcher_option", "0123", new IEvenItem() {
             @Override
             public void callEvent() {
-                startActivity(new Intent(getContext(), ManageTypePostActivity.class));
+                startActivity(new Intent(getContext(), RulesActivity.class));
             }
         }));
         list.add(new Menu("Đăng xuất", "ic_launcher_logout", "123", new IEvenItem() {
@@ -193,12 +186,11 @@ public class MenuFragment extends Fragment {
                             Account account=new Account();
                             account.setLogin(false);
 //                            MainActivity.userLogin=account;
-                            gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData(), "1"));
+                            gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
                         }else{
                             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
                         }
                         dialogInterface.dismiss();
-
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
