@@ -123,7 +123,7 @@ public class CreatePostActivity extends AppCompatActivity {
                                     txtPhone.getText().toString(),
                                     top,
                                     userLogin.getKey());
-                            FAHQuery.InsertData(dataUpdate, "Post");
+                            FAHQuery.InsertData(dataUpdate);
 
                             // update data Account: minus coin
                             myRef = FirebaseDatabase.getInstance().getReference("TYPE_OF_POST").child(top.getTypeID());

@@ -124,8 +124,8 @@ public class DetailSearchPostActivity extends AppCompatActivity {
                     intent.putExtra("location", cbxCity.getText().toString());
                     intent.putExtra("indexLocation", controlLocation.getItemChoose());
                     intent.putExtra("salary", controlSalary.getItemChoose());
-                    intent.putExtra("dtFrom", Integer.parseInt(txtDtFrom.getText().toString()));
-                    intent.putExtra("dtTo", Integer.parseInt(txtDtTo.getText().toString()));
+                    intent.putExtra("dtFrom", Integer.parseInt(txtDtFrom.getText().toString()) == 0 ? VALUEDEFAULT : Integer.parseInt(txtDtFrom.getText().toString()));
+                    intent.putExtra("dtTo", Integer.parseInt(txtDtTo.getText().toString()) == 0 ? VALUEDEFAULT : Integer.parseInt(txtDtTo.getText().toString()));
                     startActivity(intent);
                 }
 
