@@ -50,17 +50,47 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
 
-    <EditText
-        android:id="@+id/cbxTime"
-        android:editable="false"
-        android:gravity="center"
-        android:hint="Chọn khung thời gian"
-        android:drawableLeft="@drawable/ic_timer_black"
-        android:drawableRight="@drawable/ic_arrow_down"
-        android:background="@drawable/fah_control_combobox"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:layout_margin="@dimen/margin_control"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/wrap_content_control" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thời gian làm việc: Từ"
+            android:layout_marginRight="@dimen/margin_control"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        <EditText
+            android:layout_width="30dp"
+            android:id="@+id/txtDtFrom"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="2"
+            android:text="00"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đến"
+            android:layout_marginRight="@dimen/margin_control"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <EditText
+            android:layout_width="30dp"
+            android:id="@+id/txtDtTo"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="2"
+            android:text="00"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giờ"
+            android:layout_marginRight="@dimen/margin_control"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+    </LinearLayout>
+
 </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHData.AccountData;
+import com.example.fah.FAHModel.Adapters.ListPostAdapter;
 import com.example.fah.FAHModel.Adapters.SearchAdapter;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.R;
@@ -55,9 +56,16 @@ public class HotPostFragment extends Fragment {
             txtTitle.setText("Danh sách bài viết đã ứng tuyển");
         } else if (AccountData.userLogin.getRole() == 2) {
             txtTitle.setText("Bài viết của tôi");
+        } else {
+            txtTitle.setText("Danh sách bài viết");
         }
 
-        myRef = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, 1, FAHQueryParam.TypeInteger));
+        if (AccountData.userLogin.getRole() != 3) {
+            myRef = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, 1, FAHQueryParam.TypeInteger));
+        } else {
+            myRef = FAHQuery.GetData("Post");
+        }
+
     }
 
     private void addEvents() {
@@ -67,18 +75,24 @@ public class HotPostFragment extends Fragment {
                 List<Post> listData = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                 listCreate = new ArrayList<>();
                 if (listData != null && listData.size() > 0) {
+                    // company
                     if (AccountData.userLogin.getRole() == 2) {
                         for (Post item : listData) {
                             if (item.getKeyAccount().equals(AccountData.userLogin.getKey())) {
                                 listCreate.add(item);
                             }
                         }
+                        // user
                     } else if (AccountData.userLogin.getRole() == 1) {
                         for (Post item : listData) {
                             if (item.getListAccount().contains(AccountData.userLogin.getKey())) {
                                 listCreate.add(item);
                             }
                         }
+                        // admin
+                    } else {
+                        listView.setAdapter(new ListPostAdapter(getContext(), listData));
+                        return;
                     }
                 }
 
