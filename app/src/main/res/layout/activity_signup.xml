@@ -7,7 +7,7 @@
     android:background="@mipmap/back"
     tools:context=".FAHScreen.User.Login.SignupActivity">
     <LinearLayout
-        android:layout_width="336dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +25,8 @@
             android:id="@+id/infoNomal"
             android:scrollbars="vertical"
             android:background="@mipmap/back"
-            android:layout_height="450dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
             android:layout_alignParentBottom="true">
 
     <LinearLayout
@@ -389,12 +390,12 @@
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:background="@color/colorWhite"
                 android:elevation="5dp"
                 android:text="Đăng ký"
                 android:layout_gravity="center"
                 android:layout_marginBottom="50dp"
                 android:layout_marginTop="3dp"
+                android:background="@drawable/shapelogin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </LinearLayout>
