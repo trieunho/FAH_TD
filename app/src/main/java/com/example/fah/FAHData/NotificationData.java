@@ -15,16 +15,32 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class NotificationData {
     public static FirebaseAuth firebaseAuth;
     public static FirebaseUser firebaseUser;
-    public static ArrayList<Notification> listNotifications=new ArrayList<Notification>();
-
-    public static void setUpNotificationData(IEventData eventData) {
+    public static ArrayList<Notification> listNotifications ;
+    private  static  ArrayList<Notification> listNotifications1 ;
+    private  static  ArrayList<Notification> listNotifications2 ;
+    private  static boolean checkLoad = true;
+    public static void setUpNotificationData(final IEventData iEventData) {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        reloadListNotification(eventData);
+        listNotifications = new ArrayList<Notification>();
+        listNotifications1 = new ArrayList<Notification>();
+        listNotifications2 = new ArrayList<Notification>();
+        reloadListNotification(new IEventData() {
+            @Override
+            public void EventSuccess() {
+                iEventData.EventSuccess();
+            }
+
+            @Override
+            public void EventFail(String message) {
+                iEventData.EventFail(message);
+            }
+        });
     }
 
     public static void addNotificationData( Notification notification,final IEventData event) {
@@ -52,95 +68,80 @@ public class NotificationData {
                     event.EventSuccess();
               }else {
                     event.EventFail("Lỗi khi thêm thông báo, vui lòng kiểm tra lại!");
-              }
+               }
             }
         });
     }
-    public static void reloadListNotification(final IEventData eventData){
-        listNotifications = new ArrayList<Notification>();
-        if(AccountData.userLogin!=null){
+
+    private static void  reload(IEventData eventData){
+            NotificationData.listNotifications = new ArrayList<Notification>();
+            for (Notification n:listNotifications1) {
+                listNotifications.add(n);
+            }
+            for (Notification n:listNotifications2) {
+                listNotifications.add(n);
+            }
+            checkLoad = true;
+            Collections.sort(listNotifications);
+            eventData.EventSuccess();
+    }
+    private static void reloadListNotification(final IEventData eventData){
+        checkLoad = false;
+           if(AccountData.userLogin!=null){
             if(AccountData.userLogin.getKey()!=null){
-                loadListNotification(AccountData.userLogin.getKey(), new IEventData() {
-                    @Override
-                    public void EventSuccess() {
-                        loadListNotificationAllUser(new IEventData() {
+                //load data user
+                FirebaseDatabase.getInstance().getReference().child("Notification")
+                        .child(AccountData.userLogin.getKey())
+                        .addValueEventListener(new ValueEventListener() {
                             @Override
-                            public void EventSuccess() {
-                                eventData.EventSuccess();
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                listNotifications1 = new ArrayList<Notification>();
+                                if(dataSnapshot!=null){
+                                    ArrayList<Notification> arrayList1  = (ArrayList<Notification>) FAHQuery.GetDataObject(dataSnapshot,new Notification());
+                                   if(arrayList1!=null && arrayList1.size()>0){
+                                       for (Notification n : arrayList1) {
+                                           listNotifications1.add(n);
+                                       }
+                                   }
+                                }
+                                if(checkLoad){
+                                    reload(eventData);
+                                }
                             }
 
                             @Override
-                            public void EventFail(String message) {
-                                eventData.EventFail(message);
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                eventData.EventFail("Lỗi khi truy cập thông báo.");
                             }
                         });
-                    }
-
-                    @Override
-                    public void EventFail(String message) {
-                        loadListNotificationAllUser(new IEventData() {
+                //load data all user
+                FirebaseDatabase.getInstance().getReference().child("Notification")
+                        .child("0000")
+                        .addValueEventListener(new ValueEventListener() {
                             @Override
-                            public void EventSuccess() {
-                                eventData.EventSuccess();
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                listNotifications2  = new ArrayList<Notification>();
+                                if(dataSnapshot!=null){
+                                    ArrayList<Notification> arrayList = (ArrayList<Notification>) FAHQuery.GetDataObject(dataSnapshot,new Notification());
+                                    if(arrayList!=null && arrayList.size()>0){
+                                        for (Notification n:arrayList) {
+                                            listNotifications2.add(n);
+                                        }
+                                    }
+                                }
+                                reload(eventData);
                             }
 
                             @Override
-                            public void EventFail(String message) {
-                                eventData.EventFail(message);
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                eventData.EventFail("Lỗi khi truy cập thông báo chung.");
                             }
                         });
-                    }
-                });
             }else{
                 eventData.EventFail("Không tồn tại Account");
             }
         }else{
             eventData.EventFail("Không tồn tại Account");
         }
-
-
-    }
-    private static void loadListNotification(String accountKey, final IEventData eventData) {
-        FirebaseDatabase.getInstance().getReference().child("Notification")
-                .child(accountKey)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot!=null){
-                          listNotifications = (ArrayList<Notification>) FAHQuery.GetDataObject(dataSnapshot,new Notification());
-                        }
-                        eventData.EventSuccess();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        eventData.EventFail("Lỗi khi truy cập thông báo.");
-                    }
-                });
-
-    }
-
-    private static void loadListNotificationAllUser(final IEventData iEventData) {
-        FirebaseDatabase.getInstance().getReference().child("Notification")
-                .child("0000")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot!=null){
-                            ArrayList<Notification> arrayList = (ArrayList<Notification>) FAHQuery.GetDataObject(dataSnapshot,new Notification());
-                            if(arrayList.size()>0){
-                                for (Notification n:arrayList) {
-                                    listNotifications.add(n);
-                                }
-                            }
-                        }
-                        iEventData.EventSuccess();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        iEventData.EventFail("Lỗi khi truy cập thông báo chung.");
-                    }
-                });
     }
 }

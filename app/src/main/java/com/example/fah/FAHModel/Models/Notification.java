@@ -1,6 +1,12 @@
 package com.example.fah.FAHModel.Models;
 
-public class Notification {
+import android.support.annotation.NonNull;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Notification implements Comparable<Notification>{
     private String notificationID;
     private String body;
     private String time;
@@ -10,13 +16,28 @@ public class Notification {
     private int screenId;
 
     public Notification(String notificationID, String body, String time, String image, String title, String accountKey, int screenId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String currentDateandTime = sdf.format(new Date());
         this.notificationID = notificationID;
         this.body = body;
-        this.time = time;
+        this.time = currentDateandTime.toString();
         this.image = image;
         this.title = title;
         this.accountKey = accountKey;
         this.screenId = screenId;
+    }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "notificationID='" + notificationID + '\'' +
+                ", body='" + body + '\'' +
+                ", time='" + time + '\'' +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", accountKey='" + accountKey + '\'' +
+                ", screenId=" + screenId +
+                '}';
     }
 
     public int getScreenId() {
@@ -76,5 +97,27 @@ public class Notification {
 
     public void setAccountKey(String accountKey) {
         this.accountKey = accountKey;
+    }
+
+    @Override
+    public int compareTo(@NonNull Notification notification) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date strDate1 = null;
+        Date strDate2 = null;
+        try {
+            strDate1 = sdf.parse(this.time.toString());
+            strDate2 = sdf.parse(notification.time.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (strDate1.after(strDate2)) {
+            return 1;
+        }else{
+           if(strDate1.before(strDate2)){
+               return -1;
+           }else{
+               return 0;
+           }
+        }
     }
 }
