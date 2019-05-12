@@ -114,7 +114,7 @@ public class DetailSearchPostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                finish();
+                super.onBackPressed();
                 return true;
             }
             case R.id.btnSearch: {
