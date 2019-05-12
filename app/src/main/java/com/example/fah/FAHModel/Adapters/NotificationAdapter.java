@@ -50,12 +50,11 @@ public class NotificationAdapter extends BaseAdapter {
         TextView txtTime = convertView.findViewById(R.id.txtTime);
         ImageView imageView = convertView.findViewById(R.id.imageNotification);
 
-
         // set values view
         Notification notification = notificationList.get(position);
         txtNotification.setText(notification.title);
         txtTime.setText(notification.getTime());
-        //imageView.setImageResource(notification.getImage());
+        imageView.setImageResource(R.drawable.play);
         return convertView;
     }
 }
