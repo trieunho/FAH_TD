@@ -16,20 +16,20 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.CommonUtils.ImageUtils;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
+import com.example.fah.FAHData.AccountData;
 import com.example.fah.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GridListMenuMainAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private Context context;
     private List<Menu> listData;
-    private String permissionUser;
 
-    public GridListMenuMainAdapter(Context context, List<Menu> listData, String permissionUser) {
+    public GridListMenuMainAdapter(Context context, List<Menu> listData) {
         this.context = context;
-        this.listData = listData;
-        this.permissionUser = permissionUser;
+        this.listData = getListDataMenu(listData);
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -62,12 +62,9 @@ public class GridListMenuMainAdapter extends BaseAdapter {
         }
 
         Menu objMenu = this.listData.get(position);
-
-        if(checkPermissonUser(objMenu.getPermission())){
-            holder.layoutMenu.setVisibility(View.VISIBLE);
-            holder.tvNameFunc.setText(objMenu.getName());
-            int imageId = this.getMipmapResIdByName(objMenu.getImage());
-            holder.ivFunction.setImageResource(imageId);
+        holder.tvNameFunc.setText(objMenu.getName());
+        int imageId = this.getMipmapResIdByName(objMenu.getImage());
+        holder.ivFunction.setImageResource(imageId);
 //        if(objMenu.isUserMenu()==true)
 //        {
 //            if(objMenu.getImage()!=null && objMenu.getImage()!=""){
@@ -86,22 +83,16 @@ public class GridListMenuMainAdapter extends BaseAdapter {
 //             int imageId = this.getMipmapResIdByName(objMenu.getImage());
 //             holder.ivFunction.setImageResource(imageId);
 //         }
-        }else{
-            holder.layoutMenu.setVisibility(View.INVISIBLE);
-        }
-
-
-
         return convertView;
     }
 
     // Tìm ID của Image ứng với tên của ảnh (Trong thư mục mipmap).
-    public int getMipmapResIdByName(String resName)  {
+    public int getMipmapResIdByName(String resName) {
         String pkgName = context.getPackageName();
 
         // Trả về 0 nếu không tìm thấy.
-        int resID = context.getResources().getIdentifier(resName , "mipmap", pkgName);
-        Log.i("CustomGridView", "Res Name: "+ resName+"==> Res ID = "+ resID);
+        int resID = context.getResources().getIdentifier(resName, "mipmap", pkgName);
+        Log.i("CustomGridView", "Res Name: " + resName + "==> Res ID = " + resID);
         return resID;
     }
 
@@ -122,12 +113,20 @@ public class GridListMenuMainAdapter extends BaseAdapter {
         return src;
     }
 
-    private boolean checkPermissonUser(String permission){
-        if(ExcuteString.IsNullOrEmpty(permission)){
-            return true;
+    private List<Menu> getListDataMenu(List<Menu> listData){
+        List<Menu> listResult = new ArrayList<>();
+        for(Menu item : listData){
+            if(checkPermissonUser(item.getPermission())){
+                listResult.add(item);
+            }
         }
 
-        if(permission.indexOf(this.permissionUser) == -1){
+        return listResult;
+    }
+
+    private boolean checkPermissonUser(String permission) {
+        String permissionUser = AccountData.userLogin == null ? "0" : String.valueOf(AccountData.userLogin.getRole());
+        if (permission.indexOf(permissionUser) == -1) {
             return false;
         }
 
