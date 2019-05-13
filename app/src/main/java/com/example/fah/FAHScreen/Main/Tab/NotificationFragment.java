@@ -5,7 +5,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.fah.FAHData.NotificationData;
+import com.example.fah.FAHModel.Adapters.NotificationAdapter;
+import com.example.fah.FAHModel.Models.IEventData;
+import com.example.fah.FAHModel.Models.Notification;
 import com.example.fah.R;
 
 /**
@@ -30,18 +37,26 @@ public class NotificationFragment extends Fragment {
     }
 
     private void GridControl(){
-//         NotificationData.setUpNotificationData(new IEventData() {
-//            @Override
-//            public void EventSuccess() {
-//                ListView listView = view.findViewById(R.id.notificationList);
-//                listView.setAdapter(new NotificationAdapter(getContext(),R.layout.list_notification_item, NotificationData.listNotifications));
-//            }
-//
-//            @Override
-//            public void EventFail(String message) {
-//
-//            }
-//        });
+        NotificationData.setUpNotificationData(new IEventData() {
+            @Override
+            public void EventSuccess() {
+                final ListView listView = view.findViewById(R.id.notificationList);
+                listView.setAdapter(new NotificationAdapter(getContext(), R.layout.list_notification_item, NotificationData.listNotifications));
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                        Notification notification = NotificationData.listNotifications.get(position);
+                        Toast.makeText(getContext(), notification.getBody(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void EventFail(String message) {
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }
