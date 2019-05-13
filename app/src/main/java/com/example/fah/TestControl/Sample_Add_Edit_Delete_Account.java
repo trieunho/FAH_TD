@@ -46,8 +46,8 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TestDB test = accountList.get(0);
-                FAHQuery.DeleteData(ExcuteString.GetUrlData("TestDB", test.getKey(), "titlePost"));
+                TestDB test = new TestDB();
+                FAHQuery.InsertData(test, "TestDB");
             }
         });
 
