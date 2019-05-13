@@ -75,7 +75,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
         addEvent();
-        createAuthStateListener();
+//        createAuthStateListener();
 
     }
 

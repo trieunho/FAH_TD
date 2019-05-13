@@ -1,9 +1,9 @@
 package com.example.fah.FAHScreen.Main.Tab;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +15,9 @@ import android.widget.TextView;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHData.AccountData;
-import com.example.fah.FAHModel.Adapters.ListPostAdapter;
 import com.example.fah.FAHModel.Adapters.SearchAdapter;
 import com.example.fah.FAHModel.Models.Post;
+import com.example.fah.FAHScreen.Post.CreatePostActivity;
 import com.example.fah.FAHScreen.Post.DetailPostActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +35,7 @@ public class HotPostFragment extends Fragment {
     protected View view;
     protected ListView listView;
     private List<Post> listCreate;
+    FloatingActionButton fab;
     Query myRef;
     TextView txtTitle;
 
@@ -55,6 +56,7 @@ public class HotPostFragment extends Fragment {
     private void addControls(){
         txtTitle = view.findViewById(R.id.txtTitle);
         listView = view.findViewById(R.id.listView);
+        fab = view.findViewById(R.id.fab);
 
         if (AccountData.userLogin.getRole() == 1) {
             txtTitle.setText("Danh sách bài viết đã ứng tuyển");
@@ -112,5 +114,12 @@ public class HotPostFragment extends Fragment {
                 }
             });
         }
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CreatePostActivity.class));
+            }
+        });
+
     }
 }

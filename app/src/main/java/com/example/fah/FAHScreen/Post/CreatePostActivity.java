@@ -32,7 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
