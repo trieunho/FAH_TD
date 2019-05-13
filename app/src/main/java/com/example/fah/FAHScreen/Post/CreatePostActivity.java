@@ -32,7 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
@@ -123,7 +122,7 @@ public class CreatePostActivity extends AppCompatActivity {
                                     txtPhone.getText().toString(),
                                     top,
                                     userLogin.getKey());
-                            FAHQuery.InsertData(dataUpdate, "Post");
+                            FAHQuery.InsertData(dataUpdate);
 
                             // update data Account: minus coin
                             myRef = FirebaseDatabase.getInstance().getReference("TYPE_OF_POST").child(top.getTypeID());

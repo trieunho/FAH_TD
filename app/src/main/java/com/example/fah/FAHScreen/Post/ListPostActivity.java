@@ -39,7 +39,8 @@ public class ListPostActivity extends AppCompatActivity {
     String location = "";
     int indexLocation;
     int salary;
-    int time;
+    int dtFrom;
+    int dtTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,8 @@ public class ListPostActivity extends AppCompatActivity {
             location = intent.getStringExtra("location");
             indexLocation = intent.getIntExtra("indexLocation", VALUEDEFAULT);
             salary = intent.getIntExtra("salary", VALUEDEFAULT);
-            time = intent.getIntExtra("time", VALUEDEFAULT);
+            dtFrom = intent.getIntExtra("dtFrom", VALUEDEFAULT);
+            dtTo = intent.getIntExtra("dtTo", VALUEDEFAULT);
         }
 
         // Add controls
@@ -93,55 +95,28 @@ public class ListPostActivity extends AppCompatActivity {
                     if (salary != VALUEDEFAULT) {
                         switch (salary) {
                             case 0:
-                                if (item.getTypeOfSalary() != 0) {
+                                if (item.getTypeOfSalary() != 2) {
                                     continue;
                                 }
                                 break;
                             case 1:
-                                if (Integer.parseInt(item.getSalary_from()) < 1000000
-                                        || Integer.parseInt(item.getSalary_from()) > 2000000) {
+                                if (item.getTypeOfSalary() != 2 && (Integer.parseInt(item.getSalary_from()) < 1000000
+                                        || Integer.parseInt(item.getSalary_from()) > 2000000)) {
                                     continue;
                                 }
                                 break;
                             case 2:
-                                if (Integer.parseInt(item.getSalary_from()) < 2000000
-                                        || Integer.parseInt(item.getSalary_from()) > 3000000) {
+                                if (item.getTypeOfSalary() != 2 && (Integer.parseInt(item.getSalary_from()) < 2000000
+                                        || Integer.parseInt(item.getSalary_from()) > 3000000)) {
                                     continue;
                                 }
                                 break;
                         }
                     }
 
-                    if (time != VALUEDEFAULT) {
-                        switch (time) {
-                            case 0:
-                                if (item.getDtFrom() <= 8 && item.getDtFrom() >= 6
-                                        && item.getDtTo() <= 12 && item.getDtTo() >= 10){
-                                    break;
-                                } else {
-                                    continue;
-                                }
-                            case 1:
-                                if (item.getDtFrom() <= 14 && item.getDtFrom() >= 12
-                                        && item.getDtTo() <= 18 && item.getDtTo() >= 16){
-                                    break;
-                                } else {
-                                    continue;
-                                }
-                            case 2:
-                                if (item.getDtFrom() <= 19 && item.getDtFrom() >= 17
-                                        && item.getDtTo() <= 23 && item.getDtTo() >= 21){
-                                    break;
-                                } else {
-                                    continue;
-                                }
-                            case 3:
-                                if ((item.getDtFrom() == 22 || item.getDtFrom() == 23 || item.getDtFrom() == 24 || item.getDtFrom() == 0)
-                                        && item.getDtTo() >= 4 && item.getDtTo() <= 6) {
-                                    break;
-                                } else {
-                                    continue;
-                                }
+                    if (dtFrom != VALUEDEFAULT && dtTo != VALUEDEFAULT) {
+                        if (item.getDtFrom() < dtFrom || item.getDtTo() > dtTo) {
+                            continue;
                         }
                     }
 

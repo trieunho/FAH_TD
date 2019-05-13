@@ -195,7 +195,10 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
         btnDetailSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DetailPostActivity.this, ManageAccountByPostActivity.class));
+                Intent intent = new Intent(DetailPostActivity.this, ManageAccountByPostActivity.class);
+                intent.putExtra("key", data.getKey());
+                startActivity(intent);
+                finish();
             }
         });
     }
