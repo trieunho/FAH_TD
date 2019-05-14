@@ -262,7 +262,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:id="@+id/txtSubmit"
-            android:visibility="visible">
+            android:visibility="gone">
             <LinearLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -274,11 +274,10 @@
                     android:gravity="center"
                     android:orientation="horizontal">
                     <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
                         android:enabled="false"
                         android:id="@+id/txtSubmitMember"
-                        android:text="20"
                         android:padding="@dimen/padding_control"
                         android:layout_margin="@dimen/margin_control"
                         android:background="@drawable/fah_control_edit_test_default"/>

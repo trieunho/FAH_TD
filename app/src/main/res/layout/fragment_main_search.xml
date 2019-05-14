@@ -9,7 +9,7 @@
         android:id="@+id/cbbJob"
         android:focusable="false"
         android:gravity="center"
-        android:hint="Tất cả"
+        android:hint="Địa điểm"
         android:drawableLeft="@drawable/ic_work_black"
         android:drawableRight="@drawable/ic_arrow_down"
         android:background="@drawable/fah_control_combobox"
@@ -17,18 +17,23 @@
         android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text=" Thời gian làm việc"
+        android:drawableLeft="@drawable/ic_timer_black"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:text=" Thời gian làm việc"
-            android:drawableLeft="@drawable/ic_timer_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/wrap_content_control"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content" />
+            android:layout_gravity="bottom|fill_vertical"
+            android:text="Từ"/>
         <EditText
             android:id="@+id/txtStartTime"
             android:gravity="center"

@@ -31,12 +31,12 @@ public class DetailSearchPostActivity extends AppCompatActivity {
     EditText cbxJob;
     EditText cbxCity;
     EditText cbxSalary;
-    EditText cbxTime;
+    EditText txtDtFrom;
+    EditText txtDtTo;
 
     FAHCombobox controlJob;
     FAHCombobox controlLocation;
     FAHCombobox controlSalary;
-    FAHCombobox controlTime;
 
     int job = VALUEDEFAULT;
     int location = VALUEDEFAULT;
@@ -86,7 +86,8 @@ public class DetailSearchPostActivity extends AppCompatActivity {
         cbxJob = findViewById(R.id.cbxJob);
         cbxCity = findViewById(R.id.cbxCity);
         cbxSalary = findViewById(R.id.cbxSalary);
-        cbxTime = findViewById(R.id.cbxTime);
+        txtDtFrom = findViewById(R.id.txtDtFrom);
+        txtDtTo = findViewById(R.id.txtDtTo);
 
         myRef = FAHQuery.GetData("CATEGORY_OF_POST");
 
@@ -101,13 +102,6 @@ public class DetailSearchPostActivity extends AppCompatActivity {
                 "1000000 ~ 2000000",
                 "2000000 ~ 3000000"
         }, salary);
-
-        controlTime = new FAHCombobox(DetailSearchPostActivity.this, cbxTime, new String[] {
-                "Từ 7 Giờ Đến 11 Giờ",
-                "Từ 13 Giờ Đến 17 Giờ",
-                "Từ 18 Giờ Đến 22 Giờ",
-                "Từ 23 Giờ Đến 5 Giờ"
-        }, time);
     }
 
     @Override
@@ -124,13 +118,14 @@ public class DetailSearchPostActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.btnSearch: {
-                if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
+                if (canSearch() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                     Intent intent = new Intent(DetailSearchPostActivity.this, ListPostActivity.class);
                     intent.putExtra("job", controlJob != null ? controlJob.getItemChoose() : VALUEDEFAULT);
                     intent.putExtra("location", cbxCity.getText().toString());
                     intent.putExtra("indexLocation", controlLocation.getItemChoose());
                     intent.putExtra("salary", controlSalary.getItemChoose());
-                    intent.putExtra("time", controlTime.getItemChoose());
+                    intent.putExtra("dtFrom", Integer.parseInt(txtDtFrom.getText().toString()) == 0 ? VALUEDEFAULT : Integer.parseInt(txtDtFrom.getText().toString()));
+                    intent.putExtra("dtTo", Integer.parseInt(txtDtTo.getText().toString()) == 0 ? VALUEDEFAULT : Integer.parseInt(txtDtTo.getText().toString()));
                     startActivity(intent);
                 }
 
@@ -139,6 +134,18 @@ public class DetailSearchPostActivity extends AppCompatActivity {
             default: {
                 return super.onOptionsItemSelected(item);
             }
+        }
+    }
+
+    private boolean canSearch() {
+        if (Integer.parseInt(txtDtFrom.getText().toString()) < 0 || Integer.parseInt(txtDtFrom.getText().toString()) > 24) {
+            txtDtFrom.requestFocus();
+            return false;
+        } else if (Integer.parseInt(txtDtTo.getText().toString()) < 0 || Integer.parseInt(txtDtTo.getText().toString()) > 24){
+            txtDtTo.requestFocus();
+            return false;
+        } else {
+            return true;
         }
     }
 }

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
+import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHData.AccountData;
@@ -59,6 +60,7 @@ public class ManageCandidateByPost extends AppCompatActivity {
 
         cbxPost = findViewById(R.id.cbxPost);
         lstCandidate = findViewById(R.id.lstCandidate);
+
         query = FAHQuery.GetDataQuery(
                 new FAHQueryParam("Post", "keyAccount", FAHQueryParam.EQUAL,
                         AccountData.userLogin.getKey(), FAHQueryParam.TypeString));
@@ -85,7 +87,7 @@ public class ManageCandidateByPost extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                FAHMessage.ToastMessage(ManageCandidateByPost.this, databaseError.getMessage());
             }
         });
 
