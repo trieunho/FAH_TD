@@ -97,10 +97,14 @@ public class FAHQuery {
      * @param url
      */
     public static String InsertData(Object data, String url) {
-        String key = reference.getReference(url).push().getKey();
-        UpdateData(data, ExcuteString.GetUrlData(url, key));
+        String urlResult = ExcuteString.GetUrlData(url, reference.getReference(url).push().getKey());
+        UpdateData(data, urlResult);
+        String[] keyTable = urlResult.split("/");
+        if(keyTable.length == 2){
+            UpdateDataDetail(new Date(), ExcuteString.GetUrlData(keyTable[0], keyTable[1], "addDate"));
+        }
 
-        return key;
+        return keyTable[keyTable.length - 1];
     }
 
     /**

@@ -22,6 +22,7 @@ import com.example.fah.FAHScreen.Main.GridView.Menu.Menu;
 import com.example.fah.FAHScreen.Manage.ManageCategoryActivity;
 import com.example.fah.FAHScreen.Manage.ManageTypePostActivity;
 import com.example.fah.FAHScreen.Other.RulesActivity;
+import com.example.fah.FAHScreen.Other.SecurityActivity;
 import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
 import com.example.fah.FAHScreen.Post.ManageCandidateByPost;
 import com.example.fah.FAHScreen.Post.PostManagementActivity;
@@ -146,7 +147,7 @@ public class MenuFragment extends Fragment {
         list.add(new Menu("Chính sách bảo mật", "ic_launcher_option", "0123", new IEvenItem() {
             @Override
             public void callEvent() {
-                startActivity(new Intent(getContext(), RulesActivity.class));
+                startActivity(new Intent(getContext(), SecurityActivity.class));
             }
         }));
         list.add(new Menu("Trợ giúp", "ic_launcher_option", "0123", new IEvenItem() {

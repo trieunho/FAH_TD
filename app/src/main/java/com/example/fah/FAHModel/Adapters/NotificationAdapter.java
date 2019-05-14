@@ -53,7 +53,7 @@ public class NotificationAdapter extends BaseAdapter {
         // set values view
         Notification notification = notificationList.get(position);
         txtNotification.setText(notification.title);
-        txtTime.setText(notification.getTime());
+        txtTime.setText(notification.getAddDate().toString());
         imageView.setImageResource(R.drawable.play);
         return convertView;
     }

@@ -2,25 +2,23 @@ package com.example.fah.FAHModel.Models;
 
 import android.support.annotation.NonNull;
 
+import com.example.fah.FAHCommon.FAHDatabase.Table.FAHFieldCommon;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Notification implements Comparable<Notification>{
+public class Notification extends FAHFieldCommon implements Comparable<Notification>{
     private String notificationID;
     private String body;
-    private String time;
     private String image;
     public String title;
     private String accountKey;
     private int screenId;
 
     public Notification(String notificationID, String body, String time, String image, String title, String accountKey, int screenId) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String currentDateandTime = sdf.format(new Date());
         this.notificationID = notificationID;
         this.body = body;
-        this.time = currentDateandTime.toString();
         this.image = image;
         this.title = title;
         this.accountKey = accountKey;
@@ -32,7 +30,6 @@ public class Notification implements Comparable<Notification>{
         return "Notification{" +
                 "notificationID='" + notificationID + '\'' +
                 ", body='" + body + '\'' +
-                ", time='" + time + '\'' +
                 ", image='" + image + '\'' +
                 ", title='" + title + '\'' +
                 ", accountKey='" + accountKey + '\'' +
@@ -67,14 +64,6 @@ public class Notification implements Comparable<Notification>{
         this.body = body;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getImage() {
         return image;
     }
@@ -101,19 +90,10 @@ public class Notification implements Comparable<Notification>{
 
     @Override
     public int compareTo(@NonNull Notification notification) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Date strDate1 = null;
-        Date strDate2 = null;
-        try {
-            strDate1 = sdf.parse(this.time.toString());
-            strDate2 = sdf.parse(notification.time.toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        if (strDate1.after(strDate2)) {
+        if (this.getAddDate().after(notification.getAddDate())) {
             return 1;
         }else{
-           if(strDate1.before(strDate2)){
+           if(this.getAddDate().before(notification.getAddDate())){
                return -1;
            }else{
                return 0;
