@@ -1,27 +1,29 @@
 package com.example.fah.FAHScreen.Main.Tab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
-import com.example.fah.FAHData.AccountData;
+import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHModel.Adapters.ListPostAdapter;
+import com.example.fah.FAHModel.Adapters.SearchAdapter;
 import com.example.fah.FAHModel.Models.Post;
+import com.example.fah.FAHScreen.Post.DetailPostActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -41,14 +43,11 @@ public class SearchFragment extends Fragment {
     protected EditText txtStartTime;
     protected EditText txtEndTime;
     protected Button btnSearch;
-    protected Button btnRegister;
-    protected Button btnLogin;
-    protected LinearLayout lnlNotLogin;
     protected ListView lvHotPost;
 
-    DatabaseReference myRef;
+    Query myRef;
     ListPostAdapter listPostAdapter;
-    List<Post> data = new ArrayList<>();
+    List<Post> listPost = new ArrayList<>();
 
     private FAHCombobox fahComboboxJob;
 
@@ -76,35 +75,40 @@ public class SearchFragment extends Fragment {
         txtStartTime = view.findViewById(R.id.txtStartTime);
         txtEndTime = view.findViewById(R.id.txtEndTime);
         btnSearch = view.findViewById(R.id.btnSearch);
-        lnlNotLogin = view.findViewById(R.id.lnlNotLogin);
-        btnRegister = view.findViewById(R.id.btnRegister);
-        btnLogin = view.findViewById(R.id.btnLogin);
         lvHotPost = view.findViewById(R.id.lvHotPost);
-        myRef = FirebaseDatabase.getInstance().getReference("Post");
-        listPostAdapter = new ListPostAdapter(this.getContext(), data);
+        myRef = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, 1, FAHQueryParam.TypeInteger));
     }
 
     private void addEvent() {
-        // Set invisible or visible btn login & register
-        if (AccountData.userLogin != null && AccountData.userLogin.isLogin()) {
-            lnlNotLogin.setVisibility(View.GONE);
-        } else {
-            lnlNotLogin.setVisibility(View.VISIBLE);
-        }
-
         // Set list of job
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                data = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
-                if (data == null) return;
+                List<Post> listData = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
+                listPost = new ArrayList<>();
+                if (listData != null && listData.size() > 0) {
+                    for (Post item : listData) {
+                        if (item.getTypeOfPost() != null && "1".equals(item.getTypeOfPost().getTypeID())) {
+                            listPost.add(item);
+                        }
+                    }
+                }
 
-                listPostAdapter.setData(data);
-                lvHotPost.setAdapter(listPostAdapter);
+                lvHotPost.setAdapter(new SearchAdapter(getContext(), listPost));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        lvHotPost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), DetailPostActivity.class);
+                intent.putExtra("key", listPost.get(position).getKey());
+                intent.putExtra("keyAccount", listPost.get(position).getKeyAccount());
+                startActivity(intent);
             }
         });
 
