@@ -14,7 +14,7 @@ public class Notification extends FAHFieldCommon implements Comparable<Notificat
     private String accountKey;
     private int screenId;
 
-    public Notification(String notificationID, String body, String time, String image, String title, String accountKey, int screenId) {
+    public Notification(String notificationID, String body, String image, String title, String accountKey, int screenId) {
         this.notificationID = notificationID;
         this.body = body;
         this.image = image;

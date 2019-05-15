@@ -11,6 +11,7 @@ import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.TestDB;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHModel.Models.Account;
+import com.example.fah.FAHModel.Models.Notification;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,8 +47,8 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TestDB test = new TestDB();
-                FAHQuery.InsertData(test, "TestDB");
+                Notification test = new Notification("1", "2", "3", "4", "-LdXe7DumjIMj-ihmUjq", 1);
+                FAHQuery.InsertData(test);
             }
         });
 
