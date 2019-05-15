@@ -4,9 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHFieldCommon;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Notification extends FAHFieldCommon implements Comparable<Notification>{
     private String notificationID;
@@ -23,6 +21,8 @@ public class Notification extends FAHFieldCommon implements Comparable<Notificat
         this.title = title;
         this.accountKey = accountKey;
         this.screenId = screenId;
+        this.setAddDate(Calendar.getInstance().getTime());
+        this.setUpdDate(Calendar.getInstance().getTime());
     }
 
     @Override
@@ -45,8 +45,7 @@ public class Notification extends FAHFieldCommon implements Comparable<Notificat
         this.screenId = screenId;
     }
 
-    public Notification() {
-    }
+    public Notification() {}
 
     public String getNotificationID() {
         return notificationID;
@@ -90,14 +89,18 @@ public class Notification extends FAHFieldCommon implements Comparable<Notificat
 
     @Override
     public int compareTo(@NonNull Notification notification) {
-        if (this.getAddDate().after(notification.getAddDate())) {
-            return 1;
+        if(this.getAddDate()!=null && notification.getAddDate()!=null){
+            if (this.getAddDate().after(notification.getAddDate())) {
+                return 1;
+            }else{
+                if(this.getAddDate().before(notification.getAddDate())){
+                    return -1;
+                }else{
+                    return 0;
+                }
+            }
         }else{
-           if(this.getAddDate().before(notification.getAddDate())){
-               return -1;
-           }else{
-               return 0;
-           }
+            return 0;
         }
     }
 }
