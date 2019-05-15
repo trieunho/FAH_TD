@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.Post;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -18,11 +21,12 @@ import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Adapters.AccountBySearchAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
+import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
+import com.example.fah.FAHScreen.User.PersionalImformationActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -36,17 +40,16 @@ public class ManageCandidateByPost extends AppCompatActivity {
     FAHCombobox controlTitle;
     ListView lstCandidate;
     int index = -1;
-    Query query;
     ArrayList<Account> dataAccount;
-    AccountBySearchAdapter accountBySearchAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_candidate);
 
+        addControls();
+
         if (AccountData.userLogin != null && AccountData.userLogin.getRole() == 2) {
-            addControls();
             addEvents();
         }
     }
@@ -60,14 +63,13 @@ public class ManageCandidateByPost extends AppCompatActivity {
 
         cbxPost = findViewById(R.id.cbxPost);
         lstCandidate = findViewById(R.id.lstCandidate);
-
-        query = FAHQuery.GetDataQuery(
-                new FAHQueryParam("Post", "keyAccount", FAHQueryParam.EQUAL,
-                        AccountData.userLogin.getKey(), FAHQueryParam.TypeString));
     }
 
     private void addEvents() {
-        query.addValueEventListener(new ValueEventListener() {
+        FAHQuery.GetDataQuery(
+                new FAHQueryParam("Post", "keyAccount", FAHQueryParam.EQUAL,
+                        AccountData.userLogin.getKey(), FAHQueryParam.TypeString))
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataPost = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
@@ -135,6 +137,15 @@ public class ManageCandidateByPost extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+
+        lstCandidate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ManageCandidateByPost.this, PersionalImformationActivity.class);
+                intent.putExtra("key", dataAccount.get(position).getKey());
+                startActivity(intent);
             }
         });
     }

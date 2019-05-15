@@ -313,7 +313,6 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                 }
                 finish();
             }
-
         }
     }
 

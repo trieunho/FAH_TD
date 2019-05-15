@@ -17,6 +17,7 @@ import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
 import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
 import com.example.fah.FAHScreen.Other.RulesActivity;
 import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
+import com.example.fah.FAHScreen.Post.ManageCandidateByPost;
 import com.example.fah.FAHScreen.Post.PostManagementActivity;
 import com.example.fah.TestControl.Sample_Add_Edit_Delete_Account;
 import com.example.fah.FAHScreen.Account.SearchAccountActivity;
@@ -78,7 +79,7 @@ public class HomeActivity extends AppCompatActivity {
         layoutList.add(new TestLayout(HomeActivity.this, ManageCategoryActivity.class,"Quản lý danh mục"));
         layoutList.add(new TestLayout(HomeActivity.this, ManageTypePostActivity.class,"Loại bài đăng"));
         layoutList.add(new TestLayout(HomeActivity.this, CreatePostActivity.class,"Tạo bài đăng"));
-        layoutList.add(new TestLayout(HomeActivity.this, PostManagementActivity.class,"Quản lý bài đăng"));
+        layoutList.add(new TestLayout(HomeActivity.this, ManageCandidateByPost.class,"Quản lý bài đăng"));
         layoutList.add(new TestLayout(HomeActivity.this, DetailSearchPostActivity.class,"Tìm kiếm bài viết"));
         layoutList.add(new TestLayout(HomeActivity.this, PersionalImformationActivity.class,"Profile user"));
         layoutList.add(new TestLayout(HomeActivity.this, Sample_Add_Edit_Delete_Account.class,"Sample Account"));
