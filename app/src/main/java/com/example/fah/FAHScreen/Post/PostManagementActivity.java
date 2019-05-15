@@ -28,7 +28,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PostManagementActivity extends AppCompatActivity implements IOnButtonCLick {
+import static com.example.fah.FAHCommon.FAHControl.FAHMessage.AlertDialogMessage;
+
+public class PostManagementActivity extends AppCompatActivity implements IOnButtonCLick, IConfirmClick {
 
     Toolbar toolbar;
     DatabaseReference myRef;
@@ -38,6 +40,7 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
     ListView listView;
     ListPostAdapter listPostAdapter;
     List<Post> data = new ArrayList<>();
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,8 +164,8 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
     @Override
     public void onBtnDelClick(int position) {
         if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
-            Post data = (Post) listView.getAdapter().getItem(position);
-            FAHQuery.DeleteData(new String[]{ data.getClass().getSimpleName() + "/" + data.getKey() });
+            this.position = position;
+            AlertDialogMessage(PostManagementActivity.this, "Xác nhận", "Bạn có thực sự muốn xóa ?", "Có", "Không");
         }
     }
 
@@ -194,5 +197,11 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
     protected void onDestroy() {
         super.onDestroy();
         listPostAdapter.unRegisterBtnClick();
+    }
+
+    @Override
+    public void onYesClick() {
+        Post data = (Post) listView.getAdapter().getItem(position);
+        FAHQuery.DeleteData(new String[]{ data.getClass().getSimpleName() + "/" + data.getKey() });
     }
 }
