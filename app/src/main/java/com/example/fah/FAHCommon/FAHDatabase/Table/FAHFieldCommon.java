@@ -22,9 +22,7 @@ public class FAHFieldCommon {
         this.key = key;
     }
 
-    public Date getAddDate() {
-        return addDate;
-    }
+    public Date getAddDate() { return addDate;}
 
     public void setAddDate(Date addDate) {
         this.addDate = addDate;

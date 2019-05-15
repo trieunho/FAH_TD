@@ -21,6 +21,7 @@ import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHExcuteData.EmailValidator;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
+import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Category;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.FAHModel.Models.TypeOfPost;
@@ -35,9 +36,11 @@ import java.util.Calendar;
 import java.util.List;
 
 import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
+import static com.example.fah.FAHCommon.FAHControl.FAHMessage.AlertDialogMessage;
+import static com.example.fah.FAHCommon.FAHControl.FAHMessage.ToastMessage;
 import static com.example.fah.FAHData.AccountData.userLogin;
 
-public class CreatePostActivity extends AppCompatActivity {
+public class CreatePostActivity extends AppCompatActivity implements IConfirmClick {
 
     Toolbar toolbar;
     EditText txtDate;
@@ -69,6 +72,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
     int status = 0;
     Post dataUpdate;
+    List<TypeOfPost> lstTOP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,59 +97,20 @@ public class CreatePostActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.btnPost: {
-                if (canPost() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
-                    TypeOfPost top = new TypeOfPost();
-                    top.setTypeID(cbxTOP.getText().toString().substring(5, 6));
+                if (getIntent().getStringExtra("key") == null) {
+                    if (canPost() && canPay() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
+                        String message = "Phí tạo bài viết là " + lstTOP.get(controlType.getItemChoose()).getTypeCoin() + ". " +
+                                "/nĐồng ý tạo bài viết?";
+                        AlertDialogMessage(CreatePostActivity.this, "Xác nhận", message, "Đồng ý", "Không");
+                    }
+                } else {
+                    try {
+                        Category cgr = new Category();
+                        cgr.setKey(String.valueOf(controlField.getItemChoose() + 1));
+                        cgr.setCategoryID(String.valueOf(controlField.getItemChoose() + 1));
+                        cgr.setCategoryName(cbxField.getText().toString());
 
-                    Category cgr = new Category();
-                    cgr.setKey(String.valueOf(controlField.getItemChoose() + 1));
-                    cgr.setCategoryID(String.valueOf(controlField.getItemChoose() + 1));
-                    cgr.setCategoryName(cbxField.getText().toString());
-                    if (getIntent().getStringExtra("key") == null) {
-                        try {
-                            dataUpdate = new Post(
-                                    txtTitle.getText().toString(),
-                                    txtCompanyName.getText().toString(),
-                                    cgr,
-                                    txtDescription.getText().toString(),
-                                    txtRequired.getText().toString(),
-                                    txtBenifit.getText().toString(),
-                                    txtSoLuong.getText().toString(),
-                                    txtAddress.getText().toString(),
-                                    txtDate.getText().toString(),
-                                    Integer.parseInt(dtFrom.getText().toString()),
-                                    Integer.parseInt(dtTo.getText().toString()),
-                                    controlSalary.getItemChoose(),
-                                    txtLuong1.getText().toString(),
-                                    txtLuong2.getText().toString(),
-                                    txtEmail.getText().toString(),
-                                    txtPhone.getText().toString(),
-                                    top,
-                                    userLogin.getKey());
-                            FAHQuery.InsertData(dataUpdate);
-
-                            // update data Account: minus coin
-                            myRef = FirebaseDatabase.getInstance().getReference("TYPE_OF_POST").child(top.getTypeID());
-                            myRef.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (userLogin == null) return;
-                                    int coinNew = userLogin.getCoin() - Integer.parseInt(dataSnapshot.getValue(TypeOfPost.class).getTypeCoin());
-                                    FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                }
-                            });
-
-                            FAHMessage.ToastMessage(CreatePostActivity.this, "Tạo thành công");
-
-                        }
-                        catch (Exception e) {
-                            FAHMessage.ToastMessage(CreatePostActivity.this, e.getMessage());
-                        }
-                    } else {
+                        // Control update
                         dataUpdate.setTitlePost(txtTitle.getText().toString());
                         dataUpdate.setCompanyName(txtCompanyName.getText().toString());
                         dataUpdate.setCategory(cgr);
@@ -167,8 +132,11 @@ public class CreatePostActivity extends AppCompatActivity {
 
                         FAHMessage.ToastMessage(CreatePostActivity.this, "Cập nhật thành công");
                         finish();
+                    } catch (Exception e) {
+
                     }
                 }
+
             }
             default: {
                 return super.onOptionsItemSelected(item);
@@ -263,6 +231,19 @@ public class CreatePostActivity extends AppCompatActivity {
             }
         });
 
+        FirebaseDatabase.getInstance().getReference("TYPE_OF_POST").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                lstTOP = (List<TypeOfPost>) FAHQuery.GetDataObject(dataSnapshot, new TypeOfPost());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                ToastMessage(CreatePostActivity.this, databaseError.getMessage());
+            }
+        });
+
         txtDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -340,6 +321,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
     private void initItem(){
         if (getIntent().getStringExtra("key") != null && !getIntent().getStringExtra("key").isEmpty()) {
+            toolbar.setTitle("Chỉnh sửa bài viết");
             FirebaseDatabase.getInstance().getReference().child("Post")
                     .child(getIntent().getStringExtra("key")).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -438,5 +420,68 @@ public class CreatePostActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private boolean canPay() {
+        if (AccountData.userLogin.getCoin() > 0 && AccountData.userLogin.getCoin() >= Integer.parseInt(lstTOP.get(controlType.getItemChoose()).getTypeCoin())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void onYesClick() {
+        TypeOfPost top = new TypeOfPost();
+        top.setTypeID(cbxTOP.getText().toString().substring(5, 6));
+
+        Category cgr = new Category();
+        cgr.setKey(String.valueOf(controlField.getItemChoose() + 1));
+        cgr.setCategoryID(String.valueOf(controlField.getItemChoose() + 1));
+        cgr.setCategoryName(cbxField.getText().toString());
+        if (getIntent().getStringExtra("key") == null) {
+            try {
+                dataUpdate = new Post(
+                        txtTitle.getText().toString(),
+                        txtCompanyName.getText().toString(),
+                        cgr,
+                        txtDescription.getText().toString(),
+                        txtRequired.getText().toString(),
+                        txtBenifit.getText().toString(),
+                        txtSoLuong.getText().toString(),
+                        txtAddress.getText().toString(),
+                        txtDate.getText().toString(),
+                        Integer.parseInt(dtFrom.getText().toString()),
+                        Integer.parseInt(dtTo.getText().toString()),
+                        controlSalary.getItemChoose(),
+                        txtLuong1.getText().toString(),
+                        txtLuong2.getText().toString(),
+                        txtEmail.getText().toString(),
+                        txtPhone.getText().toString(),
+                        top,
+                        userLogin.getKey());
+                FAHQuery.InsertData(dataUpdate);
+
+                // update data Account: minus coin
+                myRef = FirebaseDatabase.getInstance().getReference("TYPE_OF_POST").child(top.getTypeID());
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        int coinNew = userLogin.getCoin() - Integer.parseInt(dataSnapshot.getValue(TypeOfPost.class).getTypeCoin());
+                        FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+
+                FAHMessage.ToastMessage(CreatePostActivity.this, "Tạo thành công");
+                finish();
+            }
+            catch (Exception e) {
+                FAHMessage.ToastMessage(CreatePostActivity.this, e.getMessage());
+            }
+        }
     }
 }

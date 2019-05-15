@@ -28,12 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/wrap_content_control"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:layout_gravity="bottom|fill_vertical"
-            android:text="Từ"/>
         <EditText
             android:id="@+id/txtStartTime"
             android:gravity="center"
@@ -69,33 +63,6 @@
         android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="@dimen/wrap_content_control" />
-
-    <LinearLayout
-        android:id="@+id/lnlNotLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/wrap_content_control"
-            android:layout_margin="@dimen/margin_control"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="ĐĂNG KÝ"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
-
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/wrap_content_control"
-            android:layout_margin="@dimen/margin_control"
-            android:layout_weight="1"
-            android:background="@color/colorCrimson"
-            android:text="ĐĂNG NHẬP"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
-    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
