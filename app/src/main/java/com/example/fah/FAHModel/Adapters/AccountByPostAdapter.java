@@ -43,7 +43,7 @@ public class AccountByPostAdapter extends ArrayAdapter<Account> {
 
     @Override
     public int getCount() {
-        return accountList.size();
+        return accountList == null ? 0 : accountList.size();
     }
 
     @Override

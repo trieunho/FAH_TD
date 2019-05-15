@@ -48,11 +48,11 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
     Button btnSearch;
     Toolbar toolbar;
 
-    ArrayList <Post> postList;
-    ArrayList <Account> accountList;
+    ArrayList<Post> postList;
+    ArrayList<Account> accountList;
     DatabaseReference myRef;
     FirebaseDatabase database;
-    static HashMap <Integer, String> spinnerMap;
+    static HashMap<Integer, String> spinnerMap;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,10 +107,10 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
     /**
      * Set value for Adapter
      */
-    private void setTitlePostAdapter(ArrayList <Post> postList) {
+    private void setTitlePostAdapter(ArrayList<Post> postList) {
 
-        List <String> listOfPost = new ArrayList <>();
-        spinnerMap = new HashMap <Integer, String>();
+        List<String> listOfPost = new ArrayList<>();
+        spinnerMap = new HashMap<Integer, String>();
 
         if (postList != null) {
             for (int i = 0; i < postList.size(); i++) {
@@ -118,7 +118,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
                 listOfPost.add(postList.get(i).getTitlePost());
             }
 
-            ArrayAdapter <String> listOfPostAdapter =
+            ArrayAdapter<String> listOfPostAdapter =
                     new ArrayAdapter(
                             this, android.R.layout.simple_spinner_item,
                             listOfPost);
@@ -135,8 +135,8 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    postList = new ArrayList <>();
-                    ArrayList <Post> listPostForAcc = (ArrayList <Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
+                    postList = new ArrayList<>();
+                    ArrayList<Post> listPostForAcc = (ArrayList<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                     for (Post item : listPostForAcc) {
                         if (item.getKeyAccount() != null && AccountData.userLogin.getKey().equals(item.getKeyAccount())) {
                             postList.add(item);
@@ -172,16 +172,17 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
                             FAHQuery.UpdateData(0, ExcuteString.GetUrlData("Post", item.getKey(), "listOfAccApply", String.valueOf(i), "statusSendInvation"));
 //                        item.getListOfAccApply().get(i).setStatusSendInvation(0);
                         }
-                    }
-                    AccountByPostAdapter accountByPostAdapter = new AccountByPostAdapter(
-                            this,
-                            R.layout.account_by_post_activity,
-                            item.getListOfAccApply());
 
-                    lvAccount.setAdapter(accountByPostAdapter);
-                    checkFlag = true;
-                    size = item.getListAccount().size();
-                    break;
+                        AccountByPostAdapter accountByPostAdapter = new AccountByPostAdapter(
+                                this,
+                                R.layout.account_by_post_activity,
+                                item.getListOfAccApply());
+
+                        lvAccount.setAdapter(accountByPostAdapter);
+                        checkFlag = true;
+                        size = item.getListAccount().size();
+                        break;
+                    }
                 }
             }
         }
