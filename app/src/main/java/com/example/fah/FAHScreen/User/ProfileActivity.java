@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +39,13 @@ import static com.example.fah.R.drawable.ic_chevron_left_black_24dp;
 
 public class ProfileActivity extends AppCompatActivity {
     TextView userName,userEmail,
-            sex,dateOfBirth,address,phone,email,
+            sex,dateOfBirth,address,phone,
             companyName,companyAddress,companyPhone
             ,companyEmail,
             companyIntro,dtFrom,dtTo;
     ImageView userAvata;
     ProgressDialog progressDoalog;
+    LinearLayout profileCompanyLayout,profileTimeWorkLayout;
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +191,31 @@ public class ProfileActivity extends AppCompatActivity {
         toolbar.setTitleMargin(2, 0, 0, 2);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+        profileTimeWorkLayout=findViewById(R.id.profileTimeWorkLayout);
+        profileCompanyLayout=findViewById(R.id.profileCompanyLayout);
+        if(AccountData.userLogin!=null && AccountData.userLogin.getRole()==0){
+            profileCompanyLayout.setVisibility(View.INVISIBLE);
+            profileTimeWorkLayout.setVisibility(View.VISIBLE);
+            dtFrom=findViewById(R.id.profileUserTimeStart);
+            dtTo=findViewById(R.id.profileUserTimeEnd);
+            dtFrom.setText(AccountData.userLogin.getDtFrom()+"h");
+            dtTo.setText(AccountData.userLogin.getDtTo()+"h");
+        }else{
+            if(AccountData.userLogin!=null && AccountData.userLogin.getRole()==1){
+                profileCompanyLayout.setVisibility(View.VISIBLE);
+                profileTimeWorkLayout.setVisibility(View.INVISIBLE);
+                companyName=findViewById(R.id.profileUsercompanyName);
+                companyAddress =findViewById(R.id.profileUsercompanyAddress);
+                companyPhone=findViewById(R.id.profileUsercompanyPhone);
+                companyEmail=findViewById(R.id.profileUsercompanyEmail);
+                companyIntro=findViewById(R.id.profileUsercompanyIntro);
+                companyName.setText(AccountData.userLogin.getCompanyName());
+                companyAddress.setText(AccountData.userLogin.getCompanyAddress());
+                companyPhone.setText(AccountData.userLogin.getCompanyPhone());
+                companyEmail.setText(AccountData.userLogin.getCompanyEmail());
+                companyIntro.setText(AccountData.userLogin.getCompanyIntro());
+            }
+        }
         userName=findViewById(R.id.profileUserName);
         userEmail=findViewById(R.id.profileUserEmail);
         userAvata = findViewById(R.id.userAvata);
@@ -196,25 +223,18 @@ public class ProfileActivity extends AppCompatActivity {
         dateOfBirth=findViewById(R.id.profileUserBirthDay);
          address=findViewById(R.id.profileUserAddress);
          phone = findViewById(R.id.profileUserPhone);
-         email= findViewById(R.id.profileUserEmail);
-
-//                companyName=findViewById(R.id.profileUsercompanyName);
-//                companyAddress,companyPhone
-//                ,companyEmail,
-//                companyIntro,dtFrom,dtTo
 
         if(AccountData.userLogin!=null){
             userName.setText(AccountData.userLogin.getAccountName());
             userEmail.setText(AccountData.userLogin.getEmail());
-
+            sex.setText(AccountData.userLogin.getSex());
+            dateOfBirth.setText(AccountData.userLogin.getDateOfBirth());
+            address.setText(AccountData.userLogin.getAddress());
+            phone.setText(AccountData.userLogin.getPhone());
             if(AccountData.userLogin.getAvata()!=null && AccountData.userLogin.getAvata()!=""){
-                Toast.makeText(this, "Image khac null"+ AccountData.userLogin.getAvata(), Toast.LENGTH_SHORT).show();
                 ImageData.binDingImageControl(this, userAvata, AccountData.userLogin.getAvata(), new IEventData() {
                     @Override
-                    public void EventSuccess() {
-                        Toast.makeText(ProfileActivity.this, "Thanh công", Toast.LENGTH_SHORT).show();
-                    }
-
+                    public void EventSuccess() {}
                     @Override
                     public void EventFail(String message) {
                         Toast.makeText(ProfileActivity.this, message, Toast.LENGTH_SHORT).show();
