@@ -47,7 +47,7 @@ public class Sample_Add_Edit_Delete_Account extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notification test = new Notification("1", "2", "3", "4", "-LdXe7DumjIMj-ihmUjq", 1);
+                Notification test = new Notification("1", "2", "3", "4", "-LdXe7DumjIMj-ihmUjq", 1, null);
                 FAHQuery.InsertData(test);
             }
         });

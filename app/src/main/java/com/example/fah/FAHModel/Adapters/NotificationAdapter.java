@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.fah.FAHModel.Models.Notification;
 import com.example.fah.R;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class NotificationAdapter extends BaseAdapter {
@@ -54,7 +55,8 @@ public class NotificationAdapter extends BaseAdapter {
         Notification notification = notificationList.get(position);
         txtNotification.setText(notification.title);
         if(notification.getAddDate()!=null){
-            txtTime.setText(notification.getAddDate().toString());
+            SimpleDateFormat dt = new SimpleDateFormat("hh:mm dd/mm/yyyy");
+            txtTime.setText(dt.format(notification.getAddDate()));
         }
         imageView.setImageResource(R.drawable.play);
         return convertView;
