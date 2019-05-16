@@ -3,7 +3,9 @@ package com.example.fah.FAHModel.Models;
 import android.support.annotation.NonNull;
 
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHFieldCommon;
+import com.example.fah.FAHCommon.FAHDatabase.Table.FAHParamScreen;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Notification extends FAHFieldCommon implements Comparable<Notification>{
@@ -13,16 +15,16 @@ public class Notification extends FAHFieldCommon implements Comparable<Notificat
     public String title;
     private String accountKey;
     private int screenId;
+    private ArrayList<FAHParamScreen> listParam;
 
-    public Notification(String notificationID, String body, String image, String title, String accountKey, int screenId) {
+    public Notification(String notificationID, String body, String image, String title, String accountKey, int screenId, ArrayList<FAHParamScreen> listParam) {
         this.notificationID = notificationID;
         this.body = body;
         this.image = image;
         this.title = title;
         this.accountKey = accountKey;
         this.screenId = screenId;
-        this.setAddDate(Calendar.getInstance().getTime());
-        this.setUpdDate(Calendar.getInstance().getTime());
+        this.listParam = listParam;
     }
 
     @Override
@@ -85,6 +87,14 @@ public class Notification extends FAHFieldCommon implements Comparable<Notificat
 
     public void setAccountKey(String accountKey) {
         this.accountKey = accountKey;
+    }
+
+    public ArrayList<FAHParamScreen> getListParam() {
+        return listParam;
+    }
+
+    public void setListParam(ArrayList<FAHParamScreen> listParam) {
+        this.listParam = listParam;
     }
 
     @Override
