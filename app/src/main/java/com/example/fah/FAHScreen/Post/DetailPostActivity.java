@@ -16,9 +16,10 @@ import android.widget.TableRow;
 import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
+import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
-import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
+import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -116,18 +117,14 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                         txtRequired2.setText(data.getRequired());
                         txtQuyenLoi2.setText(data.getBenifit());
 
-                        if (userLogin != null) {
+                        if (userLogin != null && userLogin.isLogin()) {
                             if (userLogin.getRole() == 1) {
-                                if (userLogin.getKey().equals(creator.getKey())) {
-                                    btnSubmit.setVisibility(View.GONE);
+                                btnSubmit.setVisibility(View.VISIBLE);
+                                if (data.getListAccount() != null && data.getListAccount().size() > 0
+                                        && data.getListAccount().contains(userLogin.getKey())) {
+                                    btnSubmit.setText("Đã ứng tuyển");
                                 } else {
-                                    btnSubmit.setVisibility(View.VISIBLE);
-                                    if (data.getListAccount() != null && data.getListAccount().size() > 0
-                                            && data.getListAccount().contains(userLogin.getKey())) {
-                                        btnSubmit.setText("Đã ứng tuyển");
-                                    } else {
-                                        btnSubmit.setText("Ứng tuyển");
-                                    }
+                                    btnSubmit.setText("Ứng tuyển");
                                 }
                             } else if (userLogin.getRole() == 3) {
                                 btnSubmit.setText(data.getStatus() == 1 ? "Đã duyệt" : "Duyệt");
@@ -145,7 +142,8 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                                 }
                             }
                         } else {
-                            btnSubmit.setVisibility(View.GONE);
+                            btnSubmit.setText("Ứng tuyển");
+                            btnSubmit.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -165,14 +163,16 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                itemId = R.id.btnSubmit;
                 if (btnSubmit.getText().equals("Ứng tuyển")) {
-                    if (data.getListAccount() == null) {
-                        data.setListAccount(new ArrayList<String>());
+                    if (AccountData.userLogin != null) {
+                        if (data.getListAccount() == null) {
+                            data.setListAccount(new ArrayList<String>());
+                        }
+                        AlertDialogMessage(DetailPostActivity.this, "Xác nhận", "Bạn có thực sự muốn ứng tuyển", "Đồng ý", "Không");
+                    } else {
+                        AlertDialogMessage(DetailPostActivity.this, "Xác nhận", "Vui lòng đăng nhập trước khi ứng tuyển.\nĐăng nhập ngay?", "Đồng ý", "Không");
                     }
-
-                    itemId = R.id.btnSubmit;
-                    AlertDialogMessage(DetailPostActivity.this, "Xác nhận", "Bạn có thực sự muốn ứng tuyển", "Đồng ý", "Không");
-
                 } else if (btnSubmit.getText().equals("Đã ứng tuyển")) {
                     try {
                         if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
@@ -195,7 +195,7 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
         btnDetailSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailPostActivity.this, ManageAccountByPostActivity.class);
+                Intent intent = new Intent(DetailPostActivity.this, ManageCandidateByPost.class);
                 intent.putExtra("key", data.getKey());
                 startActivity(intent);
                 finish();
@@ -299,11 +299,20 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
     public void onYesClick() {
         if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
             if (itemId == R.id.btnSubmit) {
-                try {
-                    data.getListAccount().add(userLogin.getKey());
-                    FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
-                } catch (Exception ex) {
-                    ToastMessage(DetailPostActivity.this, ex.getMessage());
+                if (AccountData.userLogin != null) {
+                    try {
+                        if (data.getListAccount() == null) {
+                            data.setListAccount(new ArrayList<String>());
+                        }
+                        data.getListAccount().add(userLogin.getKey());
+                        FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+                    } catch (Exception ex) {
+                        ToastMessage(DetailPostActivity.this, ex.getMessage());
+                    }
+                } else {
+                    Intent intent = new Intent(DetailPostActivity.this, LoginActivity.class);
+                    intent.putExtra("flag", "detail");
+                    startActivity(intent);
                 }
             } else if (itemId == R.id.btnDel) {
                 try {

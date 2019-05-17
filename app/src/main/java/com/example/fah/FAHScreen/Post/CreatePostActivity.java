@@ -1,6 +1,7 @@
 package com.example.fah.FAHScreen.Post;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -73,6 +74,7 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
     int status = 0;
     Post dataUpdate;
     List<TypeOfPost> lstTOP;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +135,6 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                         FAHMessage.ToastMessage(CreatePostActivity.this, "Cập nhật thành công");
                         finish();
                     } catch (Exception e) {
-
                     }
                 }
 
@@ -322,6 +323,7 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
     private void initItem(){
         if (getIntent().getStringExtra("key") != null && !getIntent().getStringExtra("key").isEmpty()) {
             toolbar.setTitle("Chỉnh sửa bài viết");
+            progressDialog.show();
             FirebaseDatabase.getInstance().getReference().child("Post")
                     .child(getIntent().getStringExtra("key")).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -356,11 +358,13 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                         status = dataUpdate.getStatus();
                         cbxTOP.setEnabled(false);
                         txtTitle.requestFocus();
+                        progressDialog.dismiss();
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         Toast.makeText(CreatePostActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 });
         }
@@ -460,6 +464,8 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                         txtPhone.getText().toString(),
                         top,
                         userLogin.getKey());
+
+                progressDialog.show();
                 FAHQuery.InsertData(dataUpdate);
 
                 // update data Account: minus coin
@@ -469,18 +475,20 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         int coinNew = userLogin.getCoin() - Integer.parseInt(dataSnapshot.getValue(TypeOfPost.class).getTypeCoin());
                         FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
+                        progressDialog.dismiss();
+                        FAHMessage.ToastMessage(CreatePostActivity.this, "Tạo thành công");
+                        finish();
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
+                        progressDialog.dismiss();
                     }
                 });
-
-                FAHMessage.ToastMessage(CreatePostActivity.this, "Tạo thành công");
-                finish();
             }
             catch (Exception e) {
                 FAHMessage.ToastMessage(CreatePostActivity.this, e.getMessage());
+                progressDialog.dismiss();
             }
         }
     }

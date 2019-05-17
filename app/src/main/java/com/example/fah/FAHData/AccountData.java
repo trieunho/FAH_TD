@@ -48,7 +48,7 @@ public class AccountData {
 
     }
 
-    public static void GetAccount(final IEventData event) throws Exception {
+    public void GetAccount(final IEventData event) throws Exception {
         AccountData.firebaseUser = AccountData.firebaseAuth.getCurrentUser();
         FirebaseDatabase.getInstance().getReference().child("Account")
                 .orderByChild("email")

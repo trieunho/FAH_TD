@@ -114,7 +114,7 @@ public class ManageCandidateByPost extends AppCompatActivity {
                             List<Account> listAccount = (List<Account>) FAHQuery.GetDataObject(dataSnapshot, new Account());
                             if (listAccount != null && listAccount.size() > 0) {
                                 List<String> keyAccount = dataPost.get(controlTitle.getItemChoose()).getListAccount();
-                                if (keyAccount.size() > 0) {
+                                if (keyAccount != null && keyAccount.size() > 0) {
                                     for (int i = 0; i < keyAccount.size(); i++) {
                                         for (int j = 0; j < listAccount.size(); j++) {
                                             if (keyAccount.get(i).equals(listAccount.get(j).getKey())) {
