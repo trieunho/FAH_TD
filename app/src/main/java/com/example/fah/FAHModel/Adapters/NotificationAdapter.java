@@ -53,7 +53,7 @@ public class NotificationAdapter extends BaseAdapter {
 
         // set values view
         Notification notification = notificationList.get(position);
-        txtNotification.setText(notification.title);
+        txtNotification.setText(notification.getTitle());
         if(notification.getAddDate()!=null){
             SimpleDateFormat dt = new SimpleDateFormat("hh:mm dd/mm/yyyy");
             txtTime.setText(dt.format(notification.getAddDate()));

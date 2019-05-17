@@ -12,7 +12,7 @@ public class Notification extends FAHFieldCommon implements Comparable<Notificat
     private String notificationID;
     private String body;
     private String image;
-    public String title;
+    private String title;
     private String accountKey;
     private int screenId;
     private ArrayList<FAHParamScreen> listParam;
