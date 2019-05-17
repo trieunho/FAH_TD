@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.IEventData;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
@@ -20,6 +21,7 @@ import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,10 +75,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Tài khoản này đã bị khóa, vui lòng liên hệ quản trị viên để mở hoạt dộng.", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
-            finish();
+            if (getIntent() != null && getIntent().getStringExtra("flag") != null && getIntent().getStringExtra("flag").equals("detail")) {
+                finish();
+            } else {
+                AccountData.userLogin.setLogin(true);
+                FirebaseDatabase.getInstance().getReference("Account/" + AccountData.userLogin.getKey()).setValue(AccountData.userLogin);
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                finish();
+            }
         }
     }
 
@@ -142,7 +150,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             try {
-                                AccountData.GetAccount(new IEventData() {
+                                new AccountData().GetAccount(new IEventData() {
                                     @Override
                                     public void EventSuccess() {
                                         nextMain();

@@ -21,6 +21,7 @@ import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -157,7 +158,7 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
             Post data = (Post) listView.getAdapter().getItem(position);
             data.setStatus(1);
             data.setApproveDate(new Date());
-            FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + data.getKey());
+            FirebaseDatabase.getInstance().getReference(data.getClass().getSimpleName() + "/" + data.getKey()).setValue(data);
         }
     }
 

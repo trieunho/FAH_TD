@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".FAHScreen.Main.Tab.HotPostFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <TextView
         android:text="Đăng nhập để sử dụng chức năng"
         android:id="@+id/txtTitle"
@@ -18,7 +22,6 @@
         android:gravity="center"/>
     <ListView
         android:id="@+id/listView"
-        android:layout_margin="@dimen/margin_control"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center" />
@@ -31,4 +34,5 @@
         android:layout_height="wrap_content"
         app:layout_anchor="@id/listView"
         app:layout_anchorGravity="bottom|right|end" />
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

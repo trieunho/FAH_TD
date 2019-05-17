@@ -49,43 +49,43 @@ public class HomeProfileActivity extends AppCompatActivity {
         userInfoEmail = (TextView) findViewById(R.id.userNmaeTextView);
         userAvata = findViewById(R.id.avata);
         signOutBtn = (Button) findViewById(R.id.signOutButton);
-        signOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(HomeProfileActivity.this, LoginActivity.class);
-                Toast.makeText(getApplicationContext(), "Signing Out", Toast.LENGTH_SHORT).show();
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-                finish();
-
-            }
-        });
-        userAvata.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(HomeProfileActivity.this)
-                        .setTitle("Avatar")
-                        .setMessage("Bạn có muốn thay đổi ảnh đại diện?")
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent intent = new Intent();
-                                intent.setType("image/*");
-                                intent.setAction(Intent.ACTION_PICK);
-                                startActivityForResult(Intent.createChooser(intent, "Chọn ảnh"), 1994);
-                                dialogInterface.dismiss();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        }).show();
-            }
-        });
-        accessUserInformation();
+//        signOutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FirebaseAuth.getInstance().signOut();
+//                Intent i = new Intent(HomeProfileActivity.this, LoginActivity.class);
+//                Toast.makeText(getApplicationContext(), "Signing Out", Toast.LENGTH_SHORT).show();
+//                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(i);
+//                finish();
+//
+//            }
+//        });
+//        userAvata.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new AlertDialog.Builder(HomeProfileActivity.this)
+//                        .setTitle("Avatar")
+//                        .setMessage("Bạn có muốn thay đổi ảnh đại diện?")
+//                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                Intent intent = new Intent();
+//                                intent.setType("image/*");
+//                                intent.setAction(Intent.ACTION_PICK);
+//                                startActivityForResult(Intent.createChooser(intent, "Chọn ảnh"), 1994);
+//                                dialogInterface.dismiss();
+//                            }
+//                        })
+//                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                dialogInterface.dismiss();
+//                            }
+//                        }).show();
+//            }
+//        });
+//        accessUserInformation();
     }
 
     /**

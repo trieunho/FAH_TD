@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.IEvenItem;
@@ -181,14 +182,15 @@ public class MenuFragment extends Fragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(AccountData.firebaseUser!=null){
+                        if (AccountData.firebaseUser != null) {
                             AccountData.firebaseAuth.signOut();
                             AccountData.firebaseUser = null;
-                            Account account=new Account();
+                            Account account = AccountData.userLogin;
                             account.setLogin(false);
-//                            MainActivity.userLogin=account;
+                            AccountData.userLogin = account;
+                            FAHQuery.UpdateData(AccountData.userLogin, "Account/" + AccountData.userLogin.getKey());
                             gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
-                        }else{
+                        } else {
                             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
                         }
                         dialogInterface.dismiss();

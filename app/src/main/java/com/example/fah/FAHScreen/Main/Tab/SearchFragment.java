@@ -85,6 +85,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Post> listData = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
+                if (listData == null) return;
                 listPost = new ArrayList<>();
                 if (listData != null && listData.size() > 0) {
                     for (Post item : listData) {

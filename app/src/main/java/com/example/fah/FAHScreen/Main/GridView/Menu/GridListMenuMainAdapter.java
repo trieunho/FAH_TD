@@ -125,7 +125,7 @@ public class GridListMenuMainAdapter extends BaseAdapter {
     }
 
     private boolean checkPermissonUser(String permission) {
-        String permissionUser = AccountData.userLogin == null ? "0" : String.valueOf(AccountData.userLogin.getRole());
+        String permissionUser = (AccountData.userLogin == null || !AccountData.userLogin.isLogin()) ? "0" : String.valueOf(AccountData.userLogin.getRole());
         if (permission.indexOf(permissionUser) == -1) {
             return false;
         }
