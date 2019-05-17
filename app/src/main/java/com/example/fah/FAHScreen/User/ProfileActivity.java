@@ -1,6 +1,7 @@
 package com.example.fah.FAHScreen.User;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,7 +26,7 @@ import com.example.fah.FAHData.ImageData;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.IEventData;
 import com.example.fah.FAHModel.Models.Image;
-import com.example.fah.FAHScreen.User.Login.LoginActivity;
+import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,10 +44,11 @@ public class ProfileActivity extends AppCompatActivity {
             companyName,companyAddress,companyPhone
             ,companyEmail,
             companyIntro,dtFrom,dtTo;
-    ImageView userAvata;
+    ImageView userAvata,edit_profile_btn;
     ProgressDialog progressDoalog;
     LinearLayout profileCompanyLayout,profileTimeWorkLayout;
     Toolbar toolbar;
+    TextView txtuser_profile_name,txtuser_profile_short_bio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,12 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void addEvent() {
+        edit_profile_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                     ShowDialogUpdate();
+            }
+        });
         userAvata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +94,24 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void ShowDialogUpdate() {
+        final Dialog dialog=new Dialog(ProfileActivity.this);
+        dialog.setContentView( R.layout.activity_update_profile);
+        dialog.setTitle("THÔNG TIN");
+        TextView profileReturnTextView=dialog.findViewById(R.id.profileReturnTextView);
+        profileReturnTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.95),(int)(getResources().getDisplayMetrics().heightPixels*0.95));
+        dialog.setTitle("Cập nhập thông tin.");
+        dialog.setCancelable(true);
+        dialog.show();
+    }
+
     /**
      * Khi click vào avatar thì bắn intent mở trình xem ảnh mặc định để chọn ảnh
      */
@@ -138,32 +164,10 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void Logout(){
-        new AlertDialog.Builder(ProfileActivity.this)
-                .setTitle("THOÁT")
-                .setMessage("Bạn có muốn đăng xuất?")
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(AccountData.firebaseUser!=null){
-                            AccountData.firebaseAuth.signOut();
-                            AccountData.firebaseUser = null;
-                            Account account=new Account();
-                            account.setLogin(false);
-                            AccountData.userLogin = account;
-                            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
-                        }else{
-                            Toast.makeText(ProfileActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
-                        }
-                        dialogInterface.dismiss();
-
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).show();
+        Intent i = new Intent(ProfileActivity.this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+        finish();
     }
 
     @Override
@@ -187,14 +191,17 @@ public class ProfileActivity extends AppCompatActivity {
     private void addControl() {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(ic_chevron_left_black_24dp);
-        toolbar.setTitle("Quay về ");
+        toolbar.setTitle("Thông tin cá nhân ");
         toolbar.setTitleMargin(2, 0, 0, 2);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         profileTimeWorkLayout=findViewById(R.id.profileTimeWorkLayout);
         profileCompanyLayout=findViewById(R.id.profileCompanyLayout);
+        txtuser_profile_name=findViewById(R.id.user_profile_name);
+        txtuser_profile_short_bio=findViewById(R.id.user_profile_short_bio);
+        edit_profile_btn=findViewById(R.id.edit_profile_btn);
         if(AccountData.userLogin!=null && AccountData.userLogin.getRole()==0){
-            profileCompanyLayout.setVisibility(View.INVISIBLE);
+            profileCompanyLayout.setVisibility(View.GONE);
             profileTimeWorkLayout.setVisibility(View.VISIBLE);
             dtFrom=findViewById(R.id.profileUserTimeStart);
             dtTo=findViewById(R.id.profileUserTimeEnd);
@@ -203,7 +210,7 @@ public class ProfileActivity extends AppCompatActivity {
         }else{
             if(AccountData.userLogin!=null && AccountData.userLogin.getRole()==1){
                 profileCompanyLayout.setVisibility(View.VISIBLE);
-                profileTimeWorkLayout.setVisibility(View.INVISIBLE);
+                profileTimeWorkLayout.setVisibility(View.GONE);
                 companyName=findViewById(R.id.profileUsercompanyName);
                 companyAddress =findViewById(R.id.profileUsercompanyAddress);
                 companyPhone=findViewById(R.id.profileUsercompanyPhone);
@@ -227,6 +234,8 @@ public class ProfileActivity extends AppCompatActivity {
         if(AccountData.userLogin!=null){
             userName.setText(AccountData.userLogin.getAccountName());
             userEmail.setText(AccountData.userLogin.getEmail());
+            txtuser_profile_name.setText(AccountData.userLogin.getAccountName());
+            txtuser_profile_short_bio.setText(AccountData.userLogin.getEmail());
             sex.setText(AccountData.userLogin.getSex());
             dateOfBirth.setText(AccountData.userLogin.getDateOfBirth());
             address.setText(AccountData.userLogin.getAddress());
