@@ -172,9 +172,9 @@ public class MenuFragment extends Fragment {
             Toast.makeText(getContext(), "User already exists ", Toast.LENGTH_SHORT).show();
         }else{
             startActivity(new Intent(getContext(), LoginActivity.class));
-
         }
     }
+
     private void EventLogout(){
         new AlertDialog.Builder(getContext())
                 .setTitle("THOÁT")
