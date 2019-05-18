@@ -1,7 +1,6 @@
 package com.example.fah.FAHScreen.Main.Tab;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,21 +14,25 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
-import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHModel.Adapters.ListPostAdapter;
 import com.example.fah.FAHModel.Adapters.SearchAdapter;
+import com.example.fah.FAHModel.Models.Category;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.FAHScreen.Post.DetailPostActivity;
+import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
 
 
 /**
@@ -47,10 +50,12 @@ public class SearchFragment extends Fragment {
     protected Button btnSearch;
     protected ListView lvHotPost;
 
-    Query myRef;
+    DatabaseReference myDbRef;
+    Query myRefQuery;
     ListPostAdapter listPostAdapter;
     List<Post> listPost = new ArrayList<>();
     ProgressDialog progressDialog;
+    int job = VALUEDEFAULT;
 
     private FAHCombobox fahComboboxJob;
 
@@ -77,21 +82,21 @@ public class SearchFragment extends Fragment {
     }
 
 
-
     // Get and set all control on create form
-    private void addControl(){
+    private void addControl() {
         cbbJob = view.findViewById(R.id.cbbJob);
         txtStartTime = view.findViewById(R.id.txtStartTime);
         txtEndTime = view.findViewById(R.id.txtEndTime);
         btnSearch = view.findViewById(R.id.btnSearch);
         lvHotPost = view.findViewById(R.id.lvHotPost);
-        myRef = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, 1, FAHQueryParam.TypeInteger));
+        myDbRef = FAHQuery.GetData("CATEGORY_OF_POST");
+        myRefQuery = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, 1, FAHQueryParam.TypeInteger));
     }
 
     private void addEvent() {
         // Set list of job
         progressDialog.show();
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRefQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Post> listData = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
@@ -132,6 +137,26 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        //Set list combobox
+        myDbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Category> data = (List<Category>) FAHQuery.GetDataObject(dataSnapshot, new Category());
+                String[] list = new String[data.size() + 1];
+
+                list[0] = "Tất cả";
+                for (Category item : data) {
+                    list[Integer.parseInt(item.getCategoryID())] = item.getCategoryName();
+                }
+
+                fahComboboxJob = new FAHCombobox(getActivity(), cbbJob, list, job);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
         lvHotPost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -142,32 +167,31 @@ public class SearchFragment extends Fragment {
             }
         });
 
-//        fahComboboxJob = new FAHCombobox(getActivity(), cbbJob, listJob, 1);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fahComboboxJob.getItemChoose() == -1){
-                    FAHMessage.ToastMessage(getActivity(), "Chọn nghề giúp với");
-                    return;
-                }
+                Intent intent = new Intent(getContext(), DetailSearchPostActivity.class);
+                intent.putExtra("fromScreen", "home");
+                intent.putExtra("job", fahComboboxJob.getItemChoose());
+                intent.putExtra("dtFrom", String.valueOf(txtStartTime.getText()));
+                intent.putExtra("dtTo", String.valueOf(txtEndTime.getText()));
 
-                FAHMessage.ToastMessage(getActivity(), "OK rồi đó");
-                return;
+                startActivity(intent);
             }
         });
     }
 
     // Get and set Combobox Job
-    private void ComboboxJobControl1(){
+    private void ComboboxJobControl1() {
 //        fahComboboxJob = new FAHCombobox(getActivity(), cbbJob, listJob, 1);
     }
 
     // Get and set Combobox Time
-    private void ComboboxTimeControl1(){
+    private void ComboboxTimeControl1() {
 //        cbbTime = view.findViewById(R.id.cbbTime);
     }
 
-    private void ButtonSearchControl(){
+    private void ButtonSearchControl() {
         btnSearch = view.findViewById(R.id.btnSearch);
 
 

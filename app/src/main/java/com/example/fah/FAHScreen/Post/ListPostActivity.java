@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
+import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHModel.Adapters.SearchAdapter;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.R;
@@ -100,39 +101,69 @@ public class ListPostActivity extends AppCompatActivity {
                 Collections.sort(temp);
 
                 for (Post item: temp) {
-                    if (job != VALUEDEFAULT && !item.getCategory().getCategoryID().equals(String.valueOf(job + 1))) {
+                    if (job != VALUEDEFAULT && job != 0 && !item.getCategory().getCategoryID().equals(String.valueOf(job))) {
                         continue;
                     }
 
-                    if (location != null && !location.equals("") && !item.getAddress().contains(location)) {
+                    if (location != null && !location.equals("") && !ExcuteString.removeAccent(item.getAddress()).contains(ExcuteString.removeAccent(location))) {
                         continue;
                     }
 
-                    if (salary != VALUEDEFAULT) {
+                    if (salary != VALUEDEFAULT && salary != 0) {
                         switch (salary) {
-                            case 0:
-                                if (item.getTypeOfSalary() != 2) {
-                                    continue;
-                                }
-                                break;
                             case 1:
-                                if (item.getTypeOfSalary() != 2 && (Integer.parseInt(item.getSalary_from()) < 1000000
-                                        || Integer.parseInt(item.getSalary_from()) > 2000000)) {
+                                if ((Integer.parseInt(item.getSalary_from()) < 1000000
+                                        || Integer.parseInt(item.getSalary_from()) > 3000000)) {
                                     continue;
                                 }
                                 break;
                             case 2:
-                                if (item.getTypeOfSalary() != 2 && (Integer.parseInt(item.getSalary_from()) < 2000000
-                                        || Integer.parseInt(item.getSalary_from()) > 3000000)) {
+                                if ((Integer.parseInt(item.getSalary_from()) < 3000000
+                                        || Integer.parseInt(item.getSalary_from()) > 5000000)) {
+                                    continue;
+                                }
+                                break;
+                            case 3:
+                                if (Integer.parseInt(item.getSalary_from()) < 5000000) {
                                     continue;
                                 }
                                 break;
                         }
                     }
 
-                    if (dtFrom != VALUEDEFAULT && dtTo != VALUEDEFAULT) {
-                        if (item.getDtFrom() < dtFrom || item.getDtTo() > dtTo) {
-                            continue;
+                    if (dtFrom != VALUEDEFAULT) {
+                        int stTime = dtFrom - item.getDtFrom();
+                        switch (stTime) {
+                            case 1:
+                                break;
+                            case -1:
+                                break;
+                            case 0:
+                                break;
+                            case 23:
+                                break;
+                            case -23:
+                                break;
+                            default:
+                                continue;
+                        }
+                    }
+
+                    if (dtTo != VALUEDEFAULT) {
+                        int endTime = dtTo - item.getDtTo();
+                        switch (endTime) {
+                            case 1:
+                                break;
+                            case -1:
+                                break;
+                            case 0:
+                                break;
+                            case 23:
+                                break;
+                            case -23:
+                                break;
+                            default:
+                                continue;
                         }
                     }
 
