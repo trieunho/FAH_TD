@@ -185,9 +185,8 @@ public class MenuFragment extends Fragment {
                         if (AccountData.firebaseUser != null) {
                             AccountData.firebaseAuth.signOut();
                             AccountData.firebaseUser = null;
-                            Account account = AccountData.userLogin;
-                            account.setLogin(false);
-                            AccountData.userLogin = account;
+                            AccountData.userLogin.setLogin(false);
+                            AccountData.userLogin.isSignOut = true;
                             FAHQuery.UpdateData(AccountData.userLogin, "Account/" + AccountData.userLogin.getKey());
                             gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
                         } else {

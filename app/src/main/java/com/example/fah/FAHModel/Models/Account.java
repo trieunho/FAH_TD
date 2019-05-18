@@ -26,6 +26,7 @@ public class Account extends FAHFieldCommon {
     private String key;
     private int dtFrom;
     private int dtTo;
+    public static boolean isSignOut = false;
 
 
     @Override
