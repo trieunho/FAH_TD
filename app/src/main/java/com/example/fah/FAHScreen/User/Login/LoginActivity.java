@@ -71,7 +71,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void nextMain() {
-        AccountData.setUpAccountData();
         if (AccountData.userLogin.getStatusBlock() == 1) {
             Toast.makeText(this, "Tài khoản này đã bị khóa, vui lòng liên hệ quản trị viên để mở hoạt dộng.", Toast.LENGTH_SHORT).show();
             return;
@@ -125,6 +124,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void loginUser() {
+        AccountData.setUpAccountData();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         if (email != "" && email != null) {
