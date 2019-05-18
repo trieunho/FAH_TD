@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.Post;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,30 +43,48 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
     ListPostAdapter listPostAdapter;
     List<Post> data = new ArrayList<>();
     int position;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_management_activity);
 
+        // progress dialog
+        progressDialog = new ProgressDialog(PostManagementActivity.this);
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Đang tải dữ liệu...");
+        progressDialog.setTitle("Waiting");
+
         addControls();
         addEvents();
     }
 
     private void addEvents() {
+        progressDialog.show();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
-                if (data == null) return;
+                if (data == null) {
+                    listPostAdapter.setData(new ArrayList<Post>());
+                    listView.setAdapter(listPostAdapter);
+                    return;
+                }
 
                 listPostAdapter.setData(data);
                 listView.setAdapter(listPostAdapter);
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(PostManagementActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
         });
 
@@ -82,19 +101,36 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
                     approveQuery = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, isChecked ? 1 : 0, FAHQueryParam.TypeInteger));
                 }
 
+                if (!progressDialog.isShowing()) {
+                    progressDialog.show();
+                }
                 approveQuery.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         data = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
-                        if (data == null) return;
+                        if (data == null) {
+                            listPostAdapter.setData(new ArrayList<Post>());
+                            listView.setAdapter(listPostAdapter);
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            return;
+                        }
 
                         listPostAdapter.setData(data);
                         listView.setAdapter(listPostAdapter);
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         Toast.makeText(PostManagementActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     }
                 });
             }
@@ -113,14 +149,28 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
                     approveQuery = FAHQuery.GetDataQuery(new FAHQueryParam("Post", "status", FAHQueryParam.EQUAL, isChecked ? 0 : 1, FAHQueryParam.TypeInteger));
                 }
 
+                if (!progressDialog.isShowing()) {
+                    progressDialog.show();
+                }
                 approveQuery.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         data = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
-                        if (data == null) return;
+                        if (data == null) {
+                            listPostAdapter.setData(new ArrayList<Post>());
+                            listView.setAdapter(listPostAdapter);
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            return;
+                        }
 
                         listPostAdapter.setData(data);
                         listView.setAdapter(listPostAdapter);
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     }
 
                     @Override
