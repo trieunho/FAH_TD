@@ -168,7 +168,7 @@ public class MenuFragment extends Fragment {
     }
 
     private void checkAndCallLogin() {
-        if(AccountData.firebaseUser!=null){
+        if(AccountData.firebaseUser != null){
             Toast.makeText(getContext(), "User already exists ", Toast.LENGTH_SHORT).show();
         }else{
             startActivity(new Intent(getContext(), LoginActivity.class));

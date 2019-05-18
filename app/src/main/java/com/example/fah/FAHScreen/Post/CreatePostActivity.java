@@ -81,6 +81,12 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_post);
 
+        // progress dialog
+        progressDialog = new ProgressDialog(CreatePostActivity.this);
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Đang tải dữ liệu...");
+        progressDialog.setTitle("Waiting");
+
         addControls();
         addEvents();
     }
@@ -99,44 +105,22 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                 return true;
             }
             case R.id.btnPost: {
+                String message = "";
+                // Tạo bài viết mới
                 if (getIntent().getStringExtra("key") == null) {
-                    if (canPost() && canPay() && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
-                        String message = "Phí tạo bài viết là " + lstTOP.get(controlType.getItemChoose()).getTypeCoin() + ". " +
+                    if (canPost() && canPay(Integer.parseInt(lstTOP.get(controlType.getItemChoose()).getTypeCoin())) && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
+                        message = "Phí tạo bài viết là " + lstTOP.get(controlType.getItemChoose()).getTypeCoin() + ". " +
                                 "/nĐồng ý tạo bài viết?";
-                        AlertDialogMessage(CreatePostActivity.this, "Xác nhận", message, "Đồng ý", "Không");
                     }
+                    // Update bài viết
                 } else {
-                    try {
-                        Category cgr = new Category();
-                        cgr.setKey(String.valueOf(controlField.getItemChoose() + 1));
-                        cgr.setCategoryID(String.valueOf(controlField.getItemChoose() + 1));
-                        cgr.setCategoryName(cbxField.getText().toString());
-
-                        // Control update
-                        dataUpdate.setTitlePost(txtTitle.getText().toString());
-                        dataUpdate.setCompanyName(txtCompanyName.getText().toString());
-                        dataUpdate.setCategory(cgr);
-                        dataUpdate.setJobDescription(txtDescription.getText().toString());
-                        dataUpdate.setRequired(txtRequired.getText().toString());
-                        dataUpdate.setBenifit(txtBenifit.getText().toString());
-                        dataUpdate.setSoLuong(txtSoLuong.getText().toString());
-                        dataUpdate.setAddress(txtAddress.getText().toString());
-                        dataUpdate.setDeadLine(txtDate.getText().toString());
-                        dataUpdate.setDtFrom(Integer.parseInt(dtFrom.getText().toString()));
-                        dataUpdate.setDtTo(Integer.parseInt(dtTo.getText().toString()));
-                        dataUpdate.setTypeOfSalary(controlSalary.getItemChoose());
-                        dataUpdate.setSalary_from(txtLuong1.getText().toString());
-                        dataUpdate.setSalary_to(txtLuong2.getText().toString());
-                        dataUpdate.setEmail(txtEmail.getText().toString());
-                        dataUpdate.setPhone(txtPhone.getText().toString());
-                        dataUpdate.setStatus(0);
-                        FAHQuery.UpdateData(dataUpdate, "Post/" + getIntent().getStringExtra("key"));
-
-                        FAHMessage.ToastMessage(CreatePostActivity.this, "Cập nhật thành công");
-                        finish();
-                    } catch (Exception e) {
+                    if (canPay(20)) {
+                        message = "Phí update bài viết là 20 coin" +
+                                "\nĐồng ý update bài viết?";
                     }
                 }
+
+                AlertDialogMessage(CreatePostActivity.this, "Xác nhận", message, "Đồng ý", "Không");
 
             }
             default: {
@@ -209,9 +193,12 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
         txtLuong2.setVisibility(View.GONE);
         lbl.setVisibility(View.GONE);
         txvLoai.setText("Tiền không là tiền");
+
+        FAHMessage.confirmBtnClick(CreatePostActivity.this);
     }
 
     private void addEvents() {
+        progressDialog.show();
 		myRef = FAHQuery.GetData("CATEGORY_OF_POST");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -224,10 +211,14 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                 }
 
                 controlField = new FAHCombobox(CreatePostActivity.this, cbxField, list, VALUEDEFAULT);
+                initItem();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
                 Toast.makeText(CreatePostActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -236,11 +227,16 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 lstTOP = (List<TypeOfPost>) FAHQuery.GetDataObject(dataSnapshot, new TypeOfPost());
-
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
                 ToastMessage(CreatePostActivity.this, databaseError.getMessage());
             }
         });
@@ -316,14 +312,11 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                 }
             }
         });
-
-        initItem();
     }
 
     private void initItem(){
         if (getIntent().getStringExtra("key") != null && !getIntent().getStringExtra("key").isEmpty()) {
             toolbar.setTitle("Chỉnh sửa bài viết");
-            progressDialog.show();
             FirebaseDatabase.getInstance().getReference().child("Post")
                     .child(getIntent().getStringExtra("key")).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -364,9 +357,15 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         Toast.makeText(CreatePostActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     }
                 });
+        } else {
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
         }
     }
 
@@ -426,10 +425,11 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
         return true;
     }
 
-    private boolean canPay() {
-        if (AccountData.userLogin.getCoin() > 0 && AccountData.userLogin.getCoin() >= Integer.parseInt(lstTOP.get(controlType.getItemChoose()).getTypeCoin())) {
+    private boolean canPay(int coin) {
+        if (AccountData.userLogin.getCoin() > 0 && AccountData.userLogin.getCoin() >= coin) {
             return true;
         } else {
+            ToastMessage(CreatePostActivity.this, "Không đủ coin để tạo bài viết");
             return false;
         }
     }
@@ -475,21 +475,55 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         int coinNew = userLogin.getCoin() - Integer.parseInt(dataSnapshot.getValue(TypeOfPost.class).getTypeCoin());
                         FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
-                        progressDialog.dismiss();
+
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
+
                         FAHMessage.ToastMessage(CreatePostActivity.this, "Tạo thành công");
+                        FAHMessage.unConfirmBtnClick();
                         finish();
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        progressDialog.dismiss();
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     }
                 });
             }
             catch (Exception e) {
                 FAHMessage.ToastMessage(CreatePostActivity.this, e.getMessage());
-                progressDialog.dismiss();
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
+        } else {
+            // Control update
+            dataUpdate.setTitlePost(txtTitle.getText().toString());
+            dataUpdate.setCompanyName(txtCompanyName.getText().toString());
+            dataUpdate.setCategory(cgr);
+            dataUpdate.setJobDescription(txtDescription.getText().toString());
+            dataUpdate.setRequired(txtRequired.getText().toString());
+            dataUpdate.setBenifit(txtBenifit.getText().toString());
+            dataUpdate.setSoLuong(txtSoLuong.getText().toString());
+            dataUpdate.setAddress(txtAddress.getText().toString());
+            dataUpdate.setDeadLine(txtDate.getText().toString());
+            dataUpdate.setDtFrom(Integer.parseInt(dtFrom.getText().toString()));
+            dataUpdate.setDtTo(Integer.parseInt(dtTo.getText().toString()));
+            dataUpdate.setTypeOfSalary(controlSalary.getItemChoose());
+            dataUpdate.setSalary_from(txtLuong1.getText().toString());
+            dataUpdate.setSalary_to(txtLuong2.getText().toString());
+            dataUpdate.setEmail(txtEmail.getText().toString());
+            dataUpdate.setPhone(txtPhone.getText().toString());
+            dataUpdate.setStatus(0);
+            FAHQuery.UpdateData(dataUpdate, "Post/" + getIntent().getStringExtra("key"));
+            FAHQuery.UpdateData(20, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
+
+            FAHMessage.ToastMessage(CreatePostActivity.this, "Cập nhật thành công");
+            FAHMessage.unConfirmBtnClick();
+            finish();
         }
     }
 }

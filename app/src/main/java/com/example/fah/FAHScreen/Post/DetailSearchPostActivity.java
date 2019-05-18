@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.Post;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHCombobox;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Models.Category;
+import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,17 +46,25 @@ public class DetailSearchPostActivity extends AppCompatActivity {
     int time = VALUEDEFAULT;
 
     DatabaseReference myRef;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_search_activity);
 
+        // progress dialog
+        progressDialog = new ProgressDialog(DetailSearchPostActivity.this);
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Đang tải dữ liệu...");
+        progressDialog.setTitle("Waiting");
+
         addControls();
         addEvents();
     }
 
     private void addEvents() {
+        progressDialog.show();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -66,6 +76,7 @@ public class DetailSearchPostActivity extends AppCompatActivity {
                 }
 
                 controlJob = new FAHCombobox(DetailSearchPostActivity.this, cbxJob, list, job);
+                progressDialog.dismiss();
             }
 
             @Override

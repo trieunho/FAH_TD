@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.Post;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -62,10 +63,18 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
     Post data;
     int itemId;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_post);
+
+        // progress dialog
+        progressDialog = new ProgressDialog(DetailPostActivity.this);
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Đang tải dữ liệu...");
+        progressDialog.setTitle("Waiting");
 
         addControls();
         addEvents();
@@ -85,6 +94,7 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
     }
 
     private void addEvents() {
+        progressDialog.show();
         FirebaseDatabase.getInstance().getReference().child("Post")
                 .child(getIntent().getStringExtra("key")).addValueEventListener(new ValueEventListener() {
             @Override
@@ -145,6 +155,8 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                             btnSubmit.setText("Ứng tuyển");
                             btnSubmit.setVisibility(View.VISIBLE);
                         }
+
+                        progressDialog.dismiss();
                     }
 
                     @Override
@@ -278,6 +290,7 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                 return true;
             }
             case R.id.btnEdit: {
+                FAHMessage.unConfirmBtnClick();
                 Intent intent = new Intent(DetailPostActivity.this, CreatePostActivity.class);
                 intent.putExtra("key", getIntent().getStringExtra("key"));
                 startActivity(intent);
