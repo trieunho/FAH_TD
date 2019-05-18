@@ -22,14 +22,15 @@
         <activity android:name=".FAHScreen.Other.RulesActivity" />
         <activity android:name=".TestControl.Sample_Add_Edit_Delete_Account" />
         <activity android:name=".TestControl.TestActivity" />
-        <activity android:name=".Main.HomeActivity">
+        <activity android:name=".Main.HomeActivity" />
+
+        <activity android:name=".FAHScreen.Main.Tab.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FAHScreen.Main.Tab.MainActivity" />
         <activity android:name=".FAHScreen.Post.DetailSearchPostActivity" />
         <activity android:name=".FAHScreen.Account.ManageAccountByAdminActivity" />
         <activity android:name=".FAHScreen.Account.ManageAccountByPostActivity" />
