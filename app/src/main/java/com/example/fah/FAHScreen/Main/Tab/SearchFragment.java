@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.Main.Tab;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class SearchFragment extends Fragment {
     Query myRef;
     ListPostAdapter listPostAdapter;
     List<Post> listPost = new ArrayList<>();
+    ProgressDialog progressDialog;
 
     private FAHCombobox fahComboboxJob;
 
@@ -60,6 +62,12 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main_search, container, false);
+
+        // progress dialog
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Đang tải dữ liệu...");
+        progressDialog.setTitle("Waiting");
 
         addControl();
         addEvent();
@@ -82,14 +90,23 @@ public class SearchFragment extends Fragment {
 
     private void addEvent() {
         // Set list of job
+        progressDialog.show();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Post> listData = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                 listPost = new ArrayList<>();
-                if (getContext() == null) return;
+                if (getContext() == null) {
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                    return;
+                }
                 if (listData == null) {
                     lvHotPost.setAdapter(new SearchAdapter(getContext(), listPost));
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
                     return;
                 }
 
@@ -102,10 +119,16 @@ public class SearchFragment extends Fragment {
                 }
 
                 lvHotPost.setAdapter(new SearchAdapter(getContext(), listPost));
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
         });
 

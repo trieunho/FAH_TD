@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.Main.Tab;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,12 +39,19 @@ public class HotPostFragment extends Fragment {
     FloatingActionButton fab;
     Query myRef;
     TextView txtTitle;
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_hot_post, container, false);
+
+        // progress dialog
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Đang tải dữ liệu...");
+        progressDialog.setTitle("Waiting");
 
         if (AccountData.userLogin != null && !AccountData.userLogin.isSignOut
                 && (AccountData.userLogin.getRole() == 1 || AccountData.userLogin.getRole() == 2)) {
@@ -78,9 +86,17 @@ public class HotPostFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Post> listData = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                 listCreate = new ArrayList<>();
-                if (getContext() == null) return;
+                if (getContext() == null) {
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                    return;
+                }
                 if (listData == null) {
                     listView.setAdapter(new SearchAdapter(getContext(), listCreate));
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
                     return;
                 }
 
@@ -103,10 +119,16 @@ public class HotPostFragment extends Fragment {
                 }
 
                 listView.setAdapter(new SearchAdapter(getContext(), listCreate));
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
         });
 

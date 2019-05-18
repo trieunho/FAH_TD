@@ -58,6 +58,11 @@ public class NotificationFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         ArrayList<Notification> listNotifications = (ArrayList<Notification>) FAHQuery.GetDataObject(dataSnapshot, new Notification());
+                        if (getContext() == null) return;
+                        if (listNotifications == null) {
+                            listView.setAdapter(new NotificationAdapter(getContext(), R.layout.list_notification_item, new ArrayList<Notification>()));
+                            return;
+                        }
                         listView.setAdapter(new NotificationAdapter(getContext(), R.layout.list_notification_item, listNotifications));
                     }
 

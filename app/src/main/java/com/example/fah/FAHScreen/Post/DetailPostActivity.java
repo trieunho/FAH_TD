@@ -137,6 +137,7 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                                     btnSubmit.setText("Ứng tuyển");
                                 }
                             } else if (userLogin.getRole() == 3) {
+                                btnSubmit.setVisibility(View.VISIBLE);
                                 btnSubmit.setText(data.getStatus() == 1 ? "Đã duyệt" : "Duyệt");
                                 btnSubmit.setEnabled(data.getStatus() == 0);
                             } else if (userLogin.getRole() == 2) {

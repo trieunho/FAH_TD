@@ -92,7 +92,9 @@ public class ListPostActivity extends AppCompatActivity {
                 List<Post> temp = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                 if (temp == null) {
                     lstSearch.setAdapter(new SearchAdapter(ListPostActivity.this, new ArrayList<Post>()));
-                    progressDialog.dismiss();
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
                     return;
                 }
                 Collections.sort(temp);
@@ -151,12 +153,17 @@ public class ListPostActivity extends AppCompatActivity {
                 }
 
                 lstSearch.setAdapter(new SearchAdapter(ListPostActivity.this, listPost));
-                progressDialog.dismiss();
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(ListPostActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
         });
 
