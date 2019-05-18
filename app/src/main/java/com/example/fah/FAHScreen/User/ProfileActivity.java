@@ -15,15 +15,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.CommonUtils.ImageUtils;
 import com.example.fah.FAHData.AccountData;
+import com.example.fah.FAHData.CategoryData;
 import com.example.fah.FAHData.ImageData;
 import com.example.fah.FAHModel.Models.Account;
+import com.example.fah.FAHModel.Models.Category;
+import com.example.fah.FAHModel.Models.IEvenItem;
 import com.example.fah.FAHModel.Models.IEventData;
 import com.example.fah.FAHModel.Models.Image;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
@@ -35,6 +43,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import static com.example.fah.R.drawable.ic_chevron_left_black_24dp;
 
@@ -49,6 +60,8 @@ public class ProfileActivity extends AppCompatActivity {
     LinearLayout profileCompanyLayout,profileTimeWorkLayout;
     Toolbar toolbar;
     TextView txtuser_profile_name,txtuser_profile_short_bio;
+    static HashMap<Integer, String> spinnerMap;
+    private Spinner updateProfilespnListOfJob;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,17 +112,144 @@ public class ProfileActivity extends AppCompatActivity {
         final Dialog dialog=new Dialog(ProfileActivity.this);
         dialog.setContentView( R.layout.activity_update_profile);
         dialog.setTitle("THÔNG TIN");
-        TextView profileReturnTextView=dialog.findViewById(R.id.profileReturnTextView);
+        TextView profileReturnTextView=dialog.findViewById(R.id.updateProfileReturnTextView);
+        Button updateProfileButton = dialog.findViewById(R.id.updateProfileButton);
+        // bindding control dialog
+        // TD
+        EditText updateProfileName=dialog.findViewById(R.id.updateProfileName);
+        EditText updateProfileEmail=dialog.findViewById(R.id.updateProfileEmail);
+        RadioButton updateProfileradioButton_td=dialog.findViewById(R.id.updateProfileradioButton_td);
+        RadioButton updateProfileradioButton_uv=dialog.findViewById(R.id.updateProfileradioButton_uv);
+        LinearLayout nhaTuyenDungLayout=dialog.findViewById(R.id.nhaTuyenDungLayout);
+        EditText updateProfileDateOfBirthtd=dialog.findViewById(R.id.updateProfileDateOfBirthtd);
+        RadioButton updateProfileradioButton_sexNamtd=dialog.findViewById(R.id.updateProfileradioButton_sexNamtd);
+        RadioButton updateProfileradioButtonsex_Nutd=dialog.findViewById(R.id.updateProfileradioButtonsex_Nutd);
+        EditText updateProfilecompanyName=dialog.findViewById(R.id.updateProfilecompanyName);
+        EditText updateProfilecompanyAddress=dialog.findViewById(R.id.updateProfilecompanyAddress);
+        EditText updateProfilecompanyPhone=dialog.findViewById(R.id.updateProfilecompanyPhone);
+        EditText updateProfilecompanyEmail= dialog.findViewById(R.id.updateProfilecompanyEmail);
+        // UV
+        LinearLayout ungVienLayout=dialog.findViewById(R.id.ungVienLayout);
+        EditText updateProfileDateOfBirthuv=dialog.findViewById(R.id.updateProfileDateOfBirthuv);
+        RadioButton updateProfileradioButton_sexNamuv=dialog.findViewById(R.id.updateProfileradioButton_sexNamuv);
+        RadioButton updateProfileradioButtonsex_Nuuv=dialog.findViewById(R.id.updateProfileradioButtonsex_Nuuv);
+         updateProfilespnListOfJob=dialog.findViewById(R.id.updateProfilespnListOfJob);
+        EditText updateProfileAddressuv=dialog.findViewById(R.id.updateProfileAddressuv);
+        EditText updateProfilePhoneuv=dialog.findViewById(R.id.updateProfilePhoneuv);
+        EditText updateProfileFromTimeuv=dialog.findViewById(R.id.updateProfileFromTimeuv);
+        EditText updateProfileToTimeuv=dialog.findViewById(R.id.updateProfileToTimeuv);
+
+        if(AccountData.userLogin!=null){
+            // TD
+            if(AccountData.userLogin.getAccountName()!=null){
+                updateProfileName.setText(AccountData.userLogin.getAccountName());
+            }
+            if(AccountData.userLogin.getEmail()!=null){
+                updateProfileEmail.setText(AccountData.userLogin.getEmail());
+            }
+            if(AccountData.userLogin.getRole()==2){
+                updateProfileradioButton_td.setChecked(true);
+                ungVienLayout.setVisibility(View.GONE);
+                nhaTuyenDungLayout.setVisibility(View.VISIBLE);
+                if(AccountData.userLogin.getDateOfBirth()!=null){
+                    updateProfileDateOfBirthtd.setText(AccountData.userLogin.getDateOfBirth());
+                }
+                if(AccountData.userLogin.getSex().equals("Nam")){
+                    updateProfileradioButton_sexNamtd.setChecked(true);
+                }else{
+                    updateProfileradioButtonsex_Nutd.setChecked(true);
+                }
+                if(AccountData.userLogin.getCompanyName()!=null){
+                    updateProfilecompanyName.setText(AccountData.userLogin.getCompanyName());
+                }
+                if(AccountData.userLogin.getCompanyAddress()!=null){
+                    updateProfilecompanyAddress.setText(AccountData.userLogin.getCompanyAddress());
+                }
+                if(AccountData.userLogin.getCompanyPhone()!=null){
+                    updateProfilecompanyPhone.setText(AccountData.userLogin.getCompanyPhone());
+                }
+
+            }else{
+                // UV
+                updateProfileradioButton_uv.setChecked(true);
+                ungVienLayout.setVisibility(View.VISIBLE);
+                nhaTuyenDungLayout.setVisibility(View.GONE);
+                if(AccountData.userLogin.getDateOfBirth()!=null){
+                    updateProfileDateOfBirthuv.setText(AccountData.userLogin.getDateOfBirth());
+                }
+                if(AccountData.userLogin.getDateOfBirth()!=null){
+                    updateProfileDateOfBirthuv.setText(AccountData.userLogin.getDateOfBirth());
+                }
+                if(AccountData.userLogin.getSex().equals("Nam")){
+                    updateProfileradioButton_sexNamuv.setChecked(true);
+                }else{
+                    updateProfileradioButtonsex_Nuuv.setChecked(true);
+                }
+                if(AccountData.userLogin.getAddress()!=null){
+                    updateProfileAddressuv.setText(AccountData.userLogin.getAddress());
+                }
+                if(AccountData.userLogin.getPhone()!=null){
+                    updateProfilePhoneuv.setText(AccountData.userLogin.getPhone());
+                }
+                if(AccountData.userLogin.getPhone()!=null){
+                    updateProfilePhoneuv.setText(AccountData.userLogin.getPhone());
+                }
+                updateProfileFromTimeuv.setText(AccountData.userLogin.getDtFrom()+"");
+                updateProfileToTimeuv.setText(AccountData.userLogin.getDtTo()+"");
+                CategoryData.setUpCategoryData(new IEvenItem() {
+                    @Override
+                    public void callEvent() {
+                        setTitlePostAdapter(CategoryData.categoryList);
+                    }
+                });
+            }
+
+        }
+
+        // end bindding control dialog
+
+        // set event control dialog
+        updateProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ProfileActivity.this, "Biết rồi, tôi đang làm, đừng click nữa", Toast.LENGTH_SHORT).show();
+              //  dialog.dismiss();
+            }
+        });
         profileReturnTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
             }
         });
+        // end event control dialog
         dialog.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.95),(int)(getResources().getDisplayMetrics().heightPixels*0.95));
         dialog.setTitle("Cập nhập thông tin.");
         dialog.setCancelable(true);
         dialog.show();
+    }
+
+    /**
+     * Set value for Adapter
+     */
+    private void setTitlePostAdapter(ArrayList<Category> categoryList) {
+        List<String> listOfCategory = new ArrayList<>();
+        spinnerMap = new HashMap<Integer, String>();
+        spinnerMap.put(0, "All");
+        listOfCategory.add("Chọn");
+        if (categoryList != null) {
+            for (int i = 0; i < categoryList.size(); i++) {
+                spinnerMap.put((i + 1), categoryList.get(i).getCategoryID());
+                listOfCategory.add(categoryList.get(i).getCategoryName());
+            }
+            ArrayAdapter<String> listOfPostAdapter =
+                    new ArrayAdapter(
+                            this, android.R.layout.simple_spinner_item,
+                            listOfCategory);
+            listOfPostAdapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+            updateProfilespnListOfJob.setAdapter(listOfPostAdapter);
+
+        }
     }
 
     /**
@@ -200,7 +340,7 @@ public class ProfileActivity extends AppCompatActivity {
         txtuser_profile_name=findViewById(R.id.user_profile_name);
         txtuser_profile_short_bio=findViewById(R.id.user_profile_short_bio);
         edit_profile_btn=findViewById(R.id.edit_profile_btn);
-        if(AccountData.userLogin!=null && AccountData.userLogin.getRole()==0){
+        if(AccountData.userLogin!=null && AccountData.userLogin.getRole()==1){
             profileCompanyLayout.setVisibility(View.GONE);
             profileTimeWorkLayout.setVisibility(View.VISIBLE);
             dtFrom=findViewById(R.id.profileUserTimeStart);
@@ -208,7 +348,7 @@ public class ProfileActivity extends AppCompatActivity {
             dtFrom.setText(AccountData.userLogin.getDtFrom()+"h");
             dtTo.setText(AccountData.userLogin.getDtTo()+"h");
         }else{
-            if(AccountData.userLogin!=null && AccountData.userLogin.getRole()==1){
+            if(AccountData.userLogin!=null && AccountData.userLogin.getRole()==2){
                 profileCompanyLayout.setVisibility(View.VISIBLE);
                 profileTimeWorkLayout.setVisibility(View.GONE);
                 companyName=findViewById(R.id.profileUsercompanyName);

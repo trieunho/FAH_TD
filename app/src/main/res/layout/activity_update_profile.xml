@@ -35,7 +35,6 @@
                     android:orientation="vertical"
                     >
                     <TextView
-                        android:id="@+id/signupTitleTextView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentTop="true"
@@ -52,13 +51,24 @@
                         android:layout_height="2dp"
                         android:background="@color/colorWhite"
                         ></LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:text="Tên người dùng"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/colorWhite"
+                        android:layout_gravity="left"
+                        android:textSize="10sp"
+                        android:textStyle="italic"
+                        android:typeface="monospace" />
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:padding="15dp"
                         android:textSize="12dp"
-                        android:id="@+id/signUpNameEditText"
+                        android:id="@+id/updateProfileName"
                         android:background="@drawable/shapeemail"
                         android:drawableLeft="@drawable/ic_person_black_24dp"
                         android:drawablePadding="10dp"
@@ -66,13 +76,25 @@
                         android:textColor="@color/colorWhite"
                         android:textColorHint="@color/colorWhite"
                         android:textColorHighlight="@color/colorWhite"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:text="Email"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/colorWhite"
+                        android:layout_gravity="left"
+                        android:textSize="10sp"
+                        android:textStyle="italic"
+                        android:typeface="monospace" />
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:padding="15dp"
                         android:textSize="12dp"
-                        android:id="@+id/signUpEmailEditText"
+                        android:id="@+id/updateProfileEmail"
+                        android:focusable="false"
                         android:background="@drawable/shapeemail"
                         android:drawableLeft="@drawable/ic_person_black_24dp"
                         android:drawablePadding="10dp"
@@ -80,36 +102,7 @@
                         android:textColor="@color/colorWhite"
                         android:textColorHint="@color/colorWhite"
                         android:textColorHighlight="@color/colorWhite"/>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:padding="15dp"
-                        android:id="@+id/signUpPasswordEditText"
-                        android:textSize="12dp"
-                        android:inputType="textPassword"
-                        android:background="@drawable/shapeemail"
-                        android:drawableLeft="@drawable/ic_lock_black_24dp"
-                        android:drawablePadding="10dp"
-                        android:hint="Mật khẩu"
-                        android:textColor="@color/colorWhite"
-                        android:textColorHint="@color/colorWhite"
-                        android:textColorHighlight="@color/colorWhite"/>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:padding="15dp"
-                        android:id="@+id/signUpConfirmPasswordEditText"
-                        android:textSize="12dp"
-                        android:inputType="textPassword"
-                        android:background="@drawable/shapeemail"
-                        android:drawableLeft="@drawable/ic_lock_black_24dp"
-                        android:drawablePadding="10dp"
-                        android:hint="Nhập lại mật khẩu"
-                        android:textColor="@color/colorWhite"
-                        android:textColorHint="@color/colorWhite"
-                        android:textColorHighlight="@color/colorWhite"/>
+
                     <TextView
                         android:id="@+id/signupTitleTextView2"
                         android:layout_width="match_parent"
@@ -128,11 +121,23 @@
                         android:layout_height="2dp"
                         android:background="@color/colorWhite"
                         ></LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:text="Loại người dùng"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/colorWhite"
+                        android:layout_gravity="left"
+                        android:textSize="10sp"
+                        android:textStyle="italic"
+                        android:typeface="monospace" />
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_below="@+id/textView3"
                         android:layout_alignParentLeft="true"
+                        android:focusable="false"
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="15dp"
                         android:orientation="horizontal"
@@ -143,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:text="Nhà tuyển dụng"
                             android:textColor="@color/colorWhite"
-                            android:id="@+id/radioButton_td"
+                            android:id="@+id/updateProfileradioButton_td"
                             android:checked="false" />
 
                         <RadioButton
@@ -151,7 +156,7 @@
                             android:layout_height="wrap_content"
                             android:text="Ứng viên"
                             android:textColor="@color/colorWhite"
-                            android:id="@+id/radioButton_uv"
+                            android:id="@+id/updateProfileradioButton_uv"
                             android:checked="true" />
 
                     </RadioGroup>
@@ -161,12 +166,23 @@
                         android:id="@+id/nhaTuyenDungLayout"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Ngày sinh"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:padding="15dp"
-                            android:id="@+id/signUpDateOfBirthtd"
+                            android:id="@+id/updateProfileDateOfBirthtd"
                             android:textSize="12dp"
                             android:background="@drawable/shapeemail"
                             android:drawablePadding="10dp"
@@ -174,6 +190,17 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
                             android:textColorHighlight="@color/colorWhite"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Giới tính"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <RadioGroup
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
@@ -189,7 +216,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Nam"
                                 android:textColor="@color/colorWhite"
-                                android:id="@+id/radioButton_sexNamtd"
+                                android:id="@+id/updateProfileradioButton_sexNamtd"
                                 android:checked="false" />
 
                             <RadioButton
@@ -197,17 +224,27 @@
                                 android:layout_height="wrap_content"
                                 android:text="Nữ"
                                 android:textColor="@color/colorWhite"
-                                android:id="@+id/radioButtonsex_Nutd"
+                                android:id="@+id/updateProfileradioButtonsex_Nutd"
                                 android:checked="true" />
 
                         </RadioGroup>
-
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Tên công ty"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:padding="15dp"
-                            android:id="@+id/signUpcompanyName"
+                            android:id="@+id/updateProfilecompanyName"
                             android:textSize="12dp"
                             android:background="@drawable/shapeemail"
                             android:drawablePadding="10dp"
@@ -215,12 +252,23 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
                             android:textColorHighlight="@color/colorWhite"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Địa chỉ công ty"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:padding="15dp"
-                            android:id="@+id/signUpcompanyAddress"
+                            android:id="@+id/updateProfilecompanyAddress"
                             android:textSize="12dp"
                             android:background="@drawable/shapeemail"
                             android:drawablePadding="10dp"
@@ -228,12 +276,23 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
                             android:textColorHighlight="@color/colorWhite"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Di động công ty"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:padding="15dp"
-                            android:id="@+id/signUpcompanyPhone"
+                            android:id="@+id/updateProfilecompanyPhone"
                             android:textSize="12dp"
                             android:background="@drawable/shapeemail"
                             android:drawablePadding="10dp"
@@ -241,12 +300,23 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
                             android:textColorHighlight="@color/colorWhite"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Email công ty"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:padding="15dp"
-                            android:id="@+id/signUpcompanyEmail"
+                            android:id="@+id/updateProfilecompanyEmail"
                             android:textSize="12dp"
                             android:background="@drawable/shapeemail"
                             android:drawablePadding="10dp"
@@ -261,19 +331,41 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/ungVienLayout"
                         android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Ngày sinh"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:padding="15dp"
-                            android:id="@+id/signUpDateOfBirthuv"
+                            android:id="@+id/updateProfileDateOfBirthuv"
                             android:textSize="12dp"
                             android:background="@drawable/shapeemail"
                             android:drawablePadding="10dp"
-                            android:hint="Ngày sinhuv"
+                            android:hint="Ngày sinh"
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
                             android:textColorHighlight="@color/colorWhite"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Giới tính"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <RadioGroup
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
@@ -289,7 +381,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Nam"
                                 android:textColor="@color/colorWhite"
-                                android:id="@+id/radioButton_sexNamuv"
+                                android:id="@+id/updateProfileradioButton_sexNamuv"
                                 android:checked="false" />
 
                             <RadioButton
@@ -297,7 +389,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Nữ"
                                 android:textColor="@color/colorWhite"
-                                android:id="@+id/radioButtonsex_Nuuv"
+                                android:id="@+id/updateProfileradioButtonsex_Nuuv"
                                 android:checked="true" />
 
                         </RadioGroup>
@@ -316,18 +408,29 @@
                                 android:textSize="12dp"
                                 android:text="Công việc: "/>
                             <Spinner
-                                android:id="@+id/spnListOfJob"
+                                android:id="@+id/updateProfilespnListOfJob"
                                 android:layout_width="200dp"
                                 android:textSize="12dp"
                                 android:layout_height="wrap_content" />
 
                         </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Địa chỉ"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:padding="15dp"
-                            android:id="@+id/signUpAddressuv"
+                            android:id="@+id/updateProfileAddressuv"
                             android:textSize="12dp"
                             android:background="@drawable/shapeemail"
                             android:drawablePadding="10dp"
@@ -335,12 +438,23 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
                             android:textColorHighlight="@color/colorWhite"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Di dộng"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:padding="15dp"
-                            android:id="@+id/signUpPhoneuv"
+                            android:id="@+id/updateProfilePhoneuv"
                             android:textSize="12dp"
                             android:background="@drawable/shapeemail"
                             android:drawablePadding="10dp"
@@ -348,12 +462,23 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
                             android:textColorHighlight="@color/colorWhite"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Thời gian vào làm"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:padding="15dp"
-                            android:id="@+id/signUpFromTimeuv"
+                            android:id="@+id/updateProfileFromTimeuv"
                             android:textSize="12dp"
                             android:background="@drawable/shapeemail"
                             android:drawablePadding="10dp"
@@ -361,12 +486,23 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
                             android:textColorHighlight="@color/colorWhite"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:text="Thời gian ra ca"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorWhite"
+                            android:layout_gravity="left"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            android:typeface="monospace" />
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:padding="15dp"
-                            android:id="@+id/signUpToTimeuv"
+                            android:id="@+id/updateProfileToTimeuv"
                             android:textSize="12dp"
                             android:background="@drawable/shapeemail"
                             android:drawablePadding="10dp"
@@ -385,7 +521,7 @@
                 android:background="@mipmap/back"
                 >
                 <Button
-                    android:id="@+id/signUpButton"
+                    android:id="@+id/updateProfileButton"
                     android:layout_width="292dp"
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
@@ -404,7 +540,7 @@
                 android:background="@mipmap/back"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/profileReturnTextView"
+                    android:id="@+id/updateProfileReturnTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
