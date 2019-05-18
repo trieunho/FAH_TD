@@ -45,7 +45,8 @@ public class HotPostFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_hot_post, container, false);
 
-        if (AccountData.userLogin != null && !AccountData.userLogin.isSignOut) {
+        if (AccountData.userLogin != null && !AccountData.userLogin.isSignOut
+                && (AccountData.userLogin.getRole() == 1 || AccountData.userLogin.getRole() == 2)) {
             addControls();
             addEvents();
         }
