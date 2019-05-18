@@ -78,7 +78,13 @@ public class HotPostFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Post> listData = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
                 listCreate = new ArrayList<>();
-                if (listData != null && listData.size() > 0) {
+                if (getContext() == null) return;
+                if (listData == null) {
+                    listView.setAdapter(new SearchAdapter(getContext(), listCreate));
+                    return;
+                }
+
+                if (listData.size() > 0) {
                     // company
                     if (AccountData.userLogin.getRole() == 2) {
                         for (Post item : listData) {

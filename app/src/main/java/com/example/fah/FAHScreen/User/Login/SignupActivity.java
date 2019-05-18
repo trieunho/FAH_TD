@@ -67,14 +67,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        addControl();
-        CategoryData.setUpCategoryData(new IEvenItem() {
-            @Override
-            public void callEvent() {
-                setTitlePostAdapter(CategoryData.categoryList);
-            }
-        });
-        addEvent();
+//        addControl();
+//        CategoryData.setUpCategoryData(new IEvenItem() {
+//            @Override
+//            public void callEvent() {
+//                setTitlePostAdapter(CategoryData.categoryList);
+//            }
+//        });
+//        addEvent();
 //        createAuthStateListener();
 
     }

@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 addControl();
             }
         } else {
-            AccountData.setUpAccountData();
+//            AccountData.setUpAccountData();
             addControl();
         }
     }
@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void nextMain() {
+        AccountData.setUpAccountData();
         if (AccountData.userLogin.getStatusBlock() == 1) {
             Toast.makeText(this, "Tài khoản này đã bị khóa, vui lòng liên hệ quản trị viên để mở hoạt dộng.", Toast.LENGTH_SHORT).show();
             return;

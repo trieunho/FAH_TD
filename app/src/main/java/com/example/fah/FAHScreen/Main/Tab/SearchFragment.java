@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.Main.Tab;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -85,9 +86,14 @@ public class SearchFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Post> listData = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
-                if (listData == null) return;
                 listPost = new ArrayList<>();
-                if (listData != null && listData.size() > 0) {
+                if (getContext() == null) return;
+                if (listData == null) {
+                    lvHotPost.setAdapter(new SearchAdapter(getContext(), listPost));
+                    return;
+                }
+
+                if (listData.size() > 0) {
                     for (Post item : listData) {
                         if (item.getTypeOfPost() != null && "1".equals(item.getTypeOfPost().getTypeID())) {
                             listPost.add(item);

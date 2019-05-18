@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.Post;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,10 +43,18 @@ public class ListPostActivity extends AppCompatActivity {
     int dtFrom;
     int dtTo;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_post);
+
+        // progress dialog
+        progressDialog = new ProgressDialog(ListPostActivity.this);
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Đang tải dữ liệu...");
+        progressDialog.setTitle("Waiting");
 
         addControls();
         addEvents();
@@ -75,12 +84,17 @@ public class ListPostActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        progressDialog.show();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listPost = new ArrayList<>();
                 List<Post> temp = (List<Post>) FAHQuery.GetDataObject(dataSnapshot, new Post());
-                if (temp == null) return;
+                if (temp == null) {
+                    lstSearch.setAdapter(new SearchAdapter(ListPostActivity.this, new ArrayList<Post>()));
+                    progressDialog.dismiss();
+                    return;
+                }
                 Collections.sort(temp);
 
                 for (Post item: temp) {
@@ -137,6 +151,7 @@ public class ListPostActivity extends AppCompatActivity {
                 }
 
                 lstSearch.setAdapter(new SearchAdapter(ListPostActivity.this, listPost));
+                progressDialog.dismiss();
             }
 
             @Override
