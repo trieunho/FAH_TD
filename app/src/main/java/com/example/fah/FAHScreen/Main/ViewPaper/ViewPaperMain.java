@@ -21,7 +21,8 @@ public class ViewPaperMain {
     public ViewPaperMain(){
         listTabFlagmemt = new ArrayList<>();
         listTabFlagmemt.add(new TabFlagment(new SearchFragment(), "Search Data", R.drawable.fah_icon_search));
-        if (AccountData.userLogin != null && AccountData.userLogin.getRole() != 3) {
+        if (AccountData.userLogin != null && !AccountData.userLogin.isSignOut
+                && (AccountData.userLogin.getRole() == 0 || AccountData.userLogin.getRole() == 2)) {
             listTabFlagmemt.add(new TabFlagment(new HotPostFragment(), "Search Data", R.drawable.fah_icon_work));
         }
 

@@ -78,8 +78,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (getIntent() != null && getIntent().getStringExtra("flag") != null && getIntent().getStringExtra("flag").equals("detail")) {
                 finish();
             } else {
-                AccountData.userLogin.setLogin(true);
-                FirebaseDatabase.getInstance().getReference("Account/" + AccountData.userLogin.getKey()).setValue(AccountData.userLogin);
+                if (!AccountData.userLogin.isSignOut) {
+                    AccountData.userLogin.setLogin(true);
+                    AccountData.userLogin.isSignOut = false;
+                }
+
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
@@ -154,6 +157,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     @Override
                                     public void EventSuccess() {
                                         nextMain();
+
                                         progressDoalog.dismiss();
                                     }
 
