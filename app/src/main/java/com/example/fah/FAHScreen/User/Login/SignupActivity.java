@@ -1,5 +1,6 @@
 package com.example.fah.FAHScreen.User.Login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,7 +37,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
-    // ProgressDialog progressDoalog;
+    ProgressDialog progressDoalog;
     private EditText signUpNameEditTxt,
             signUpDateOfBirthtd,
             signUpDateOfBirthuv,
@@ -67,16 +68,19 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-//        addControl();
-//        CategoryData.setUpCategoryData(new IEvenItem() {
-//            @Override
-//            public void callEvent() {
-//                setTitlePostAdapter(CategoryData.categoryList);
-//            }
-//        });
-//        addEvent();
-//        createAuthStateListener();
-
+        progressDoalog = new ProgressDialog(SignupActivity.this);
+        progressDoalog.setMax(100);
+        progressDoalog.setMessage("Đang tạo tài khoản....");
+        progressDoalog.setTitle("ĐĂNG KÝ");
+        CheckAccountLogin();
+        addControl();
+        CategoryData.setUpCategoryData(new IEvenItem() {
+            @Override
+            public void callEvent() {
+                setTitlePostAdapter(CategoryData.categoryList);
+            }
+        });
+        addEvent();
     }
 
     private void addEvent() {
@@ -205,7 +209,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             if (!ValidateTD()) return;
         }
-
+        progressDoalog.show();
         AccountData.firebaseAuth.createUserWithEmailAndPassword(createEmail, createPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -254,6 +258,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                                     AccountData.UpdateAccount(account, new IEventData() {
                                                         @Override
                                                         public void EventSuccess() {
+                                                            progressDoalog.dismiss();
                                                             AccountData.userLogin = account;
                                                             AccountData.userLogin.setLogin(true);
                                                             startActivity(new Intent(SignupActivity.this, MainActivity.class));
@@ -262,18 +267,20 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                                         @Override
                                                         public void EventFail(String message) {
                                                             Toast.makeText(SignupActivity.this, message, Toast.LENGTH_SHORT).show();
+                                                            progressDoalog.dismiss();
                                                         }
                                                     });
 
                                                 }
                                             }
                                         });
+                            }else{
+                                progressDoalog.dismiss();
                             }
-
                         } else {
                             Toast.makeText(SignupActivity.this, "Đăng ký gặp sự cố.",
                                     Toast.LENGTH_SHORT).show();
-
+                             progressDoalog.dismiss();
                         }
                     }
                 });
@@ -368,33 +375,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-
-    private void createAuthStateListener() {
-        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (AccountData.firebaseUser != null) {
+    private void CheckAccountLogin() {
+                if (AccountData.userLogin != null && AccountData.userLogin.isLogin()) {
                     Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
+                }else{
+                    AccountData.setUpAccountData();
                 }
-            }
-
-        };
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        AccountData.firebaseAuth.addAuthStateListener(firebaseAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (firebaseAuthListener != null) {
-            AccountData.firebaseAuth.removeAuthStateListener(firebaseAuthListener);
-        }
     }
 }
