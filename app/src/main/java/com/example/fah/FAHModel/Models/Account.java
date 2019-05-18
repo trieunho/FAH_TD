@@ -27,6 +27,7 @@ public class Account extends FAHFieldCommon {
     private int dtFrom;
     private int dtTo;
     public static boolean isSignOut = false;
+    public static boolean isCreatePost = false;
 
 
     @Override

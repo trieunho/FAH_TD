@@ -56,6 +56,10 @@ public class AccountData {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
+                    if (AccountData.userLogin.isCreatePost) {
+                        return;
+                    }
+
                     ArrayList<Account> listAcount = (ArrayList<Account>) FAHQuery.GetDataObject(dataSnapshot, new Account());
                     AccountData.userLogin = listAcount.get(0);
                     setImageSourceAvata(new IEventData() {

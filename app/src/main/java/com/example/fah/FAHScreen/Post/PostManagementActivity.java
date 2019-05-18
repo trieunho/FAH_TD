@@ -255,4 +255,9 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
         Post data = (Post) listView.getAdapter().getItem(position);
         FAHQuery.DeleteData(new String[]{ data.getClass().getSimpleName() + "/" + data.getKey() });
     }
+
+    @Override
+    public void onOkClick() {
+
+    }
 }

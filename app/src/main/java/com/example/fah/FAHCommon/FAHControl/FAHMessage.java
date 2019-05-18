@@ -29,6 +29,7 @@ public class FAHMessage {
         Snackbar.make(view, content, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
+
     public static void AlertDialogMessage(final Activity activity, String title, String message, String yes, String no){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(title);
@@ -44,6 +45,21 @@ public class FAHMessage {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    public static void ImformationDialogMessage(final Activity activity, String title, String message, String ok){
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setCancelable(false);
+        builder.setPositiveButton(ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                iConfirmClick.onOkClick();
             }
         });
         AlertDialog alertDialog = builder.create();

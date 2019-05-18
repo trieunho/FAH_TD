@@ -38,6 +38,7 @@ import java.util.List;
 
 import static com.example.fah.FAHCommon.FAHControl.FAHCombobox.VALUEDEFAULT;
 import static com.example.fah.FAHCommon.FAHControl.FAHMessage.AlertDialogMessage;
+import static com.example.fah.FAHCommon.FAHControl.FAHMessage.ImformationDialogMessage;
 import static com.example.fah.FAHCommon.FAHControl.FAHMessage.ToastMessage;
 import static com.example.fah.FAHData.AccountData.userLogin;
 
@@ -110,7 +111,8 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                 if (getIntent().getStringExtra("key") == null) {
                     if (canPost() && canPay(Integer.parseInt(lstTOP.get(controlType.getItemChoose()).getTypeCoin())) && CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                         message = "Phí tạo bài viết là " + lstTOP.get(controlType.getItemChoose()).getTypeCoin() + ". " +
-                                "/nĐồng ý tạo bài viết?";
+                                "\nĐồng ý tạo bài viết?";
+                        AlertDialogMessage(CreatePostActivity.this, "Xác nhận", message, "Đồng ý", "Không");
                     }
                     // Update bài viết
                 } else {
@@ -118,10 +120,8 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                         message = "Phí update bài viết là 20 coin" +
                                 "\nĐồng ý update bài viết?";
                     }
+                    AlertDialogMessage(CreatePostActivity.this, "Xác nhận", message, "Đồng ý", "Không");
                 }
-
-                AlertDialogMessage(CreatePostActivity.this, "Xác nhận", message, "Đồng ý", "Không");
-
             }
             default: {
                 return super.onOptionsItemSelected(item);
@@ -403,7 +403,7 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                 txtLuong1.requestFocus();
                 Toast.makeText(this, "Chưa nhập Lương trong khoảng", Toast.LENGTH_SHORT).show();
                 return false;
-            } else if (txtLuong2.getText().toString().equals("")){
+            } else if (txtLuong2.getText().toString().equals("")) {
                 txtLuong2.requestFocus();
                 Toast.makeText(this, "Chưa nhập Lương trong khoảng", Toast.LENGTH_SHORT).show();
                 return false;
@@ -474,15 +474,14 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         int coinNew = userLogin.getCoin() - Integer.parseInt(dataSnapshot.getValue(TypeOfPost.class).getTypeCoin());
+                        AccountData.userLogin.isCreatePost = true;
                         FAHQuery.UpdateData(coinNew, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
 
                         if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
 
-                        FAHMessage.ToastMessage(CreatePostActivity.this, "Tạo thành công");
-                        FAHMessage.unConfirmBtnClick();
-                        finish();
+                        ImformationDialogMessage(CreatePostActivity.this, "Xác nhận", "Tạo bài viết thành công\nVui lòng chờ addmin duyệt", "OK");
                     }
 
                     @Override
@@ -519,11 +518,18 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
             dataUpdate.setPhone(txtPhone.getText().toString());
             dataUpdate.setStatus(0);
             FAHQuery.UpdateData(dataUpdate, "Post/" + getIntent().getStringExtra("key"));
-            FAHQuery.UpdateData(20, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
+            AccountData.userLogin.isCreatePost = true;
+            FAHQuery.UpdateData(AccountData.userLogin.getCoin() - 20, ExcuteString.GetUrlData("Account", userLogin.getKey(),"coin"));
 
-            FAHMessage.ToastMessage(CreatePostActivity.this, "Cập nhật thành công");
-            FAHMessage.unConfirmBtnClick();
-            finish();
+            ImformationDialogMessage(CreatePostActivity.this, "Xác nhận", "Đã cập nhật thành công\nVui lòng chờ addmin duyệt", "OK");
+
         }
+    }
+
+    @Override
+    public void onOkClick() {
+        AccountData.userLogin.isCreatePost = false;
+        FAHMessage.unConfirmBtnClick();
+        finish();
     }
 }

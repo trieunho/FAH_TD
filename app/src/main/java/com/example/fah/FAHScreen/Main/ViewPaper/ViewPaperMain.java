@@ -22,9 +22,11 @@ public class ViewPaperMain {
         listTabFlagmemt = new ArrayList<>();
         listTabFlagmemt.add(new TabFlagment(new SearchFragment(), "Search Data", R.drawable.fah_icon_search));
         if (AccountData.userLogin != null && !AccountData.userLogin.isSignOut
-                && (AccountData.userLogin.getRole() == 0 || AccountData.userLogin.getRole() == 2)) {
+                && (AccountData.userLogin.getRole() == 1 || AccountData.userLogin.getRole() == 2)) {
             listTabFlagmemt.add(new TabFlagment(new HotPostFragment(), "Search Data", R.drawable.fah_icon_work));
         }
+
+        AccountData.userLogin.isSignOut = false;
 
         listTabFlagmemt.add(new TabFlagment(new NotificationFragment(), "Search Data", R.drawable.fah_icon_notifications));
         listTabFlagmemt.add(new TabFlagment(new MenuFragment(), "Search Data", R.drawable.fah_icon_menu));

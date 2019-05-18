@@ -313,7 +313,7 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
     public void onYesClick() {
         if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
             if (itemId == R.id.btnSubmit) {
-                if (AccountData.userLogin != null) {
+                if (AccountData.userLogin != null && AccountData.userLogin.isLogin()) {
                     try {
                         if (data.getListAccount() == null) {
                             data.setListAccount(new ArrayList<String>());
@@ -337,6 +337,11 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                 finish();
             }
         }
+    }
+
+    @Override
+    public void onOkClick() {
+
     }
 
     @Override

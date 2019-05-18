@@ -76,11 +76,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         } else {
             if (getIntent() != null && getIntent().getStringExtra("flag") != null && getIntent().getStringExtra("flag").equals("detail")) {
+                AccountData.userLogin.setLogin(true);
                 finish();
             } else {
                 if (!AccountData.userLogin.isSignOut) {
                     AccountData.userLogin.setLogin(true);
-                    AccountData.userLogin.isSignOut = false;
                 }
 
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);

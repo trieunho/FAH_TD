@@ -69,8 +69,10 @@ public class HotPostFragment extends Fragment {
 
         if (AccountData.userLogin.getRole() == 1) {
             txtTitle.setText("Danh sách bài viết đã ứng tuyển");
+            fab.hide();
         } else if (AccountData.userLogin.getRole() == 2) {
             txtTitle.setText("Bài viết của tôi");
+            fab.show();
         }
 
         if (AccountData.userLogin.getRole() != 3) {
@@ -143,12 +145,12 @@ public class HotPostFragment extends Fragment {
                 }
             });
         }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), CreatePostActivity.class));
             }
         });
-
     }
 }
