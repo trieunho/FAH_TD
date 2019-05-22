@@ -194,7 +194,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:inputType="time"
-                            android:text="00"
+                            android:hint="00"
                             android:maxLength="2"
                             android:id="@+id/dtFrom"/>
                         <TextView
@@ -213,7 +213,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:inputType="time"
-                            android:text="00"
+                            android:hint="00"
                             android:maxLength="2"
                             android:id="@+id/dtTo"/>
                         <TextView
@@ -327,17 +327,21 @@
                             android:background="@drawable/fah_control_combobox"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:drawableRight="@drawable/ic_arrow_down"/>
-                        <EditText
-                            android:id="@+id/txvLoai"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/wrap_content_control"
-                            android:editable="false"
-                            android:focusable="false"
-                            android:gravity="center"
-                            android:layout_marginLeft="@dimen/margin_control"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:background="@drawable/fah_control_edit_test_default"/>
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/txtNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/colorCrimson"
+                        android:text="Ghi chú:"/>
+                    <TextView
+                        android:id="@+id/txtContentNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/colorBlack"
+                        />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

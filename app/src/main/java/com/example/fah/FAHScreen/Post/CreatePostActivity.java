@@ -59,11 +59,11 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
     EditText txtLuong1;
     TextView lbl;
     EditText txtLuong2;
-    EditText txvLoai;
     EditText dtFrom;
     EditText dtTo;
     EditText cbxTOP;
     EditText cbxField;
+    TextView txtContentNote;
 
     FAHCombobox controlSalary;
     FAHCombobox controlType;
@@ -167,11 +167,14 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
         txtLuong1 = findViewById(R.id.txtLuong1);
         txtLuong2 = findViewById(R.id.txtLuong2);
         lbl = findViewById(R.id.lbl);
-        txvLoai = findViewById(R.id.txvLoai);
         cbxTOP = findViewById(R.id.cbxTOP);
         cbxField = findViewById(R.id.cbxField);
         dtFrom = findViewById(R.id.dtFrom);
         dtTo = findViewById(R.id.dtTo);
+        txtContentNote = findViewById(R.id.txtContentNote);
+        txtContentNote.setText("\t Loại 1: Hiển thị ở mục bài viết hot của trang chủ." +
+                "\n\t Loại 2: Uu tiên xuất hiện truớc khi tìm kiếm." +
+                "\n\t Loại 3: Bình thường");
 
         // combobox
         String[] arrLuong = {
@@ -192,7 +195,6 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
         // Init
         txtLuong2.setVisibility(View.GONE);
         lbl.setVisibility(View.GONE);
-        txvLoai.setText("Tiền không là tiền");
 
         FAHMessage.confirmBtnClick(CreatePostActivity.this);
     }
@@ -281,33 +283,6 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                         txtLuong1.setText("");
                         txtLuong2.setText("");
                         lbl.setVisibility(View.GONE);
-                        break;
-                }
-            }
-        });
-
-        cbxTOP.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                switch (controlType.getItemChoose()) {
-                    case 0:
-                        txvLoai.setText("Tiền không là tiền");
-                        break;
-                    case 1:
-                        txvLoai.setText("Tiền vừa đẹp");
-                        break;
-                    case 2:
-                        txvLoai.setText("Tiền bố thí");
                         break;
                 }
             }

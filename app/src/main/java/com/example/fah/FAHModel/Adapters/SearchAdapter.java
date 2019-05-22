@@ -60,10 +60,10 @@ public class SearchAdapter extends BaseAdapter {
                 : post.getTypeOfSalary() == 0 ? post.getSalary_from() : post.getSalary_from() + " ~ " + post.getSalary_to();
         holder.titlePost.setText(post.getTitlePost());
         holder.companyName.setText(post.getCompanyName());
-        holder.address.setText(post.getAddress());
+        holder.address.setText("Địa chỉ: " + post.getAddress());
         holder.thoiGian.setText("Từ " + post.getDtFrom() + " giờ Đến " + post.getDtTo() + " Giờ");
         holder.salary.setText("Lương: " + salary);
-        holder.deadLine.setText("Hạn nhận: " + post.getDeadLine());
+        holder.deadLine.setText("Hạn nộp hồ sơ: " + post.getDeadLine());
 
         return convertView;
     }
