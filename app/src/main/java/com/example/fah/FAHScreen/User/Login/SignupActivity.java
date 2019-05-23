@@ -191,9 +191,17 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         if (TextUtils.isEmpty(createPassword)) {
-            Toast.makeText(this, "Vui lòng nhập mật khảu.", Toast.LENGTH_LONG).show();
+
+            Toast.makeText(this, "Vui lòng nhập mật khẩu.", Toast.LENGTH_LONG).show();
             signUppasswordEditTxt.requestFocus();
             return;
+        } else {
+           if(createPassword.length() < 6) {
+               Toast.makeText(this, "Vui lòng nhập mật khẩu lớn hơn 6 kí tự!", Toast.LENGTH_LONG).show();
+               signUppasswordEditTxt.requestFocus();
+               return;
+           }
+
         }
         if (!createPassword.equals(createConfrimPassword)) {
             Toast.makeText(this, "Mật khẩu không khớp.", Toast.LENGTH_SHORT).show();

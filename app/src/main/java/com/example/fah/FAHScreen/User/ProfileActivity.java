@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
             ,companyEmail,
             companyIntro,dtFrom,dtTo;
     ImageView userAvata,edit_profile_btn;
-    ProgressDialog progressDoalog;
+    ProgressDialog progressDoalog,progressDoalogupdate;
     LinearLayout profileCompanyLayout,profileTimeWorkLayout;
     Toolbar toolbar;
     TextView txtuser_profile_name,txtuser_profile_short_bio;
@@ -70,6 +70,11 @@ public class ProfileActivity extends AppCompatActivity {
         progressDoalog.setMax(100);
         progressDoalog.setMessage("Đang tải....");
         progressDoalog.setTitle("Tải ảnh lên");
+        progressDoalogupdate = new ProgressDialog(ProfileActivity.this);
+        progressDoalogupdate.setMax(100);
+        progressDoalogupdate.setMessage("Đang cập nhập....");
+        progressDoalogupdate.setTitle("Cập nhập thông tin.");
+
         addControl();
         addEvent();
     }
@@ -119,25 +124,25 @@ public class ProfileActivity extends AppCompatActivity {
         EditText updateProfileName=dialog.findViewById(R.id.updateProfileName);
         EditText updateProfileEmail=dialog.findViewById(R.id.updateProfileEmail);
         RadioButton updateProfileradioButton_td=dialog.findViewById(R.id.updateProfileradioButton_td);
-        RadioButton updateProfileradioButton_uv=dialog.findViewById(R.id.updateProfileradioButton_uv);
+        final RadioButton updateProfileradioButton_uv=dialog.findViewById(R.id.updateProfileradioButton_uv);
         LinearLayout nhaTuyenDungLayout=dialog.findViewById(R.id.nhaTuyenDungLayout);
-        EditText updateProfileDateOfBirthtd=dialog.findViewById(R.id.updateProfileDateOfBirthtd);
-        RadioButton updateProfileradioButton_sexNamtd=dialog.findViewById(R.id.updateProfileradioButton_sexNamtd);
+        final EditText updateProfileDateOfBirthtd=dialog.findViewById(R.id.updateProfileDateOfBirthtd);
+        final RadioButton updateProfileradioButton_sexNamtd=dialog.findViewById(R.id.updateProfileradioButton_sexNamtd);
         RadioButton updateProfileradioButtonsex_Nutd=dialog.findViewById(R.id.updateProfileradioButtonsex_Nutd);
-        EditText updateProfilecompanyName=dialog.findViewById(R.id.updateProfilecompanyName);
-        EditText updateProfilecompanyAddress=dialog.findViewById(R.id.updateProfilecompanyAddress);
-        EditText updateProfilecompanyPhone=dialog.findViewById(R.id.updateProfilecompanyPhone);
-        EditText updateProfilecompanyEmail= dialog.findViewById(R.id.updateProfilecompanyEmail);
+        final EditText updateProfilecompanyName=dialog.findViewById(R.id.updateProfilecompanyName);
+        final EditText updateProfilecompanyAddress=dialog.findViewById(R.id.updateProfilecompanyAddress);
+        final EditText updateProfilecompanyPhone=dialog.findViewById(R.id.updateProfilecompanyPhone);
+        final EditText updateProfilecompanyEmail= dialog.findViewById(R.id.updateProfilecompanyEmail);
         // UV
         LinearLayout ungVienLayout=dialog.findViewById(R.id.ungVienLayout);
-        EditText updateProfileDateOfBirthuv=dialog.findViewById(R.id.updateProfileDateOfBirthuv);
+        final EditText updateProfileDateOfBirthuv=dialog.findViewById(R.id.updateProfileDateOfBirthuv);
         RadioButton updateProfileradioButton_sexNamuv=dialog.findViewById(R.id.updateProfileradioButton_sexNamuv);
         RadioButton updateProfileradioButtonsex_Nuuv=dialog.findViewById(R.id.updateProfileradioButtonsex_Nuuv);
          updateProfilespnListOfJob=dialog.findViewById(R.id.updateProfilespnListOfJob);
-        EditText updateProfileAddressuv=dialog.findViewById(R.id.updateProfileAddressuv);
-        EditText updateProfilePhoneuv=dialog.findViewById(R.id.updateProfilePhoneuv);
-        EditText updateProfileFromTimeuv=dialog.findViewById(R.id.updateProfileFromTimeuv);
-        EditText updateProfileToTimeuv=dialog.findViewById(R.id.updateProfileToTimeuv);
+        final EditText updateProfileAddressuv=dialog.findViewById(R.id.updateProfileAddressuv);
+        final EditText updateProfilePhoneuv=dialog.findViewById(R.id.updateProfilePhoneuv);
+        final EditText updateProfileFromTimeuv=dialog.findViewById(R.id.updateProfileFromTimeuv);
+        final EditText updateProfileToTimeuv=dialog.findViewById(R.id.updateProfileToTimeuv);
 
         if(AccountData.userLogin!=null){
             // TD
@@ -212,8 +217,43 @@ public class ProfileActivity extends AppCompatActivity {
         updateProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ProfileActivity.this, "Biết rồi, tôi đang làm, đừng click nữa", Toast.LENGTH_SHORT).show();
-              //  dialog.dismiss();
+                //progressDoalogupdate.show();
+               // Toast.makeText(ProfileActivity.this, "Biết rồi, tôi đang làm, đừng click nữa", Toast.LENGTH_SHORT).show();
+                final Account account = new Account();
+                account.setAccountName(AccountData.firebaseUser.getDisplayName());
+                account.setEmail(AccountData.firebaseUser.getEmail());
+                if (updateProfileradioButton_uv.isChecked()) {
+                    account.setPhone(updateProfilePhoneuv.getText().toString());
+                    account.setAddress(updateProfileAddressuv.getText().toString());
+                    account.setDateOfBirth(updateProfileDateOfBirthuv.getText().toString());
+                    account.setSex(updateProfileradioButton_sexNamtd.isChecked() ? "Nam" : "Nữ");
+                    account.setCategory(new Category(spinnerMap.get(updateProfilespnListOfJob.getSelectedItemPosition()), updateProfilespnListOfJob.getSelectedItem().toString()));
+                    account.setDtTo(Integer.parseInt(updateProfileFromTimeuv.getText().toString()));
+                    account.setDtFrom(Integer.parseInt(updateProfileToTimeuv.getText().toString()));
+
+                } else {
+                    account.setSex(updateProfileradioButton_sexNamtd.isChecked() ? "Nam" : "Nữ");
+                    account.setDateOfBirth(updateProfileDateOfBirthtd.getText().toString());
+                    account.setCompanyEmail(updateProfilecompanyEmail.getText().toString());
+                    account.setCompanyName(updateProfilecompanyName.getText().toString());
+                    account.setCompanyPhone(updateProfilecompanyPhone.getText().toString());
+                    account.setCompanyAddress(updateProfilecompanyAddress.getText().toString());
+                }
+                AccountData.UpdateAccount(account, new IEventData() {
+                    @Override
+                    public void EventSuccess() {
+                    //    progressDoalogupdate.dismiss();
+                        AccountData.userLogin = account;
+                        dialog.dismiss();
+                    }
+                    @Override
+                    public void EventFail(String message) {
+                        Toast.makeText(ProfileActivity.this, message, Toast.LENGTH_SHORT).show();
+                      //  progressDoalogupdate.dismiss();
+                        dialog.dismiss();
+                    }
+                });
+                //  dialog.dismiss();
             }
         });
         profileReturnTextView.setOnClickListener(new View.OnClickListener() {

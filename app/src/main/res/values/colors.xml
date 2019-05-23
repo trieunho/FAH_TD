@@ -9,6 +9,7 @@
     <color name="colorCrimson">#dc3545</color>
     <color name="signUpColor">#000000</color>
     <color name="grey_200">#EEEEEE</color>
+    <color name="colorBackgroundButton">#80CBC4</color>
     /*
     * Color rule
     */
