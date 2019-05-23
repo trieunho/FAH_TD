@@ -3,77 +3,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".FAHScreen.Main.Tab.SearchFragment">
-    <EditText
-        android:id="@+id/cbbJob"
-        android:focusable="false"
-        android:gravity="center"
-        android:hint="Chọn công việc"
-        android:drawableLeft="@drawable/ic_work_black"
-        android:drawableRight="@drawable/ic_arrow_down"
-        android:background="@drawable/fah_control_combobox"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:layout_margin="@dimen/margin_control"
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp">
-        <TextView
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="3"
-            android:text=" Thời gian làm việc"
-            android:drawableLeft="@drawable/ic_timer_black"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/txtStartTime"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
+
+            <EditText
+                android:id="@+id/cbbJob"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/fah_control_combobox"
+                android:drawableLeft="@drawable/ic_work_black"
+                android:drawableRight="@drawable/ic_arrow_down"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="Chọn công việc"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:hint="Từ"
-            android:inputType="number"
-            android:maxLength="2"
-            android:background="@drawable/fah_control_edit_text"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:layout_margin="@dimen/margin_control"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="30dp" />
-        <EditText
-            android:id="@+id/txtEndTime"
-            android:gravity="center"
-            android:hint="Đến"
-            android:inputType="number"
-            android:maxLength="2"
-            android:background="@drawable/fah_control_edit_text"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:layout_margin="@dimen/margin_control"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="30dp" />
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_timer_black"
+                    android:gravity="center_vertical"
+                    android:text=" Thời gian làm việc: "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                <EditText
+                    android:id="@+id/txtStartTime"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/tvTime"
+                    android:background="@drawable/fah_control_edit_text"
+                    android:gravity="center"
+                    android:hint="Từ"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                <EditText
+                    android:id="@+id/txtEndTime"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/txtStartTime"
+                    android:background="@drawable/fah_control_edit_text"
+                    android:gravity="center"
+                    android:hint="Đến"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_control"
+                android:layout_weight="1"
+                android:background="@drawable/fah_icon_search_blue"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/btnSearch"
-        android:text="Tìm kiếm nhanh"
-        android:background="@drawable/fah_control_button"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-        android:layout_margin="@dimen/margin_control"
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
+        android:layout_marginTop="15dp"
         android:text="CÔNG VIỆC ĐANG HOT"
-        android:background="@color/colorCrimson"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />/>
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimary" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="------------------------------"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/colorPrimary" />
     <ListView
         android:id="@+id/lvHotPost"
         android:layout_width="match_parent"

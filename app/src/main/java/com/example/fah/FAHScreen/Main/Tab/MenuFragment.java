@@ -17,6 +17,7 @@ import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.IEvenItem;
 import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
+import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
 import com.example.fah.FAHScreen.Main.GridView.Menu.GridListMenuMainAdapter;
 import com.example.fah.FAHScreen.Main.GridView.Menu.Menu;
 import com.example.fah.FAHScreen.Manage.ManageCategoryActivity;
@@ -24,7 +25,6 @@ import com.example.fah.FAHScreen.Manage.ManageTypePostActivity;
 import com.example.fah.FAHScreen.Other.RulesActivity;
 import com.example.fah.FAHScreen.Other.SecurityActivity;
 import com.example.fah.FAHScreen.Post.DetailSearchPostActivity;
-import com.example.fah.FAHScreen.Post.ManageCandidateByPost;
 import com.example.fah.FAHScreen.Post.PostManagementActivity;
 import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.FAHScreen.User.ProfileActivity;
@@ -111,7 +111,7 @@ public class MenuFragment extends Fragment {
         list.add(new Menu("Quản lý bài đăng", "ic_launcher_manage_post", "2", new IEvenItem() {
             @Override
             public void callEvent() {
-                startActivity(new Intent(getContext(), ManageCandidateByPost.class));
+                startActivity(new Intent(getContext(), ManageAccountByPostActivity.class));
             }
         }));
         list.add(new Menu("Duyệt bài đăng", "ic_launcher_post", "3", new IEvenItem() {

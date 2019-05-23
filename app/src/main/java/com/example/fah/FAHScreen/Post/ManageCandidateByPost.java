@@ -21,7 +21,6 @@ import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Adapters.AccountBySearchAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
-import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
 import com.example.fah.FAHScreen.User.PersionalImformationActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -125,7 +124,7 @@ public class ManageCandidateByPost extends AppCompatActivity {
                                     }
 
                                     if (dataAccount.size() > 0) {
-                                        lstCandidate.setAdapter(new AccountBySearchAdapter(ManageCandidateByPost.this, 10, dataAccount));
+                                        lstCandidate.setAdapter(new AccountBySearchAdapter(ManageCandidateByPost.this, R.layout.account_by_search_activity, dataAccount));
                                     }
                                 }
                             }

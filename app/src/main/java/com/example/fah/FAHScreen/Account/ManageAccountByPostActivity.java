@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
-import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Adapters.AccountByPostAdapter;
 import com.example.fah.FAHModel.Models.Account;
@@ -111,11 +110,21 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
 
         List<String> listOfPost = new ArrayList<>();
         spinnerMap = new HashMap<Integer, String>();
+        int position = 0;
+        String keyPost = "";
 
+
+        Intent intent = getIntent();
+        if (intent != null && "DetailPostActivity".equals(intent.getStringExtra("screen"))) {
+            keyPost = intent.getStringExtra("key");
+        }
         if (postList != null) {
             for (int i = 0; i < postList.size(); i++) {
                 spinnerMap.put(i, postList.get(i).getKey());
                 listOfPost.add(postList.get(i).getTitlePost());
+                if (keyPost != null && keyPost.equals(postList.get(i).getKey())) {
+                    position = i;
+                }
             }
 
             ArrayAdapter<String> listOfPostAdapter =
@@ -124,6 +133,8 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
                             listOfPost);
             listOfPostAdapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
             spnListOfPost.setAdapter(listOfPostAdapter);
+            spnListOfPost.setSelection(position);
+            btnSearch.performClick();
         }
     }
 
@@ -144,6 +155,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
                     }
 
                     setTitlePostAdapter(postList);
+
                 }
 
                 @Override
@@ -168,20 +180,22 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
             for (Post item : postList) {
                 if (keySearch.equals(item.getKey())) {
                     if (item.getListAccount() != null && item.getListAccount().size() > 0) {
-                        for (int i = 0; i < item.getListAccount().size(); i++) {
-                            FAHQuery.UpdateData(0, ExcuteString.GetUrlData("Post", item.getKey(), "listOfAccApply", String.valueOf(i), "statusSendInvation"));
-//                        item.getListOfAccApply().get(i).setStatusSendInvation(0);
-                        }
-
                         AccountByPostAdapter accountByPostAdapter = new AccountByPostAdapter(
                                 this,
                                 R.layout.account_by_post_activity,
-                                item.getListOfAccApply());
+                                item.getListAccount());
 
                         lvAccount.setAdapter(accountByPostAdapter);
                         checkFlag = true;
                         size = item.getListAccount().size();
                         break;
+                    } else {
+                        AccountByPostAdapter accountByPostAdapter = new AccountByPostAdapter(
+                                this,
+                                R.layout.account_by_post_activity,
+                                new ArrayList<String>());
+
+                        lvAccount.setAdapter(accountByPostAdapter);
                     }
                 }
             }

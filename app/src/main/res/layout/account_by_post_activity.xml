@@ -31,27 +31,11 @@
                 android:id="@+id/tvAccountName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/accountName"/>
+                android:textColor="@color/colorPrimaryDark"/>
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/email"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:gravity="right">
-            <Button
-                android:id="@+id/btnSendInvitation"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:text="Gửi Lời Mời"
-                android:focusable="false"
-                android:textColor="@color/colorWhite"
-                android:background="@color/centerColorButtonPress"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </LinearLayout>

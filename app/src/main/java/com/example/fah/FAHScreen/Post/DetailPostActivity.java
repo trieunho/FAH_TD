@@ -9,10 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Button;
 import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHControl.FAHMessage;
@@ -20,6 +20,7 @@ import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Post;
+import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
 import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -27,12 +28,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import static com.example.fah.FAHCommon.FAHControl.FAHMessage.AlertDialogMessage;
 import static com.example.fah.FAHCommon.FAHControl.FAHMessage.ToastMessage;
 import static com.example.fah.FAHData.AccountData.userLogin;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 public class DetailPostActivity extends AppCompatActivity implements IConfirmClick {
 
@@ -208,10 +209,10 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
         btnDetailSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailPostActivity.this, ManageCandidateByPost.class);
+                Intent intent = new Intent(DetailPostActivity.this, ManageAccountByPostActivity.class);
                 intent.putExtra("key", data.getKey());
+                intent.putExtra("screen", "DetailPostActivity");
                 startActivity(intent);
-                finish();
             }
         });
     }
