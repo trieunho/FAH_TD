@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHData.AccountData;
-import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.IEvenItem;
 import com.example.fah.FAHScreen.Account.ManageAccountByAdminActivity;
 import com.example.fah.FAHScreen.Main.GridView.Menu.GridListMenuMainAdapter;
@@ -168,7 +167,7 @@ public class MenuFragment extends Fragment {
     }
 
     private void checkAndCallLogin() {
-        if(AccountData.firebaseUser != null){
+        if(AccountData.userLogin != null && AccountData.userLogin.isLogin()){
             Toast.makeText(getContext(), "User already exists ", Toast.LENGTH_SHORT).show();
         }else{
             startActivity(new Intent(getContext(), LoginActivity.class));

@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.IEventData;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
@@ -21,7 +20,6 @@ import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -173,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 progressDoalog.dismiss();
                             }
                         } else {
-                            Toast.makeText(LoginActivity.this, "Đăng nhập không hợp lệ.",
+                            Toast.makeText(LoginActivity.this, "Email hoặc mật khẩu không chính xác.",
                                     Toast.LENGTH_SHORT).show();
                             progressDoalog.dismiss();
                         }
