@@ -20,16 +20,16 @@
             android:layout_height="@dimen/wrap_content_control"
             android:layout_toLeftOf="@+id/btnAdd"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:hint="Enter new category" />
-
+            android:hint="Thêm mới loại bài viết" />
         <Button
             android:id="@+id/btnAdd"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/wrap_content_control"
             android:layout_alignParentRight="true"
+            android:background="@drawable/background"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:text="ADD" />
+            android:text="Thêm" />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,12 +40,12 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="Category ID"/>
+            android:text="Số thứ tự"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="Category Name"/>
+            android:text="Loại bài viết"/>
     </LinearLayout>
     <ListView
         android:id="@+id/categoryList"
