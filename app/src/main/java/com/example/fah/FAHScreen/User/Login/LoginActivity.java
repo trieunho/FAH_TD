@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.IEventData;
 import com.example.fah.FAHScreen.Main.Tab.MainActivity;
+import com.example.fah.FAHScreen.Post.DetailPostActivity;
+import com.example.fah.FAHScreen.Post.ListPostActivity;
 import com.example.fah.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -73,8 +75,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Tài khoản này đã bị khóa, vui lòng liên hệ quản trị viên để mở hoạt dộng.", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            if (getIntent() != null && getIntent().getStringExtra("flag") != null && getIntent().getStringExtra("flag").equals("detail")) {
+            if (!AccountData.userLogin.isSignOut
+                    && getIntent() != null && getIntent().getStringExtra("flag") != null
+                    && getIntent().getStringExtra("flag").equals("detail")) {
                 AccountData.userLogin.setLogin(true);
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+
+                Intent intent = new Intent(LoginActivity.this, DetailPostActivity.class);
+                intent.putExtra("key", getIntent().getStringExtra("keyPost"));
+                intent.putExtra("keyAccount", getIntent().getStringExtra("keyAccount"));
+                startActivity(intent);
+
                 finish();
             } else {
                 if (!AccountData.userLogin.isSignOut) {

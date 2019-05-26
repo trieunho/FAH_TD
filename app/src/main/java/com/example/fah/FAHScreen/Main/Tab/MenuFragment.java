@@ -187,6 +187,7 @@ public class MenuFragment extends Fragment {
                             AccountData.userLogin.setLogin(false);
                             AccountData.userLogin.isSignOut = true;
                             FAHQuery.UpdateData(AccountData.userLogin, "Account/" + AccountData.userLogin.getKey());
+
                             gvMenu.setAdapter(new GridListMenuMainAdapter(getActivity(), getListData()));
                         } else {
                             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();

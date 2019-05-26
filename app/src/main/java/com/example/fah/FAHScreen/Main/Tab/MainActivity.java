@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         initTab();
     }
 
-    private void initTab() {
+    public void initTab() {
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
         setupViewPager();

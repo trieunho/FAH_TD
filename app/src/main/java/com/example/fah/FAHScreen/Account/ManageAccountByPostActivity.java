@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,7 +49,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     ArrayList<Post> postList;
-    ArrayList<Account> accountList;
+    ArrayList<String> accountList;
     DatabaseReference myRef;
     FirebaseDatabase database;
     static HashMap<Integer, String> spinnerMap;
@@ -73,7 +74,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
 
 
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(ic_chevron_left_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_backspace_black);
         toolbar.setTitle("Danh sách ứng tuyển");
         toolbar.setTitleMargin(2, 0, 0, 2);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -95,9 +96,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ManageAccountByPostActivity.this, PersionalImformationActivity.class);
-                intent.putExtra("key", accountList.get(position).getKey());
-                Toast.makeText(ManageAccountByPostActivity.this, accountList.get(position).getKey(),
-                        Toast.LENGTH_LONG).show();
+                intent.putExtra("key", accountList.get(position));
                 startActivity(intent);
             }
         });
@@ -187,6 +186,7 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
 
                         lvAccount.setAdapter(accountByPostAdapter);
                         checkFlag = true;
+                        accountList = item.getListAccount();
                         size = item.getListAccount().size();
                         break;
                     } else {
@@ -205,6 +205,19 @@ public class ManageAccountByPostActivity extends AppCompatActivity {
             tvResultOfSearch.setText("Tìm thấy " + size + " kết quả phù hợp");
         } else {
             tvResultOfSearch.setText("Không tìm thấy kết quả phù hợp !");
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                finish();
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
         }
     }
 }
