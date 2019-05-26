@@ -83,7 +83,7 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (userLogin != null) {
+        if (userLogin != null && userLogin.isLogin()) {
             if (userLogin.getRole() == 2 && userLogin.getKey().equals(getIntent().getStringExtra("keyAccount"))) {
                 getMenuInflater().inflate(R.menu.btn_edit, menu);
             } else if (userLogin.getRole() == 3) {
@@ -327,6 +327,8 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                 } else {
                     Intent intent = new Intent(DetailPostActivity.this, LoginActivity.class);
                     intent.putExtra("flag", "detail");
+                    intent.putExtra("keyPost", getIntent().getStringExtra("key"));
+                    intent.putExtra("keyAccount", getIntent().getStringExtra("keyAccount"));
                     startActivity(intent);
                 }
             } else if (itemId == R.id.btnDel) {
