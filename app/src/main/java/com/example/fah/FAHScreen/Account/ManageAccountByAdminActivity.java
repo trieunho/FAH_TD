@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHModel.Adapters.AccountByAdminAdapter;
 import com.example.fah.FAHModel.Models.Account;
-import com.example.fah.FAHScreen.User.PersionalImformationActivity;
+import com.example.fah.FAHScreen.User.ProfileActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -108,10 +108,8 @@ public class ManageAccountByAdminActivity extends AppCompatActivity {
         lvAccount.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ManageAccountByAdminActivity.this, PersionalImformationActivity.class);
+                Intent intent = new Intent(ManageAccountByAdminActivity.this, ProfileActivity.class);
                 intent.putExtra("key", accountList.get(position).getKey());
-                Toast.makeText(ManageAccountByAdminActivity.this, accountList.get(position).getKey(),
-                        Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }
         });

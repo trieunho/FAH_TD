@@ -23,7 +23,7 @@ import com.example.fah.FAHModel.Adapters.AccountBySearchAdapter;
 import com.example.fah.FAHModel.Models.Account;
 import com.example.fah.FAHModel.Models.Category;
 import com.example.fah.FAHModel.Models.IEvenItem;
-import com.example.fah.FAHScreen.User.PersionalImformationActivity;
+import com.example.fah.FAHScreen.User.ProfileActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -174,12 +174,9 @@ public class SearchAccountActivity extends AppCompatActivity {
         lvAccountSrch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(SearchAccountActivity.this, PersionalImformationActivity.class);
+                Intent intent = new Intent(SearchAccountActivity.this, ProfileActivity.class);
                 intent.putExtra("key", listAccount.get(position).getKey());
-                Toast.makeText(SearchAccountActivity.this, listAccount.get(position).getKey(),
-                        Toast.LENGTH_LONG).show();
                 startActivity(intent);
-                finish();
             }
         });
     }
