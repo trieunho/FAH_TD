@@ -64,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView txtuser_profile_name, txtuser_profile_short_bio;
     static HashMap<Integer, String> spinnerMap;
     private Spinner updateProfilespnListOfJob;
+    private  boolean chechLoad = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,19 @@ public class ProfileActivity extends AppCompatActivity {
         edit_profile_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowDialogUpdate();
+                ShowDialogUpdate(new IEventData() {
+                    @Override
+                    public void EventSuccess() {
+                        Toast.makeText(ProfileActivity.this, "Cập nhập thông tin thành công.", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void EventFail(String message) {
+
+                    }
+                });
+
             }
         });
         userAvata.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void ShowDialogUpdate() {
+    private void ShowDialogUpdate(final IEventData evt) {
         final Dialog dialog = new Dialog(ProfileActivity.this);
         dialog.setContentView(R.layout.activity_update_profile);
         dialog.setTitle("THÔNG TIN");
@@ -124,7 +137,7 @@ public class ProfileActivity extends AppCompatActivity {
         Button updateProfileButton = dialog.findViewById(R.id.updateProfileButton);
         // bindding control dialog
         // TD
-        EditText updateProfileName = dialog.findViewById(R.id.updateProfileName);
+        final EditText updateProfileName = dialog.findViewById(R.id.updateProfileName);
         EditText updateProfileEmail = dialog.findViewById(R.id.updateProfileEmail);
         RadioButton updateProfileradioButton_td = dialog.findViewById(R.id.updateProfileradioButton_td);
         final RadioButton updateProfileradioButton_uv = dialog.findViewById(R.id.updateProfileradioButton_uv);
@@ -222,7 +235,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //progressDoalogupdate.show();
                 // Toast.makeText(ProfileActivity.this, "Biết rồi, tôi đang làm, đừng click nữa", Toast.LENGTH_SHORT).show();
-                final Account account = new Account();
+                final Account account = AccountData.userLogin;
                 account.setAccountName(AccountData.firebaseUser.getDisplayName());
                 account.setEmail(AccountData.firebaseUser.getEmail());
                 if (updateProfileradioButton_uv.isChecked()) {
@@ -242,11 +255,13 @@ public class ProfileActivity extends AppCompatActivity {
                     account.setCompanyPhone(updateProfilecompanyPhone.getText().toString());
                     account.setCompanyAddress(updateProfilecompanyAddress.getText().toString());
                 }
+                account.setAccountName(updateProfileName.getText().toString());
                 AccountData.UpdateAccount(account, new IEventData() {
                     @Override
                     public void EventSuccess() {
-                        //    progressDoalogupdate.dismiss();
                         AccountData.userLogin = account;
+                        //    progressDoalogupdate.dismiss();
+                        evt.EventSuccess();
                         dialog.dismiss();
                     }
 
@@ -254,6 +269,7 @@ public class ProfileActivity extends AppCompatActivity {
                     public void EventFail(String message) {
                         Toast.makeText(ProfileActivity.this, message, Toast.LENGTH_SHORT).show();
                         //  progressDoalogupdate.dismiss();
+                        evt.EventSuccess();
                         dialog.dismiss();
                     }
                 });
@@ -373,6 +389,47 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    private  void reloadInfo(){
+        if (AccountData.userLogin != null && AccountData.userLogin.getRole() == 1) {
+            profileCompanyLayout.setVisibility(View.GONE);
+            profileTimeWorkLayout.setVisibility(View.VISIBLE);
+            dtFrom.setText(AccountData.userLogin.getDtFrom() + "h");
+            dtTo.setText(AccountData.userLogin.getDtTo() + "h");
+        } else {
+            if (AccountData.userLogin != null && AccountData.userLogin.getRole() == 2) {
+                profileCompanyLayout.setVisibility(View.VISIBLE);
+                profileTimeWorkLayout.setVisibility(View.GONE);
+                companyName.setText(AccountData.userLogin.getCompanyName());
+                companyAddress.setText(AccountData.userLogin.getCompanyAddress());
+                companyPhone.setText(AccountData.userLogin.getCompanyPhone());
+                companyEmail.setText(AccountData.userLogin.getCompanyEmail());
+                companyIntro.setText(AccountData.userLogin.getCompanyIntro());
+            }
+        }
+
+        if (AccountData.userLogin != null) {
+            userName.setText(AccountData.userLogin.getAccountName());
+            userEmail.setText(AccountData.userLogin.getEmail());
+            txtuser_profile_name.setText(AccountData.userLogin.getAccountName());
+            txtuser_profile_short_bio.setText(AccountData.userLogin.getEmail());
+            sex.setText(AccountData.userLogin.getSex());
+            dateOfBirth.setText(AccountData.userLogin.getDateOfBirth());
+            address.setText(AccountData.userLogin.getAddress());
+            phone.setText(AccountData.userLogin.getPhone());
+            if (AccountData.userLogin.getAvata() != null && AccountData.userLogin.getAvata() != "") {
+                ImageData.binDingImageControl(this, userAvata, AccountData.userLogin.getAvata(), new IEventData() {
+                    @Override
+                    public void EventSuccess() {
+                    }
+
+                    @Override
+                    public void EventFail(String message) {
+                        Toast.makeText(ProfileActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+    }
     private void addControl() {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(ic_chevron_left_black_24dp);
