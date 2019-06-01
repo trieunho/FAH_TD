@@ -70,6 +70,17 @@
     <color name="colorComboboxStrokeDefault">@color/colorStrokeDefault</color>
     <color name="colorComboboxStrokeDisabled">@color/colorStrokeDisabled</color>
 
+
+    <color name="colorSecondaryBlack">#8A000000</color>
+
+    <color name="colorSecondaryWhite">#B3FFFFFF</color>
+
+    <color name="colorTextHint">#61000000</color>
+    <color name="colorRipple">#11000000</color>
+
+    <color name="colorBackgroundLight">#F5F6F7</color>
+    <color name="colorBlue">#4A90E2</color>
+    <color name="colorToolBar">#128785</color>
     /*
     * Icon
     */

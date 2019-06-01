@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundLight"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/activity_checkorder_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#87CEFA"
+        android:gravity="center">
+
+        <TextView
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Trạng thái thanh toán"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/activity_checkorder_txtData"
+        style="@style/CaptionTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_checkorder_top"
+        android:padding="10dp"
+        android:textColor="@color/colorBlack" />
+
+    <com.rey.material.widget.ProgressView
+        android:id="@+id/activity_checkorder_progressView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:pv_autostart="true"
+        app:pv_circular="true"
+        app:pv_progressMode="indeterminate"
+        app:pv_progressStyle="@style/CircularProgressDrawableStyle" />
+    <com.rey.material.widget.Button
+        android:id="@+id/CheckoderBackBtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/HEIGHT_EDIT_TEXT"
+        android:layout_alignParentBottom="true"
+        android:background="#00BFFF"
+        android:text="Quay về"
+        android:textAllCaps="true"
+        android:textColor="@color/colorWhite" />
+</RelativeLayout>

@@ -13,6 +13,10 @@
     <dimen name="radius_control">5dp</dimen>
     <dimen name="centerY_control">0.2</dimen>
     <dimen name="angle_control">270</dimen>
+    <dimen name="TEXT_SIZE_NORMAL">15dp</dimen>
+    <dimen name="TEXT_SIZE_LARGE">18dp</dimen>
+    <dimen name="HEIGHT_EDIT_TEXT">48dp</dimen>
+  
 
     <dimen name="small_button_control">25dp</dimen>
 
