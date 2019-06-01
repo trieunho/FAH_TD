@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERAA" />
 
+
     <application
         android:name=".FAHCommon.FAHConnection.Wifi"
         android:allowBackup="true"
@@ -47,7 +48,12 @@
         <activity android:name=".FAHScreen.User.Login.SignupActivity" />
         <activity android:name=".FAHScreen.User.Login.HomeProfileActivity" />
         <activity android:name=".FAHScreen.User.Login.LoginActivity" />
-        <activity android:name=".FAHScreen.User.Login.ResetPasswordActivity" />
+        <activity android:name=".FAHScreen.User.Login.ResetPasswordActivity" android:screenOrientation="portrait"  />
+        <activity android:name=".FAHScreen.Payment.ui.activity.CheckOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".FAHScreen.Payment.ui.activity.CheckOutActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".FAHScreen.Payment.ui.activity.CheckOutMainActivity" />
 
         <receiver
             android:name=".FAHCommon.FAHConnection.ConnectionReceiver"

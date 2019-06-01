@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHScreen.Payment.api.SendOrderRequest;
 import com.example.fah.FAHScreen.Payment.bean.SendOrderBean;
 import com.example.fah.FAHScreen.Payment.ui.BaseActivity;
@@ -49,7 +50,13 @@ public class CheckOutMainActivity extends BaseActivity implements View.OnClickLi
         editPhoneNumber = (EditText) findViewById(R.id.activity_main_editPhoneNumber);
         editAddress = (EditText) findViewById(R.id.activity_main_editAddress);
         btnSendOrder = (Button) findViewById(R.id.activity_main_btnSendOrder);
-
+        if(AccountData.userLogin!=null)
+        {
+            editFullName.setText(AccountData.userLogin.getAccountName());
+            editEmail.setText(AccountData.userLogin.getEmail());
+            editPhoneNumber.setText(AccountData.userLogin.getPhone());
+            editAddress.setText(AccountData.userLogin.getAddress());
+        }
         scrollView = (ScrollView) findViewById(R.id.activity_main_scrollView);
         progressView = (ProgressView) findViewById(R.id.activity_main_progressView);
 

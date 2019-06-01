@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fah.FAHData.AccountData;
+import com.example.fah.FAHModel.Models.Account;
+import com.example.fah.FAHModel.Models.IEventData;
 import com.example.fah.FAHScreen.Payment.api.CheckOrderRequest;
 import com.example.fah.FAHScreen.Payment.bean.CheckOrderBean;
 import com.example.fah.FAHScreen.Payment.ui.BaseActivity;
@@ -148,6 +151,20 @@ public class CheckOrderActivity extends BaseActivity implements CheckOrderReques
                                     "transaction_escrow:  " + transaction_escrow + "\n\n";
 
                     txtData.setText(dataCheckOrder);
+                    final Account account = AccountData.userLogin;
+                    account.setCoin(total_amount);
+                    AccountData.UpdateAccount(account, new IEventData() {
+                        @Override
+                        public void EventSuccess() {
+                            AccountData.userLogin = account;
+                            Toast.makeText(CheckOrderActivity.this, "Bạn đã nạp coin thành công", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void EventFail(String message) {
+
+                        }
+                    });
                     txtData.setVisibility(View.VISIBLE);
                     mProgressView.setVisibility(View.GONE);
                 } else {
