@@ -24,6 +24,7 @@ import com.example.fah.FAHCommon.FAHExcuteData.EmailValidator;
 import com.example.fah.FAHCommon.FAHExcuteData.ExcuteString;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Category;
+import com.example.fah.FAHModel.Models.Notification;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.FAHModel.Models.TypeOfPost;
 import com.example.fah.R;
@@ -33,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -114,8 +116,8 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                                 "\nĐồng ý tạo bài viết?";
                         AlertDialogMessage(CreatePostActivity.this, "Xác nhận", message, "Đồng ý", "Không");
                     }
-                    // Update bài viết
                 } else {
+                    // Update bài viết
                     if (canPay(20)) {
                         message = "Phí update bài viết là 20 coin" +
                                 "\nĐồng ý update bài viết?";
@@ -418,6 +420,8 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
         cgr.setKey(String.valueOf(controlField.getItemChoose() + 1));
         cgr.setCategoryID(String.valueOf(controlField.getItemChoose() + 1));
         cgr.setCategoryName(cbxField.getText().toString());
+
+        // Create Post
         if (getIntent().getStringExtra("key") == null) {
             try {
                 dataUpdate = new Post(
@@ -441,7 +445,7 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                         userLogin.getKey());
 
                 progressDialog.show();
-                FAHQuery.InsertData(dataUpdate);
+                final String keyPost = FAHQuery.InsertData(dataUpdate);
 
                 // update data Account: minus coin
                 myRef = FirebaseDatabase.getInstance().getReference("TYPE_OF_POST").child(top.getTypeID());
@@ -457,6 +461,23 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                         }
 
                         ImformationDialogMessage(CreatePostActivity.this, "Xác nhận", "Tạo bài viết thành công\nVui lòng chờ addmin duyệt", "OK");
+                        ArrayList<Notification> notice = new ArrayList<>();
+                        for (int i = 0; i < 2; i++) {
+                            Notification item = new Notification();
+                            item.setKeyPost(keyPost);
+                            if (i == 0) {
+                                item.setAccountKey(AccountData.userLogin.getKey());
+                                item.setTitle("Bạn đã tạo bài viết thành công");
+                            }
+                            else {
+                                item.setAccountKey("-LftujxgRvYQDgsHnl9l");
+                                item.setTitle(AccountData.userLogin.getAccountName() + " đã tạo bài viết");
+                            }
+
+                            notice.add(item);
+                        }
+
+                        FAHQuery.InsertData(notice, "Notification");
                     }
 
                     @Override
@@ -474,7 +495,7 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
                 }
             }
         } else {
-            // Control update
+            // Update Post
             dataUpdate.setTitlePost(txtTitle.getText().toString());
             dataUpdate.setCompanyName(txtCompanyName.getText().toString());
             dataUpdate.setCategory(cgr);
@@ -498,6 +519,37 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
 
             ImformationDialogMessage(CreatePostActivity.this, "Xác nhận", "Đã cập nhật thành công\nVui lòng chờ addmin duyệt", "OK");
 
+            ArrayList<Notification> notice = new ArrayList<>();
+            int count = 2;
+            int y = 0;
+            if (dataUpdate.getListAccount() != null && dataUpdate.getListAccount().size() > 0) {
+                count += dataUpdate.getListAccount().size();
+            }
+
+            for (int i = 0; i < count; i++) {
+                Notification item = new Notification();
+                item.setKeyPost(getIntent().getStringExtra("key"));
+                switch (i) {
+                    case 0:
+                        item.setAccountKey(AccountData.userLogin.getKey());
+                        item.setTitle("Bạn đã update bài viết thành công");
+                        break;
+                    case 1:
+                        item.setAccountKey("-LftujxgRvYQDgsHnl9l");
+                        item.setTitle(AccountData.userLogin.getAccountName() + " đã update bài viết");
+                        break;
+                    default:
+                        item.setAccountKey(dataUpdate.getListAccount().get(y));
+                        item.setTitle(AccountData.userLogin.getAccountName() + " đã update bài viết bạn đã ứng tuyển\n"
+                            + dataUpdate.getTitlePost());
+                        y++;
+                        break;
+                }
+
+                notice.add(item);
+            }
+
+            FAHQuery.InsertData(notice, "Notification");
         }
     }
 
