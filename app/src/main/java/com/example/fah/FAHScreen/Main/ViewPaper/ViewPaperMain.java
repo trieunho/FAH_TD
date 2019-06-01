@@ -26,8 +26,6 @@ public class ViewPaperMain {
             listTabFlagmemt.add(new TabFlagment(new HotPostFragment(), "Search Data", R.drawable.fah_icon_work));
         }
 
-        AccountData.userLogin.isSignOut = false;
-
         listTabFlagmemt.add(new TabFlagment(new NotificationFragment(), "Search Data", R.drawable.fah_icon_notifications));
         listTabFlagmemt.add(new TabFlagment(new MenuFragment(), "Search Data", R.drawable.fah_icon_menu));
     }

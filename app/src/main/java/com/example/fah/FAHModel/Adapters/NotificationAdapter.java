@@ -12,6 +12,8 @@ import com.example.fah.FAHModel.Models.Notification;
 import com.example.fah.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class NotificationAdapter extends BaseAdapter {
@@ -55,7 +57,7 @@ public class NotificationAdapter extends BaseAdapter {
         Notification notification = notificationList.get(position);
         txtNotification.setText(notification.title);
         if(notification.getAddDate()!=null){
-            SimpleDateFormat dt = new SimpleDateFormat("hh:mm dd/mm/yyyy");
+            SimpleDateFormat dt = new SimpleDateFormat("hh:mm dd/MM/yyyy");
             txtTime.setText(dt.format(notification.getAddDate()));
         }
         imageView.setImageResource(R.drawable.play);

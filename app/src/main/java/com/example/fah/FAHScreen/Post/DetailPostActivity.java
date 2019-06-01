@@ -19,8 +19,10 @@ import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Models.Account;
+import com.example.fah.FAHModel.Models.Notification;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.FAHScreen.Account.ManageAccountByPostActivity;
+import com.example.fah.FAHScreen.Main.Tab.MainActivity;
 import com.example.fah.FAHScreen.User.Login.LoginActivity;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -192,6 +194,24 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                         if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                             data.getListAccount().remove(userLogin.getKey());
                             FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+
+                            ArrayList<Notification> notice = new ArrayList<>();
+                            for (int i = 0; i < 2; i++) {
+                                Notification item = new Notification();
+                                item.setKeyPost(getIntent().getStringExtra("key"));
+                                if (i == 0) {
+                                    item.setAccountKey(AccountData.userLogin.getKey());
+                                    item.setTitle("Đã bỏ ứng tuyển bài viết");
+                                }
+                                else {
+                                    item.setAccountKey(data.getKeyAccount());
+                                    item.setTitle(AccountData.userLogin.getAccountName() + " đã bỏ ứng tuyển bài viết của bạn");
+                                }
+
+                                notice.add(item);
+                            }
+
+                            FAHQuery.InsertData(notice, "Notification");
                         }
                     } catch (Exception ex) {
                         ToastMessage(DetailPostActivity.this, ex.getMessage());
@@ -200,7 +220,7 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                     if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
                         data.setStatus(1);
                         data.setApproveDate(new Date());
-                        FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + data.getKey());
+                        FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
                     }
                 }
             }
@@ -321,6 +341,24 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                         }
                         data.getListAccount().add(userLogin.getKey());
                         FAHQuery.UpdateData(data, data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key"));
+
+                        ArrayList<Notification> notice = new ArrayList<>();
+                        for (int i = 0; i < 2; i++) {
+                            Notification item = new Notification();
+                            item.setKeyPost(getIntent().getStringExtra("key"));
+                            if (i == 0) {
+                                item.setAccountKey(AccountData.userLogin.getKey());
+                                item.setTitle("Đã ứng tuyển bài viết");
+                            }
+                            else {
+                                item.setAccountKey(data.getKeyAccount());
+                                item.setTitle(AccountData.userLogin.getAccountName() + " đã ứng tuyển bài viết của bạn");
+                            }
+
+                            notice.add(item);
+                        }
+
+                        FAHQuery.InsertData(notice, "Notification");
                     } catch (Exception ex) {
                         ToastMessage(DetailPostActivity.this, ex.getMessage());
                     }
@@ -333,7 +371,38 @@ public class DetailPostActivity extends AppCompatActivity implements IConfirmCli
                 }
             } else if (itemId == R.id.btnDel) {
                 try {
-                    FAHQuery.DeleteData(new String[]{data.getClass().getSimpleName() + "/" + data.getKey()});
+                    FAHQuery.DeleteData(new String[]{data.getClass().getSimpleName() + "/" + getIntent().getStringExtra("key")});
+
+                    ArrayList<Notification> notice = new ArrayList<>();
+                    int count = 2;
+                    int y = 0;
+                    if (data.getListAccount() != null && data.getListAccount().size() > 0) {
+                        count += data.getListAccount().size();
+                    }
+
+                    for (int i = 0; i < count; i++) {
+                        Notification item = new Notification();
+                        item.setKeyPost(getIntent().getStringExtra("key"));
+                        switch (i) {
+                            case 0:
+                                item.setAccountKey(AccountData.userLogin.getKey());
+                                item.setTitle("Đã xóa bài viết thành công");
+                                break;
+                            case 1:
+                                item.setAccountKey(data.getKeyAccount());
+                                item.setTitle("Bài viết đã bị xóa do vi phạm nội quy của ứng dụng");
+                                break;
+                            default:
+                                item.setAccountKey(data.getListAccount().get(y));
+                                item.setTitle("Bài viết bạn ứng tuyển đã bị xóa do vi phạm nội quy của ứng dụng");
+                                y++;
+                                break;
+                        }
+
+                        notice.add(item);
+                    }
+
+                    FAHQuery.InsertData(notice, "Notification");
                 } catch (Exception ex) {
                     ToastMessage(DetailPostActivity.this, ex.getMessage());
                 }

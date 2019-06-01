@@ -15,6 +15,7 @@ public class Notification extends FAHFieldCommon implements Comparable<Notificat
     public String title;
     private String accountKey;
     private int screenId;
+    private String keyPost;
     private ArrayList<FAHParamScreen> listParam;
 
     public Notification(String notificationID, String body, String image, String title, String accountKey, int screenId, ArrayList<FAHParamScreen> listParam) {
@@ -89,6 +90,14 @@ public class Notification extends FAHFieldCommon implements Comparable<Notificat
         this.accountKey = accountKey;
     }
 
+    public String getKeyPost() {
+        return keyPost;
+    }
+
+    public void setKeyPost(String keyPost) {
+        this.keyPost = keyPost;
+    }
+
     public ArrayList<FAHParamScreen> getListParam() {
         return listParam;
     }
@@ -101,10 +110,10 @@ public class Notification extends FAHFieldCommon implements Comparable<Notificat
     public int compareTo(@NonNull Notification notification) {
         if(this.getAddDate()!=null && notification.getAddDate()!=null){
             if (this.getAddDate().after(notification.getAddDate())) {
-                return 1;
+                return -1;
             }else{
                 if(this.getAddDate().before(notification.getAddDate())){
-                    return -1;
+                    return 1;
                 }else{
                     return 0;
                 }

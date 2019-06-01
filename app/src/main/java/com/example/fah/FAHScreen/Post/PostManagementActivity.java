@@ -16,7 +16,9 @@ import android.widget.Toast;
 import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
+import com.example.fah.FAHData.AccountData;
 import com.example.fah.FAHModel.Adapters.ListPostAdapter;
+import com.example.fah.FAHModel.Models.Notification;
 import com.example.fah.FAHModel.Models.Post;
 import com.example.fah.R;
 import com.google.firebase.database.DataSnapshot;
@@ -209,6 +211,24 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
             data.setStatus(1);
             data.setApproveDate(new Date());
             FirebaseDatabase.getInstance().getReference(data.getClass().getSimpleName() + "/" + data.getKey()).setValue(data);
+
+            ArrayList<Notification> notice = new ArrayList<>();
+            for (int i = 0; i < 2; i++) {
+                Notification item = new Notification();
+                item.setKeyPost(data.getKey());
+                if (i == 0) {
+                    item.setAccountKey(AccountData.userLogin.getKey());
+                    item.setTitle("Đã duyệt bài viết");
+                }
+                else {
+                    item.setAccountKey(data.getKeyAccount());
+                    item.setTitle("Bài viết đã được duyệt bởi admin");
+                }
+
+                notice.add(item);
+            }
+
+            FAHQuery.InsertData(notice, "Notification");
         }
     }
 
