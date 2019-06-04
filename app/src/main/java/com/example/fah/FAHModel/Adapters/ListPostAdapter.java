@@ -80,7 +80,7 @@ public class ListPostAdapter extends BaseAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    iOnButtonCLick.onItemClick(position, creator.getAccountName(), current.getKey());
+                    iOnButtonCLick.onItemClick(position, creator.getAccountName());
                 }
             });
         } else {

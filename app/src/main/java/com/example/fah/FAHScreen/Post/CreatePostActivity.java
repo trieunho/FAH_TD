@@ -347,9 +347,14 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
     }
 
     private boolean canPost(){
+        check:
         if (txtTitle.getText().toString().equals("")) {
             txtTitle.requestFocus();
             Toast.makeText(this, "Tiêu đề không được để trống", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (controlField.getItemChoose() == -1) {
+            cbxField.requestFocus();
+            Toast.makeText(this, "Chưa chọn lĩnh vực hoạt động", Toast.LENGTH_SHORT).show();
             return false;
         } else if (txtDescription.getText().toString().equals("")) {
             txtDescription.requestFocus();
@@ -363,29 +368,19 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
             txtAddress.requestFocus();
             Toast.makeText(this, "Chưa điền địa chỉ", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (Integer.parseInt(dtFrom.getText().toString()) < 0 || Integer.parseInt(dtFrom.getText().toString()) > 24){
+        } else if (dtFrom.getText().toString().isEmpty()
+                || Integer.parseInt(dtFrom.getText().toString()) < 0 || Integer.parseInt(dtFrom.getText().toString()) > 24) {
             dtFrom.requestFocus();
             Toast.makeText(this, "Thời gian không hợp lệ", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (Integer.parseInt(dtTo.getText().toString()) < 0 || Integer.parseInt(dtTo.getText().toString()) > 24){
+        } else if (dtTo.getText().toString().isEmpty()
+                || Integer.parseInt(dtTo.getText().toString()) < 0 || Integer.parseInt(dtTo.getText().toString()) > 24) {
             dtTo.requestFocus();
             Toast.makeText(this, "Thời gian không hợp lệ", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (controlSalary.getItemChoose() == 0 && txtLuong1.getText().toString().equals("")) {
-            txtLuong1.requestFocus();
-            Toast.makeText(this, "Chưa nhập Lương", Toast.LENGTH_SHORT).show();
+        } else if (controlSalary.getItemChoose() != 2 && !isValidSalary(controlSalary.getItemChoose())) {
             return false;
-        } else if (controlSalary.getItemChoose() == 1) {
-            if (txtLuong1.getText().toString().equals("")) {
-                txtLuong1.requestFocus();
-                Toast.makeText(this, "Chưa nhập Lương trong khoảng", Toast.LENGTH_SHORT).show();
-                return false;
-            } else if (txtLuong2.getText().toString().equals("")) {
-                txtLuong2.requestFocus();
-                Toast.makeText(this, "Chưa nhập Lương trong khoảng", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }else if (txtEmail.getText().toString().equals("") || !EmailValidator.isValid(txtEmail.getText().toString())) {
+        } else  if (txtEmail.getText().toString().equals("") || !EmailValidator.isValid(txtEmail.getText().toString())) {
             txtEmail.requestFocus();
             Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
             return false;
@@ -551,6 +546,30 @@ public class CreatePostActivity extends AppCompatActivity implements IConfirmCli
 
             FAHQuery.InsertData(notice, "Notification");
         }
+    }
+
+    private boolean isValidSalary(int choose) {
+        if (choose == 0 && txtLuong1.getText().toString().equals("")) {
+            txtLuong1.requestFocus();
+            Toast.makeText(this, "Chưa nhập Lương", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (choose == 1) {
+            if (txtLuong1.getText().toString().equals("")) {
+                txtLuong1.requestFocus();
+                Toast.makeText(this, "Chưa nhập Lương trong khoảng", Toast.LENGTH_SHORT).show();
+                return false;
+            } else if (txtLuong2.getText().toString().equals("")) {
+                txtLuong2.requestFocus();
+                Toast.makeText(this, "Chưa nhập Lương trong khoảng", Toast.LENGTH_SHORT).show();
+                return false;
+            } else if (Double.parseDouble(txtLuong1.getText().toString()) > Double.parseDouble(txtLuong2.getText().toString())) {
+                txtLuong2.requestFocus();
+                Toast.makeText(this, "Vui lòng nhập lương lớn hơn", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
