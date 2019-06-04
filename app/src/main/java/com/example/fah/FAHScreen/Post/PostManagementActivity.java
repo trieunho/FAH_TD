@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fah.FAHCommon.FAHConnection.CheckWifi;
+import com.example.fah.FAHCommon.FAHControl.FAHMessage;
 import com.example.fah.FAHCommon.FAHDatabase.FAHQuery;
 import com.example.fah.FAHCommon.FAHDatabase.Table.FAHQueryParam;
 import com.example.fah.FAHData.AccountData;
@@ -199,6 +200,7 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
 
         listPostAdapter = new ListPostAdapter(PostManagementActivity.this, data);
         listPostAdapter.registerBtnClick(PostManagementActivity.this);
+        FAHMessage.confirmBtnClick(PostManagementActivity.this);
 
         ckbApprove.setChecked(true);
         ckbUnApprove.setChecked(true);
@@ -241,11 +243,10 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
     }
 
     @Override
-    public void onItemClick(int position, String accountName, String key) {
+    public void onItemClick(int position, String accountName) {
         if (CheckWifi.isConnect((TextView) findViewById(R.id.isConnect))) {
             Intent intent = new Intent(PostManagementActivity.this, DetailPostActivity.class);
-            intent.putExtra("key", key);
-            intent.putExtra("position", position);
+            intent.putExtra("key", data.get(position).getKey());
             intent.putExtra("pic", accountName);
             startActivity(intent);
         }
@@ -272,8 +273,39 @@ public class PostManagementActivity extends AppCompatActivity implements IOnButt
 
     @Override
     public void onYesClick() {
-        Post data = (Post) listView.getAdapter().getItem(position);
+        Post data = (Post) listView.getAdapter().getItem(this.position);
         FAHQuery.DeleteData(new String[]{ data.getClass().getSimpleName() + "/" + data.getKey() });
+
+        ArrayList<Notification> notice = new ArrayList<>();
+        int count = 2;
+        int y = 0;
+        if (data.getListAccount() != null && data.getListAccount().size() > 0) {
+            count += data.getListAccount().size();
+        }
+
+        for (int i = 0; i < count; i++) {
+            Notification item = new Notification();
+            item.setKeyPost(getIntent().getStringExtra("key"));
+            switch (i) {
+                case 0:
+                    item.setAccountKey(AccountData.userLogin.getKey());
+                    item.setTitle("Đã xóa bài viết thành công");
+                    break;
+                case 1:
+                    item.setAccountKey(data.getKeyAccount());
+                    item.setTitle("Bài viết đã bị xóa do vi phạm nội quy của ứng dụng");
+                    break;
+                default:
+                    item.setAccountKey(data.getListAccount().get(y));
+                    item.setTitle("Bài viết bạn ứng tuyển đã bị xóa do vi phạm nội quy của ứng dụng");
+                    y++;
+                    break;
+            }
+
+            notice.add(item);
+        }
+
+        FAHQuery.InsertData(notice, "Notification");
     }
 
     @Override
